@@ -9,14 +9,14 @@
 ## scrnabox.svn
 ## scrnaboxR
 ```
-devtools::install_github("saeidamiri1/scrnabox/scrnaboxR")
+devtools::install_github("neurobioinfo/scrnabox/scrnaboxR")
 ```
 ## Contributing
 This is an early version, any contribute or suggestion is appreciated, you can directly contact with [Saeid Amiri] or [Rhalena Thompson] 
 ## Changelog
-Every release is documented on the [GitHub Releases page](https://github.com/The-Neuro-Bioinformatics-Core/scrnabox/releases).
+Every release is documented on the [GitHub Releases page](https://github.com/neurobioinfo/scrnabox/releases).
 ## License
-This project is licensed under the MIT License - see the [LICENSE.md](https://github.com/The-Neuro-Bioinformatics-Core/scrnabox/blob/main/LICENSE) file for details
+This project is licensed under the MIT License - see the [LICENSE.md](https://github.com/neurobioinfo/scrnabox/blob/main/LICENSE) file for details
 ## Acknowledgement
 
 ## Todo

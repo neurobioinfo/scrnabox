@@ -22,9 +22,16 @@ The following figure shows the steps to analyze the hashtag scRNA
 ## scrnabox.svn
 `scrnabox.svn` is a pipeline developed to run step 1 to step 7 under HPC system, we using the pipeline under [Beluga](https://docs.alliancecan.ca/wiki/B%C3%A9luga)
 
+  - [Setup](#setup)
+  - [Step 1: cellranger](#step-1-cellranger)
+  - [Step 2: Seurat object](#step-2-seurat-object)  
+  - [Step 3: QC and filter](#step-3-qc-and-filter)
+  - [Step 4: demuplixing](#step-4-demuplixing)
+  - [Step 5: integration](#step-5-integration)
+  - [Step 6: Clustering](#step-6-clustering)   
+  - [step 7: DEG contrast](#step-7-DEG-contrast)  
 
 In order to run the pipeline, first create a folder to do the analysis and export the pipeline
-
 ```
 mkdir -P  ~/scratch/des
 export SCRNABOX_HOME=/lustre03/project/6070393/COMMON/Dark_Genome/samamiri/pipeline/scrnabox.svn

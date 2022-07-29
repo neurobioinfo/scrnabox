@@ -6,8 +6,12 @@
 - [scrnaboxR]
 
 ## Analysis Flowchart
+### Hashtag 
+### Non-hashtaq
 ## scrnabox.svn
+`scrnabox.svn` is a pipeline devloped to run ... under HPC system, we using the pipeline under [Beluga](https://docs.alliancecan.ca/wiki/B%C3%A9luga)
 ## scrnaboxR
+The R package can be downloaded using the following script.
 ```
 devtools::install_github("neurobioinfo/scrnabox/scrnaboxR")
 ```
@@ -18,7 +22,6 @@ Every release is documented on the [GitHub Releases page](https://github.com/neu
 ## License
 This project is licensed under the MIT License - see the [LICENSE.md](https://github.com/neurobioinfo/scrnabox/blob/main/LICENSE) file for details
 ## Acknowledgement
-
 ## Todo
 
 **[⬆ back to top](#contents)**

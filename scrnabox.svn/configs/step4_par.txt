@@ -1,0 +1,2 @@
+B0251-TotalSeqB,B0252-TotalSeqB,B0253-TotalSeqB,B0254-TotalSeqB,B0255-TotalSeqB,B0256-TotalSeqB,Doublet,Negative
+AIW002,SNCA-A53T,GBA-KO,Parkin-KO,PINK1-KO,SNCA-KO,Doublet,Negative

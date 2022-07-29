@@ -1,0 +1,2 @@
+"0","toptable<-read.csv('/Users/sam/Desktop/sa_int/intract_contrast/DAneurons/design1.csv')"
+"0","EnhancedVolcano(toptable,lab = rownames(toptable),x = 'logFC',  y = 'P.Value', FCcutoff=1, title = 'A53T - AIW', drawConnectors = TRUE, max.overlaps= 30)"

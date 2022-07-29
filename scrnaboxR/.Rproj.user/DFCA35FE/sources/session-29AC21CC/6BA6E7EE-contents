@@ -1,0 +1,16 @@
+setwd("/Users/sam/Desktop/final_scrna_dge/test2")
+file0='design1down'
+sel_genes0 <- read.csv(paste('/Users/sam/Desktop/final_scrna_dge/test/',file0,'.csv',sep=""))[,1]
+sel_genes_go0 <- clusterProfiler::enrichGO(sel_genes0,"org.Hs.eg.db",keyType = "SYMBOL",ont = "BP",minGSSize = 50)
+write.csv(sel_genes_go0@result,file = paste(file0,'enrichGO','.csv',sep=''))
+enr_go <- clusterProfiler::simplify(sel_genes_go0)
+enrichplot::emapplot(enrichplot::pairwise_termsim(enr_go),showCategory = 30, cex_label_category = 0.5)
+ggsave(file = "enrich1.pdf")
+
+gmt <- msigdbr::msigdbr(species = "human", category = "H")
+sel_go0 <- clusterProfiler::enricher(gene = sel_genes0,,pAdjustMethod = "BH",pvalueCutoff  = 0.05, qvalueCutoff  = 0.05, TERM2GENE = gmt[,c("gs_name", "gene_symbol")])
+write.csv(sel_go0@result,file = paste(file0,'enricher','.csv',sep=''))
+dotplot(enrichplot::pairwise_termsim(enr_go))
+ggsave(file = "dot1.pdf")
+cnetplot(enrichplot::pairwise_termsim(enr_go)) 
+ggsave(file = "cnet1.pdf")

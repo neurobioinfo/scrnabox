@@ -1,0 +1,25 @@
+---
+title: "R Notebook"
+output: html_notebook
+---
+
+
+# list
+- Volcano plot 
+- split contrast 
+- Calculate distance between contrast
+- ditt plot 
+
+# Volcano plot 
+## 
+```{r}
+library(EnhancedVolcano)
+setwd('/Users/sam/Desktop/final_scrna_dge')
+```
+
+```{r}
+toptable<-read.csv('/Users/sam/Desktop/sa_int/intract_contrast/DAneurons/design1.csv')
+EnhancedVolcano(toptable,lab = rownames(toptable),x = 'logFC',  y = 'P.Value', FCcutoff=1, title = 'A53T - AIW', drawConnectors = TRUE, max.overlaps= 30)
+#dev.set(dev.next())
+#ggsave(file = "EnhancedVolcano2.pdf")
+```

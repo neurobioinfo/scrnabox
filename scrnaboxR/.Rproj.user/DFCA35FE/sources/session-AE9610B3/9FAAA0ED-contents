@@ -1,0 +1,6 @@
+dist_const<-function(x,y){
+  x2 <- list(first0<-x$genes,second0<-y$genes)
+  v.table <- venn(x2)
+  al<-v.table[1:4]
+  return(1-al[4]/sum(al))
+}

@@ -1,3 +1,0 @@
-"0","library(EnhancedVolcano)"
-"0","setwd('/Users/sam/Desktop/final_scrna_dge')"
-"2","Warning: The working directory was changed to /Users/sam/Desktop/final_scrna_dge inside a notebook chunk. The working directory will be reset when the chunk is finished running. Use the knitr root.dir option in the setup chunk to change the working directory for notebook chunks."

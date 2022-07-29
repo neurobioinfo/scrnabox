@@ -1,7 +1,7 @@
 Package: scrnaboxR
 Type: Package
 Title: scRNABox package in R
-Version: 0.1.0
+Version: 0.1.1
 Author: Saeid Amiri
 Maintainer: Saeid Amiri <saeid.amiri1@gmail.com>
 Depends:

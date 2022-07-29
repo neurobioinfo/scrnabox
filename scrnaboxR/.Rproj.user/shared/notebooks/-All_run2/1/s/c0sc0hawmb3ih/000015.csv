@@ -1,8 +1,0 @@
-"0","setwd(""/Users/sam/Desktop/final_scrna_dge/test2"")"
-"2","Warning: The working directory was changed to /Users/sam/Desktop/final_scrna_dge/test2 inside a notebook chunk. The working directory will be reset when the chunk is finished running. Use the knitr root.dir option in the setup chunk to change the working directory for notebook chunks."
-"0","file0='design1down'"
-"0","sel_down_genes <- read.csv(paste('/Users/sam/Desktop/final_scrna_dge/test/',file0,'.csv',sep=""""))[,1]"
-"0","sel_vs_norm_go <- clusterProfiler::enrichGO(sel_down_genes,""org.Hs.eg.db"",keyType = ""SYMBOL"",ont = ""BP"",minGSSize = 50)"
-"0","write.csv(sel_vs_norm_go@result,file = paste(file0,'enrichGO','.csv',sep=''))"
-"0","enr_go <- clusterProfiler::simplify(sel_vs_norm_go)"
-"0","enrichplot::emapplot(enrichplot::pairwise_termsim(enr_go),showCategory = 30, cex_label_category = 0.5)"

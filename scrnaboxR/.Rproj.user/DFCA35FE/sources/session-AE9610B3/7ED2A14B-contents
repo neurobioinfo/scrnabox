@@ -8,6 +8,7 @@ output: html_notebook
 - split contrast 
 - Calculate distance between contrast
 - ditt plot 
+- ClusterProfile
 
 # Volcano plot 
 ```{r}
@@ -16,12 +17,14 @@ EnhancedVolcano(toptable,lab = rownames(toptable),x = 'logFC',  y = 'P.Value', F
 ggsave(file = "EnhancedVolcano2.pdf")
 ```
 
+
+
 ```{r}
 library(htmlwidgets)
 library(plotly)
 
 setwd('/Users/sam/Desktop/final_scrna_dge/test')
-a1<-read.csv('/Users/sam/Desktop/sa_int/intract_contrast/DAneurons/design1.csv')
+a1<-read.csv('/Users/sam/Desktop/sa_int/intract_contrast/DAneurons/design.csv')
 a0<-a1[a1$adj.P.Val<0.05,]
 p <- plot_ly(data = a0, x = a0$logFC, y = -log(a0$adj.P.Val), text = a0$X, mode = "markers") %>% 
   layout(title ="AIW002 vs rest")
@@ -43,30 +46,38 @@ dest_path='/Users/sam/Desktop/final_scrna_dge/test'
 split_up_down(file_path,dest_path,cut_pvalue=0.05,cut_log_low=-0.25,cut_log_up=0.25, n_row=200)
 ```
 
-# Calculate distance between contrast 
+# Calculate distance between contrasts 
 ```{r}
 file_path<-"/Users/sam/Desktop/final_scrna_dge/test"
 file0<-extract_file(file_path)
 con<-file0[[2]]
 ```
 
-```{r}
+```{r echo=FALSE, fig.show='hide', message=FALSE, warning=FALSE, cache=FALSE, comment=FALSE, paged.print=FALSE, results=FALSE}
 dst<-dist_contrast(con)
 dim <- ncol(dst)
-png(file = "/Users/sam/Desktop/final_scrna_dge/test2/heatmap.png", bg = "transparent")
+```
+
+
+```{r}
+#png(file = "/Users/sam/Desktop/final_scrna_dge/test2/heatmap.png", bg = "transparent")
 image(1:dim, 1:dim, dst, axes = FALSE, xlab="", ylab="")
 label0<-file0[[1]]
 axis(1, 1:dim,label0 , cex.axis = 0.5, las=3)
 axis(2, 1:dim, label0, cex.axis = 0.5, las=1)
 text(expand.grid(1:dim, 1:dim), sprintf("%0.1f", dst), cex=0.6)
-dev.off()
+#dev.off()
 ```
 
 
+# requested:  split to up and done 
+# requested: color of head 
+# requested: similarity 
+# requested: save vann diagram 
 
 
 # dit plot 
-
+# suggestion for this plot:  similarity dot plot 
 ```{r}
 gwas_genes<-read.csv('/Users/sam/Library/CloudStorage/OneDrive-SharedLibraries-McGillUniversity/Roxanne Larivière, Dr - Dark Genome 2weeks cultures/files/all_PD_gwas_loci_genes_filtered.csv')$hgnc_symbol
 des_path='/Users/sam/Desktop/final_scrna_dge/test2'
@@ -74,6 +85,7 @@ file_path='/Users/sam/Desktop/final_scrna_dge/test'
 dittplot(gwas_genes,file_path,des_path)
 
 ```
+### suggestion change of size instead color 
 
 # ClusterProfile
 
@@ -102,4 +114,24 @@ dotplot(enrichplot::pairwise_termsim(enr_go))
 ggsave(file = "dot1.pdf")
 cnetplot(enrichplot::pairwise_termsim(enr_go)) 
 ggsave(file = "cnet1.pdf")
+```
+# Roxanne need cluster profile in html 
+
+```{r}
+setwd("/Users/sam/Desktop/final_scrna_dge/test2")
+file0='design1down'
+sel_genes0 <- read.csv(paste('/Users/sam/Desktop/final_scrna_dge/test/',file0,'.csv',sep=""))[,1]
+sel_genes_go0 <- clusterProfiler::enrichGO(sel_genes0,"org.Hs.eg.db",keyType = "SYMBOL",ont = "ALL",minGSSize = 50)
+write.csv(sel_genes_go0@result,file = paste(file0,'enrichGO','.csv',sep=''))
+enr_go <- clusterProfiler::simplify(sel_genes_go0)
+enrichplot::emapplot(enrichplot::pairwise_termsim(enr_go),showCategory = 30, cex_label_category = 0.5)
+ggsave(file = "enrich1all.pdf")
+
+gmt <- msigdbr::msigdbr(species = "human", category = "H")
+sel_go0 <- clusterProfiler::enricher(gene = sel_genes0,,pAdjustMethod = "BH",pvalueCutoff  = 0.05, qvalueCutoff  = 0.05, TERM2GENE = gmt[,c("gs_name", "gene_symbol")])
+write.csv(sel_go0@result,file = paste(file0,'enricher','.csv',sep=''))
+dotplot(enrichplot::pairwise_termsim(enr_go))
+ggsave(file = "dot1all.pdf")
+cnetplot(enrichplot::pairwise_termsim(enr_go)) 
+ggsave(file = "cnet1all.pdf")
 ```

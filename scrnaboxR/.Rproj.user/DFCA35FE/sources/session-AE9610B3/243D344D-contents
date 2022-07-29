@@ -1,0 +1,9 @@
+x2<-venn(list(1:5,3:8), show.plot=FALSE)
+
+? v.table
+
+
+
+x2 <- list(first0<-x$genes,second0<-y$genes)
+v.table <- venn(x2)
+al<-v.table[1:4]

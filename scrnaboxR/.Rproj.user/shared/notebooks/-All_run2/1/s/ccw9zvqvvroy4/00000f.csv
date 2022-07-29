@@ -1,3 +1,0 @@
-"0","file_path='/Users/sam/Desktop/sa_int/intract_contrast/DAneurons'"
-"0","dest_path='/Users/sam/Desktop/final_scrna_dge/test'"
-"0","split_up_down(file_path,dest_path,cut_pvalue=0.05,cut_log_low=-0.25,cut_log_up=0.25, n_row=200)"

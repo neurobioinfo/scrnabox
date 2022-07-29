@@ -11,8 +11,9 @@ This repository includes
 
 
 ## Analysis Flowchart
-You can find the visual step of doing the analysis of scRNA 
-### Hashtag 
+### Hashtag
+The following figure shows the steps to analyze the hashtag scRNA
+ 
 ![hashtag](https://raw.githubusercontent.com/neurobioinfo/scrnabox/main/hashtag.png)
 ### Non-hashtaq
 

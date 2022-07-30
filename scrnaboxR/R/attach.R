@@ -1,12 +1,10 @@
 # the following function are from tidyverse
-core <- c("ggplot2", "gplots", "reshape2", "tibble", "tidyr","purrr")
-
+core <- c("ggplot2", "gplots", "reshape2", "tibble", "tidyr","purrr", "dplyr", "tidyverse", "magrittr", "rlang")
 
 core_unloaded <- function() {
   search <- paste0("package:", core)
   core[!search %in% search()]
 }
-
 
 same_library <- function(pkg) {
   loc <- if (pkg %in% loadedNamespaces()) dirname(getNamespaceInfo(pkg, "path"))

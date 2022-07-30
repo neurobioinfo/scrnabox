@@ -30,10 +30,7 @@ dittplot<-function(gwas_genes,file_path,des_path){
     d <- data_mod
     d$genes <- data_mod[,1]
     d$contrast <- as.factor(data_mod[,2])
-    ggplot(d, aes(contrast,genes ,  fill = value)) +
-    geom_point(shape = 21) +
-    theme_light() +
-    guides(x =  guide_axis(angle = 90))
+    ggplot(d, aes(contrast,genes ,  fill = value)) + geom_point(shape = 21) + theme_light() + guides(x =  guide_axis(angle = 90))
     ggsave( paste(des_path,"/fig_ditt_1.pdf",sep=""))
     data_mod2<-data_mod
     data_mod2$value2<- NA
@@ -43,7 +40,7 @@ dittplot<-function(gwas_genes,file_path,des_path){
     d <- data_mod2
     d$genes <- data_mod2[,1]
     d$contrast <- as.factor(data_mod2[,2])
-# plot
+    # plot
     ggplot(d, aes(contrast,genes ,  fill = value2)) +geom_point(shape = 21) + theme_light() + guides(x =  guide_axis(angle = 90))
     ggsave( paste(des_path,"/fig_ditt_2.pdf",sep=""))
 }

@@ -149,12 +149,8 @@ sh $SCRNABOX_HOME/launch_pipeline.scrnabox.sh \
 
 
 
-
-
-
-
 ## scrnaboxR
-The R package can be downloaded using the following script.
+The R package can be downloaded using the following script. 
 ```
 devtools::install_github("neurobioinfo/scrnabox/scrnaboxR")
 ```

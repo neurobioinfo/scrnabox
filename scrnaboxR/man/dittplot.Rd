@@ -2,7 +2,7 @@
 \alias{dittplot}
 \title{dittplot}
 \description{
-This function splits the contrast to up and down
+This function splits ????
 }
 \usage{
 dittplot(gwas_genes,file_path,des_path)
@@ -13,7 +13,7 @@ dittplot(gwas_genes,file_path,des_path)
   \item{dest_path}{path of directory where when the output should be saved}
 }
 \details{
-This function splits the contrast to up and down
+This function ?????
 }
 
 \author{Saeid Amiri}
@@ -25,4 +25,4 @@ con<-list()
 #dist_contrast<-function(con)
 }
 
-\keyword{distance}
+\keyword{plot}

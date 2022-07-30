@@ -11,7 +11,6 @@ devtools::install_github("saeidamiri1/scrnabox/scrnaboxR")
 ```
 
 ## Usage
-aaaaa
+
 
 ## Getting help
-bbbbbb

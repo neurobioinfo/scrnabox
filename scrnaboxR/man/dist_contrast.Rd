@@ -3,7 +3,7 @@
 \title{distance matrix of contrasts
 }
 \description{
-This function compute the distance between the contrasts.}
+This function computes the distance between the contrasts.}
 \usage{
 dist_contrast(con)
 }
@@ -23,4 +23,4 @@ This function compute the distance between the contrasts
 #dst<-dist_contrast(con)
 }
 
-\keyword{BB}
+\keyword{distance}

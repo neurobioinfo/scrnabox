@@ -3,7 +3,7 @@
 \title{split contrast
 }
 \description{
-This function splits the contrast to up and down
+This function splits the contrast to up and down according the cut_pvalue, cut_log_low, and cut_log_up
 }
 \usage{
 split_up_down(file_path,dest_path,cut_pvalue,cut_log_low,cut_log_up,n_row)
@@ -29,4 +29,4 @@ This function splits the contrast to up and down
 #split_up_down(file_path,dest_path,cut_pvalue=0.5,cut_log_low=-0.2,cut_log_up=0.2,n_row=200)
 }
 
-\keyword{AA}
+\keyword{utils}

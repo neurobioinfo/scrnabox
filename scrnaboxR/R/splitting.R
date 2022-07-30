@@ -1,4 +1,3 @@
-
 separ0<-function(file0,dest_path,xob,cut_pvalue,cut_log_low,cut_log_up,n_row){
   xob2<-xob
   colnames(xob2)[1]<-"genes"

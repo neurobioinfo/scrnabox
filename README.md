@@ -1,26 +1,36 @@
 # scrnabox: A pipeline for scRNA 
 This repository includes
 
-
 ## Contents
 - [Analysis Flowchart]
 - [scrnabox.svn]
 - [scrnaboxR]
 - [Rmarkdown]
 
+## Analysis workflow
+The analysis can be done via 
 
-
-## Analysis Flowchart
 ### Hashtag
 The following figure shows the steps to analyze the hashtag scRNA
-
 ![hashtag](https://raw.githubusercontent.com/neurobioinfo/scrnabox/main/hashtag.png)
+
+- Step 1, cellranger:  
+- Step 2, Seurat object: 
+- Step 3, QC and filter: 
+- Step 4, demuplixing:
+- Step 5, integration:
+- Step 6, Clustering:
+- step 7, DEG contrast:
+- step 8, Enrichment analysis: in this step, we obtain list of significant genes.  
+
+
+The step 1 - Step 7 can be done using `scrnabox.svn` and step 8 scrnaboxR. 
+
 ### Non-hashtaq
 
-
-
+-----------
 ## scrnabox.svn
-`scrnabox.svn` is a pipeline developed to run step 1 to step 7 under HPC system, we using the pipeline under [Beluga](https://docs.alliancecan.ca/wiki/B%C3%A9luga)
+`scrnabox.svn` is a pipeline developed to run step 1 to step 7 under HPC system, we are using the pipeline under [Beluga](https://docs.alliancecan.ca/wiki/B%C3%A9luga)
 
   - [Setup](#setup)
   - [Step 1: cellranger](#step-1-cellranger)

@@ -14,9 +14,9 @@ The analysis can be done via
 The following figure shows the steps to analyze the hashtag scRNA
 ![hashtag](https://raw.githubusercontent.com/neurobioinfo/scrnabox/main/hashtag.png)
 
-- Step 1, cellranger:  
-- Step 2, Seurat object: 
-- Step 3, QC and filter: 
+- Step 1, cellranger:  this step run cellranger  on the single cell data. 
+- Step 2, Seurat object: this step run seurat on feature-barcode matrices opetainde from sstep 1 to generate seurat object fro each sample. 
+- Step 3, QC and filter:  
 - Step 4, demuplixing:
 - Step 5, integration:
 - Step 6, Clustering:

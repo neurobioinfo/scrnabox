@@ -15,11 +15,12 @@ The following figure shows the steps to analyze the hashtag scRNA
 ![hashtag](https://raw.githubusercontent.com/neurobioinfo/scrnabox/main/hashtag.png)
 
 - Step 1, cellranger:  this step run cellranger  on the single cell data. 
-- Step 2, Seurat object: this step run seurat on feature-barcode matrices opetainde from sstep 1 to generate seurat object fro each sample. 
-- Step 3, QC and filter:  
-- Step 4, demuplixing:
+- Step 2, Seurat object: this step run seurat on feature-barcode matrices obtained from step 1 to generate seurat object for each sample.  Seurat's object includes a lot of information 
+SeuratObject@meta.data will return the data frame and relevant information on each cell. 
+- Step 3, QC and filter:  Seurat object includes some quality measure that can be used to filter cell and genes against possible doublets, we often use the total UMI counts per cell (nCount_RNA), the total number of detected features per cell (nFeature_RNA), and  mitochondrial count (percent.mito). 
+- Step 4, demuplixing: 
 - Step 5, integration:
-- Step 6, Clustering:
+- Step 6, Clustering: 
 - step 7, DEG contrast:
 - step 8, Enrichment analysis: in this step, we obtain list of significant genes.  
 

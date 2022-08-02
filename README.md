@@ -29,7 +29,7 @@ The step 1 - Step 7 can be done using `scrnabox.svn`  and step 8 scrnaboxR.
 
 -----------
 ## scrnabox.svn
-`scrnabox.svn` is a pipeline developed to run step 1 to step 7 under HPC system, the pipeline has been using under [Beluga](https://docs.alliancecan.ca/wiki/B%C3%A9luga), the detail of how use it in [scrnabox.svn](https://github.com/neurobioinfo/scrnabox/blob/main/scrnabox_svn.md)
+`scrnabox.svn` is a pipeline developed to run step 1 to step 7 under HPC system, the pipeline has been using under [Beluga](https://docs.alliancecan.ca/wiki/B%C3%A9luga), the detail of how use it in [scrnabox.svn](https://github.com/neurobioinfo/scrnabox/tree/main/scrnabox.svn)
 
 ## scrnaboxR
 The R package includes some functions to ????. The library can be downloaded using the following script. 

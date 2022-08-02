@@ -26,7 +26,6 @@ comments: false
 
 ## Introduction 
 scrnabox.svn is an open-source pipeline for scRNA. In order to run the pipeline, first create a folder to do the analysis and export the pipeline
-
 ```
 mkdir -P  ~/scratch/des
 export SCRNABOX_HOME=/lustre03/project/6070393/COMMON/Dark_Genome/samamiri/pipeline/scrnabox.svn

@@ -161,15 +161,13 @@ sh $SCRNABOX_HOME/launch_pipeline.scrnabox.sh \
 
 
 ## scrnaboxR
-The R package can be downloaded using the following script. 
+The R package include some functions to ????. The library can be downloaded using the following script. 
 ```
 devtools::install_github("neurobioinfo/scrnabox/scrnaboxR")
 ```
 
-
 ## Rmarkdown
-.....
-
+To run Enrichment Analysis look at [EA](https://github.com/neurobioinfo/scrnabox/blob/main/scrnaboxrmd/rmd1.md)
 
 ## Contributing
 This is an early version, any contribute or suggestion is appreciated, you can directly contact with [Saeid Amiri] or [Rhalena Thompson] 

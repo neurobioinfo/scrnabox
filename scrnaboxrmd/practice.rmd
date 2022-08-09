@@ -33,13 +33,14 @@ suppressPackageStartupMessages({
 ```
 
 # content
--   Cell marker genes
--   Working with DGE Contrast 
-   -  Volcano plot
-   -  split contrast
-   -  Calculate distance between contrast
-   -  ditt plot
-
+- Cell marker genes
+- Working with DGE Contrast 
+   + Volcano plot
+   + split contrast
+   + Calculate distance between contrast
+   + ditt plot
+- Gene Ontology gene sets (KEGG gene sets)
+- Gene Set Enrichment Analysis (GSEA)
 
 
 ## Cell marker genes
@@ -90,26 +91,30 @@ Visualize the overall expression via dot plot.
 Visulaize via violin plot 
  
 ```{r}
-VlnPlot(seu.int_sel, features = as.character(unique(top_sel$gene)), ncol = 5, group.by = "cell.types.pool", assay = "RNA")
+VlnPlot(seu.int_sel, features = as.character(unique(top_sel$gene)[1:5]), ncol = 5, group.by = "cell.types.pool", assay = "RNA")
 ```
 
 ## Working with DGE Contrast 
 Download the contrasts relust from step 7, 
 ### Volcano plot
 ```{r}
+suppressPackageStartupMessages({
 library(EnhancedVolcano)
+})
 cont_a53t<-read.csv(paste0(WDP,'/cont_main/design1.csv'))
 EnhancedVolcano(cont_a53t,lab = rownames(cont_a53t),x = 'logFC',  y = 'P.Value', FCcutoff=1, title = 'A53T - rest', drawConnectors = TRUE, max.overlaps= 30)
 ggsave(file = "EnhancedVolcano2.pdf")
 ```
 
 ```{r}
+suppressPackageStartupMessages({
 library(htmlwidgets)
 library(plotly)
+})
 cont_a53t_sig<-cont_a53t[cont_a53t$adj.P.Val<0.05,]
-p <- plot_ly(data = cont_a53t_sig, x = cont_a53t_sig$logFC, y = -log(cont_a53t_sig$adj.P.Val), text = cont_a53t_sig$X, mode = "markers") %>% 
-  layout(title ="A53T vs rest")
-saveWidget(p, "A53T_vs_rest.html")
+p <- plot_ly(data = cont_a53t_sig, x = cont_a53t_sig$logFC, y = -log(cont_a53t_sig$adj.P.Val), text = cont_a53t_sig$X, mode = "markers") %>% layout(title ="A53T vs rest")
+p
+#saveWidget(p, "A53T_vs_rest.html")
 ```
 
 

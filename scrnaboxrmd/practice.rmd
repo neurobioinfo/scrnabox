@@ -2,7 +2,9 @@
 title: "scrnaboxRMD"
 author: "Saeid Amiri"
 date: "2022-08-09"
-output: html_document
+output: 
+  html_document:
+    keep_md: true
 ---
 
 ```{r setup, include=FALSE}

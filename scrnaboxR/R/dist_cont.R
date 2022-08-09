@@ -1,7 +1,7 @@
 # Generate the distance between the gene of contrast
 dist_contrast<-function(con) {
  dist_const<-function(x,y){
-  x2 <- list(first0<-x$genes,second0<-y$genes)
+  x2 <- list(first0<-x[,1],second0<-y[,1])
   v.table <- venn(x2, show.plot=FALSE)
   al<-v.table[1:4]
   return(1-al[4]/sum(al))

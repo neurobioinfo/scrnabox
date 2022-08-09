@@ -1,0 +1,247 @@
+---
+title: "scrnaboxRMD"
+author: "Saeid Amiri"
+date: "2022-08-09"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+suppressPackageStartupMessages({
+    library(scrnaboxR)
+    library(Seurat)
+    library(dplyr)
+    library(cowplot)
+    library(ggplot2)
+    library(pheatmap)
+    library(enrichR)
+    library(rafalib)
+    library(msigdbr)
+    library(tidyr)
+    library(tidyverse)
+    library(fgsea)
+    library(clusterProfiler)
+    library(enrichplot)
+    library(org.Hs.eg.db)
+    AnnotationDbi::keytypes(org.Hs.eg.db)
+    library(Seurat)
+    library(clusterProfiler)
+})
+
+```
+
+# content
+-   Cell marker genes
+-   Working with DGE Contrast 
+   -  Volcano plot
+   -  split contrast
+   -  Calculate distance between contrast
+   -  ditt plot
+
+
+
+## Cell marker genes
+Download `/gdp` from step7 on your working path `WDP`, cell marker genes and seurat object are  the `de_genes` and  `seu.int`, respectively
+
+
+```{r}
+WDP='/Volumes/F/for_my_website/scrnabox0/related_to_scrnaR'
+setwd(WDP)
+mk_genes<-readRDS(paste0(WDP, "/gdp/de_genes.rds"))
+seu.int<-readRDS(paste0(WDP, "/gdp/seu.int.c.rds"))
+```
+
+
+Select top 2
+```{r}
+mk_genes %>%
+    group_by(cluster) %>%
+    top_n(-2, p_val_adj) -> top_sel
+```
+
+```{r}
+top_sel
+```
+See the plot of genes: 
+```{r}
+mypar(3, 3, mar = c(5, 5, 3, 3))
+for (i in unique(top_sel$cluster)) {
+    barplot(sort(setNames(top_sel$avg_log2FC, top_sel$gene)[top_sel$cluster == i], F),
+        horiz = T, las = 1, main = paste0(i, " vs. rest"),)
+    abline(v = c(0, 0.25))
+}
+```
+Visualize via heatmap 
+
+```{r}
+seu.int_sel <- ScaleData(seu.int, features = as.character(unique(top_sel$gene)), assay = "RNA")
+DoHeatmap(seu.int_sel, features = as.character(unique(top_sel$gene)), group.by = "cell.types.pool",    assay = "RNA")
+```   
+
+Visualize the overall expression via dot plot. 
+
+```{r}
+ DotPlot(seu.int_sel, features = rev(as.character(unique(top_sel$gene))), group.by = "cell.types.pool",
+    assay = "RNA") + coord_flip()
+```
+
+Visulaize via violin plot 
+ 
+```{r}
+VlnPlot(seu.int_sel, features = as.character(unique(top_sel$gene)), ncol = 5, group.by = "cell.types.pool", assay = "RNA")
+```
+
+## Working with DGE Contrast 
+Download the contrasts relust from step 7, 
+### Volcano plot
+```{r}
+library(EnhancedVolcano)
+cont_a53t<-read.csv(paste0(WDP,'/cont_main/design1.csv'))
+EnhancedVolcano(cont_a53t,lab = rownames(cont_a53t),x = 'logFC',  y = 'P.Value', FCcutoff=1, title = 'A53T - rest', drawConnectors = TRUE, max.overlaps= 30)
+ggsave(file = "EnhancedVolcano2.pdf")
+```
+
+```{r}
+library(htmlwidgets)
+library(plotly)
+cont_a53t_sig<-cont_a53t[cont_a53t$adj.P.Val<0.05,]
+p <- plot_ly(data = cont_a53t_sig, x = cont_a53t_sig$logFC, y = -log(cont_a53t_sig$adj.P.Val), text = cont_a53t_sig$X, mode = "markers") %>% 
+  layout(title ="A53T vs rest")
+saveWidget(p, "A53T_vs_rest.html")
+```
+
+
+### Spliting
+If you want to split the contrast into up and down, you can run the following codes
+```{r}
+file_path=paste0(WDP,'/cont_inte')
+dest_path=paste0(WDP,'/cont_split')
+scrnaboxR::split_up_down(file_path,dest_path,cut_pvalue=0.05,cut_log_low=-0.25,cut_log_up=0.25, n_row=200)
+```
+
+### Distance between contrasts
+```{r}
+file0<-extract_file(dest_path)
+con<-file0[[2]]
+```
+
+```{r echo=FALSE, results=FALSE}
+dst<-dist_contrast(con)
+dim <- ncol(dst)
+```
+
+```{r}
+#png(file = paste0(WDP,"/heatmap.png"), bg = "transparent")
+image(1:dim, 1:dim, dst, axes = FALSE, xlab="", ylab="")
+label0<-file0[[1]]
+axis(1, 1:dim,label0 , cex.axis = 0.5, las=3)
+axis(2, 1:dim, label0, cex.axis = 0.5, las=1)
+text(expand.grid(1:dim, 1:dim), sprintf("%0.1f", dst), cex=0.6)
+#dev.off()
+```
+
+### Dit plot
+```{r}
+gwas_genes<-read.csv(file=paste0(WDP,'/all_PD_gwas_loci_genes_filtered.csv'))$hgnc_symbol
+file_path=paste0(WDP,'/cont_split')
+des_path=paste0(WDP,'/Output')
+dittplot(gwas_genes,file_path,des_path)
+```
+
+## Gene Set Enrichment Analysis (GSEA)
+
+
+```{r}
+genes_rank <- setNames(mk_genes$avg_log2FC, casefold(rownames(mk_genes),upper = T))
+head(genes_rank)
+msigdbgmt <- msigdbr::msigdbr("Homo sapiens")
+msigdbgmt <- as.data.frame(msigdbgmt)
+```
+You check the  list  of available gene sets
+```{r}
+unique(msigdbgmt$gs_subcat)
+```
+Select the subset that you need.
+```{r}
+msigdbgmt_subset <- msigdbgmt[msigdbgmt$gs_subcat == "GO:BP", ]
+gmt <- lapply(unique(msigdbgmt_subset$gs_name), function(x) {
+    msigdbgmt_subset[msigdbgmt_subset$gs_name == x, "gene_symbol"]
+})
+names(gmt) <- unique(paste0(msigdbgmt_subset$gs_name, "_", msigdbgmt_subset$gs_exact_source))
+gmt %>% head() %>% lapply(head)
+```
+
+
+conduct enrichemnt analysis and order according the ES
+```{r}
+fgseaRes <- fgsea(pathways = gmt, stats = genes_rank, minSize = 15, maxSize = 500, scoreType = "pos")
+fgseaRes <- fgseaRes[order(fgseaRes$ES, decreasing = T), ]
+```
+
+```{r}
+barplot(sort(genes_rank, decreasing = T))
+head(fgseaRes[order( -abs(NES)), ], n=10)
+```
+
+get enrichment score plot for a specific pathway
+```{r}
+plotEnrichment(gmt[["GOBP_ACTIN_FILAMENT_BASED_PROCESS_GO:0030029"]], genes_rank)
+```
+
+You can plot enrichment for multiple pathways.
+```{r}
+top_up <- fgseaRes %>% filter(ES > 0) %>% top_n(10, wt=-padj)
+top_down <- fgseaRes %>% filter(ES < 0) %>% top_n(10, wt=-padj)
+top_pathways <- bind_rows(top_up, top_down) %>% arrange(-ES)
+plotGseaTable(gmt[top_pathways$pathway], genes_rank, fgseaRes, gseaParam = 0.5)
+```
+
+The following barplot can be used to compare Hallmark pathways (obtained from  https://www.biostars.org/p/467197/)
+
+```{r}
+fgseaResTidy <- fgseaRes %>% as_tibble() %>% arrange(desc(NES))
+fgseaResTidy %>% dplyr::select(-leadingEdge, -ES) %>% arrange(padj) %>% DT::datatable()
+#ggplot(fgseaResTidy, aes(reorder(pathway, NES), NES)) + geom_col(aes(fill=padj<0.05)) +coord_flip() +labs(x="Pathway", y="Normalized Enrichment Score",title="Hallmark pathways NES from GSEA") + theme_minimal()
+```
+
+
+
+## Gene Ontology gene sets (KEGG gene sets)
+
+
+```{r}
+setwd(paste0(WDP,'/Output'))
+file0='design1down'
+sel_genes <- read.csv(paste0(WDP,'/cont_split/',file0,'.csv',sep=""))[,1]
+sel_genes_go <- clusterProfiler::enrichGO(sel_genes,"org.Hs.eg.db",keyType = "SYMBOL",ont = "BP",minGSSize = 50)
+write.csv(sel_genes_go@result,file = paste(file0,'enrichGO','.csv',sep=''))
+enr_go <- clusterProfiler::simplify(sel_genes_go)
+enrichplot::emapplot(enrichplot::pairwise_termsim(enr_go),showCategory = 30, cex_label_category = 0.5)
+ggsave(file = "enrich1.pdf")
+dotplot(enrichplot::pairwise_termsim(enr_go))
+ggsave(file = "dot1.pdf")
+cnetplot(enrichplot::pairwise_termsim(enr_go)) 
+ggsave(file = "cnet1.pdf")
+
+gmt <- msigdbr::msigdbr(species = "human", category = "H")
+sel_go0 <- clusterProfiler::enricher(gene = sel_genes,,pAdjustMethod = "BH",pvalueCutoff  = 0.05, qvalueCutoff  = 0.05, TERM2GENE = gmt[,c("gs_name", "gene_symbol")])
+write.csv(sel_go0@result,file = paste(file0,'enricher','.csv',sep=''))
+```
+
+
+The follwoing run the KEGG pathway enrichment analysis. 
+```{r}
+sel_genes_id<-mapIds(org.Hs.eg.db, sel_genes, 'ENTREZID', 'SYMBOL',multiVals=last)
+get_ENTREZID <- function(x){
+  ab<-NULL
+  for (i in 1: length(x)){
+    ab[i]<-x[[i]]
+  }
+  message("There are ", sum(is.na(ab)), " NA and they are dropped")
+  ret<-ab
+  }
+genes_id<-get_ENTREZID(sel_genes_id)
+enrich_kegg <- enrichKEGG(gene = genes_id)
+head(enrich_kegg, n=10)
+```
+

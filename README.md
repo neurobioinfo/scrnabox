@@ -2,9 +2,10 @@
 This repository includes
 
 ## Contents
-- [Workflow analysis]
-- [scrnabox.svn]
-- [scrnaboxR]
+- [Workflow analysis](#analysis-workflow)
+- [scrnabox.svn](#scrnaboxsvn)
+- [scrnaboxR](#scrnaboxr)
+- [References](#references)
 
 
 ## Analysis workflow
@@ -20,20 +21,22 @@ SeuratObject@meta.data will return the data frame and relevant information on ea
 - Step 5, integration: this step integrates multiple single cell RNA-seq datasets.  Seurat uses the Comprehensive Integration of Single Cell Data (CCA), see Stuart, Tim, et al. (2019) to perform integration; we identify anchors using the FindIntegrationAnchors function and pass them to the IntegrateData function to get a Seurat object.
 - Step 6, Clustering: here, we run clustering (a k-nearest neighbour graph) on the integrated PCA. 
 - step 7,  Differetial gene expression (DEG):  DEG can be done in different ways, here we  run the function FindAllMarkers to compute a ranking for the highly differential genes in each cluster which determines the genes differentially expressed between each cluster and the rest of the cells. Then define contrast to run statistical tests to study the phenotype and genotypes. 
-- step 8, Enrichment analysis: in this step, we obtain list of significant genes using .  
+- step 8, Enrichment analysis: in this step, we obtain list of significant genes using enrichment methods.  
 
 
 The step 1 - Step 7 can be done using `scrnabox.svn`, the step 8 can be done using scrnaboxR, see [Practice](https://github.com/neurobioinfo/scrnabox/blob/main/scrnaboxrmd/practice.md). 
 
 #### Non-hashtaq
+
 Ongoing 
+
 -----------
 
 ## scrnabox.svn
-`scrnabox.svn` is a pipeline developed to run step 1 to step 7 under HPC system, the pipeline has been using under [Beluga](https://docs.alliancecan.ca/wiki/B%C3%A9luga), the detail of how use it in [scrnabox.svn](https://github.com/neurobioinfo/scrnabox/tree/main/scrnabox.svn)
+`scrnabox.svn` is a pipeline developed to run step 1 to step 7 under HPC system, the pipeline has been using under [Beluga](https://docs.alliancecan.ca/wiki/B%C3%A9luga), the detail of how to use it is discussed in [scrnabox.svn](https://github.com/neurobioinfo/scrnabox/tree/main/scrnabox.svn)
 
 ## scrnaboxR
-The R package includes some functions to ????. The library can be downloaded using the following script. 
+This R package includes some functions to ????. This library can be installed using the following script. 
 ```
 devtools::install_github("neurobioinfo/scrnabox/scrnaboxR")
 ```

@@ -23,11 +23,12 @@ SeuratObject@meta.data will return the data frame and relevant information on ea
 - step 8, Enrichment analysis: in this step, we obtain list of significant genes using .  
 
 
-The step 1 - Step 7 can be done using `scrnabox.svn`  and step 8 scrnaboxR. 
+The step 1 - Step 7 can be done using `scrnabox.svn`, the step 8 can be done using scrnaboxR, see [Practice](https://github.com/neurobioinfo/scrnabox/blob/main/scrnaboxrmd/practice.md). 
 
 #### Non-hashtaq
 Ongoing 
 -----------
+
 ## scrnabox.svn
 `scrnabox.svn` is a pipeline developed to run step 1 to step 7 under HPC system, the pipeline has been using under [Beluga](https://docs.alliancecan.ca/wiki/B%C3%A9luga), the detail of how use it in [scrnabox.svn](https://github.com/neurobioinfo/scrnabox/tree/main/scrnabox.svn)
 

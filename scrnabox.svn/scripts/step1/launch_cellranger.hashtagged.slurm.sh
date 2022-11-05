@@ -64,8 +64,9 @@ REF_DIR=/cvmfs/soft.mugqic/CentOS6/genomes/species/Homo_sapiens.GRCh38/genome/10
 ############
 # RUN CELLRANGER
 ############
-module use /cvmfs/soft.mugqic/CentOS6/modulefiles
-module load mugqic/cellranger/5.0.1
+ACCOUNT=$ACCOUNT
+module use $MODULEUSE
+module load $MODULELOAD
 
 cellranger count  \
     --id=${RUN_NAME} \

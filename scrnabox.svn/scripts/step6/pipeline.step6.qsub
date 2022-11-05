@@ -24,7 +24,7 @@ echo timestamp $(date +%s)
 # if [[ -z $SFS ]]; then export SFS=0; fi
 
 echo "*******************************************"
-echo "* step4"
+echo "* step4 submitted at `date +%FT%H.%M.%S`"
 echo "*******************************************"
 echo "* PIPELINE_HOME:        $PIPELINE_HOME"
 echo "* DIR:                  $OUTPUT_DIR"
@@ -44,7 +44,7 @@ echo "*******************************************"
 
 # DIR=/home/samamiri/scratch/Darkgenome_run/pipeline/scrnabox.svn_run/des
 # cd /home/samamiri/scratch/Darkgenome_run/pipeline/scrnabox.svn/scripts/step2/
-module load r/4.1.2 
+module load r/$R_VERSION
 Rscript ${PIPELINE_HOME}/scripts/step6/step6.R $OUTPUT_DIR  $R_LIB_PATH
 
 echo "step6 is done succefully  at `date +%FT%H.%M.%S`" 

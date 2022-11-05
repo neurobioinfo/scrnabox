@@ -1,0 +1,7 @@
+top_sel=5
+level_cluster='integrated_snn_res.0.7'
+level_phenotype='Labels'
+reference='/lustre03/project/6070393/COMMON/Dark_Genome/samamiri/pipeline/scrnabox.svn/references/jerber52_reference.rds'
+level_celltype='celltype'
+# 
+futureglobalsmaxSize = 50000 * 1024^2

@@ -19,6 +19,7 @@ print(PMT)
 
 .libPaths(r_lib_path)
 packages<-c('Seurat','ggplot2', 'dplyr')
+lapply(packages, library, character.only = TRUE)
 # output_dir="/home/samamiri/scratch/Darkgenome_run/pipeline/scrnabox.svn_run/des"
 list<-read.csv(paste(output_dir, "/job_output/sample_dir.list",sep=""),header=FALSE)
 sample_name<-read.csv(paste(output_dir, "/job_output/sample.list",sep=""),header=FALSE)
@@ -37,8 +38,11 @@ foreach (i=1:dim(sample_name)[1]) %do% {
     hashtags <- rownames(DA.hash[["HTO"]])
     seu <-  DA.hash
     seu[["percent.mt"]] <- Seurat::PercentageFeatureSet(seu, pattern = "^MT-")
-    seu <- subset(seu, subset = nFeature_RNA > NFRNAL & nFeature_RNA < NFRNAU & percent.mt < PMT)
+    seu <- subset(seu, subset = nFeature_RNA > NFRNAL & nCount_RNA < NFRNAU & percent.mt < PMT)
     # seu <- subset(seu, subset = nFeature_RNA > 300 & nFeature_RNA < 6500 & percent.mt < 25)
     saveRDS(seu, paste(output_dir,'/step3/objs',"/seu",i,".rds", sep=""))
+    Seurat::VlnPlot(seu, group.by= "orig.ident", features = c("nFeature_RNA","nCount_RNA","percent.mt"), pt.size = 0.1,ncol = 3) + NoLegend()
+    ggsave(paste(output_dir,'/step3/figs3/vioplot',sample_name$V1[i],".png", sep=""))
 }
+
 

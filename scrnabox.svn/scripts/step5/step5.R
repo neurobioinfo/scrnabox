@@ -17,6 +17,8 @@ lapply(packages, library, character.only = TRUE)
 list<-read.csv(paste(output_dir, "/job_output/sample_dir.list",sep=""),header=FALSE)
 sample_name<-read.csv(paste(output_dir, "/job_output/sample.list",sep=""),header=FALSE)
 
+source(paste(output_dir,'/job_output/step5_par.txt',sep=""))
+
 library(foreach)
 library(doParallel)
 numCores <- detectCores()
@@ -25,16 +27,31 @@ registerDoParallel(cl)
 
 seu_list<-list()
 
-seu_list<-foreach (i_s=1:dim(sample_name)[1]) %do% {  
-    seu<-readRDS(paste(output_dir,'/step4/objs',"/seu",i_s,"dem.rds", sep=""))
-    DefaultAssay(seu) <- "RNA"
-    seu <- Seurat::NormalizeData(seu)
-    seu <- Seurat::FindVariableFeatures(seu, selection.method = "vst", nfeatures = 2000,verbose = FALSE)
-   }  
+if (dropDN=='yes') {
+    print('The following are deleted')
+    print(label_dropDN)
+    seu_list<-foreach (i_s=1:dim(sample_name)[1]) %do% {  
+        seu<-readRDS(paste(output_dir,'/step4/objs',"/seu",i_s,"dem.rds", sep=""))
+        DefaultAssay(seu) <- "RNA"
+        seu <- Seurat::NormalizeData(seu)
+        seu <- Seurat::FindVariableFeatures(seu, selection.method = "vst", nfeatures = 2000,verbose = FALSE)
+        aa<-as.character(unique(seu$MULTI_ID))[!as.character(unique(seu$MULTI_ID)) %in% dropDN]
+        Idents(seu) <- "MULTI_ID"
+        seu=subset(seu,idents=aa)
+    }  
+} else {
+    seu_list<-foreach (i_s=1:dim(sample_name)[1]) %do% {  
+        seu<-readRDS(paste(output_dir,'/step4/objs',"/seu",i_s,"dem.rds", sep=""))
+        DefaultAssay(seu) <- "RNA"
+        seu <- Seurat::NormalizeData(seu)
+        seu <- Seurat::FindVariableFeatures(seu, selection.method = "vst", nfeatures = 2000,verbose = FALSE)
+    }  
+}
+
 
 seu_anchors <- Seurat::FindIntegrationAnchors(object.list = seu_list)
 seu_int <- Seurat::IntegrateData(anchorset = seu_anchors)
 Seurat::DefaultAssay(seu_int) <- "integrated"
 saveRDS(seu_int, paste(output_dir,'/step5/objs',"/seu_int.rds", sep=""))
-
+write.csv(colnames(seu_int[[]]), paste(output_dir,'/step5/objs',"/mata_info.csv", sep=""))
 

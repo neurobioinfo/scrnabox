@@ -18,6 +18,7 @@
 # =============================================================================
 #
 #SBATCH -J __MRO_JOB_NAME__
+#SBATCH -A $ACCOUNT
 #SBATCH --export=ALL
 ###SBATCH --nodes=1 --ntasks-per-node=__MRO_THREADS__
 #SBATCH --ntasks=1 --cpus-per-task=__MRO_THREADS__
@@ -29,7 +30,7 @@
 #SBATCH --mem=__MRO_MEM_GB__G
 #SBATCH -o __MRO_STDOUT__
 #SBATCH -e __MRO_STDERR__
-#SBATCH -A def-tdurcan
 #SBATCH --time=1-0
 
+echo $ACCOUNT
 __MRO_CMD__

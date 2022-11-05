@@ -1,0 +1,163 @@
+"0","knitr::opts_chunk$set(echo = TRUE)"
+"0","library(Seurat)"
+"2","Warning: rgeos: versions of GEOS runtime 3.11.0-CAPI-1.17.0
+and GEOS at installation 3.10.2-CAPI-1.16.0differ"
+"2","Registered S3 method overwritten by 'htmlwidgets':
+  method           from         
+  print.htmlwidget tools:rstudio
+"
+"2","Attaching SeuratObject
+"
+"2","Attaching sp
+"
+"0","library(clusterProfiler)"
+"2","clusterProfiler v4.4.1  For help: https://yulab-smu.top/biomedical-knowledge-mining-book/
+
+If you use clusterProfiler in published research, please cite:
+T Wu, E Hu, S Xu, M Chen, P Guo, Z Dai, T Feng, L Zhou, W Tang, L Zhan, X Fu, S Liu, X Bo, and G Yu. clusterProfiler 4.0: A universal enrichment tool for interpreting omics data. The Innovation. 2021, 2(3):100141
+"
+"2","
+Attaching package: ‘clusterProfiler’
+
+"
+"2","The following object is masked from ‘package:stats’:
+
+    filter
+
+"
+"0","library(enrichplot)"
+"0","library(org.Hs.eg.db)"
+"2","Loading required package: AnnotationDbi
+"
+"2","Loading required package: stats4
+"
+"2","Loading required package: BiocGenerics
+"
+"2","
+Attaching package: ‘BiocGenerics’
+
+"
+"2","The following objects are masked from ‘package:stats’:
+
+    IQR, mad, sd, var, xtabs
+
+"
+"2","The following objects are masked from ‘package:base’:
+
+    anyDuplicated, append, as.data.frame, basename, cbind, colnames, dirname, do.call, duplicated, eval, evalq, Filter, Find,
+    get, grep, grepl, intersect, is.unsorted, lapply, Map, mapply, match, mget, order, paste, pmax, pmax.int, pmin, pmin.int,
+    Position, rank, rbind, Reduce, rownames, sapply, setdiff, sort, table, tapply, union, unique, unsplit, which.max, which.min
+
+"
+"2","Loading required package: Biobase
+"
+"2","Welcome to Bioconductor
+
+    Vignettes contain introductory material; view with 'browseVignettes()'. To cite Bioconductor, see 'citation(""Biobase"")', and
+    for packages 'citation(""pkgname"")'.
+
+"
+"2","Loading required package: IRanges
+"
+"2","Loading required package: S4Vectors
+"
+"2","
+Attaching package: ‘S4Vectors’
+
+"
+"2","The following object is masked from ‘package:clusterProfiler’:
+
+    rename
+
+"
+"2","The following objects are masked from ‘package:base’:
+
+    expand.grid, I, unname
+
+"
+"2","
+Attaching package: ‘IRanges’
+
+"
+"2","The following object is masked from ‘package:clusterProfiler’:
+
+    slice
+
+"
+"2","The following object is masked from ‘package:sp’:
+
+    %over%
+
+"
+"2","
+Attaching package: ‘AnnotationDbi’
+
+"
+"2","The following object is masked from ‘package:clusterProfiler’:
+
+    select
+
+"
+"2","
+"
+"0","library(tidyverse)"
+"2","Registered S3 methods overwritten by 'dbplyr':
+  method         from
+  print.tbl_lazy     
+  print.tbl_sql      
+"
+"2","── [1mAttaching packages[22m ─────────────────────────────────────────────────────────────────────────────────────────────────────── tidyverse 1.3.2 ──"
+"2","[32m✔[39m [34mggplot2[39m 3.3.6     [32m✔[39m [34mpurrr  [39m 0.3.4
+[32m✔[39m [34mtibble [39m 3.1.8     [32m✔[39m [34mdplyr  [39m 1.0.9
+[32m✔[39m [34mtidyr  [39m 1.2.0     [32m✔[39m [34mstringr[39m 1.4.0
+[32m✔[39m [34mreadr  [39m 2.1.2     [32m✔[39m [34mforcats[39m 0.5.1"
+"2","── [1mConflicts[22m ────────────────────────────────────────────────────────────────────────────────────────────────────────── tidyverse_conflicts() ──
+[31m✖[39m [34mdplyr[39m::[32mcollapse()[39m   masks [34mIRanges[39m::collapse()
+[31m✖[39m [34mdplyr[39m::[32mcombine()[39m    masks [34mBiobase[39m::combine(), [34mBiocGenerics[39m::combine()
+[31m✖[39m [34mdplyr[39m::[32mdesc()[39m       masks [34mIRanges[39m::desc()
+[31m✖[39m [34mtidyr[39m::[32mexpand()[39m     masks [34mS4Vectors[39m::expand()
+[31m✖[39m [34mdplyr[39m::[32mfilter()[39m     masks [34mclusterProfiler[39m::filter(), [34mstats[39m::filter()
+[31m✖[39m [34mdplyr[39m::[32mfirst()[39m      masks [34mS4Vectors[39m::first()
+[31m✖[39m [34mdplyr[39m::[32mlag()[39m        masks [34mstats[39m::lag()
+[31m✖[39m [34mggplot2[39m::[32mPosition()[39m masks [34mBiocGenerics[39m::Position(), [34mbase[39m::Position()
+[31m✖[39m [34mpurrr[39m::[32mreduce()[39m     masks [34mIRanges[39m::reduce()
+[31m✖[39m [34mdplyr[39m::[32mrename()[39m     masks [34mS4Vectors[39m::rename(), [34mclusterProfiler[39m::rename()
+[31m✖[39m [34mdplyr[39m::[32mselect()[39m     masks [34mAnnotationDbi[39m::select(), [34mclusterProfiler[39m::select()
+[31m✖[39m [34mpurrr[39m::[32msimplify()[39m   masks [34mclusterProfiler[39m::simplify()
+[31m✖[39m [34mdplyr[39m::[32mslice()[39m      masks [34mIRanges[39m::slice(), [34mclusterProfiler[39m::slice()"
+"0","AnnotationDbi::keytypes(org.Hs.eg.db)"
+"1"," [1]"
+"1"," ""ACCNUM""      "
+"1"," ""ALIAS""       "
+"1"," ""ENSEMBL""     "
+"1"," ""ENSEMBLPROT"" "
+"1"," ""ENSEMBLTRANS"""
+"1"," ""ENTREZID""    "
+"1"," ""ENZYME""      "
+"1"," ""EVIDENCE""    "
+"1"," ""EVIDENCEALL"" "
+"1","
+"
+"1","[10]"
+"1"," ""GENENAME""    "
+"1"," ""GENETYPE""    "
+"1"," ""GO""          "
+"1"," ""GOALL""       "
+"1"," ""IPI""         "
+"1"," ""MAP""         "
+"1"," ""OMIM""        "
+"1"," ""ONTOLOGY""    "
+"1"," ""ONTOLOGYALL"" "
+"1","
+"
+"1","[19]"
+"1"," ""PATH""        "
+"1"," ""PFAM""        "
+"1"," ""PMID""        "
+"1"," ""PROSITE""     "
+"1"," ""REFSEQ""      "
+"1"," ""SYMBOL""      "
+"1"," ""UCSCKG""      "
+"1"," ""UNIPROT""     "
+"1","
+"

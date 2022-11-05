@@ -2,7 +2,7 @@
 layout: post
 title: An introduction to scRNA pipeline 
 description: A short introduction to scRNA pipline
-date: 2022-07-01
+date: 2022-11-03
 author: Saeid Amiri
 published: false
 tags: scRNA 
@@ -20,16 +20,17 @@ comments: false
   - [Step 4: demuplixing](#step-4-demuplixing)
   - [Step 5: integration](#step-5-integration)
   - [Step 6: Clustering](#step-6-clustering)   
-  - [step 7: DEG contrast](#step-7-DEG-contrast)    
+  - [step 7: Celltype annotation](#step-7-celltype-annotation)    
+  - [step 8: DEG contrast](#step-8-DEG-contrast)     
 - [Multiple steps](#)  
 - [References](#references)
 
 ## Introduction 
 scrnabox.svn is an open-source pipeline for scRNA. In order to run the pipeline, first create a folder to do the analysis and export the pipeline
 ```
-mkdir -P  ~/scratch/des
-export SCRNABOX_HOME=/lustre03/project/6070393/COMMON/Dark_Genome/samamiri/pipeline/scrnabox.svn
-SCRNABOX_PWD=~/scratch/des
+mkdir -p  ~/scratch/des
+export SCRNABOX_HOME=~/scrnabox.svn
+export SCRNABOX_PWD=~/scratch/des
 ```
 
 ### Setup
@@ -60,18 +61,22 @@ sh $SCRNABOX_HOME/launch_pipeline.scrnabox.sh \
 
 
 ### Step 3: QC and filter
-This step run QC and save the results under `${SCRNABOX_PWD}/step3`. The followings do `nFeature_RNA > 300 & nFeature_RNA < 6500 & percent.mt < 25`. 
+This step run QC and save the results under `${SCRNABOX_PWD}/step3`. The following code filter with these criteria: `nFeature_RNA > 300 & nCount_RNA < 6500 & percent.mt < 25`.  
+- nFeatures_RNA is the number of unique RNA transcripts for each cell.  If less than 300 we remove these cells as they might be debris or dead cells
+- Sometimes cells with too many RNA transcripts are dublexs.  It is better to us nCount_RNA to remove dublets. 
+- Cells with a high amount of mitochondrial transcript compared to total RNA transcripts might be dead or dying and can add noise to the data making a clustering performance poor. We remove cells setting a default threshold of 25% (which is very high)
+
 ```
 sh $SCRNABOX_HOME/launch_pipeline.scrnabox.sh \
 -d ${SCRNABOX_PWD} \
 --steps 3 \
---nFRNAl 300 \
---nFRNAu 6500 \
+--nFRNA 300 \
+--nCRNA 6500 \
 --pmt 25
 ```
 
 ### Step 4: Demuplixing 
-In this step, you need to choose the right label, you can get the label by running the following code 
+In this step, you need to choose the right label (for the hashtags), you can get the hashtag labels by running the following code 
 ```
 sh $SCRNABOX_HOME/launch_pipeline.scrnabox.sh \
 -d ${SCRNABOX_PWD} \
@@ -88,11 +93,14 @@ sh $SCRNABOX_HOME/launch_pipeline.scrnabox.sh \
 ```
 
 ### Step 5: Integration 
+This step can be done with\without removing the 'Doublet', 'Negative'; the defalut is to remove them, if you want to keep them, just change 'yes' to 'no' in '${SCRNABOX_PWD}/job_output/step5_par.txt'. 
+
 ```
 sh $SCRNABOX_HOME/launch_pipeline.scrnabox.sh \
 -d ${SCRNABOX_PWD} \
 --steps 5 
 ```
+
 
 ### Step 6: Clustering 
 ```
@@ -101,49 +109,101 @@ sh $SCRNABOX_HOME/launch_pipeline.scrnabox.sh \
 --steps 6 
 ```
 
+### step 7: Cluster annotation
+In This step, you should find the cluster annotation to use in the Step 8. 
+#### Marker 
+Finds markers (differentially expressed genes) for each of cluster
+```
+sh $SCRNABOX_HOME/launch_pipeline.scrnabox.sh \
+-d ${SCRNABOX_PWD} \
+--steps 7
+--marker T
+```
 
-### step 7: DGE contrast
-In this step, one can run the contrast on clustered result, which can be done on genotype and genotype-cell and are referred as main and interact. First add the label to /job_output/step7_ clus_label.txt. 
-#### genotype 
-There is a file ${SCRNABOX_PWD}/job_output/step7_contrast_main.txt, with columns of cont_name,control,ex_control,all, you can write the genotype contrast here, then select `--main T` to run the genotype contrast. 
+#### FindTransferAnchors
+Find a set of anchors between a reference and query object and add it to query object `predictions`
+```
+sh $SCRNABOX_HOME/launch_pipeline.scrnabox.sh \
+-d ${SCRNABOX_PWD} \
+--steps 7 
+--fta T
+```
+
+#### EnrichR
+You can not run enrichR on HPC, because it does not connect to the internet when you submit jobs, so you should run it locally; first copy it to your PC, 
+```
+scp -r usrid@beluga.computecanada.ca:${SCRNABOX_PWD}/step6 ~/Desktop/annot/
+```
+
+Then run the following codes
+```
+level_cluster='integrated_snn_res.0.7'
+PWD='~/Desktop/annot/'
+PSUE='~/Desktop/annot/step6/objs/seu_int_clu.rds'
+top_sel=5
+db <- c('Descartes_Cell_Types_and_Tissue_2021','CellMarker_Augmented_2021','Azimuth_Cell_Types_2021')
+scrnaboxR::annotation(level_cluster,PWD,PSUE,top_sel,db)
+```
+
+### step 8: DGE contrast
+This step run Differetial gene expression (DEG), first add the labels obtained from Step 7 to `/job_output/step8_ clus_label.txt`. 
+ 
+A) DGEList
+This step creates a DGEListobject from a table of counts obtained from seurate objects. This step might need alot of RAM, we suggest 3*size(seu_int_clu.rds)
+
 ```
 sh $SCRNABOX_HOME/launch_pipeline.scrnabox.sh \
 -d ${SCRNABOX_PWD} \
 --steps 7 \
---main T
+--dgelist T
+```
+
+B) DGE contrasts
+
+In this step, one can run the contrast on clustered result, which can be done on genotype and genotype-cell. 
+
+#### genotype 
+There is a file ${SCRNABOX_PWD}/job_output/step8_contrast_main.txt, with columns of cont_name,control,ex_control,all, you can write the genotype contrast here, then select `--genotype T` to run the genotype contrast. 
+```
+sh $SCRNABOX_HOME/launch_pipeline.scrnabox.sh \
+-d ${SCRNABOX_PWD} \
+--steps 8 \
+--genotype T
 ```
 
 #### genotype-cell
-To run interact between celltype and genptype, write your contrast in `${SCRNABOX_PWD}/job_output/step7_contrast_inte.txt`. To run Step 7 on interact contrast, run the following command. Select `--inte T` to run the main contrast. 
+To run interact between celltype and genptype, write your contrast in `${SCRNABOX_PWD}/job_output/step8_contrast_inte.txt`. To run Step 8 on interact contrast, run the following command. Select `-celltype T` to run the main contrast. 
 ```
 sh $SCRNABOX_HOME/launch_pipeline.scrnabox.sh \
 -d ${SCRNABOX_PWD} \
---steps 7 \
---inte T
+--steps 8 \
+--celltype T
 ```
 
 You can directly call the contrast to the pipeline, 
 ```
-CONTINT=/lustre03/project/6070393/COMMON/Dark_Genome/samamiri/pipeline/scrnabox.svn_run/des/step7_contrast_inte.txt
+CONTINT=~/des/step7_contrast_inte.txt
 sh $SCRNABOX_HOME/launch_pipeline.scrnabox.sh \
 -d ${SCRNABOX_PWD} \
 --steps 7 \
---inte T \
+--celltype T \
 --cont ${CONTINT}
 ```
 
 ```
-CONTMAIN=/lustre03/project/6070393/COMMON/Dark_Genome/samamiri/pipeline/scrnabox.svn_run/des/step7_contrast_main.txt
+CONTMAIN=~/des/step7_contrast_main.txt
 sh $SCRNABOX_HOME/launch_pipeline.scrnabox.sh \
 -d ${SCRNABOX_PWD} \
 --steps 7 \
---main T \
+--genotype T \
 --cont ${CONTMAIN}
 ```
 
-Note: For main contrast, it take 7 minute per contrast. For intract, it takes 40 minutes per contrast.  If you have many contrasts, it is better to split them and submit differently.  
+Note: If you have many contrasts, it is better to split them and submit differently.  
 
 
+------------------------------------
+<!-- This is commented out.
 ## Run multiple steps
 To run multiple steps just specify the range of steps, separate using hyphen. 
 ```
@@ -175,5 +235,5 @@ sh $SCRNABOX_HOME/launch_pipeline.scrnabox.sh \
 --steps ALL \
 ```
 
-## References
+## References  -->
 

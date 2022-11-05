@@ -29,7 +29,7 @@ cl <- makeCluster(numCores-1)
 registerDoParallel(cl) 
 
 
-foreach (i_s=1:dim(sample_name)[1]) %do% {   
+foreach (i_s=1:dim(sample_name)[1]) %do% {  
     set.seed(1234)
     seu1<-readRDS(paste(output_dir,'/step3/objs',"/seu",i_s,".rds", sep=""))
     DefaultAssay(seu1) <- "HTO"
@@ -37,21 +37,25 @@ foreach (i_s=1:dim(sample_name)[1]) %do% {
     seu1 <- FindVariableFeatures(seu1, selection.method = "mean.var.plot")
     seu1 <- ScaleData(seu1, features = VariableFeatures(seu1))
     seu1 <- MULTIseqDemux(seu1, assay = "HTO", quantile = 0.9, autoThresh = TRUE, maxiter = 5) 
-    write(table(seu1$MULTI_ID), paste(output_dir,'/step4/objs/seu',i_s,"MULTIseqDemuxHTOcounts.csv",sep=""))
+    write.csv(table(seu1$MULTI_ID), paste(output_dir,'/step4/objs/seu',i_s,"MULTIseqDemuxHTOcounts.csv",sep=""))
     Idents(seu1) <- "MULTI_ID"
-    png(paste(output_dir,'/step4/figs/seu',i_s,"RidgeplotHTOMSD.png",sep=""))
+    # png(paste(output_dir,'/step4/figs/seu',i_s,"RidgeplotHTOMSD.png",sep=""))
     RidgePlot(seu1, assay = "HTO", features = rownames(seu1[["HTO"]])[1:6], group.by = "MULTI_ID", ncol =2)
-    dev.off()
+    ggsave(paste(output_dir,'/step4/figs4/seu',i_s,"RidgeplotHTOMSD.png",sep=""))
+    # dev.off()
     Idents(seu1) <- "HTO_classification.global"
-    png(paste(output_dir,'/step4/figs/seu',i_s,"nCounts_demult_groupsMSD.png",sep=""))
+    # png(paste(output_dir,'/step4/figs/seu',i_s,"nCounts_demult_groupsMSD.png",sep=""))
     VlnPlot(seu1, features = "nCount_RNA", pt.size = 0.01, log = TRUE)
-    dev.off()
-    png(paste(output_dir,'/step4/figs/seu',i_s,"HeatmapHashIDMSD.png",sep=""))
+    ggsave(paste(output_dir,'/step4/figs4/seu',i_s,"nCounts_demult_groupsMSD.png",sep=""))
+    # dev.off()
+    # png(paste(output_dir,'/step4/figs/seu',i_s,"HeatmapHashIDMSD.png",sep=""))
     DoHeatmap(seu1, features = rownames(seu1[["HTO"]])[1:6], group.by = "MULTI_ID")# done
-    dev.off()
-    png(paste(output_dir,'/step4/figs/seu',i_s,"DotPlotHashIDMSD.png",sep=""))
+    ggsave(paste(output_dir,'/step4/figs4/seu',i_s,"HeatmapHashIDMSD.png",sep=""))
+    # dev.off()
+    # png(paste(output_dir,'/step4/figs/seu',i_s,"DotPlotHashIDMSD.png",sep=""))
     DotPlot(seu1, group.by = "MULTI_ID", features = rownames(seu1[["HTO"]])[1:6]) + theme(axis.text.x = element_text(angle = 90)) # Done 
-    dev.off()
+    ggsave(paste(output_dir,'/step4/figs4/seu',i_s,"DotPlotHashIDMSD.png",sep=""))
+    # dev.off()
     multi.names <- unique(seu1@meta.data$MULTI_ID)
     Idents(seu1)  <- "MULTI_ID"
     # old.names <- c("B0251-TotalSeqB","B0252-TotalSeqB","B0253-TotalSeqB","B0254-TotalSeqB","B0255-TotalSeqB","B0256-TotalSeqB","Doublet","Negative")
@@ -65,6 +69,6 @@ foreach (i_s=1:dim(sample_name)[1]) %do% {
     seu1[["Lables"]] <- Idents(seu1)
     # table(seu1$MULTI_ID)
     # table(seu1$MULTI_classification) # show all the matches doublets
-    write(table(seu1$MULTI_ID), paste(output_dir,'/step4/objs/seu',i_s,"MULTIseqDemuxHTOcounts.csv",sep=""))
+    # write.csv(table(seu1$MULTI_ID), paste(output_dir,'/step4/objs/seu',i_s,"MULTIseqDemuxHTOcounts.csv",sep=""))
     saveRDS(seu1, paste(output_dir,'/step4/objs/seu',i_s,"dem.rds", sep=""))
 }

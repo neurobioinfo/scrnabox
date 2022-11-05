@@ -1,0 +1,29 @@
+#!/bin/bash
+
+#PBS -l walltime=168:0:0
+#PBS -r n
+#PBS -j oe
+#PBS -W umask=002
+
+umask 002
+
+
+#-----------------------------------------------------#
+#                                                     #
+# INITIALIZE VARIABLES                                #
+#                                                     #
+#-----------------------------------------------------#
+
+echo "*******************************************"
+echo "step7 fta submitted at `date +%FT%H.%M.%S`" 
+echo "*******************************************"
+echo "* PIPELINE_HOME:        $PIPELINE_HOME"
+echo "* DIR:                  $OUTPUT_DIR"
+echo "*******************************************"
+
+#-----------------------------------------------------#
+# START PIPELINE                                      #
+#-----------------------------------------------------#
+module load r/$R_VERSION 
+Rscript ${PIPELINE_HOME}/scripts/step7/step7fta.R $OUTPUT_DIR  $R_LIB_PATH
+

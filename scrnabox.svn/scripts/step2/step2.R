@@ -10,6 +10,7 @@ r_lib_path=args[2]
 
 .libPaths(r_lib_path)
 packages<-c('Seurat','ggplot2', 'dplyr')
+lapply(packages, library, character.only = TRUE)
 # output_dir="/home/samamiri/scratch/Darkgenome_run/pipeline/scrnabox.svn_run/des"
 list<-read.csv(paste(output_dir, "/job_output/sample_dir.list",sep=""),header=FALSE)
 sample_name<-read.csv(paste(output_dir, "/job_output/sample.list",sep=""),header=FALSE)
@@ -29,5 +30,26 @@ foreach (i=1:dim(sample_name)[1]) %do% {
     nam <- paste("seurat_object", sample_name$V1[i], sep = ".")
     assign(nam, seurat_object)
     saveRDS(get(nam),paste(output_dir,'/step2/objs',"/seurat_object.",sample_name$V1[i],".rds", sep=""),compress=TRUE)
+    seu<-get(nam)
+    seu[["percent.mt"]] <- Seurat::PercentageFeatureSet(seu, pattern = "^MT-")
+    seu <- subset(seu, subset = percent.mt < 100)
+    print(i)
+    # png(file = paste(output_dir,'/step2/figs/vioplot',sample_name$V1[i],".png", sep=""))
+    Seurat::VlnPlot(seu, group.by= "orig.ident", features = c("nFeature_RNA","nCount_RNA","percent.mt"), pt.size = 0.1,ncol = 3) + NoLegend()
+    # dev.off()
+    ggsave(paste(output_dir,'/step2/figs2/vioplot',sample_name$V1[i],".png", sep=""))
 }
+
+
+# for (i in 1:dim(sample_name)[1]) {    
+#     set.seed(1234)
+#     seu<-readRDS(paste(output_dir,'/step2/objs',"/seurat_object.",sample_name$V1[i],".rds", sep=""))
+#     seu[["percent.mt"]] <- Seurat::PercentageFeatureSet(seu, pattern = "^MT-")
+#     seu <- subset(seu, subset = percent.mt < 100)
+#     print(i)
+#     # png(file = paste(output_dir,'/step2/figs/vioplot',sample_name$V1[i],".png", sep=""))
+#     Seurat::VlnPlot(seu, group.by= "orig.ident", features = c("nFeature_RNA","nCount_RNA","percent.mt"), pt.size = 0.1,ncol = 3) + NoLegend()
+#     # dev.off()
+#     ggsave(paste(output_dir,'/step2/figs/vioplot',sample_name$V1[i],".png", sep=""))
+# }
 

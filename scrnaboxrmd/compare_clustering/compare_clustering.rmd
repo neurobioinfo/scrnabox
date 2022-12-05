@@ -1,0 +1,41 @@
+---
+title: "Compare Clustering Prediction "
+author: "Saeid Amiri"
+date: "2022-12-05"
+output: 
+  html_document:
+    keep_md: true
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+suppressPackageStartupMessages({
+    library(scrnaboxR)
+})
+
+```
+
+# content
+- Accuracy
+   + Clustering accuracy
+   + Association measure
+- Computation
+
+## Accuracy
+### Clustering accurary
+ACC: Computes one subtract of the error rate; it uses the hungarian method to macth to clusters.  
+AMI: Adjusted Mutual Information
+NMI: computes the normalized mutual information
+RI: Rand Index
+ARI: Adjusted Rand Index
+
+###  Assocation measure
+Cramér's V:  is a measure of association between two nominal variables, giving a value between 0 and +1 (inclusive)
+
+## Computation
+
+```{r}
+X<-sample(c('a1', 'a2'), 1000, replace=TRUE)
+Y<-sample(c('b1', 'b2', 'b3'), 1000, replace=TRUE)
+compute_index(X,Y)
+```

@@ -146,7 +146,7 @@ scrnaboxR::annotation(level_cluster,PWD,PSUE,top_sel,db)
 ```
 
 ### step 8: DGE contrast
-This step run Differetial gene expression (DEG), first add the labels obtained from Step 7 to `/job_output/step8_ clus_label.txt`. 
+This step run Differetial gene expression (DEG), first add the labels obtained from Step 7 to `/job_output/parameters/step8_ clus_label.txt`. 
  
 A) DGEList
 This step creates a DGEListobject from a table of counts obtained from seurate objects. This step might need alot of RAM, we suggest 3*size(seu_int_clu.rds)
@@ -154,7 +154,7 @@ This step creates a DGEListobject from a table of counts obtained from seurate o
 ```
 sh $SCRNABOX_HOME/launch_pipeline.scrnabox.sh \
 -d ${SCRNABOX_PWD} \
---steps 7 \
+--steps 8 \
 --dgelist T
 ```
 
@@ -163,7 +163,7 @@ B) DGE contrasts
 In this step, one can run the contrast on clustered result, which can be done on genotype and genotype-cell. 
 
 #### genotype 
-There is a file ${SCRNABOX_PWD}/job_output/step8_contrast_main.txt, with columns of cont_name,control,ex_control,all, you can write the genotype contrast here, then select `--genotype T` to run the genotype contrast. 
+There is a file ${SCRNABOX_PWD}/job_output/parameters/step8_contrast_main.txt, with columns of cont_name,control,ex_control,all, you can write the genotype contrast here, then select `--genotype T` to run the genotype contrast. 
 ```
 sh $SCRNABOX_HOME/launch_pipeline.scrnabox.sh \
 -d ${SCRNABOX_PWD} \
@@ -172,7 +172,7 @@ sh $SCRNABOX_HOME/launch_pipeline.scrnabox.sh \
 ```
 
 #### genotype-cell
-To run interact between celltype and genptype, write your contrast in `${SCRNABOX_PWD}/job_output/step8_contrast_inte.txt`. To run Step 8 on interact contrast, run the following command. Select `-celltype T` to run the main contrast. 
+To run interact between celltype and genptype, write your contrast in `${SCRNABOX_PWD}/job_output/parameters/step8_contrast_inte.txt`. To run Step 8 on interact contrast, run the following command. Select `-celltype T` to run the main contrast. 
 ```
 sh $SCRNABOX_HOME/launch_pipeline.scrnabox.sh \
 -d ${SCRNABOX_PWD} \
@@ -185,7 +185,7 @@ You can directly call the contrast to the pipeline,
 CONTINT=~/des/step7_contrast_inte.txt
 sh $SCRNABOX_HOME/launch_pipeline.scrnabox.sh \
 -d ${SCRNABOX_PWD} \
---steps 7 \
+--steps 8 \
 --celltype T \
 --cont ${CONTINT}
 ```
@@ -194,7 +194,7 @@ sh $SCRNABOX_HOME/launch_pipeline.scrnabox.sh \
 CONTMAIN=~/des/step7_contrast_main.txt
 sh $SCRNABOX_HOME/launch_pipeline.scrnabox.sh \
 -d ${SCRNABOX_PWD} \
---steps 7 \
+--steps 8 \
 --genotype T \
 --cont ${CONTMAIN}
 ```

@@ -40,7 +40,7 @@ sh $SCRNABOX_HOME/launch_pipeline.scrnabox.sh \
 -d ${SCRNABOX_PWD} \
 --steps 0 
 ```
-The pipeline creates `./job_output/scrnabox.config.ini` (include the configure arguments) and `./job_output/expected.done.files.txt` (recorder the done steps). 
+The pipeline creates files\folders under `${SCRNABOX_PWD}`: `./job_output/configs/scrnabox.config.ini` (include the configure arguments),  `./job_output/expected.done.files.txt` (recorder the done steps), `./job_output/logs` (submitted job would save under this folder), `./job_output/parameters/` (include the arguments and parameter that would use in running job, you can change them). 
 
 ### Step 1: cellranger
 This step runs cellranger and save the results under `${SCRNABOX_PWD}/step1`. Since cellranger run UI as well, run this step in a `screen`. 
@@ -84,7 +84,7 @@ sh $SCRNABOX_HOME/launch_pipeline.scrnabox.sh \
 --msd T 
 ```
 
-Add the old label and its new corresponding label in '${SCRNABOX_PWD}/job_output/step4_par.txt'. Run the following to run the demuplixing  
+Add the old label and its new corresponding label in '${SCRNABOX_PWD}/job_output/parameters/step4_par.txt'. Run the following to run the demuplixing  
 
 ```
 sh $SCRNABOX_HOME/launch_pipeline.scrnabox.sh \
@@ -93,7 +93,7 @@ sh $SCRNABOX_HOME/launch_pipeline.scrnabox.sh \
 ```
 
 ### Step 5: Integration 
-This step can be done with\without removing the 'Doublet', 'Negative'; the defalut is to remove them, if you want to keep them, just change 'yes' to 'no' in '${SCRNABOX_PWD}/job_output/step5_par.txt'. 
+This step can be done with\without removing the 'Doublet', 'Negative'; the defalut is to remove them, if you want to keep them, just change 'yes' to 'no' in '${SCRNABOX_PWD}/job_output/parameters/step5_par.txt'. 
 
 ```
 sh $SCRNABOX_HOME/launch_pipeline.scrnabox.sh \

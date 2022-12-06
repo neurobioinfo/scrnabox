@@ -116,7 +116,7 @@ Finds markers (differentially expressed genes) for each of cluster
 ```
 sh $SCRNABOX_HOME/launch_pipeline.scrnabox.sh \
 -d ${SCRNABOX_PWD} \
---steps 7
+--steps 7 \
 --marker T
 ```
 
@@ -125,7 +125,7 @@ Find a set of anchors between a reference and query object and add it to query o
 ```
 sh $SCRNABOX_HOME/launch_pipeline.scrnabox.sh \
 -d ${SCRNABOX_PWD} \
---steps 7 
+--steps 7 \
 --fta T
 ```
 

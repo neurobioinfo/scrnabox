@@ -57,7 +57,7 @@ Every release is documented on the [GitHub Releases page](https://github.com/neu
 This project is licensed under the MIT License - see the [LICENSE.md](https://github.com/neurobioinfo/scrnabox/blob/main/LICENSE) file for details
 ## Acknowledgement
 
-The pipeline is done as part Dark Genome project, it is written by Saeid Amiri](https://github.com/saeidamiri1) with associate of Rhalena Thomas and  Roxanne Larivière. 
+The pipeline is done as part Dark Genome project, it is written by [Saeid Amiri](https://github.com/saeidamiri1) with associate of Rhalena Thomas and  Roxanne Larivière. 
 
 ## Todo
 - Add nba to pipeline

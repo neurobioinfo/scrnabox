@@ -22,6 +22,7 @@ comments: false
   - [Step 6: Clustering](#step-6-clustering)   
   - [step 7: Celltype annotation](#step-7-celltype-annotation)    
   - [step 8: DEG contrast](#step-8-DEG-contrast)     
+- [Combinaning seurat objects](#combinaning-seurat-objects)  
 - [Multiple steps](#)  
 - [References](#references)
 
@@ -200,6 +201,18 @@ sh $SCRNABOX_HOME/launch_pipeline.scrnabox.sh \
 ```
 
 Note: If you have many contrasts, it is better to split them and submit differently.  
+
+## Combinaning seurat objects
+In order to combining the serurat obsetc use the following codes
+```
+CONTINT2=/home/samamiri/NB043_dge/comm/Dark_Genome/analysis_DarkGenome6weeks_test/ADDSEU0/seu_int.rds
+CONTINT1=/home/samamiri/NB043_dge/comm/Dark_Genome/analysis_DarkGenome6weeks_test/ADDSEU0/seu.int.c.rds
+sh $SCRNABOX_HOME/launch_pipeline.scrnabox.sh \
+-d ${SCRNABOX_PWD} \
+--steps  addseu \
+--seu1 ${CONTINT1} \
+--seu2 ${CONTINT2}
+```
 
 
 ------------------------------------

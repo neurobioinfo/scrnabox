@@ -23,7 +23,6 @@ comments: false
   - [step 7: Celltype annotation](#step-7-celltype-annotation)    
   - [step 8: DEG contrast](#step-8-DEG-contrast)     
 - [Combinaning seurat objects](#combinaning-seurat-objects)  
-- [Multiple steps](#)  
 - [References](#references)
 
 ## Introduction 

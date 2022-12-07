@@ -213,6 +213,8 @@ sh $SCRNABOX_HOME/launch_pipeline.scrnabox.sh \
 --seu2 ${CONTINT2}
 ```
 
+The integrated seurat object `seu_inetgrated.rds` would save under working directory. 
+
 
 ------------------------------------
 <!-- This is commented out.

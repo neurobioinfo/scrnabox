@@ -32,7 +32,7 @@ Ongoing
 -----------
 
 ## scrnabox.svn
-`scrnabox.svn` is a pipeline developed to run step 1 to step 7 under HPC system, the pipeline has been using under [Beluga](https://docs.alliancecan.ca/wiki/B%C3%A9luga), the detail of how to use it is discussed in [scrnabox.svn](https://github.com/neurobioinfo/scrnabox/tree/main/scrnabox.svn)
+`scrnabox.svn` is a pipeline developed to run step 1 to step 8 under HPC system, the pipeline has been using under [Beluga](https://docs.alliancecan.ca/wiki/B%C3%A9luga), the detail of how to use it is discussed in [scrnabox.svn](https://github.com/neurobioinfo/scrnabox/tree/main/scrnabox.svn). 
 
 ## scrnaboxR
 This R package includes some functions to the enrichment analysis. This library can be installed using the following script. 
@@ -48,9 +48,6 @@ To analyze DGE look at [Practice](https://github.com/neurobioinfo/scrnabox/blob/
 
 ## Contributing
 This is an early version, any contribute or suggestion is appreciated, you can directly contact with [Saeid Amiri](https://github.com/saeidamiri1) or [Rhalena Thomas](https://github.com/RhalenaThomas). 
-
-## Citation
-Amiri, S., Thomas, R., & Larivière, R. (2022). scrnabox: A pipeline for scRNA (Version 0.1.3) [Computer software]. https://github.com/neurobioinfo/scrnabox
 
 ## Changelog
 Every release is documented on the [GitHub Releases page](https://github.com/neurobioinfo/scrnabox/releases).

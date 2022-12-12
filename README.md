@@ -1,4 +1,4 @@
-# scrnabox: A pipeline for scRNA 
+# scrnabox: A pipeline for scRNA analysis under HPC  
 This repository includes
 
 ## Contents
@@ -14,7 +14,7 @@ The following figure shows the steps to analyze the hashtag scRNA
 
 ![hashtag](https://raw.githubusercontent.com/neurobioinfo/scrnabox/main/hashtag.png)
 
-- Step 1, cellranger:  this step runs cellranger on the single cell data. 
+- Step 1, cellranger: this step runs cellranger on the single cell data. 
 - Step 2, Seurat object: this step runs seurat on feature-barcode matrices obtained from step 1 to generate seurat object for each sample.  Seurat's object includes a lot of information; SeuratObject@meta.data will return the data frame and relevant information on each cell. 
 - Step 3, QC and filter: Seurat object includes some quality measure that can be used to filter cell and genes against possible doublets, we often use the total UMI counts per cell (nCount_RNA), the total number of detected features per cell (nFeature_RNA), and mitochondrial count (percent.mito). 
 - Step 4, demuplixing: It process where use the barcode information in order to know which sequences came from which samples after they had all be sequenced together. Pipline has option to remove the doublets and negative cells as this step. 
@@ -24,7 +24,7 @@ The following figure shows the steps to analyze the hashtag scRNA
 - step 8, Differetial gene expression (DEG): DEG can be done in different ways, here we run the function FindAllMarkers to compute a ranking for the highly differential genes in each cluster which determines the genes differentially expressed between each cluster and the rest of the cells. Then define contrast to run statistical tests to study the phenotype and genotypes. 
 - step 9, Enrichment analysis: in this step, we obtain list of significant genes using enrichment methods.  
 
-The step 1 - Step 8 can be done using [scrnabox.svn](https://github.com/neurobioinfo/scrnabox/tree/main/scrnabox.svn), the step 9 should can done using scrnaboxR, see [Practice](https://github.com/neurobioinfo/scrnabox/blob/main/scrnaboxrmd/practice.md). 
+The step 1 - Step 8 can be done using [scrnabox.svn](https://github.com/neurobioinfo/scrnabox/tree/main/scrnabox.svn), the step 9 can done using scrnaboxR, see [Practice](https://github.com/neurobioinfo/scrnabox/blob/main/scrnaboxrmd/practice.md). 
 
 #### Non-hashtaq
 Ongoing 

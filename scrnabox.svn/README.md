@@ -2,7 +2,7 @@
 layout: post
 title: Steps of scRNA hashtags pipline
 description: A short introduction to scRNA hashtags pipline
-date: 2022-12-07
+date: 2022-12-12
 author: Saeid Amiri
 published: true
 tags: scRNA 
@@ -26,20 +26,25 @@ comments: false
 - [References](#references)
 
 ## Introduction 
-scrnabox.svn is an open-source pipeline for scRNA. In order to run the pipeline, first create a folder to do the analysis and export the pipeline
+scrnabox.svn is an open-source pipeline for scRNA analysis that includes a job scheduler for HPC system.  
+
+### Setup
+In order to run the pipeline, first create a folder to do the analysis and export the pipeline
+
 ```
 mkdir -p  ~/scratch/des
 export SCRNABOX_HOME=~/scrnabox.svn
 export SCRNABOX_PWD=~/scratch/des
 ```
 
-### Setup
 Once its 'SCRNABOX_PWD' is defined, you need to create a folder entitled `samples_info` and write samples's `library.csv` and `features_ref.csv`. Then run the following code to setup pipelione, 
+
 ```
 sh $SCRNABOX_HOME/launch_pipeline.scrnabox.sh \
 -d ${SCRNABOX_PWD} \
 --steps 0 
 ```
+
 The pipeline creates files\folders under `${SCRNABOX_PWD}`: `./job_output/configs/scrnabox.config.ini` (include the configure arguments),  `./job_output/expected.done.files.txt` (recorder the done steps), `./job_output/logs` (submitted job would save under this folder), `./job_output/parameters/` (include the arguments and parameter that would use in running job, you can change them). 
 
 ### Step 1: cellranger
@@ -53,12 +58,12 @@ sh $SCRNABOX_HOME/launch_pipeline.scrnabox.sh \
 
 ### Step 2: Seurat object 
 This step creates seurat's objects and save results under `${SCRNABOX_PWD}/step2`
+
 ```
 sh $SCRNABOX_HOME/launch_pipeline.scrnabox.sh \
 -d ${SCRNABOX_PWD} \
 --steps 2
 ```
-
 
 ### Step 3: QC and filter
 This step run QC and save the results under `${SCRNABOX_PWD}/step3`. The following code filter with these criteria: `nFeature_RNA > 300 & nCount_RNA < 6500 & percent.mt < 25`.  
@@ -77,6 +82,7 @@ sh $SCRNABOX_HOME/launch_pipeline.scrnabox.sh \
 
 ### Step 4: Demuplixing 
 In this step, you need to choose the right label (for the hashtags), you can get the hashtag labels by running the following code 
+
 ```
 sh $SCRNABOX_HOME/launch_pipeline.scrnabox.sh \
 -d ${SCRNABOX_PWD} \
@@ -101,7 +107,6 @@ sh $SCRNABOX_HOME/launch_pipeline.scrnabox.sh \
 --steps 5 
 ```
 
-
 ### Step 6: Clustering 
 ```
 sh $SCRNABOX_HOME/launch_pipeline.scrnabox.sh \
@@ -113,6 +118,7 @@ sh $SCRNABOX_HOME/launch_pipeline.scrnabox.sh \
 In This step, you should find the cluster annotation to use in the Step 8. 
 #### Marker 
 Finds markers (differentially expressed genes) for each of cluster
+
 ```
 sh $SCRNABOX_HOME/launch_pipeline.scrnabox.sh \
 -d ${SCRNABOX_PWD} \
@@ -130,7 +136,7 @@ sh $SCRNABOX_HOME/launch_pipeline.scrnabox.sh \
 ```
 
 #### EnrichR
-You can not run enrichR on HPC, because it does not connect to the internet when you submit jobs, so you should run it locally; first copy it to your PC, 
+Since most of HPC can not connect to the internet when the job is submitted, so you should run enrichR locally; first copy it to your PC, 
 ```
 scp -r usrid@beluga.computecanada.ca:${SCRNABOX_PWD}/step6 ~/Desktop/annot/
 ```
@@ -139,7 +145,7 @@ Then run the following codes
 ```
 level_cluster='integrated_snn_res.0.7'
 PWD='~/Desktop/annot/'
-PSUE='~/Desktop/annot/step6/objs/seu_int_clu.rds'
+PSUE='~/Desktop/annot/step6/objs/seu_step6.rds'
 top_sel=5
 db <- c('Descartes_Cell_Types_and_Tissue_2021','CellMarker_Augmented_2021','Azimuth_Cell_Types_2021')
 scrnaboxR::annotation(level_cluster,PWD,PSUE,top_sel,db)

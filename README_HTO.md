@@ -64,19 +64,18 @@ sh $SCRNABOX_HOME/launch_pipeline.scrnabox.sh \
 ```
 
 ### Step 3: QC and filter
-This step run QC and save the results under `${SCRNABOX_PWD}/step3`. The following code filter with these criteria: `nFeature_RNA > 300 & nCount_RNA < 6500 & percent.mt < 25`.  
-- nFeatures_RNA is the number of unique RNA transcripts for each cell.  If less than 300 we remove these cells as they might be debris or dead cells.
-- Sometimes cells with too many RNA transcripts are doublets or multiplets, i.e., two or more cells in the same droplet are sharing the same cell barcode.  It is better to use nCount_RNA (the number of detected transcripts) to remove doublets. 
-- Cells with a high amount of mitochondrial transcript compared to total RNA transcripts might be dead or dying and can add noise to the data making a clustering performance poor. We remove cells setting a default threshold of 25% (which is very high)
+This step run QC and save the results under `${SCRNABOX_PWD}/step3`. The following code filters the data with these criteria: `nFeature_RNA > 300 & nCount_RNA < 6500 & percent.mt < 25`.  
+- nFeatures_RNA is the number of unique RNA transcripts for each cell.  If less than 300 we remove these cells as they might be debris or dead cells.  `--nFRNAL` and `--nFRNAU` are the upper and lower thresholds for nFeatures_RNA, respectively.
+- Sometimes cells with too many RNA transcripts are dublexs.  It is better to us nCount_RNA to remove dublets. `nCRNAL` and `nCRNAU` are  the upper and lower threshold  for nCount_RNA, respectively. 
+- Cells with a high amount of mitochondrial transcript compared to total RNA transcripts might be dead or dying and can add noise to the data making a clustering performance poor. We remove cells setting a default threshold of 25% (which is very high), `--pmtU` is the upper threshold  for the amount of mitochondrial transcript. 
 ```
 sh $SCRNABOX_HOME/launch_pipeline.scrnabox.sh \
 -d ${SCRNABOX_PWD} \
 --steps 3 \
---nFRNA 300 \
---nCRNA 6500 \
---pmt 25
+--nFRNAL 300 \
+--nCRNAU 6500 \
+--pmtU 25
 ```
-
 ### Step 4: Demuplixing
 If you are using hashtag, you need to choose the right label (for the hashtags), you can get the hashtag labels by running the following code 
 ```
@@ -219,19 +218,17 @@ sh $SCRNABOX_HOME/launch_pipeline.scrnabox.sh \
 Note: If you have many contrasts, it is better to split them and submit batch jobs.
 
 ## Integrating seurat objects
-To combine different serurat objects, you can the following codes. 
+To combine different seurat objects, you can run the following codes. 
 ```
-CONTINT2=/home/samamiri/NB043_dge/comm/Dark_Genome/analysis_DarkGenome6weeks_test/ADDSEU0/seu_int.rds
-CONTINT1=/home/samamiri/NB043_dge/comm/Dark_Genome/analysis_DarkGenome6weeks_test/ADDSEU0/seu.int.c.rds
+LISTOFSEU=~/list.txt
+
 sh $SCRNABOX_HOME/launch_pipeline.scrnabox.sh \
 -d ${SCRNABOX_PWD} \
---steps  addseu \
---seu1 ${CONTINT1} \
---seu2 ${CONTINT2}
+--steps  integrate \
+--seulist ${LISTOFSEU} \
 ```
 
-By default, the pipeline standardize the seurat objects
-before integrating, you can change the default in `${SCRNABOX_PWD}/job_output/parameters/step_addseu_par.txt`. The integrated seurat object `seu_inetgrated.rds` would save under working directory. 
+LISTOFSEU includes the path of seurate files, put them in different lines. By default, the pipeline standardize the seurat objects before integrating, you can change the default in `${SCRNABOX_PWD}/job_output/parameters/stepint_par.txt`.
 
 ------------------------------------
 <!-- This is commented out.

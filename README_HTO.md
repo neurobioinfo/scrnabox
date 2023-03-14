@@ -92,10 +92,9 @@ sh $SCRNABOX_HOME/launch_pipeline.scrnabox.sh \
 --steps 4 
 ```
 
-This step can be used to remove the 'Doublet'; the defalut is to remove it, if you want to keep them, just change 'yes' to 'no' in '${SCRNABOX_PWD}/job_output/parameters/step4_par.txt'. 
+This step can be used to remove the 'Doublet'; the default is to remove the doublet, if you want to keep them, just change 'yes' to 'no' in '${SCRNABOX_PWD}/job_output/parameters/step4_par.txt'. 
 
 ### Step 5: Integration 
-
 ```
 sh $SCRNABOX_HOME/launch_pipeline.scrnabox.sh \
 -d ${SCRNABOX_PWD} \

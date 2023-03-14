@@ -61,10 +61,10 @@ devtools::install_github("neurobioinfo/scrnabox/scrnaboxR")
 ```
 
 ## Processed Data
-The pipeline can be used on the [processed data](https://github.com/neurobioinfo/scrnabox/blob/main/README_PROC.md), i.e., you can bring data from different project and skip the proposed steps in the analysis data. 
+The pipeline can be used to work with the [processed data](https://github.com/neurobioinfo/scrnabox/blob/main/README_PROC.md), i.e., you can bring data from different project and skip the proposed steps in the analysis data. 
 
 ## Tutorial
-To analyze DGE look at [Practice](https://github.com/neurobioinfo/scrnabox/blob/main/tutorial/practice.md)
+To analyze DGE look at [Practice](https://github.com/neurobioinfo/scrnabox/blob/main/tutorial/practice.md). 
 
 ## References
 - Stuart, T., Butler, A., Hoffman, P., Hafemeister, C., Papalexi, E., Mauck III, W. M., ... & Satija, R. (2019). Comprehensive integration of single-cell data. Cell, 177(7), 1888-1902.
@@ -80,5 +80,4 @@ This project is licensed under the MIT License - see the [LICENSE.md](https://gi
 The pipeline is done as part Dark Genome project, it is written by [Saeid Amiri](https://github.com/saeidamiri1) with associate of Rhalena Thomas and  Roxanne Larivière. 
 
 ## Todo
-- Add nba to pipeline
 **[⬆ back to top](#contents)**

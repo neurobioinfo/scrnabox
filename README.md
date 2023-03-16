@@ -36,7 +36,7 @@ The Step 1 - Step 8 can be done using [scrnabox.slurm](https://github.com/neurob
 - step 9, Enrichment analysis: in this step, we obtain a list of significant genes using enrichment methods. The step 9 can be done using scrnaboxR, see [Practice](https://github.com/neurobioinfo/scrnabox/blob/main/tutorial/practice.md).
 
 
-#### [Cell Hashtags](https://github.com/neurobioinfo/scrnabox/tree/main/scrnabox.s/README_HTO.md)
+#### [Cell Hashtags](https://github.com/neurobioinfo/scrnabox/tree/main/README_HTO.md)
 The following steps explain how to analyze the  Hashtag oligonucleotide (henceforth referred to as HTO)
 - Step 1, cellranger: this step runs cellranger on the single cell data.
 - Step 2, Seurat object: this step runs seurat on feature-barcode matrices obtained from step 1 to generate seurat object for each sample. Seurat's object includes a lot of information; SeuratObject@meta.data will return the data frame and relevant information on each cell.

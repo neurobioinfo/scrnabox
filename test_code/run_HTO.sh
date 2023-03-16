@@ -16,12 +16,13 @@ sh $SCRNABOX_HOME/launch_pipeline.scrnabox.sh \
 -d ${SCRNABOX_PWD} \
 --steps 2
 
+
 sh $SCRNABOX_HOME/launch_pipeline.scrnabox.sh \
 -d ${SCRNABOX_PWD} \
 --steps 3 \
---nFRNA 300 \
---nCRNA 21000 \
---pmt 15
+--nFRNAL 300 \
+--nCRNAU 6500 \
+--pmtU 25
 
 
 sh $SCRNABOX_HOME/launch_pipeline.scrnabox.sh \

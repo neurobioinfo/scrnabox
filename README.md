@@ -51,16 +51,16 @@ The Step 1 - Step 8 can be done using [scrnabox.slurm](https://github.com/neurob
 - step 9, Enrichment analysis: in this step, we obtain a list of significant genes using enrichment methods. The step 9 can be done using scrnaboxR, see [Practice](https://github.com/neurobioinfo/scrnabox/blob/main/tutorial/practice.md).
 
 
-## scrnabox.slurm
+## [scrnabox.slurm](https://github.com/neurobioinfo/scrnabox/tree/main/scrnabox.slurm)
 `scrnabox.slurm` is a pipeline developed to run step 1 to step 8 under HPC system ([slurm work load manager system](https://slurm.schedmd.com/)), the pipeline has been using under [Beluga](https://docs.alliancecan.ca/wiki/B%C3%A9luga), the detail of how to use it is discussed in [scrnabox.slurm](https://github.com/neurobioinfo/scrnabox/tree/main/scrnabox.slurm). 
 
-## scrnaboxR
+## [scrnaboxR](https://github.com/neurobioinfo/scrnabox/tree/main/scrnaboxR)
 The `scrnaboxR` is a R package of some functions to run the enrichment analysis and other analysis. This library can be installed using the following script. 
 ```
 devtools::install_github("neurobioinfo/scrnabox/scrnaboxR")
 ```
 
-## Processed Data
+## [Processed Data](https://github.com/neurobioinfo/scrnabox/blob/main/README_PROC.md)
 The pipeline can be used to work with the [processed data](https://github.com/neurobioinfo/scrnabox/blob/main/README_PROC.md), i.e., you can bring data from different project and skip the proposed steps in the analysis data. 
 
 ## Tutorial

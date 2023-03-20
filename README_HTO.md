@@ -17,7 +17,7 @@ comments: false
   - [Step 1: cellranger](#step-1-cellranger)
   - [Step 2: Seurat object](#step-2-seurat-object)  
   - [Step 3: QC and filter](#step-3-qc-and-filter)
-  - [Step 4: demuplixing\non-demuplexing](#step-4-demuplixing\nondemuplexing)
+  - [Step 4: demuplixing](#step-4-demuplixing)
   - [Step 5: integration](#step-5-integration)
   - [Step 6: Clustering](#step-6-clustering)   
   - [step 7: Celltype annotation](#step-7-celltype-annotation)    

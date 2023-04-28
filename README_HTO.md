@@ -70,9 +70,9 @@ sh $SCRNABOX_HOME/launch_pipeline.scrnabox.sh \
 For this step we may want to include an option to output a .csv unfiltered expression matrix  
 
 |  | Gene X | Gene y |
-| ------------- | ------------- | ------------- |
-| Cell 1  | Counts  | Counts  |
-| Cell 2  | Counts  | Counts  |
+| - | - | - |
+| Cell 1 | Counts | Counts |
+| Cell 2 | Counts | Counts |
 
 
 ### Step 3: QC and filter

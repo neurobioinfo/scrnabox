@@ -69,7 +69,7 @@ sh $SCRNABOX_HOME/launch_pipeline.scrnabox.sh \
 **To-do**  
 For this step we may want to include an option to output a .csv unfiltered expression matrix  
 
-| First Header  | Second Header |
+|  | Second Header |
 | ------------- | ------------- |
 | Content Cell  | Content Cell  |
 | Content Cell  | Content Cell  |

@@ -225,7 +225,7 @@ scrnaboxR::annotation(level_cluster,PWD,PSUE,top_sel,db)
 This step runs the Differetial gene expression (DEG); first add the labels obtained from Step 7 to `/job_info/parameters/step8_ clus_label.txt`. 
 
 **To-do**  
--we must makesure that the input format is clear to the user (comma-delimited; dopaminergic,dopaminergic,other)
+-we must makesure that the input format is clear to the user (comma-delimited; ex: dopaminergic,dopaminergic,other)
  
 #### DGEList
 This step creates a DGEListobject from a table of counts obtained from seurate objects. It need alot of RAM, we suggest 3*size(seu_int_clu.rds)

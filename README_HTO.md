@@ -91,9 +91,16 @@ sh $SCRNABOX_HOME/launch_pipeline.scrnabox.sh \
 ```
 
 **To-do**  
--We should consider renaming the options for features and counts  
-  -Feature: nfeatures_U, nfeatures_L  
-  -Counts: ncounts_U, ncounts_L  
+1. We should consider renaming the options for features and counts  
+-Feature: nfeatures_U, nfeatures_L  
+-Counts: ncounts_U, ncounts_L  
+2. For this step we may want to include an option to output a .csv filtered expression matrix  
+
+|  | Gene X | Gene y |
+| - | - | - |
+| Cell 1 | Counts | Counts |
+| Cell 2 | Counts | Counts |
+| Cell n | Counts | Counts |
 
 
 ### Step 4: Demuplixing

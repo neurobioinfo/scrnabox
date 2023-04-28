@@ -157,6 +157,16 @@ sh $SCRNABOX_HOME/launch_pipeline.scrnabox.sh \
 --steps 6 
 ```
 
+**To-do**  
+1. One of the outputs is **mata_info.csv** we should change this to **meta_info.csv**  
+2. For this step we may want to include an option to output a .csv expression matrix for the integrated assay that shows cluster information 
+
+|  | Run ID | Phenotype | Cluster | Gene X | Gene y |
+| - | - | - | - | - | - |
+| Cell 1 | 1 | Case | 1 | Counts | Counts |
+| Cell 2 | 1 | Case | 1 | Counts | Counts |
+| Cell n | 2 | Control | 1 | Counts | Counts |
+
 ### step 7: Cluster annotation
 In This step, you should find the cluster annotation to use in the Step 8. 
 #### Marker 

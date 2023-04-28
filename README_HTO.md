@@ -73,6 +73,7 @@ For this step we may want to include an option to output a .csv unfiltered expre
 | - | - | - |
 | Cell 1 | Counts | Counts |
 | Cell 2 | Counts | Counts |
+| Cell n | Counts | Counts |
 
 
 ### Step 3: QC and filter
@@ -88,6 +89,13 @@ sh $SCRNABOX_HOME/launch_pipeline.scrnabox.sh \
 --nCRNAU 6500 \
 --pmtU 25
 ```
+
+**To-do**  
+-We should consider renaming the options for features and counts  
+  -Feature: nfeatures_U, nfeatures_L  
+  -Counts: ncounts_U, ncounts_L  
+
+
 ### Step 4: Demuplixing
 If you are using hashtag, you need to choose the right label (for the hashtags), you can get the hashtag labels by running the following code 
 ```

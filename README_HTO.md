@@ -103,7 +103,7 @@ sh $SCRNABOX_HOME/launch_pipeline.scrnabox.sh \
 | Cell n | Counts | Counts |
 
 
-### Step 4: Demuplixing
+### Step 4: Demultiplexing
 If you are using hashtag, you need to choose the right label (for the hashtags), you can get the hashtag labels by running the following code 
 ```
 sh $SCRNABOX_HOME/launch_pipeline.scrnabox.sh \

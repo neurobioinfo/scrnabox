@@ -46,7 +46,7 @@ sh $SCRNABOX_HOME/launch_pipeline.scrnabox.sh \
 
 The pipeline creates few files\folders under `${SCRNABOX_PWD}`: `./job_output/configs/scrnabox.config.ini` (include the configure arguments),  `./job_output/expected.done.files.txt` (recorder the done steps), `./job_output/logs` (submitted job would save under this folder), `./job_output/parameters/` (include the arguments and parameter that would use in running job, you can change them). 
 
-To-do  
+**To-do**  
 -We must make it clear how to prepare library.csv and features_ref.csv
 
 ### Step 1: cellranger

@@ -165,7 +165,7 @@ sh $SCRNABOX_HOME/launch_pipeline.scrnabox.sh \
 | - | - | - | - | - | - |
 | Cell 1 | 1 | Case | 1 | Counts | Counts |
 | Cell 2 | 1 | Case | 1 | Counts | Counts |
-| Cell n | 2 | Control | 1 | Counts | Counts |
+| Cell n | 2 | Control | 1 | Counts | Counts | 
 
 ### step 7: Cluster annotation
 In This step, you should find the cluster annotation to use in the Step 8. 

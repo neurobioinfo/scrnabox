@@ -139,6 +139,17 @@ sh $SCRNABOX_HOME/launch_pipeline.scrnabox.sh \
 --steps 5 
 ```
 
+**To-do**  
+1. One of the outputs is **mata_info.csv** we should change this to **meta_info.csv**  
+2. For this step we may want to include an option to output a .csv expression matrix for the integrated assay  
+
+|  | Run ID | Gene X | Gene y |
+| - | - | - | -|
+| Cell 1 | 1 | Counts | Counts |
+| Cell 2 | 1 | Counts | Counts |
+| Cell n | 2 | Counts | Counts |
+
+
 ### Step 6: Clustering 
 ```
 sh $SCRNABOX_HOME/launch_pipeline.scrnabox.sh \

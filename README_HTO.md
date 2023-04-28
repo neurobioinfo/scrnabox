@@ -121,6 +121,17 @@ sh $SCRNABOX_HOME/launch_pipeline.scrnabox.sh \
 
 This step can be used to remove the 'Doublet'; the default is to remove the doublet, if you want to keep them, just change 'yes' to 'no' in '${SCRNABOX_PWD}/job_output/parameters/step4_par.txt'. 
 
+**To-do**  
+1. We need to justify why we are using the DoubletFinder tool as opposed to other doublet detecting tools  
+-we will have to decide as a group how we want to proceed with doublet removal. We can i) justify DoubletFinder ii) Determine which doublet tool is the best from the literature iii) Incorporate multiple doublet tools into the pipeline and let the user choose which tool they'd like to use.  
+2. For this step we may want to include an option to output a .csv filtered expression matrix that now contains the original hashtag label.    
+
+|  | Gene X | Gene y |
+| - | - | - |
+| Cell 1 | Counts | Counts |
+| Cell 2 | Counts | Counts |
+| Cell n | Counts | Counts |
+
 ### Step 5: Integration 
 ```
 sh $SCRNABOX_HOME/launch_pipeline.scrnabox.sh \

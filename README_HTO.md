@@ -66,6 +66,10 @@ sh $SCRNABOX_HOME/launch_pipeline.scrnabox.sh \
 --steps 2
 ```
 
+**To-do**  
+-For this step we may want to include an option to output a .csv unfiltered expression matrix
+
+
 ### Step 3: QC and filter
 This step run QC and save the results under `${SCRNABOX_PWD}/step3`. The following code filters the data with these criteria: `nFeature_RNA > 300 & nCount_RNA < 6500 & percent.mt < 25`.  
 - nFeatures_RNA is the number of unique RNA transcripts for each cell.  If less than 300 we remove these cells as they might be debris or dead cells.  `--nFRNAL` and `--nFRNAU` are the upper and lower thresholds for nFeatures_RNA, respectively.

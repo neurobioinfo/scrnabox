@@ -70,7 +70,7 @@ sh $SCRNABOX_HOME/launch_pipeline.scrnabox.sh \
 For this step we may want to include an option to output a .csv unfiltered expression matrix  
 
 ---
-Barcode: cell 1, cell 2
+Barcode: cell 1
 title: Steps of analyzing HTO via scrnabox pipeline
 description: A short introduction to  Hashtag oligonucleotide analyzing using scrnabox pipeline
 date: 2022-03-07

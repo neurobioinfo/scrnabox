@@ -36,7 +36,7 @@ export SCRNABOX_HOME=~/scrnabox.slurm
 export SCRNABOX_PWD=~/scratch/des
 ```
 
-Once its 'SCRNABOX_PWD' is defined, you need to create a folder entitled `samples_info` and write samples's `library.csv` and `features_ref.csv`. Then run the following code to setup pipeline, 
+Once its 'SCRNABOX_PWD' is defined, you need to create a folder entitled `samples_info` and write samples's `library.csv` and `features_ref.csv`, an example of writting the files  can be found in ![link](https://github.com/neurobioinfo/scrnabox/tree/main/test_code/LaunchSampleHTO). Then run the following code to setup pipeline, 
 
 ```
 sh $SCRNABOX_HOME/launch_pipeline.scrnabox.sh \

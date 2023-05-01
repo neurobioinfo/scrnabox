@@ -66,7 +66,7 @@ sh $SCRNABOX_HOME/launch_pipeline.scrnabox.sh \
 -d ${SCRNABOX_PWD} \
 --steps 2
 ```
-
+<!--
 **To-do**  
 For this step we may want to include an option to output a .csv unfiltered expression matrix  
 
@@ -75,7 +75,7 @@ For this step we may want to include an option to output a .csv unfiltered expre
 | Cell 1 | Counts | Counts |
 | Cell 2 | Counts | Counts |
 | Cell n | Counts | Counts |
-
+-->
 
 ### Step 3: QC and filter
 This step run QC and save the results under `${SCRNABOX_PWD}/step3`. The following code filters the data with these criteria: `nFeature_RNA > 300 & nCount_RNA < 6500 & percent.mt < 25`.  

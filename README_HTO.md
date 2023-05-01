@@ -90,7 +90,7 @@ sh $SCRNABOX_HOME/launch_pipeline.scrnabox.sh \
 --nCRNAU 6500 \
 --pmtU 25
 ```
-
+<!--
 **To-do**  
 1. We should consider renaming the options for features and counts  
 -Feature: nfeatures_U, nfeatures_L  
@@ -102,7 +102,7 @@ sh $SCRNABOX_HOME/launch_pipeline.scrnabox.sh \
 | Cell 1 | Counts | Counts |
 | Cell 2 | Counts | Counts |
 | Cell n | Counts | Counts |
-
+-->
 
 ### Step 4: Demultiplexing
 If you are using hashtag, you need to choose the right label (for the hashtags), you can get the hashtag labels by running the following code 
@@ -122,6 +122,7 @@ sh $SCRNABOX_HOME/launch_pipeline.scrnabox.sh \
 
 This step can be used to remove the 'Doublet'; the default is to remove the doublet, if you want to keep them, just change 'yes' to 'no' in '${SCRNABOX_PWD}/job_output/parameters/step4_par.txt'. 
 
+<!--
 **To-do**  
 1. We need to justify why we are using the DoubletFinder tool as opposed to other doublet detecting tools  
 -we will have to decide as a group how we want to proceed with doublet removal. We can i) justify DoubletFinder ii) Determine which doublet tool is the best from the literature iii) Incorporate multiple doublet tools into the pipeline and let the user choose which tool they'd like to use.  
@@ -132,6 +133,7 @@ This step can be used to remove the 'Doublet'; the default is to remove the doub
 | Cell 1 | Counts | Counts |
 | Cell 2 | Counts | Counts |
 | Cell n | Counts | Counts |
+-->
 
 ### Step 5: Integration 
 ```
@@ -139,7 +141,7 @@ sh $SCRNABOX_HOME/launch_pipeline.scrnabox.sh \
 -d ${SCRNABOX_PWD} \
 --steps 5 
 ```
-
+<!--
 **To-do**  
 1. One of the outputs is **mata_info.csv** we should change this to **meta_info.csv**  
 2. For this step we may want to include an option to output a .csv expression matrix for the integrated assay  
@@ -149,7 +151,7 @@ sh $SCRNABOX_HOME/launch_pipeline.scrnabox.sh \
 | Cell 1 | 1 | Counts | Counts |
 | Cell 2 | 1 | Counts | Counts |
 | Cell n | 2 | Counts | Counts |
-
+-->
 
 ### Step 6: Clustering 
 ```
@@ -158,6 +160,7 @@ sh $SCRNABOX_HOME/launch_pipeline.scrnabox.sh \
 --steps 6 
 ```
 
+<!--
 **To-do**  
 1. One of the outputs is **mata_info.csv** we should change this to **meta_info.csv**  
 2. For this step we may want to include an option to output a .csv expression matrix for the integrated assay that shows cluster information 
@@ -167,6 +170,7 @@ sh $SCRNABOX_HOME/launch_pipeline.scrnabox.sh \
 | Cell 1 | 1 | Case | 1 | Counts | Counts |
 | Cell 2 | 1 | Case | 1 | Counts | Counts |
 | Cell n | 2 | Control | 1 | Counts | Counts | 
+-->
 
 ### step 7: Cluster annotation
 In This step, you should find the cluster annotation to use in the Step 8. 
@@ -225,8 +229,10 @@ scrnaboxR::annotation(level_cluster,PWD,PSUE,top_sel,db)
 ### step 8: DGE contrast
 This step runs the Differetial gene expression (DEG); first add the labels obtained from Step 7 to `/job_info/parameters/step8_ clus_label.txt`. 
 
+<!--
 **To-do**  
 -we must makesure that the input format is clear to the user (comma-delimited; ex: dopaminergic,dopaminergic,other)
+ -->
  
 #### DGEList
 This step creates a DGEListobject from a table of counts obtained from seurate objects. It need alot of RAM, we suggest 3*size(seu_int_clu.rds)

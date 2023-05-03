@@ -71,7 +71,7 @@ sh $SCRNABOX_HOME/launch_pipeline.scrnabox.sh \
 ```
 
 ### Step 3: QC and filter
-This step run QC and save the results under `${SCRNABOX_PWD}/step3`. The following code filters the data with these criteria: `nFeature_RNA > 300 & nCount_RNA < 6500 & percent.mt < 25`.  
+This step run QC and save the results under `${SCRNABOX_PWD}/step3`. The following code filters the data with these criteria: `nFeature_RNA > 300 & nCount_RNA < 6500 & mitochondria_percent < 25`.  
 - nFeatures_RNA is the number of unique RNA transcripts for each cell.  If less than 300 we remove these cells as they might be debris or dead cells.  `--nFeature_RNA_L` and `--nFeature_RNA_U` are the upper and lower thresholds for nFeatures_RNA, respectively.
 - Sometimes cells with too many RNA transcripts are dublexs.  It is better to us nCount_RNA to remove dublets. `nCount_RNA_L` and `nCount_RNA_U` are  the upper and lower threshold  for nCount_RNA, respectively. 
 - Cells with a high amount of mitochondrial transcript compared to total RNA transcripts might be dead or dying and can add noise to the data making a clustering performance poor. We remove cells setting a default threshold of 25% (which is very high), `--mitochondria_percent_U` is the upper threshold  for the amount of mitochondrial transcript. 

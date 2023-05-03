@@ -46,9 +46,12 @@ sh $SCRNABOX_HOME/launch_pipeline.scrnabox.sh \
 
 The pipeline creates few files\folders under `${SCRNABOX_PWD}`: `./job_output/configs/scrnabox.config.ini` (include the configure arguments),  `./job_output/expected.done.files.txt` (recorder the done steps), `./job_output/logs` (submitted job would save under this folder), `./job_output/parameters/` (include the arguments and parameter that would use in running job, you can change them). 
 
-<!--  **To-do**  
- -We must make it clear how to prepare library.csv and features_ref.csv
--->
+To see a brief explanation of pipeline, run the following code 
+
+```
+sh $SCRNABOX_HOME/launch_pipeline.scrnabox.sh --help 
+```
+
 
 ### Step 1: cellranger
 This step runs cellranger and save the results under `${SCRNABOX_PWD}/step1`, which generates a count matrix. Since cellranger run UI as well, run this step in a `screen`. 
@@ -66,43 +69,20 @@ sh $SCRNABOX_HOME/launch_pipeline.scrnabox.sh \
 -d ${SCRNABOX_PWD} \
 --steps 2
 ```
-<!--
-**To-do**  
-For this step we may want to include an option to output a .csv unfiltered expression matrix  
-
-|  | Gene X | Gene y |
-| - | - | - |
-| Cell 1 | Counts | Counts |
-| Cell 2 | Counts | Counts |
-| Cell n | Counts | Counts |
--->
 
 ### Step 3: QC and filter
 This step run QC and save the results under `${SCRNABOX_PWD}/step3`. The following code filters the data with these criteria: `nFeature_RNA > 300 & nCount_RNA < 6500 & percent.mt < 25`.  
-- nFeatures_RNA is the number of unique RNA transcripts for each cell.  If less than 300 we remove these cells as they might be debris or dead cells.  `--nFRNAL` and `--nFRNAU` are the upper and lower thresholds for nFeatures_RNA, respectively.
-- Sometimes cells with too many RNA transcripts are dublexs.  It is better to us nCount_RNA to remove dublets. `nCRNAL` and `nCRNAU` are  the upper and lower threshold  for nCount_RNA, respectively. 
-- Cells with a high amount of mitochondrial transcript compared to total RNA transcripts might be dead or dying and can add noise to the data making a clustering performance poor. We remove cells setting a default threshold of 25% (which is very high), `--pmtU` is the upper threshold  for the amount of mitochondrial transcript. 
+- nFeatures_RNA is the number of unique RNA transcripts for each cell.  If less than 300 we remove these cells as they might be debris or dead cells.  `--nFeature_RNA_L` and `--nFeature_RNA_U` are the upper and lower thresholds for nFeatures_RNA, respectively.
+- Sometimes cells with too many RNA transcripts are dublexs.  It is better to us nCount_RNA to remove dublets. `nCount_RNA_L` and `nCount_RNA_U` are  the upper and lower threshold  for nCount_RNA, respectively. 
+- Cells with a high amount of mitochondrial transcript compared to total RNA transcripts might be dead or dying and can add noise to the data making a clustering performance poor. We remove cells setting a default threshold of 25% (which is very high), `--mitochondria_percent_U` is the upper threshold  for the amount of mitochondrial transcript. 
 ```
 sh $SCRNABOX_HOME/launch_pipeline.scrnabox.sh \
 -d ${SCRNABOX_PWD} \
 --steps 3 \
---nFRNAL 300 \
---nCRNAU 6500 \
---pmtU 25
+--nFeature_RNA_L 300 \
+--nCount_RNA_U 6500 \
+--mitochondria_percent_U 25
 ```
-<!--
-**To-do**  
-1. We should consider renaming the options for features and counts  
--Feature: nfeatures_U, nfeatures_L  
--Counts: ncounts_U, ncounts_L  
-2. For this step we may want to include an option to output a .csv filtered expression matrix  
-
-|  | Gene X | Gene y |
-| - | - | - |
-| Cell 1 | Counts | Counts |
-| Cell 2 | Counts | Counts |
-| Cell n | Counts | Counts |
--->
 
 ### Step 4: Demultiplexing
 If you are using hashtag, you need to choose the right label (for the hashtags), you can get the hashtag labels by running the following code 

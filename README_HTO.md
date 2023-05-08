@@ -207,15 +207,12 @@ scrnaboxR::annotation(level_cluster,PWD,PSUE,top_sel,db)
 ```
 
 ### step 8: DGE contrast
-This step runs the Differetial gene expression (DEG); first add the labels obtained from Step 7 to `/job_info/parameters/step8_ clus_label.txt`. 
+This step involves running the differential gene expression (DEG) analysis. To do this, you will first need to add the labels obtained from Step 7 to `/job_info/parameters/step8_ clus_label.txt`. These labels typically represent cell type or condition information and should be separated by commas. Once the labels have been added, you can use a variety of methods to perform DEG analysis, such as the popular `edgeR` or `DESeq2` packages, this pipeline uses `edgeR`.
 
-<!--
-**To-do**  
--we must makesure that the input format is clear to the user (comma-delimited; ex: dopaminergic,dopaminergic,other)
- -->
  
 #### DGEList
-This step creates a DGEListobject from a table of counts obtained from seurate objects. It need alot of RAM, we suggest 3*size(seu_int_clu.rds)
+This step involves creating a DGEListobject from a table of counts obtained from seurate objects.it is recommended to allocate at least 3 times the size of the seu_int_clu.rds file in RAM, 3*size(seu_int_clu.rds).
+
 ```
 sh $SCRNABOX_HOME/launch_pipeline.scrnabox.sh \
 -d ${SCRNABOX_PWD} \

@@ -221,10 +221,11 @@ sh $SCRNABOX_HOME/launch_pipeline.scrnabox.sh \
 ```
 
 #### DGE contrasts
-In this step, one can run the contrast on clustered result, which can be done on genotype and genotype-cell. 
+At this stage, it is possible to perform a contrast analysis on the clustered results, either at the genotype level or at the genotype-cell level
 
 ###### Genotype 
-There is a file ${SCRNABOX_PWD}/job_info/parameters/step8_contrast_main.txt, with columns of cont_name,control,ex_control,all, you can write the genotype contrast here, then select `--genotype T` to run the genotype contrast. 
+You can find a file called `${SCRNABOX_PWD}/job_info/parameters/step8_contrast_main.txt`, which contains columns for `cont_name`, `control`, `ex_control`, and `all`. You can specify genotype contrasts in this file and then use the `--genotype T` option to run the genotype contrast
+
 ```
 sh $SCRNABOX_HOME/launch_pipeline.scrnabox.sh \
 -d ${SCRNABOX_PWD} \
@@ -233,7 +234,9 @@ sh $SCRNABOX_HOME/launch_pipeline.scrnabox.sh \
 ```
 
 ###### Genotype-cell
-To run interact between celltype and genptype, write your contrast in `${SCRNABOX_PWD}/job_info/parameters/step8_contrast_inte.txt`. To run Step 8 on interact contrast, run the following command. Select `-celltype T` to run the main contrast. 
+To perform an interaction analysis between cell type and genotype, specify your contrast in the file `${SCRNABOX_PWD}/job_info/parameters/step8_contrast_inte.txt`. To run Step 8 using the interaction contrast, execute the following command which use the `-celltype T` option to run the Genotype-cell contrast. 
+
+
 ```
 sh $SCRNABOX_HOME/launch_pipeline.scrnabox.sh \
 -d ${SCRNABOX_PWD} \
@@ -241,7 +244,7 @@ sh $SCRNABOX_HOME/launch_pipeline.scrnabox.sh \
 --celltype T
 ```
 
-You can directly call the contrast to the pipeline, 
+You can integrate the contrast directly into the pipeline by calling it, 
 ```
 CONTINT=~/des/step7_contrast_inte.txt
 sh $SCRNABOX_HOME/launch_pipeline.scrnabox.sh \
@@ -260,7 +263,7 @@ sh $SCRNABOX_HOME/launch_pipeline.scrnabox.sh \
 --cont ${CONTMAIN}
 ```
 
-Note: If you have many contrasts, it is better to split them and submit batch jobs.
+Note: If you have a large number of contrasts to run, it may be more efficient to split them up and submit batch jobs instead.
 
 ## Integrating seurat objects
 To combine different seurat objects, you can run the following codes. 

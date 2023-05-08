@@ -90,7 +90,8 @@ The parameters of this step are:
 
 
 ### Step 4: Demultiplexing
-If you are using hashtag, you need to choose the right label (for the hashtags), you can get the hashtag labels by running the following code 
+
+If you are using hashtags, you need to select the appropriate label for the hashtags. You can obtain the hashtag labels by executing the following code:
 ```
 sh $SCRNABOX_HOME/launch_pipeline.scrnabox.sh \
 -d ${SCRNABOX_PWD} \
@@ -98,69 +99,40 @@ sh $SCRNABOX_HOME/launch_pipeline.scrnabox.sh \
 --msd T 
 ```
 
-Add the old label and its new corresponding label in '${SCRNABOX_PWD}/job_output/parameters/step4_par.txt'. Run the following to run the demuplixing  
+You can add the current label and its corresponding new label in the file '${SCRNABOX_PWD}/job_output/parameters/step4_par.txt'. Once you have added the labels, run the following command to run the demultiplexing process.
 ```
 sh $SCRNABOX_HOME/launch_pipeline.scrnabox.sh \
 -d ${SCRNABOX_PWD} \
 --steps 4 
 ```
 
-This step can be used to remove the 'Doublet'; the default is to remove the doublet, if you want to keep them, just change 'yes' to 'no' in '${SCRNABOX_PWD}/job_output/parameters/step4_par.txt'. 
+This step can be used to remove the 'Doublet'. By default, the pipeline removes the doublet, if you want to keep them, just change 'yes' to 'no' in '${SCRNABOX_PWD}/job_output/parameters/step4_par.txt'. 
 
-<!--
-**To-do**  
-1. We need to justify why we are using the DoubletFinder tool as opposed to other doublet detecting tools  
--we will have to decide as a group how we want to proceed with doublet removal. We can i) justify DoubletFinder ii) Determine which doublet tool is the best from the literature iii) Incorporate multiple doublet tools into the pipeline and let the user choose which tool they'd like to use.  
-2. For this step we may want to include an option to output a .csv filtered expression matrix that now contains the original hashtag label.    
-
-|  | Gene X | Gene y |
-| - | - | - |
-| Cell 1 | Counts | Counts |
-| Cell 2 | Counts | Counts |
-| Cell n | Counts | Counts |
--->
 
 ### Step 5: Integration 
+In this step, the pipeline  combines multiple single-cell RNA-seq datasets.
 ```
 sh $SCRNABOX_HOME/launch_pipeline.scrnabox.sh \
 -d ${SCRNABOX_PWD} \
 --steps 5 
 ```
-<!--
-**To-do**  
-1. One of the outputs is **mata_info.csv** we should change this to **meta_info.csv**  
-2. For this step we may want to include an option to output a .csv expression matrix for the integrated assay  
 
-|  | Run ID | Gene X | Gene y |
-| - | - | - | -|
-| Cell 1 | 1 | Counts | Counts |
-| Cell 2 | 1 | Counts | Counts |
-| Cell n | 2 | Counts | Counts |
--->
 
 ### Step 6: Clustering 
+In this step, the pipeline
+runs clustering on the integrated dataset to group cells with similar gene expression patterns together based on a k-nearest neighbor graph. 
 ```
 sh $SCRNABOX_HOME/launch_pipeline.scrnabox.sh \
 -d ${SCRNABOX_PWD} \
 --steps 6 
 ```
 
-<!--
-**To-do**  
-1. One of the outputs is **mata_info.csv** we should change this to **meta_info.csv**  
-2. For this step we may want to include an option to output a .csv expression matrix for the integrated assay that shows cluster information 
-
-|  | Run ID | Phenotype | Cluster | Gene X | Gene y |
-| - | - | - | - | - | - |
-| Cell 1 | 1 | Case | 1 | Counts | Counts |
-| Cell 2 | 1 | Case | 1 | Counts | Counts |
-| Cell n | 2 | Control | 1 | Counts | Counts | 
--->
-
 ### step 7: Cluster annotation
-In This step, you should find the cluster annotation to use in the Step 8. 
+In this step, you will use various methods to identify and annotate cell clusters. This may involve creating t-SNE or UMAP plots to visualize cell clusters, or using marker gene analysis or gene set enrichment analysis to identify cell types. The goal is to determine the cell types or states present in your dataset and assign them to each cluster. The cluster annotation information will be used in Step 8 for downstream analysis and interpretation
+
 #### Marker 
-Finds markers (differentially expressed genes) for each of cluster
+In this step, the pipeline finds differentially expressed genes for each cluster, which can be used to identify cluster-specific markers. This is done using the FindAllMarkers function in Seurat. The function compares gene expression in each cluster to the expression in all other clusters and identifies genes that are differentially expressed with a significant p-value. The output includes the top differentially expressed genes for each cluster and their corresponding p-values and fold changes. These markers can be used for downstream analysis such as cell type identification and functional annotation. The results are saved under ${SCRNABOX_PWD}/step7. This step produces `./step7/info7/top_sel.csv`, `./step7/info7/cluster_just_genes.xlsx`, `./step7/info7/cluster_whole.xlsx`, `./step7/info7/ClusterMarkers.rds`,  `./step7/figs7/heatmap.pdf`, `./step7/figs7/umap.pdf`, `./step7/figs7/umap_splitted.pdf`
+
 ```
 sh $SCRNABOX_HOME/launch_pipeline.scrnabox.sh \
 -d ${SCRNABOX_PWD} \
@@ -169,7 +141,7 @@ sh $SCRNABOX_HOME/launch_pipeline.scrnabox.sh \
 ```
 
 #### FindTransferAnchors
-Find a set of anchors between a reference and query object and add it to query object `predictions`
+In this step, the pipeline uses the `FindTransferAnchors` function in Seurat identifies anchors between a reference and query object and add it to query object `predictions`. This step produces `./step7/objs7/seu_step7.rds`.  
 ```
 sh $SCRNABOX_HOME/launch_pipeline.scrnabox.sh \
 -d ${SCRNABOX_PWD} \
@@ -178,7 +150,11 @@ sh $SCRNABOX_HOME/launch_pipeline.scrnabox.sh \
 ```
 
 #### EnrichR 
-If your HPC allows the access to internet under batch submission, run the following codes
+In this step, the pipeline uses the EnrichR tool to perform gene set enrichment analysis on the differentially expressed genes identified in the previous step. EnrichR compares the list of genes against a large collection of gene set libraries, including pathways, gene ontology terms, and transcription factor targets, to identify enriched sets of genes that are related to biological functions, pathways, or processes. 
+The results are saved as pdfs and csvs file.
+ 
+
+If your HPC allows access to the internet during batch submission, you can run the following codes
 ```
 sh $SCRNABOX_HOME/launch_pipeline.scrnabox.sh \
 -d ${SCRNABOX_PWD} \

@@ -1,8 +1,8 @@
 ---
 layout: post
-title: Steps of analyzing HTO via scrnabox pipeline
+title:  A Guide to Analyzing HTO with the Scrnabox Pipeline
 description: A short introduction to  Hashtag oligonucleotide analyzing using scrnabox pipeline
-date: 2022-03-07
+date: 2022-05-08
 author: Saeid Amiri
 published: true
 tags: scRNA HTO
@@ -26,17 +26,17 @@ comments: false
 - [References](#references)
 
 ## Introduction 
-`scrnabox.slurm` is an open-source pipeline for scRNA analysis that includes a job scheduler for HPC system.  
-
+This guide provides a brief introduction to analyzing hashtag oligonucleotide (HTO) data using the Scrnabox pipeline, `scrnabox.slurm` is an open-source pipeline for scRNA analysis that includes a job scheduler for HPC system. It outlines the steps involved in processing and analyzing HTO data, including quality control, cell filtering, clustering, and contrast analysis. By following these steps, researchers can gain insights into gene expression patterns in single cells and understand the underlying cellular heterogeneity in their samples.
+ 
 ### Setup
-In order to run the pipeline, first create a folder to do the analysis and export the pipeline
+Before running the pipeline, create a dedicated folder for the analysis and export the pipeline to this folder
 ```
 mkdir -p  ~/scratch/des
 export SCRNABOX_HOME=~/scrnabox.slurm
 export SCRNABOX_PWD=~/scratch/des
 ```
 
-Once its 'SCRNABOX_PWD' is defined, you need to create a folder entitled `samples_info` and write samples's `library.csv` and `features_ref.csv`, an example of format of samples_info files can be found in ![link](https://github.com/neurobioinfo/scrnabox/tree/main/test_code/LaunchSampleHTO). Then run the following code to setup pipeline, 
+After defining the 'SCRNABOX_PWD' variable, create a folder named samples_info and prepare two files - library.csv and features_ref.csv - containing necessary information about the samples. An example format for these files can be found at ![link](https://github.com/neurobioinfo/scrnabox/tree/main/test_code/LaunchSampleHTO).
 
 ```
 sh $SCRNABOX_HOME/launch_pipeline.scrnabox.sh \
@@ -44,17 +44,17 @@ sh $SCRNABOX_HOME/launch_pipeline.scrnabox.sh \
 --steps 0 
 ```
 
-The pipeline creates few files\folders under `${SCRNABOX_PWD}`: `./job_output/configs/scrnabox.config.ini` (include the configure arguments),  `./job_output/expected.done.files.txt` (recorder the done steps), `./job_output/logs` (submitted job would save under this folder), `./job_output/parameters/` (include the arguments and parameter that would use in running job, you can change them). 
-
-To see a brief explanation of pipeline, run the following code 
-
+When the pipeline is executed, it generates several files and folders under ${SCRNABOX_PWD}, including ./job_output/configs/scrnabox.config.ini (which contains the configuration arguments), ./job_output/expected.done.files.txt (which records the completed steps), ./job_output/logs (which contains logs for the submitted jobs), and ./job_output/parameters/ (which includes the arguments and parameters used in running the job and can be modified if necessary)."
+ 
+To view a brief overview of the pipeline, run the following code
 ```
 sh $SCRNABOX_HOME/launch_pipeline.scrnabox.sh --help 
 ```
 
 
 ### Step 1: cellranger
-This step runs cellranger and save the results under `${SCRNABOX_PWD}/step1`, which generates a count matrix. Since cellranger run UI as well, run this step in a `screen`. 
+In this step, Cell Ranger is executed, and the resulting output is saved under ${SCRNABOX_PWD}/step1, which generates a count matrix. As Cell Ranger runs a user interface, it is recommended to run this step in a 'screen'.
+
 ```
 screen -S run_scrnabox_HTO
 sh $SCRNABOX_HOME/launch_pipeline.scrnabox.sh \
@@ -63,7 +63,9 @@ sh $SCRNABOX_HOME/launch_pipeline.scrnabox.sh \
 ```
 
 ### Step 2: Seurat object 
-This step creates the seurat's objects, an standard object for data generated using the 10x Genomics platform, and save the results under `${SCRNABOX_PWD}/step2`
+This step involves creating Seurat objects, which are a standard format for data generated using the 10x Genomics platform. The resulting objects are saved under 
+`${SCRNABOX_PWD}/step2
+
 ```
 sh $SCRNABOX_HOME/launch_pipeline.scrnabox.sh \
 -d ${SCRNABOX_PWD} \
@@ -71,10 +73,7 @@ sh $SCRNABOX_HOME/launch_pipeline.scrnabox.sh \
 ```
 
 ### Step 3: QC and filter
-This step run QC and save the results under `${SCRNABOX_PWD}/step3`. The following code filters the data with these criteria: `nFeature_RNA > 1000 & nCount_RNA < 65000 & mitochondria_percent < 25`.  
-- nFeatures_RNA is the number of unique RNA transcripts for each cell.  If less than 300 we remove these cells as they might be debris or dead cells.  `--nFeature_RNA_L` and `--nFeature_RNA_U` are the upper and lower thresholds for nFeatures_RNA, respectively.
-- Sometimes cells with too many RNA transcripts are dublexs.  It is better to us nCount_RNA to remove dublets. `nCount_RNA_L` and `nCount_RNA_U` are  the upper and lower threshold  for nCount_RNA, respectively. 
-- Cells with a high amount of mitochondrial transcript compared to total RNA transcripts might be dead or dying and can add noise to the data making a clustering performance poor. We remove cells setting a default threshold of 25% (which is very high), `--mitochondria_percent_U` is the upper threshold  for the amount of mitochondrial transcript. 
+In this step, quality control is performed on the data, and the resulting output is saved under `${SCRNABOX_PWD}/step3`. The data is filtered based on the following criteria: `nFeature_RNA > 1000 & nCount_RNA < 65000 & mitochondria_percent < 25`.  
 ```
 sh $SCRNABOX_HOME/launch_pipeline.scrnabox.sh \
 -d ${SCRNABOX_PWD} \
@@ -83,6 +82,11 @@ sh $SCRNABOX_HOME/launch_pipeline.scrnabox.sh \
 --nCount_RNA_U 65000 \
 --mitochondria_percent_U 25
 ```
+The parameters of this step are: 
+- nFeatures_RNA: this parameter presents the number of unique RNA transcripts for each cell.  If the value is less than 1000, it is considered as debris or dead cells and removed.  `--nFeature_RNA_L` and `--nFeature_RNA_U` options set  the lower and upper thresholds for nFeatures_RNA, respectively.
+-nCount_RNA: Cells with an abnormally high number of RNA transcripts may be doublets. To remove doublets, the nCount_RNA parameter is used instead. The `--nCount_RNA_L` and `--nCount_RNA_U` options set the lower and upper thresholds for nCount_RNA, respectively.
+-mitochondria_percent: High mitochondrial transcript levels relative to total RNA transcripts may indicate dead or dying cells and can affect clustering performance. By default, cells with mitochondrial transcript percentages greater than 25% are removed. The `--mitochondria_percent_U` option sets the upper threshold for mitochondrial transcript percentage.
+
 
 ### Step 4: Demultiplexing
 If you are using hashtag, you need to choose the right label (for the hashtags), you can get the hashtag labels by running the following code 

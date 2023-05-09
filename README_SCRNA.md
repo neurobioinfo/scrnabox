@@ -13,7 +13,7 @@ comments: false
 ## Contents
 - [Introduction](#introduction)
   - [Setup](#setup)
-  - [Step 1: cellranger](#step-1:-cellranger)
+  - [Step 1: cellranger](#step-1-cellranger)
   - [Step 2: Seurat object](#step-2-seurat-object)  
   - [Step 3: QC and filter](#step-3-qc-and-filter)
   - [Step 4: demuplixing\non-demuplexing](#step-4-demuplixing\nondemuplexing)

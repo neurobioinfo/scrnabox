@@ -33,19 +33,19 @@ This guide provides a brief introduction to analyzing standard data using the Sc
 </kbd>
 
 ### Setup
-In order to run the pipeline, first create a folder to do the analysis and export the pipeline
+Before running the pipeline, create a dedicated folder for the analysis and export the pipeline to this folder
 ```
 mkdir -p  ~/scratch/des
 export SCRNABOX_HOME=~/scrnabox.slurm
 export SCRNABOX_PWD=~/scratch/des
 ```
-
-Once its 'SCRNABOX_PWD' is defined, you need to create a folder entitled `samples_info` and write samples's `library.csv` and `features_ref.csv`. Then run the following code to setup pipelione, 
-
+After defining the 'SCRNABOX_PWD' variable, create a folder named samples_info and prepare two files - library.csv and features_ref.csv - containing necessary information about the samples. An example format for these files can be found at [link](https://github.com/neurobioinfo/scrnabox/tree/main/test_code/LaunchSampleHTO).  
+Then run the following code to setup pipeline:
 ```
 sh $SCRNABOX_HOME/launch_pipeline.scrnabox.sh \
 -d ${SCRNABOX_PWD} \
---steps 0 
+--steps 0 \
+--method SCRNA
 ```
 
 The pipeline creates few files\folders under `${SCRNABOX_PWD}`: `./job_output/configs/scrnabox.config.ini` (include the configure arguments),  `./job_output/expected.done.files.txt` (recorder the done steps), `./job_output/logs` (submitted job would save under this folder), `./job_output/parameters/` (include the arguments and parameter that would use in running job, you can change them). 

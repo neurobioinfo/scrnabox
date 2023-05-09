@@ -51,7 +51,7 @@ sh $SCRNABOX_HOME/launch_pipeline.scrnabox.sh \
 --method HTO
 ```
 
-When the pipeline setup is executed, it generates several files and folders under ${SCRNABOX_PWD}, including ./job_output/configs/scrnabox.config.ini (which contains the configuration arguments), ./job_output/expected.done.files.txt (which records the completed steps), ./job_output/logs (which contains logs for the submitted jobs), and ./job_output/parameters/ (which includes the arguments and parameters used in running the job and can be modified if necessary)."  Since you are using hashtags, you need to choose `--method HTO`. 
+When the pipeline setup is executed, it generates several files and folders under ${SCRNABOX_PWD}, including ./job_info/configs/scrnabox.config.ini (which contains the configuration arguments), ./job_info/expected.done.files.txt (which records the completed steps), ./job_info/logs (which contains logs for the submitted jobs), and ./job_info/parameters/ (which includes the arguments and parameters used in running the job and can be modified if necessary)."  Since you are using hashtags, you need to choose `--method HTO`. 
  
 To view a brief overview of the pipeline, run the following code
 ```
@@ -113,7 +113,7 @@ sh $SCRNABOX_HOME/launch_pipeline.scrnabox.sh \
 --steps 4 
 ```
 
-This step can be used to remove the 'Doublet'. By default, the pipeline removes the doublet, if you want to keep them, just change 'yes' to 'no' in '${SCRNABOX_PWD}/job_output/parameters/step4_par.txt'. 
+This step can be used to remove the 'Doublet'. By default, the pipeline removes the doublet, if you want to keep them, just change 'yes' to 'no' in '${SCRNABOX_PWD}/job_info/parameters/step4_par.txt'. 
 
 
 ### Step 5: Integration 
@@ -133,9 +133,6 @@ sh $SCRNABOX_HOME/launch_pipeline.scrnabox.sh \
 -d ${SCRNABOX_PWD} \
 --steps 6 
 ```
--------------Untill heare-------
-
-
 
 ### step 7: Cluster annotation
 In this step, you will use various methods to identify and annotate cell clusters. This may involve creating t-SNE or UMAP plots to visualize cell clusters, or using marker gene analysis or gene set enrichment analysis to identify cell types. The goal is to determine the cell types or states present in your dataset and assign them to each cluster. The cluster annotation information will be used in Step 8 for downstream analysis and interpretation
@@ -267,7 +264,7 @@ sh $SCRNABOX_HOME/launch_pipeline.scrnabox.sh \
 --seulist ${LISTOFSEU} \
 ```
 
-LISTOFSEU includes the path of seurate files, put them in different lines. By default, the pipeline standardize the seurat objects before integrating, you can change the default in `${SCRNABOX_PWD}/job_output/parameters/stepint_par.txt`.
+LISTOFSEU includes the path of seurate files, put them in different lines. By default, the pipeline standardize the seurat objects before integrating, you can change the default in `${SCRNABOX_PWD}/job_info/parameters/stepint_par.txt`.
 
 ------------------------------------
 <!-- This is commented out.

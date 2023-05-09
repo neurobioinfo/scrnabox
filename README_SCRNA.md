@@ -2,7 +2,7 @@
 layout: post
 title: Steps of scRNA pipeline to run Non-hashtag data
 description: A short introduction to scRNA pipeline to run Non-hashtag data
-date: 2022-02-27
+date: 2023-05-09
 author: Saeid Amiri
 published: true
 tags: scRNA 

@@ -10,12 +10,7 @@ categories:
 comments: false
 ---
 ## ScRNA pipeline to run standard scRNA
-<kbd>
-![Steps of Standard scRNA-seq ](https://raw.githubusercontent.com/neurobioinfo/scrnabox/main/figs/scrna.png)
-</kbd>
-
 ## Contents
-
 - [Introduction](#introduction)
   - [Setup](#setup)
   - [Step 1: cellranger](#step-1-cellranger)
@@ -30,7 +25,8 @@ comments: false
 - [References](#references)
 
 ## Introduction 
-scrnabox.slurm is an open-source pipeline for scRNA analysis that includes a job scheduler for HPC system.  
+This guide provides a brief introduction to analyzing standard data using the Scrnabox pipeline, scrnabox.slurm is an open-source pipeline for scRNA analysis that includes a job scheduler for HPC system. It outlines the steps involved in processing and analyzing HTO data, including quality control, cell filtering, clustering, and contrast analysis. By following these steps, researchers can gain insights into gene expression patterns in single cells and understand the underlying cellular heterogeneity in their samples.
+
 <kbd>
 ![Steps of Standard scRNA-seq ](https://raw.githubusercontent.com/neurobioinfo/scrnabox/main/figs/scrna.png)
 </kbd>

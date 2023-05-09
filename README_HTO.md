@@ -41,7 +41,7 @@ export SCRNABOX_HOME=~/scrnabox.slurm
 export SCRNABOX_PWD=~/scratch/des
 ```
 
-After defining the 'SCRNABOX_PWD' variable, create a folder named samples_info and prepare two files - library.csv and features_ref.csv - containing necessary information about the samples. An example format for these files can be found at ![link](https://github.com/neurobioinfo/scrnabox/tree/main/test_code/LaunchSampleHTO).  
+After defining the 'SCRNABOX_PWD' variable, create a folder named samples_info and prepare two files - library.csv and features_ref.csv - containing necessary information about the samples. An example format for these files can be found at [link](https://github.com/neurobioinfo/scrnabox/tree/main/test_code/LaunchSampleHTO).  
 Then run the following code to setup pipeline:
 
 ```
@@ -133,6 +133,9 @@ sh $SCRNABOX_HOME/launch_pipeline.scrnabox.sh \
 -d ${SCRNABOX_PWD} \
 --steps 6 
 ```
+-------------Untill heare-------
+
+
 
 ### step 7: Cluster annotation
 In this step, you will use various methods to identify and annotate cell clusters. This may involve creating t-SNE or UMAP plots to visualize cell clusters, or using marker gene analysis or gene set enrichment analysis to identify cell types. The goal is to determine the cell types or states present in your dataset and assign them to each cluster. The cluster annotation information will be used in Step 8 for downstream analysis and interpretation

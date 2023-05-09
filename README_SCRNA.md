@@ -11,7 +11,6 @@ comments: false
 ---
 ## ScRNA pipeline to run standard scRNA
 
-<br />
 <kbd>
 ![Steps of Standard scRNA-seq ](https://raw.githubusercontent.com/neurobioinfo/scrnabox/main/figs/scrna.png)
 </kbd>

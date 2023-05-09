@@ -31,6 +31,9 @@ comments: false
 
 ## Introduction 
 scrnabox.slurm is an open-source pipeline for scRNA analysis that includes a job scheduler for HPC system.  
+<kbd>
+![Steps of Standard scRNA-seq ](https://raw.githubusercontent.com/neurobioinfo/scrnabox/main/figs/scrna.png)
+</kbd>
 
 ### Setup
 In order to run the pipeline, first create a folder to do the analysis and export the pipeline

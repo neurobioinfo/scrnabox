@@ -15,7 +15,6 @@ This repository includes a tutorial for the scRNA-seq data analysis using scrnab
 ## Analysis workflow
 The following figures illustrate the steps involved in analyzing scRNA-seq data using the Standard and Cell Hashtags with the scrnabox pipeline
 
-
 <kbd>
 ![Steps of Standard scRNA-seq ](https://raw.githubusercontent.com/neurobioinfo/scrnabox/main/figs/scrna.png)
 </kbd>

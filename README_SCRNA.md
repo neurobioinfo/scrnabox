@@ -25,7 +25,7 @@ comments: false
 - [References](#references)
 
 ## Introduction 
-This guide provides a brief introduction to analyzing standard data using the Scrnabox pipeline, scrnabox.slurm is an open-source pipeline for scRNA analysis that includes a job scheduler for HPC system. It outlines the steps involved in processing and analyzing HTO data, including quality control, cell filtering, clustering, and contrast analysis. By following these steps, researchers can gain insights into gene expression patterns in single cells and understand the underlying cellular heterogeneity in their samples.
+This guide provides a brief introduction to analyzing standard data using the Scrnabox pipeline, scrnabox.slurm is an open-source pipeline for scRNA analysis that includes a job scheduler for HPC system. It outlines the steps involved in processing and analyzing data, including quality control, cell filtering, clustering, and contrast analysis. By following these steps, researchers can gain insights into gene expression patterns in single cells and understand the underlying cellular heterogeneity in their samples. The following figure illustrates the steps involved in analyzing standard scRNA-seq data with the scrnabox pipeline
 <br />
 <br />
 <kbd>
@@ -39,7 +39,7 @@ mkdir -p  ~/scratch/des
 export SCRNABOX_HOME=~/scrnabox.slurm
 export SCRNABOX_PWD=~/scratch/des
 ```
-After defining the 'SCRNABOX_PWD' variable, create a folder named samples_info and prepare two files - library.csv and features_ref.csv - containing necessary information about the samples. An example format for these files can be found at [link](https://github.com/neurobioinfo/scrnabox/tree/main/test_code/LaunchSampleHTO).  
+After defining the 'SCRNABOX_PWD' variable, create a folder named samples_info and prepare two files - library.csv - containing necessary information about the samples. An example format for these files can be found at [link](https://github.com/neurobioinfo/scrnabox/tree/main/test_code/LaunchSamplescRNA).  
 Then run the following code to setup pipeline:
 ```
 sh $SCRNABOX_HOME/launch_pipeline.scrnabox.sh \
@@ -48,7 +48,7 @@ sh $SCRNABOX_HOME/launch_pipeline.scrnabox.sh \
 --method SCRNA
 ```
 
-When the pipeline setup is executed, it generates several files and folders under ${SCRNABOX_PWD}, including ./job_output/configs/scrnabox.config.ini (which contains the configuration arguments), ./job_output/expected.done.files.txt (which records the completed steps), ./job_output/logs (which contains logs for the submitted jobs), and ./job_output/parameters/ (which includes the arguments and parameters used in running the job and can be modified if necessary)."  Since you are using hashtags, you need to choose `--method SCRNA`. 
+When the pipeline setup is executed, it generates several files and folders under ${SCRNABOX_PWD}, including `./job_output/configs/scrnabox.config.ini` (which contains the configuration arguments), `./job_output/expected.done.files.txt` (which records the completed steps), `./job_output/logs` (which contains logs for the submitted jobs), and `./job_output/parameters/` (which includes the arguments and parameters used in running the job and can be modified if necessary)."  Since you are using hashtags, you need to choose `--method SCRNA`. 
 
 
 ### Step 1: cellranger
@@ -61,8 +61,7 @@ sh $SCRNABOX_HOME/launch_pipeline.scrnabox.sh \
 ```
 
 ### Step 2: Seurat object 
-This step involves creating Seurat objects, which are a standard format for data generated using the 10x Genomics platform. The resulting objects are saved under 
-`${SCRNABOX_PWD}/step2
+This step involves creating Seurat objects, which are a standard format for data generated using the 10x Genomics platform. The resulting objects are saved under  `${SCRNABOX_PWD}/step2`
 
 ```
 sh $SCRNABOX_HOME/launch_pipeline.scrnabox.sh \

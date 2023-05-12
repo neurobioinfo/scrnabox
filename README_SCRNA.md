@@ -110,8 +110,8 @@ sh $SCRNABOX_HOME/launch_pipeline.scrnabox.sh \
 --steps 6 
 ```
 
-####################################Until here##########################################
-########################################################################################
+
+
 ### step 7: Cluster annotation
 In This step, you should find the cluster annotation to use in the Step 8. 
 #### Marker 

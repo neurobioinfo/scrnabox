@@ -178,6 +178,7 @@ sh $SCRNABOX_HOME/launch_pipeline.scrnabox.sh \
 --dgelist T
 ```
 
+<!-- This is commented out.
 #### DGE contrasts
 In this step, one can run the contrast on clustered result, which can be done on genotype and genotype-cell. 
 
@@ -219,6 +220,8 @@ sh $SCRNABOX_HOME/launch_pipeline.scrnabox.sh \
 ```
 
 Note: If you have many contrasts, it is better to split them and submit batch jobs.  
+
+-->
 
 ## Integrating seurat objects
 To combine different seurat objects, you can run the following codes. 

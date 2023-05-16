@@ -261,7 +261,7 @@ LISTOFSEU=~/list.txt
 sh $SCRNABOX_HOME/launch_pipeline.scrnabox.sh \
 -d ${SCRNABOX_PWD} \
 --steps  integrate \
---seulist ${LISTOFSEU} \
+--seulist ${LISTOFSEU}
 ```
 
 LISTOFSEU includes the path of seurate files, put them in different lines. By default, the pipeline standardize the seurat objects before integrating, you can change the default in `${SCRNABOX_PWD}/job_info/parameters/stepint_par.txt`.

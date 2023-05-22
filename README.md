@@ -26,6 +26,7 @@ The following figures illustrate the steps involved in analyzing scRNA-seq data 
 <kbd>
 ![Steps of Cell Hashtags scRNA-seq](https://raw.githubusercontent.com/neurobioinfo/scrnabox/main/figs/hto.png)
 </kbd>
+  
 </details>
 This pipeline currently includes implementation of the standard and cell hashtags.
 <details id=1>

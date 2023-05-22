@@ -24,6 +24,7 @@ The following figures illustrate the steps involved in analyzing scRNA-seq data 
 </kbd>
 
 This pipeline currently includes implementation of the standard and cell hashtags.
+
 <details id=0>
 #### [Standard scRNA-seq](https://github.com/neurobioinfo/scrnabox/tree/main/README_SCRNA.md)
 The following steps describe how to analyze scRNA-seq data using the pipeline:

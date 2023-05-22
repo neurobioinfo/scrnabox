@@ -36,10 +36,7 @@ This pipeline currently includes implementation of the standard and cell hashtag
 <summary>
   
 #### [Standard scRNA-seq](https://github.com/neurobioinfo/scrnabox/tree/main/README_SCRNA.md)
-
- </summary>
-
-
+</summary>
 The following steps describe how to analyze scRNA-seq data using the pipeline:
 - Step 1: cellranger - This step runs Cellranger on the scRNA-seq data to generate the feature-barcode matrices for each sample.
 - Step 2: Seurat object - This step runs Seurat on the feature-barcode matrices obtained from step 1 to generate a Seurat object for each sample. The Seurat object contains a lot of information, and accessing SeuratObject@meta.data will provide a data frame with relevant information on each cell.

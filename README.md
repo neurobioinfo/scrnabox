@@ -27,7 +27,6 @@ The following figures illustrate the steps involved in analyzing scRNA-seq data 
 </kbd>
 </details>
 This pipeline currently includes implementation of the standard and cell hashtags.
-
 <details id=0>
 <summary>
   
@@ -52,7 +51,6 @@ The Step 1 - Step 8 can be done using [scrnabox.slurm](https://github.com/neurob
 <summary>
   
 #### [Cell Hashtags](https://github.com/neurobioinfo/scrnabox/tree/main/README_HTO.md)
-  
 </summary>
   
 The following steps explain how to analyze the  Hashtag oligonucleotide (henceforth referred to as HTO)

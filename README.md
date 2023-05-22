@@ -11,6 +11,7 @@ This repository includes a tutorial for the scRNA-seq data analysis using scrnab
 - [Tutorial](#tutorial)
 - [References](#references)
 
+
 <details id=0>
 <summary>
   
@@ -27,7 +28,7 @@ The following figures illustrate the steps involved in analyzing scRNA-seq data 
 </kbd>
 </details>
 This pipeline currently includes implementation of the standard and cell hashtags.
-<details id=0>
+<details id=1>
 <summary>
   
 #### [Standard scRNA-seq](https://github.com/neurobioinfo/scrnabox/tree/main/README_SCRNA.md)
@@ -47,7 +48,7 @@ The following steps describe how to analyze scRNA-seq data using the pipeline:
 The Step 1 - Step 8 can be done using [scrnabox.slurm](https://github.com/neurobioinfo/scrnabox/tree/main/README_SCRNA.md) in the HPC system ([slurm work load manager system](https://slurm.schedmd.com/)).
 - step 9, Enrichment analysis: in this step, we obtain a list of significant genes using enrichment methods. The step 9 can be done using scrnaboxR, see [Practice](https://github.com/neurobioinfo/scrnabox/blob/main/tutorial/practice.md).
 </details>
-<details id=1>
+<details id=2>
 <summary>
   
 #### [Cell Hashtags](https://github.com/neurobioinfo/scrnabox/tree/main/README_HTO.md)

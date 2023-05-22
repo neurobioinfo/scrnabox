@@ -26,6 +26,8 @@ The following figures illustrate the steps involved in analyzing scRNA-seq data 
 This pipeline currently includes implementation of the standard and cell hashtags.
 
 <details id=0>
+<summary><h2>Step 2: </h2></summary>
+  
 #### [Standard scRNA-seq](https://github.com/neurobioinfo/scrnabox/tree/main/README_SCRNA.md)
 The following steps describe how to analyze scRNA-seq data using the pipeline:
 - Step 1: cellranger - This step runs Cellranger on the scRNA-seq data to generate the feature-barcode matrices for each sample.

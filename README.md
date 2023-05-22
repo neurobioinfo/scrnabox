@@ -15,9 +15,7 @@ This repository includes a tutorial for the scRNA-seq data analysis using scrnab
 <summary>
   
 ## Workflow analysis
-  
 </summary>
-  
 The following figures illustrate the steps involved in analyzing scRNA-seq data using the Standard and Cell Hashtags with the scrnabox pipeline
 <br />
 <br />
@@ -27,9 +25,7 @@ The following figures illustrate the steps involved in analyzing scRNA-seq data 
 <kbd>
 ![Steps of Cell Hashtags scRNA-seq](https://raw.githubusercontent.com/neurobioinfo/scrnabox/main/figs/hto.png)
 </kbd>
-
 </details>
-  
 This pipeline currently includes implementation of the standard and cell hashtags.
 
 <details id=0>

@@ -2,7 +2,7 @@
 This repository includes a tutorial for the scRNA-seq data analysis using scrnabox pipeline under an HPC environment ([slurm work load manager system](https://slurm.schedmd.com/)). 
 
 ## Contents
-- [Workflow analysis](#analysis-workflow)
+- [Workflow analysis](#workflow-analysis)
   - [Standard scRNA-seq]
   - [Cell hashtags]
 - [scrnabox.slurm](#scrnaboxsvn)
@@ -11,8 +11,13 @@ This repository includes a tutorial for the scRNA-seq data analysis using scrnab
 - [Tutorial](#tutorial)
 - [References](#references)
 
-
-## Analysis workflow
+<details id=0>
+<summary>
+  
+## Workflow analysis
+  
+</summary>
+  
 The following figures illustrate the steps involved in analyzing scRNA-seq data using the Standard and Cell Hashtags with the scrnabox pipeline
 <br />
 <br />
@@ -23,6 +28,8 @@ The following figures illustrate the steps involved in analyzing scRNA-seq data 
 ![Steps of Cell Hashtags scRNA-seq](https://raw.githubusercontent.com/neurobioinfo/scrnabox/main/figs/hto.png)
 </kbd>
 
+</details>
+  
 This pipeline currently includes implementation of the standard and cell hashtags.
 
 <details id=0>

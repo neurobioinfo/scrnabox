@@ -27,8 +27,10 @@ This pipeline currently includes implementation of the standard and cell hashtag
 
 <details id=0>
 <summary>
-  #### [Standard scRNA-seq](https://github.com/neurobioinfo/scrnabox/tree/main/README_SCRNA.md)
-</summary>
+  
+#### [Standard scRNA-seq](https://github.com/neurobioinfo/scrnabox/tree/main/README_SCRNA.md)
+
+ </summary>
 
 
 The following steps describe how to analyze scRNA-seq data using the pipeline:

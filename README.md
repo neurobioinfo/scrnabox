@@ -7,6 +7,7 @@ This repository includes a tutorial for the scRNA-seq data analysis using scrnab
   - [Cell hashtags]
 - [scrnabox.slurm](#scrnaboxsvn)
 - [scrnaboxR](#scrnaboxr)
+- [Installing](#installing)
 - [Processed Data](#processed-data)
 - [Tutorial](#tutorial)
 - [References](#references)
@@ -71,10 +72,20 @@ The Step 1 - Step 8 can be done using [scrnabox.slurm](https://github.com/neurob
 `scrnabox.slurm` is a pipeline developed to analyse under HPC system ([slurm work load manager system](https://slurm.schedmd.com/)), the pipeline has been using under [Beluga](https://docs.alliancecan.ca/wiki/B%C3%A9luga), details on how to use it are discussed in the [scrnabox.slurm](https://github.com/neurobioinfo/scrnabox/tree/main/scrnabox.slurm). 
 
 ## [scrnaboxR](https://github.com/neurobioinfo/scrnabox/tree/main/scrnaboxR)
-The `scrnaboxR` is an R package containg various functions for running enrichment analysis and other analyses related to single-cell RNA sequence data. . To install this package, you can use the following script:
+The `scrnaboxR` is an R package containg various functions for running enrichment analysis and other analyses related to single-cell RNA sequence data.
+
+## [Installing]
+### [scrnaboxR]
+To install this package, you can use the following script:
 ```
 devtools::install_github("neurobioinfo/scrnabox/scrnaboxR")
 ```
+### [scrnabox.slurm]
+The package is written using the bash, so it can be used with any slurm system, it ineeds `R`, `cellranger`.  For the R, you need to install 
+`'Seurat','ggplot2', 'dplyr', 'foreach', 'doParallel', 'Matrix', 'DoubletFinder','cowplot','clustree', 'scrnaboxR'`. Download 
+the source [scrnabox](https://github.com/neurobioinfo/scrnabox/tree/main/scrnabox.slurm) in your system, which includes all files. The config are in `scrnabox_config.ini`, you can 
+define the path of R library in `R_LIB_PATH=`, version of R in `R_VERSION`, you can add the path of `cell ranger`in `MODULECELLRANGER` 
+
 
 ## [Processed Data](https://github.com/neurobioinfo/scrnabox/blob/main/README_PROC.md)
 The pipeline can also be used with [processed data](https://github.com/neurobioinfo/scrnabox/blob/main/README_PROC.md) from different projects, allowing users.  

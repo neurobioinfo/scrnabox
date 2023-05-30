@@ -47,8 +47,7 @@ sh $SCRNABOX_HOME/launch_pipeline.scrnabox.sh \
 --steps 0 \
 --method SCRNA
 ```
-
-When the pipeline setup is executed, it generates several files and folders under ${SCRNABOX_PWD}, including `./job_output/configs/scrnabox.config.ini` (which contains the configuration arguments), `./job_output/expected.done.files.txt` (which records the completed steps), `./job_output/logs` (which contains logs for the submitted jobs), and `./job_output/parameters/` (which includes the arguments and parameters used in running the job and can be modified if necessary)."  Since you are using hashtags, you need to choose `--method SCRNA`. 
+In the code, `-d ${SCRNABOX_PWD}`, `-steps 0`, and `--method SCRNA` specify certain parameters for the pipelines. The -d ${SCRNABOX_PWD} flag sets the working directory, -steps 0 determines the specific step to be executed (in this case, we choose the setup step), and `--method SCRNA` indicates that the pipeline is running the SCRNA method. When the pipeline setup is executed, it generates several files and folders under ${SCRNABOX_PWD}, including `./job_output/configs/scrnabox.config.ini` (which contains the configuration arguments), `./job_output/expected.done.files.txt` (which records the completed steps), `./job_output/logs` (which contains logs for the submitted jobs), and `./job_output/parameters/` (which includes the arguments and parameters used in running the job and can be modified if necessary)."  Since you are using hashtags, you need to choose `--method SCRNA`. 
 
 
 ### Step 1: cellranger

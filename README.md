@@ -26,7 +26,7 @@ The following figures illustrate the steps involved in analyzing scRNA-seq data 
 </kbd>
   
 
-This pipeline currently includes implementation of the standard and cell hashtags.
+This pipeline currently includes implementation of the standard and cell hashtags scRNA.
 <details id=1>
 <summary>
   

@@ -39,7 +39,7 @@ mkdir -p  ~/scratch/des
 export SCRNABOX_HOME=~/scrnabox.slurm
 export SCRNABOX_PWD=~/scratch/des
 ```
-After defining the 'SCRNABOX_PWD' variable, create a folder named samples_info and prepare two files - library.csv - containing necessary information about the samples. An example format for these files can be found at [link](https://github.com/neurobioinfo/scrnabox/tree/main/test_code/LaunchSamplescRNA).  
+After defining the 'SCRNABOX_PWD' variable, create a folder named samples_info and prepare two files - library.csv - containing necessary information about the samples. An example format for these files can be found at [link](https://github.com/neurobioinfo/scrnabox/tree/main/test_code/LaunchSamplescRNA); create a CSV file named library.csv with three columns: `fastq`, `sample`, and `library_type`. In the fastq column, provide the path to the file. In the sample column, write the first of sample name, e.g., write `Sample1GEXD01_MPS12347745_C12_S1_R1_001.fastq.gz` as "Sample1GEXD01_MPS12347745_C12". In the library_type column, specify the type of the library.  
 Then run the following code to setup pipeline:
 ```
 sh $SCRNABOX_HOME/launch_pipeline.scrnabox.sh \

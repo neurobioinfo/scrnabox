@@ -40,7 +40,7 @@ The following steps describe how to analyze scRNA-seq data using the pipeline:
 - Step 4: Doublet removal - This step can be used to remove doublets from the data. By default, the pipeline removes doublets, but you can choose to keep them by changing the parameter from 'yes' to 'no'.
 - Step 5: Integration - This step integrates multiple scRNA-seq datasets using the Comprehensive Integration of Single Cell Data (CCA) method in Seurat, Tim, et al. (2019). The pipeline identifies anchors using the FindIntegrationAnchors function and passes them to the IntegrateData function to get a single Seurat object representing all the datasets.
 
-
+  
 - Step 6: Clustering- It involves clustering the data using a k-nearest neighbor graph based on the integrated PCA. This step produces UMAP and heatmaps of unlabelled clusters. However, it is up to the user to decide on the best cluster resolution outside the pipeline by examining the output and selecting the most appropriate annotation for the clusters.
 - step 7: Cluster annotate - In this step, you can annotate the clusters with known cell types or use marker genes to predict the cell type of each cluster. 
 - step 8: Differential gene expression (DEG)- There are multiple ways to perform differential gene expression analysis, but in this pipeline, we use the FindAllMarkers function to rank the highly differentially expressed genes in each cluster, which allows us to identify genes that are significantly differentially expressed between each cluster and the rest of the cells. From there, we can define contrasts to run statistical tests and investigate the phenotype and genotypes of each cluster.
@@ -54,7 +54,7 @@ The Step 1 - Step 8 can be done using [scrnabox.slurm](https://github.com/neurob
 #### [Cell Hashtags](https://github.com/neurobioinfo/scrnabox/tree/main/README_HTO.md)
 </summary>
   
-The following steps explain how to analyze the  Hashtag oligonucleotide (henceforth referred to as HTO)
+The following steps explain how to analyze the Hashtag oligonucleotide (henceforth referred to as HTO)
 - Step 1: cellranger - This step runs Cellranger on the scRNA-seq data to generate the feature-barcode matrices for each sample.
 - Step 2: Seurat object - This step runs Seurat on the feature-barcode matrices obtained from step 1 to generate a Seurat object for each sample. The Seurat object contains a lot of information, and accessing SeuratObject@meta.data will provide a data frame with relevant information on each cell.
 - Step 3: QC and filter - The Seurat object includes quality metrics that can be used to filter cells and genes against possible doublets. Metrics such as total UMI counts per cell (nCount_RNA), total number of detected features per cell (nFeature_RNA), and mitochondrial count (percent.mito) are often used.
@@ -69,18 +69,24 @@ The Step 1 - Step 8 can be done using [scrnabox.slurm](https://github.com/neurob
 </details>
 
 ## [scrnabox.slurm](https://github.com/neurobioinfo/scrnabox/tree/main/scrnabox.slurm)
+The `scrnabox.slurm` is a pipeline specifically designed for analyzing data under a High-Performance Computing (HPC) system using the Slurm Workload Manager. 
+It has been extensively utilized on the  [Beluga](https://docs.alliancecan.ca/wiki/B%C3%A9luga), you can find comprehensive instructions on how to utilize the pipeline 
+for [Cell Hashtags](https://github.com/neurobioinfo/scrnabox/tree/main/README_HTO.md) and [Standard scRNA-seq](https://github.com/neurobioinfo/scrnabox/tree/main/README_SCRNA.md), 
+the pipeline provides detailed guidance on processing and analyzing these specific types of single-cell RNA sequencing (scRNA-seq) data. 
+
+
 `scrnabox.slurm` is a pipeline developed to analyse under HPC system ([slurm work load manager system](https://slurm.schedmd.com/)), the pipeline has been using under [Beluga](https://docs.alliancecan.ca/wiki/B%C3%A9luga), details on how to use it are discussed in the [scrnabox.slurm](https://github.com/neurobioinfo/scrnabox/tree/main/scrnabox.slurm). 
 
 ## [scrnaboxR](https://github.com/neurobioinfo/scrnabox/tree/main/scrnaboxR)
 The `scrnaboxR` is an R package containg various functions for running enrichment analysis and other analyses related to single-cell RNA sequence data.
 
-## [Installing]
-### [scrnaboxR]
+## Installing
+### scrnaboxR
 To install this package, you can use the following script:
 ```
 devtools::install_github("neurobioinfo/scrnabox/scrnaboxR")
 ```
-### [scrnabox.slurm]
+### scrnabox.slurm
 The package is written using the bash, so it can be used with any slurm system, it ineeds `R`, `cellranger`.  For the R, you need to install 
 `'Seurat','ggplot2', 'dplyr', 'foreach', 'doParallel', 'Matrix', 'DoubletFinder','cowplot','clustree', 'scrnaboxR'`. Download 
 the source [scrnabox](https://github.com/neurobioinfo/scrnabox/tree/main/scrnabox.slurm) in your system, which includes all files. The config are in `scrnabox_config.ini`, you can 

@@ -23,7 +23,6 @@ comments: false
   - [step 7: Celltype annotation](#step-7-celltype-annotation)    
   - [step 8: DEG contrast](#step-8-DEG-contrast)     
 - [Integrating seurat objects](#integrating-seurat-objects)  
-- [References](#references)
 
 ## Introduction 
 This guide provides a brief introduction to analyzing hashtag oligonucleotide (HTO) data using the Scrnabox pipeline, `scrnabox.slurm` is an open-source pipeline for scRNA analysis that includes a job scheduler for HPC system. It outlines the steps involved in processing and analyzing HTO data, including quality control, cell filtering, clustering, and contrast analysis. By following these steps, researchers can gain insights into gene expression patterns in single cells and understand the underlying cellular heterogeneity in their samples.
@@ -271,38 +270,4 @@ sh $SCRNABOX_HOME/launch_pipeline.scrnabox.sh \
 
 LISTOFSEU includes the path of seurate files, put them in different lines. By default, the pipeline standardize the seurat objects before integrating, you can change the default in `${SCRNABOX_PWD}/job_info/parameters/stepint_par.txt`.
 
-------------------------------------
-<!-- This is commented out.
-## Run multiple steps
-To run multiple steps just specify the range of steps, separate using hyphen. 
-```
-sh $SCRNABOX_HOME/launch_pipeline.scrnabox.sh \
--d ${SCRNABOX_PWD} \
---steps 2-4 \
---nFRNAl 300 \
---nFRNAu 6500 \
---pmt 25
-
-
-sh $SCRNABOX_HOME/launch_pipeline.scrnabox.sh \
--d ${SCRNABOX_PWD} \
---steps 5-6 
-
-
-sh $SCRNABOX_HOME/launch_pipeline.scrnabox.sh \
--d ${SCRNABOX_PWD} \
---steps 3-6 \
---nFRNAl 300 \
---nFRNAu 6500 \
---pmt 25
-```
-
-To run all steps, write 'ALL' infront `steps`.   
-```
-sh $SCRNABOX_HOME/launch_pipeline.scrnabox.sh \
--d ${SCRNABOX_PWD} \
---steps ALL \
-```
-
-## References  -->
 

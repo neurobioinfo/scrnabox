@@ -33,6 +33,7 @@ This pipeline currently includes implementation of the standard and cell hashtag
   
 #### [Standard scRNA-seq](https://github.com/neurobioinfo/scrnabox/tree/main/README_SCRNA.md)
 </summary>
+
 The following steps describe how to analyze scRNA-seq data using the pipeline:<br />
 - Step 1: cellranger - This step runs Cellranger on the scRNA-seq data to generate the feature-barcode matrices for each sample.<br />
 - Step 2: Seurat object - This step runs Seurat on the feature-barcode matrices obtained from step 1 to generate a Seurat object for each sample. The Seurat object contains a lot of information, and accessing SeuratObject@meta.data will provide a data frame with relevant information on each cell.<br />
@@ -66,32 +67,24 @@ The Step 1 - Step 8 can be done using [scrnabox.slurm](https://github.com/neurob
 </details>
 
 ## [scrnabox.slurm](https://github.com/neurobioinfo/scrnabox/tree/main/scrnabox.slurm)
-The `scrnabox.slurm` is a pipeline specifically designed for analyzing data under a High-Performance Computing (HPC) system using the Slurm Workload Manager. 
+The `scrnabox.slurm` is a pipeline specifically designed for analyzing data under a High-Performance Computing (HPC) system  using the Slurm Workload Manager ([slurm work load manager system](https://slurm.schedmd.com/)). 
 It has been extensively utilized on the  [Beluga](https://docs.alliancecan.ca/wiki/B%C3%A9luga), you can find comprehensive instructions on how to utilize the pipeline 
 for [Cell Hashtags](https://github.com/neurobioinfo/scrnabox/tree/main/README_HTO.md) and [Standard scRNA-seq](https://github.com/neurobioinfo/scrnabox/tree/main/README_SCRNA.md), 
 the pipeline provides detailed guidance on processing and analyzing these specific types of single-cell RNA sequencing (scRNA-seq) data. 
-
-
-`scrnabox.slurm` is a pipeline developed to analyse under HPC system ([slurm work load manager system](https://slurm.schedmd.com/)), the pipeline has been using under [Beluga](https://docs.alliancecan.ca/wiki/B%C3%A9luga), details on how to use it are discussed in the [scrnabox.slurm](https://github.com/neurobioinfo/scrnabox/tree/main/scrnabox.slurm). 
 
 ## [scrnaboxR](https://github.com/neurobioinfo/scrnabox/tree/main/scrnaboxR)
 The `scrnaboxR` is an R package containg various functions for running enrichment analysis and other analyses related to single-cell RNA sequence data.
 
 ## Installing
-### scrnaboxR
-To install this package, you can use the following script:
+The package is written using the bash, so it can be used with any slurm system, it needs `R` and `cellranger`.  For the R, you need to install 
+`'Seurat','ggplot2', 'dplyr', 'foreach', 'doParallel', 'Matrix', 'DoubletFinder','cowplot','clustree'`. Then install `'scrnaboxR'`: 
 ```
 devtools::install_github("neurobioinfo/scrnabox/scrnaboxR")
 ```
-### scrnabox.slurm
-The package is written using the bash, so it can be used with any slurm system, it ineeds `R`, `cellranger`.  For the R, you need to install 
-`'Seurat','ggplot2', 'dplyr', 'foreach', 'doParallel', 'Matrix', 'DoubletFinder','cowplot','clustree', 'scrnaboxR'`. Download 
-the source [scrnabox](https://github.com/neurobioinfo/scrnabox/tree/main/scrnabox.slurm) in your system, which includes all files. The config are in `scrnabox_config.ini`, you can 
-define the path of R library in `R_LIB_PATH=`, version of R in `R_VERSION`, you can add the path of `cell ranger`in `MODULECELLRANGER` 
-
+Download the source [scrnabox](https://github.com/neurobioinfo/scrnabox/tree/main/scrnabox.slurm) in your system, which includes all files. The config are in `scrnabox_config.ini`, you can define the path of R library in `R_LIB_PATH=`, version of R in `R_VERSION`, you can add the path of `cell ranger`in `MODULECELLRANGER` 
 
 ## [Processed Data](https://github.com/neurobioinfo/scrnabox/blob/main/README_PROC.md)
-The pipeline can also be used with [processed data](https://github.com/neurobioinfo/scrnabox/blob/main/README_PROC.md) from different projects, allowing users.  
+The pipeline can also be used with [processed data](https://github.com/neurobioinfo/scrnabox/blob/main/README_PROC.md) from different projects.
 
 ## Tutorial
 To analyze DGE look at [Practice](https://github.com/neurobioinfo/scrnabox/blob/main/tutorial/practice.md). 

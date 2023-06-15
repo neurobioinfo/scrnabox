@@ -6,7 +6,6 @@ This repository includes a tutorial for the scRNA-seq data analysis using scrnab
   - [Standard scRNA-seq](#standard-scRNA-seq)
   - [Cell hashtags](#cell-hashtags)
 - [scrnabox.slurm](#scrnaboxsvn)
-- [scrnaboxR](#scrnaboxr)
 - [Installing](#installing)
 - [Processed Data](#processed-data)
 - [Tutorial](#tutorial)
@@ -72,15 +71,13 @@ It has been extensively utilized on the  [Beluga](https://docs.alliancecan.ca/wi
 for [Cell Hashtags](https://github.com/neurobioinfo/scrnabox/tree/main/README_HTO.md) and [Standard scRNA-seq](https://github.com/neurobioinfo/scrnabox/tree/main/README_SCRNA.md), 
 the pipeline provides detailed guidance on processing and analyzing these specific types of single-cell RNA sequencing (scRNA-seq) data. 
 
-## [scrnaboxR](https://github.com/neurobioinfo/scrnabox/tree/main/scrnaboxR)
-The `scrnaboxR` is an R package containg various functions for running enrichment analysis and other analyses related to single-cell RNA sequence data.
-
 ## Installing
 The package is written using the bash, so it can be used with any slurm system, it needs `R` and `cellranger`.  For the R, you need to install 
 `'Seurat','ggplot2', 'dplyr', 'foreach', 'doParallel', 'Matrix', 'DoubletFinder','cowplot','clustree'`. Then install `'scrnaboxR'`: 
 ```
 devtools::install_github("neurobioinfo/scrnabox/scrnaboxR")
 ```
+The `'scrnaboxR'` is an R package that provides a collection of functions for conducting enrichment analysis and other analyses associated with single-cell RNA sequencing (scRNA-seq) data. It serves as a companion to scrnabox, offering a range of tools and functionalities to enhance scRNA-seq data analysis.
 Download the source [scrnabox](https://github.com/neurobioinfo/scrnabox/tree/main/scrnabox.slurm) in your system, which includes all files. The config are in `scrnabox_config.ini`, you can define the path of R library in `R_LIB_PATH=`, version of R in `R_VERSION`, you can add the path of `cell ranger`in `MODULECELLRANGER` 
 
 ## [Processed Data](https://github.com/neurobioinfo/scrnabox/blob/main/README_PROC.md)

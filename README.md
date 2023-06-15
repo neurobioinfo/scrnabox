@@ -4,7 +4,7 @@ This repository includes a tutorial for the scRNA-seq data analysis using scrnab
 ## Contents
 - [Workflow analysis](#workflow-analysis)
   - [Standard scRNA-seq](#standard-scRNA-seq)
-  - [Cell hashtags]
+  - [Cell hashtags](#cell-hashtags)
 - [scrnabox.slurm](#scrnaboxsvn)
 - [scrnaboxR](#scrnaboxr)
 - [Installing](#installing)

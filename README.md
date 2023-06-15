@@ -98,7 +98,7 @@ This is an early version, any contribute or suggestion is appreciated, you can d
 ## Changelog
 Every release is documented on the [GitHub Releases page](https://github.com/neurobioinfo/scrnabox/releases).
 ## License
-This project is licensed under the MIT License - see the [LICENSE.md](https://github.com/neurobioinfo/scrnabox/blob/main/LICENSE) file for details
+This project is licensed under the MIT License - see the [LICENSE.md](https://github.com/neurobioinfo/scrnabox/blob/main/LICENSE) file for details.
 ## Acknowledgement
 The pipeline is done as part Dark Genome project, it is written by [Saeid Amiri](https://github.com/saeidamiri1) with associate of Rhalena Thomas and  Roxanne Larivière. 
 

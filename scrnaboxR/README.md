@@ -1,16 +1,15 @@
-# scRNABoxR
-Supplementary codes for ....  
+# scrnaboxR
+A supplementary codes for scrnabox pipeline.   
 
 ## Overview
-This library includes some functions that can be used to achieve the computation to analysis the scRNA 
+This library includes some functions that can be used to achieve the computation to analysis the scRNA. 
 
 ## Installation
-
 ``` r
-devtools::install_github("saeidamiri1/scrnabox/scrnaboxR")
+devtools::install_github("neurobioinfo/scrnabox/scrnaboxR")
 ```
 
 ## Usage
-
+- Annotation
 
 ## Getting help

@@ -1,12 +1,13 @@
 Package: scrnaboxR
 Type: Package
-Title: scRNABox package in R
+Title: A supplementary codes for scrnabox pipeline
 Version: 0.1.3
 Author: Saeid Amiri
 Maintainer: Saeid Amiri <saeid.amiri1@gmail.com>
 Depends:
     R (>= 4.2.0)
 Imports: 
+    Seurat,
     gplots,
     tidyverse,
     ggplot2,
@@ -15,7 +16,11 @@ Imports:
     dplyr,
     tibble,
     magrittr (>= 1.5.0),
-    rlang (>= 0.4.10)
+    rlang (>= 0.4.10), 
+    xlsx, 
+    enrichR,
+    aricode,
+    mclust
 Suggests: 
     knitr,
     rmarkdown,

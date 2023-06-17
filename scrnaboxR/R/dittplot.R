@@ -1,4 +1,8 @@
-extract_file2<-function(pwd){
+
+
+
+dittplot<-function(gwas_genes,file_path,des_path){
+    extract_file2<-function(pwd){
     files <-list.files(pwd)
     con<-list()
     lf0<-length(files)
@@ -9,10 +13,7 @@ extract_file2<-function(pwd){
     }
     file0<-gsub('.{4}$', '', files)
     aa<-list(file0,con)
-}
-
-
-dittplot<-function(gwas_genes,file_path,des_path){
+        }
     gwas<-data.frame(genes=gwas_genes)
     # pwd='/Users/sam/Desktop/final_scrna_dge/test'
     con0<-list()

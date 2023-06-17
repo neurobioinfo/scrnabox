@@ -1,0 +1,7 @@
+{
+    "installOptions": {
+        "installFromRepository": true,
+        "libraryPath": "/usr/local/lib/R/4.2/site-library",
+        "installDependencies": true
+    }
+}

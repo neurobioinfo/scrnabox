@@ -1,5 +1,5 @@
 # Generate the annotation
-annotation<-function(level_cluster,PWD,PSUE,top_sel,db) {
+annotation<-function(level_cluster,ClusterMarkers,PWD,PSUE,top_sel,db) {
   library(Seurat)
   library(dplyr)
   library(ggplot2)
@@ -13,19 +13,19 @@ annotation<-function(level_cluster,PWD,PSUE,top_sel,db) {
     dir.create(paste0(PWD,"/annot_enrich", "/clust",i))
   }
   Idents(seu.q6) <- level_cluster
-  ClusterMarkers <- FindAllMarkers(seu.q6, only.pos = TRUE)
-  top5 <- ClusterMarkers %>% group_by(cluster) %>% top_n(n=top_sel, wt = avg_log2FC)
-  write.csv(top5,"top_sel.csv")
-  for (i in  sort(unlist(unique(seu.q6[[level_cluster]])))) {
-    N1.c0 <- ClusterMarkers %>% filter(cluster == i & avg_log2FC > 0)
-    genes <- N1.c0$gene
-    write.xlsx(genes, file="cluster_just_genes.xlsx",sheetName=paste0('cluster',i), row.names=FALSE,append=TRUE)
-    write.xlsx(N1.c0, file="cluster_whole.xlsx",sheetName=paste0('cluster',i), row.names=FALSE,append=TRUE)
-  }
-  heat_map<-DoHeatmap(seu.q6, features = top5$gene, size=3, angle =90, group.bar.height = 0.02, group.by = level_cluster)
-  ggsave(file = "heatmap.pdf")
-  dim_plot<-DimPlot(seu.q6,group.by = level_cluster)
-  ggsave(file = "umap.pdf")
+  # ClusterMarkers <- FindAllMarkers(seu.q6, only.pos = TRUE)
+  # top5 <- ClusterMarkers %>% group_by(cluster) %>% top_n(n=top_sel, wt = avg_log2FC)
+  # write.csv(top5,"top_sel.csv")
+  # for (i in  sort(unlist(unique(seu.q6[[level_cluster]])))) {
+  #   N1.c0 <- ClusterMarkers %>% filter(cluster == i & avg_log2FC > 0)
+  #   genes <- N1.c0$gene
+  #   write.xlsx(genes, file="cluster_just_genes.xlsx",sheetName=paste0('cluster',i), row.names=FALSE,append=TRUE)
+  #   write.xlsx(N1.c0, file="cluster_whole.xlsx",sheetName=paste0('cluster',i), row.names=FALSE,append=TRUE)
+  # }
+  # heat_map<-DoHeatmap(seu.q6, features = top5$gene, size=3, angle =90, group.bar.height = 0.02, group.by = level_cluster)
+  # ggsave(file = "heatmap.pdf")
+  # dim_plot<-DimPlot(seu.q6,group.by = level_cluster, label = TRUE)
+  # ggsave(file = "umap.pdf")
   setEnrichrSite("Enrichr") # Human genes
   for (i in sort(unlist(unique(seu.q6[[level_cluster]])))) {
     setwd(PWD)

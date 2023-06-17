@@ -4,11 +4,10 @@
 }
 \description{This function genrates the annnotation of cell.}
 \usage{
-annotation(level_cluster,ClusterMarkers,PWD,PSUE,top_sel,db)
+annotation(level_cluster,PWD,PSUE,top_sel,db)
 }
 \arguments{
   \item{level_cluster}{list of value of contrast}
-  \item{ClusterMarkers}{cluster marker obtain  for each cluster}
   \item{PWD}{Working diractory, the function save the result is this path}
   \item{PSUE}{Pathto the seurat subject}
   \item{top_sel}{The top of genes, the defualat is 5}
@@ -25,7 +24,6 @@ This function generate markers (differentially expressed genes)  heatmap, umap, 
 #top_sel=5
 # db <- c('Descartes_Cell_Types_and_Tissue_2021',
 #'CellMarker_Augmented_2021','Azimuth_Cell_Types_2021')
-#ClusterMarkers<-read.csv(file = "~/Desktop/step7/objs7/ClusterMarkers.csv",row.names = 1)
-# annotation(level_cluster,ClusterMarkers,PWD,PSUE,top_sel,db)
+# annotation(level_cluster,PWD,PSUE,top_sel,db)
 }
 \keyword{Annotation}

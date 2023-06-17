@@ -6,9 +6,7 @@ authors:
   orcid: "https://orcid.org/0000-0003-2028-092X"
 - family-names: "Thomas"
   given-names: "Rhalena"
-- family-names: "Larivière"
-  given-names: "Roxanne"
 title: "scrnabox: A pipeline for scRNA"
-version: 0.1.5
-date-released: 2023-02-22
+version: 0.1.0
+date-released: 2023-06-16
 url: "https://github.com/neurobioinfo/scrnabox"

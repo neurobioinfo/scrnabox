@@ -2,7 +2,7 @@
 layout: post
 title:  A Guide to Analyzing HTO with the Scrnabox Pipeline
 description: A short introduction to  Hashtag oligonucleotide analyzing using scrnabox pipeline
-date: 2023-05-09
+date: 2023-06-16
 author: Saeid Amiri
 published: true
 tags: scRNA HTO
@@ -40,17 +40,17 @@ export SCRNABOX_HOME=~/scrnabox.slurm
 export SCRNABOX_PWD=~/scratch/des
 ```
 
-To obtain a brief guidance on the parameters, please execute the following code.
+To obtain a brief guidance on the parameters, execute the following code.
 
 ```
 bash $SCRNABOX_HOME/launch_scrnabox.sh -h 
 ```
 
-After defining the 'SCRNABOX_PWD' variable, create a folder named `samples_info`, then add subfolder for each sample in the `samples_info`, then prepare two files - library.csv and features_ref.csv - containing necessary information about the sample and save then inside the subfolder (note, the pipeline uses the name of subfolder as sample name under `orig.ident` in Seurat object) . An example format for these files can be found at [link]((https://github.com/neurobioinfo/scrnabox/tree/main/test_code/LaunchSampleHTO)); create a CSV file named library.csv with three columns: `fastq`, `sample`, and `library_type`. In the fastq column, provide the path to the file. In the sample column, write the first of sample name, e.g., write `Sample1GEXD01_MPS12347745_C12_S1_R1_001.fastq.gz` as "Sample1GEXD01_MPS12347745_C12". In the library_type column, specify the type of the library. For HTO, you also need to create a separate CSV file named feature_ref.csv. This file should contain the following columns: `id`, `name`, `read`, `pattern`, `sequence`, and `feature_type`
+After defining the 'SCRNABOX_PWD' variable, create a folder named `samples_info`, then add subfolder for each sample in the `samples_info`, then prepare two files - library.csv and features_ref.csv - containing necessary information about the sample and save then inside the subfolder (note, the pipeline uses the name of subfolder as sample name under `orig.ident` in Seurat object). An example format for these files can be found at [link]((https://github.com/neurobioinfo/scrnabox/tree/main/sample_info/HTO/Sample1)); create a CSV file named library.csv with three columns: `fastq`, `sample`, and `library_type`. In the fastq column, provide the path to the file. In the sample column, write the first of sample name, e.g., write `Sample1GEXD01_MPS12347745_C12_S1_R1_001.fastq.gz` as "Sample1GEXD01_MPS12347745_C12". In the library_type column, specify the type of the library. For HTO, you also need to create a separate CSV file named feature_ref.csv. This file should contain the following columns: `id`, `name`, `read`, `pattern`, `sequence`, and `feature_type`, it is the format used in the cellranger. 
 Then run the following code to setup pipeline for cell Hashtag oligonucleotide analyzing (HTO):
 
 ```
-sh $SCRNABOX_HOME/launch_pipeline.scrnabox.sh \
+bash $SCRNABOX_HOME/launch_scrnabox.sh\
 -d ${SCRNABOX_PWD} \
 --steps 0 \
 --method HTO
@@ -59,7 +59,7 @@ In the code, `-d ${SCRNABOX_PWD}`, `-steps 0`, and `--method HTO` specify certai
  
 To view a brief overview of the pipeline, run the following code
 ```
-sh $SCRNABOX_HOME/launch_pipeline.scrnabox.sh --help 
+bash $SCRNABOX_HOME/launch_scrnabox.sh--help 
 ```
 
 
@@ -68,7 +68,7 @@ In this step, Cell Ranger is executed, and the resulting output is saved under $
 
 ```
 screen -S run_scrnabox_HTO
-sh $SCRNABOX_HOME/launch_pipeline.scrnabox.sh \
+bash $SCRNABOX_HOME/launch_scrnabox.sh\
 -d ${SCRNABOX_PWD} \
 --steps 1
 ```
@@ -78,7 +78,7 @@ This step involves creating Seurat objects, which are a standard format for data
 `${SCRNABOX_PWD}/step2
 
 ```
-sh $SCRNABOX_HOME/launch_pipeline.scrnabox.sh \
+bash $SCRNABOX_HOME/launch_scrnabox.sh\
 -d ${SCRNABOX_PWD} \
 --steps 2
 ```
@@ -86,7 +86,7 @@ sh $SCRNABOX_HOME/launch_pipeline.scrnabox.sh \
 ### Step 3: QC and filter
 In this step, quality control is performed on the data, and the resulting output is saved under `${SCRNABOX_PWD}/step3`. The data is filtered based on the following criteria: `nFeature_RNA > 1000 & nCount_RNA < 65000 & mitochondria_percent < 25`.  
 ```
-sh $SCRNABOX_HOME/launch_pipeline.scrnabox.sh \
+bash $SCRNABOX_HOME/launch_scrnabox.sh\
 -d ${SCRNABOX_PWD} \
 --steps 3 \
 --nFeature_RNA_L 1000 \
@@ -101,10 +101,9 @@ The parameters of this step are:
 
 
 ### Step 4: Demultiplexing
-
 If you are using hashtags, you need to select the appropriate label for the hashtags. You can obtain the hashtag labels by executing the following code:
 ```
-sh $SCRNABOX_HOME/launch_pipeline.scrnabox.sh \
+bash $SCRNABOX_HOME/launch_scrnabox.sh\
 -d ${SCRNABOX_PWD} \
 --steps 4 \
 --msd T 
@@ -112,7 +111,7 @@ sh $SCRNABOX_HOME/launch_pipeline.scrnabox.sh \
 
 You can add the current label and its corresponding new label in the file '${SCRNABOX_PWD}/job_output/parameters/step4_par.txt'. Once you have added the labels, run the following command to run the demultiplexing process.
 ```
-sh $SCRNABOX_HOME/launch_pipeline.scrnabox.sh \
+bash $SCRNABOX_HOME/launch_scrnabox.sh\
 -d ${SCRNABOX_PWD} \
 --steps 4 
 ```
@@ -123,17 +122,16 @@ This step can be used to remove the 'Doublet'. By default, the pipeline removes 
 ### Step 5: Integration 
 In this step, the pipeline  combines multiple single-cell RNA-seq datasets.
 ```
-sh $SCRNABOX_HOME/launch_pipeline.scrnabox.sh \
+bash $SCRNABOX_HOME/launch_scrnabox.sh\
 -d ${SCRNABOX_PWD} \
 --steps 5 
 ```
-
 
 ### Step 6: Clustering 
 In this step, the pipeline
 runs clustering on the integrated dataset to group cells with similar gene expression patterns together based on a k-nearest neighbor graph. 
 ```
-sh $SCRNABOX_HOME/launch_pipeline.scrnabox.sh \
+bash $SCRNABOX_HOME/launch_scrnabox.sh\
 -d ${SCRNABOX_PWD} \
 --steps 6 
 ```
@@ -145,7 +143,7 @@ In this step, you will use various methods to identify and annotate cell cluster
 In this step, the pipeline finds differentially expressed genes for each cluster, which can be used to identify cluster-specific markers. This is done using the FindAllMarkers function in Seurat. The function compares gene expression in each cluster to the expression in all other clusters and identifies genes that are differentially expressed with a significant p-value. The output includes the top differentially expressed genes for each cluster and their corresponding p-values and fold changes. These markers can be used for downstream analysis such as cell type identification and functional annotation. The results are saved under ${SCRNABOX_PWD}/step7. This step produces `./step7/info7/top_sel.csv`, `./step7/info7/cluster_just_genes.xlsx`, `./step7/info7/cluster_whole.xlsx`, `./step7/info7/ClusterMarkers.rds`,  `./step7/figs7/heatmap.pdf`, `./step7/figs7/umap.pdf`, `./step7/figs7/umap_splitted.pdf`
 
 ```
-sh $SCRNABOX_HOME/launch_pipeline.scrnabox.sh \
+bash $SCRNABOX_HOME/launch_scrnabox.sh\
 -d ${SCRNABOX_PWD} \
 --steps 7 \
 --marker T
@@ -154,20 +152,18 @@ sh $SCRNABOX_HOME/launch_pipeline.scrnabox.sh \
 #### FindTransferAnchors
 In this step, the pipeline uses the `FindTransferAnchors` function in Seurat identifies anchors between a reference and query object and add it to query object `predictions`. This step produces `./step7/objs7/seu_step7.rds`.  
 ```
-sh $SCRNABOX_HOME/launch_pipeline.scrnabox.sh \
+bash $SCRNABOX_HOME/launch_scrnabox.sh\
 -d ${SCRNABOX_PWD} \
 --steps 7 \
 --fta T
 ```
 
 #### EnrichR 
-In this step, the pipeline uses the EnrichR tool to perform gene set enrichment analysis on the differentially expressed genes identified in the previous step. EnrichR compares the list of genes against a large collection of gene set libraries, including pathways, gene ontology terms, and transcription factor targets, to identify enriched sets of genes that are related to biological functions, pathways, or processes. 
-The results are saved as pdfs and csvs file.
+In this step, the pipeline uses the EnrichR tool to perform gene set enrichment analysis on the differentially expressed genes identified in the previous step. EnrichR compares the list of genes against a large collection of gene set libraries, including pathways, gene ontology terms, and transcription factor targets, to identify enriched sets of genes that are related to biological functions, pathways, or processes. The results are saved as pdfs and csvs file.
  
-
 If your HPC allows access to the internet during batch submission, you can run the following codes
 ```
-sh $SCRNABOX_HOME/launch_pipeline.scrnabox.sh \
+bash $SCRNABOX_HOME/launch_scrnabox.sh\
 -d ${SCRNABOX_PWD} \
 --steps 7 \
 --enrich T
@@ -176,21 +172,24 @@ sh $SCRNABOX_HOME/launch_pipeline.scrnabox.sh \
 Otherwise, run the enrichment directly:
 ```
 level_cluster='integrated_snn_res.0.7'
+ClusterMarkers='/SCRNABOX_PWD/step7/info7/ClusterMarkers.rds'
 PWD='/SCRNABOX_PWD/step7/annot/'
 PSUE='/SCRNABOX_PWD/step6/objs/seu_step6.rds'
 top_sel=5
 db <- c('Descartes_Cell_Types_and_Tissue_2021','CellMarker_Augmented_2021','Azimuth_Cell_Types_2021')
-scrnaboxR::annotation(level_cluster,PWD,PSUE,top_sel,db)
+scrnaboxR::annotation(level_cluster,ClusterMarkers,PWD,PSUE,top_sel,db)
 ```
 
 To run enrichment on your PC, first copy it to your PC, 
 ```
+scp -r usrid@beluga.computecanada.ca:${SCRNABOX_PWD}/step7 ~/Desktop/annot/
 scp -r usrid@beluga.computecanada.ca:${SCRNABOX_PWD}/step6 ~/Desktop/annot/
 ```
 
 Then run the following codes
 ```
 level_cluster='integrated_snn_res.0.7'
+ClusterMarkers='~/Desktop/annot/step7/info7/ClusterMarkers.rds'
 PWD='~/Desktop/annot/'
 PSUE='~/Desktop/annot/step6/objs/seu_step6.rds'
 top_sel=5
@@ -206,7 +205,7 @@ This step involves running the differential gene expression (DEG) analysis. To d
 This step involves creating a DGEListobject from a table of counts obtained from seurate objects.it is recommended to allocate at least 3 times the size of the seu_int_clu.rds file in RAM, 3*size(seu_int_clu.rds).
 
 ```
-sh $SCRNABOX_HOME/launch_pipeline.scrnabox.sh \
+bash $SCRNABOX_HOME/launch_scrnabox.sh\
 -d ${SCRNABOX_PWD} \
 --steps 8 \
 --dgelist T
@@ -219,7 +218,7 @@ At this stage, it is possible to perform a contrast analysis on the clustered re
 You can find a file called `${SCRNABOX_PWD}/job_info/parameters/step8_contrast_main.txt`, which contains columns for `cont_name`, `control`, `ex_control`, and `all`. You can specify genotype contrasts in this file and then use the `--genotype T` option to run the genotype contrast
 
 ```
-sh $SCRNABOX_HOME/launch_pipeline.scrnabox.sh \
+bash $SCRNABOX_HOME/launch_scrnabox.sh\
 -d ${SCRNABOX_PWD} \
 --steps 8 \
 --genotype T
@@ -227,10 +226,8 @@ sh $SCRNABOX_HOME/launch_pipeline.scrnabox.sh \
 
 ###### Genotype-cell
 To perform an interaction analysis between cell type and genotype, specify your contrast in the file `${SCRNABOX_PWD}/job_info/parameters/step8_contrast_inte.txt`. To run Step 8 using the interaction contrast, execute the following command which use the `-celltype T` option to run the Genotype-cell contrast. 
-
-
 ```
-sh $SCRNABOX_HOME/launch_pipeline.scrnabox.sh \
+bash $SCRNABOX_HOME/launch_scrnabox.sh\
 -d ${SCRNABOX_PWD} \
 --steps 8 \
 --celltype T
@@ -239,7 +236,7 @@ sh $SCRNABOX_HOME/launch_pipeline.scrnabox.sh \
 You can integrate the contrast directly into the pipeline by calling it, 
 ```
 CONTINT=~/des/step7_contrast_inte.txt
-sh $SCRNABOX_HOME/launch_pipeline.scrnabox.sh \
+bash $SCRNABOX_HOME/launch_scrnabox.sh\
 -d ${SCRNABOX_PWD} \
 --steps 8 \
 --celltype T \
@@ -248,7 +245,7 @@ sh $SCRNABOX_HOME/launch_pipeline.scrnabox.sh \
 
 ```
 CONTMAIN=~/des/step7_contrast_main.txt
-sh $SCRNABOX_HOME/launch_pipeline.scrnabox.sh \
+bash $SCRNABOX_HOME/launch_scrnabox.sh\
 -d ${SCRNABOX_PWD} \
 --steps 8 \
 --genotype T \
@@ -262,12 +259,10 @@ To combine different seurat objects, you can run the following codes.
 ```
 LISTOFSEU=~/list.txt
 
-sh $SCRNABOX_HOME/launch_pipeline.scrnabox.sh \
+bash $SCRNABOX_HOME/launch_scrnabox.sh\
 -d ${SCRNABOX_PWD} \
 --steps  integrate \
 --seulist ${LISTOFSEU}
 ```
 
 LISTOFSEU includes the path of seurate files, put them in different lines. By default, the pipeline standardize the seurat objects before integrating, you can change the default in `${SCRNABOX_PWD}/job_info/parameters/stepint_par.txt`.
-
-

@@ -2,7 +2,7 @@
 layout: post
 title: Steps of scRNA pipeline to run Non-hashtag data
 description: A short introduction to scRNA pipeline to run Non-hashtag data
-date: 2023-05-09
+date: 2023-06-16
 author: Saeid Amiri
 published: true
 tags: scRNA 
@@ -24,7 +24,7 @@ comments: false
 - [Integrating seurat objects](#integrating-seurat-objects)  
 
 ## Introduction 
-This guide provides a brief introduction to analyzing standard data using the Scrnabox pipeline, scrnabox.slurm is an open-source pipeline for scRNA analysis that includes a job scheduler for HPC system. It outlines the steps involved in processing and analyzing data, including quality control, cell filtering, clustering, and contrast analysis. By following these steps, researchers can gain insights into gene expression patterns in single cells and understand the underlying cellular heterogeneity in their samples. The following figure illustrates the steps involved in analyzing standard scRNA-seq data with the scrnabox pipeline
+This guide provides a brief introduction to analyzing standard data using the Scrnabox pipeline, `scrnabox.slurm` is an open-source pipeline for scRNA analysis that includes a job scheduler for HPC system. It outlines the steps involved in processing and analyzing data, including quality control, cell filtering, clustering, and contrast analysis. By following these steps, researchers can gain insights into gene expression patterns in single cells and understand the underlying cellular heterogeneity in their samples. The following figure illustrates the steps involved in analyzing standard scRNA-seq data with the scrnabox pipeline
 <br />
 <br />
 <kbd>
@@ -47,7 +47,7 @@ bash $SCRNABOX_HOME/launch_scrnabox.sh -h
 After defining the 'SCRNABOX_PWD' variable, create a folder named `samples_info`, then add subfolder for each sample in the `samples_info`, then prepare two files - library.csv and features_ref.csv - containing necessary information about the sample and save then inside the subfolder (note, the pipeline uses the name of subfolder as sample name under `orig.ident` in Seurat object). An example format for these files can be found at [link](https://github.com/neurobioinfo/scrnabox/tree/main/test_code/LaunchSamplescRNA); create a CSV file named library.csv with three columns: `fastq`, `sample`, and `library_type`. In the fastq column, provide the path to the file. In the sample column, write the first of sample name, e.g., write `Sample1GEXD01_MPS12347745_C12_S1_R1_001.fastq.gz` as "Sample1GEXD01_MPS12347745_C12". In the library_type column, specify the type of the library.  
 Then run the following code to setup pipeline:
 ```
-sh $SCRNABOX_HOME/launch_pipeline.scrnabox.sh \
+bash $SCRNABOX_HOME/launch_scrnabox.sh\
 -d ${SCRNABOX_PWD} \
 --steps 0 \
 --method SCRNA
@@ -59,16 +59,15 @@ In the code, `-d ${SCRNABOX_PWD}`, `-steps 0`, and `--method SCRNA` specify cert
 In this step, Cell Ranger is executed, and the resulting output is saved under ${SCRNABOX_PWD}/step1, which generates a count matrix. As Cell Ranger runs a user interface, it is recommended to run this step in a 'screen'.
 ```
 screen -S run_scrnabox
-sh $SCRNABOX_HOME/launch_pipeline.scrnabox.sh \
+bash $SCRNABOX_HOME/launch_scrnabox.sh\
 -d ${SCRNABOX_PWD} \
 --steps 1
 ```
 
 ### Step 2: Seurat object 
 This step involves creating Seurat objects, which are a standard format for data generated using the 10x Genomics platform. The resulting objects are saved under  `${SCRNABOX_PWD}/step2`
-
 ```
-sh $SCRNABOX_HOME/launch_pipeline.scrnabox.sh \
+bash $SCRNABOX_HOME/launch_scrnabox.sh\
 -d ${SCRNABOX_PWD} \
 --steps 2
 ```
@@ -76,7 +75,7 @@ sh $SCRNABOX_HOME/launch_pipeline.scrnabox.sh \
 ### Step 3: QC and filter
 In this step, quality control is performed on the data, and the resulting output is saved under `${SCRNABOX_PWD}/step3`. The data is filtered based on the following criteria: `nFeature_RNA > 1000 & nCount_RNA < 65000 & mitochondria_percent < 25`.  
 ```
-sh $SCRNABOX_HOME/launch_pipeline.scrnabox.sh \
+bash $SCRNABOX_HOME/launch_scrnabox.sh\
 -d ${SCRNABOX_PWD} \
 --steps 3 \
 --nFeature_RNA_L 1000 \
@@ -92,7 +91,7 @@ The parameters of this step are:
 ### Step 4: Remove doublet
 This step can be used to remove the 'Doublet'. By default, the pipeline removes the doublet, if you want to keep them, just change 'yes' to 'no' in '${SCRNABOX_PWD}/job_info/parameters/step4_par.txt'. 
 ```
-sh $SCRNABOX_HOME/launch_pipeline.scrnabox.sh \
+bash $SCRNABOX_HOME/launch_scrnabox.sh\
 -d ${SCRNABOX_PWD} \
 --steps 4 
 ```
@@ -100,7 +99,7 @@ sh $SCRNABOX_HOME/launch_pipeline.scrnabox.sh \
 ### Step 5: Integration 
 In this step, the pipeline  combines multiple single-cell RNA-seq datasets.
 ```
-sh $SCRNABOX_HOME/launch_pipeline.scrnabox.sh \
+bash $SCRNABOX_HOME/launch_scrnabox.sh\
 -d ${SCRNABOX_PWD} \
 --steps 5 
 ```
@@ -109,7 +108,7 @@ sh $SCRNABOX_HOME/launch_pipeline.scrnabox.sh \
 In this step, the pipeline runs clustering on the integrated dataset to group cells with similar gene expression patterns together based on a k-nearest neighbor graph. 
 
 ```
-sh $SCRNABOX_HOME/launch_pipeline.scrnabox.sh \
+bash $SCRNABOX_HOME/launch_scrnabox.sh\
 -d ${SCRNABOX_PWD} \
 --steps 6 
 ```
@@ -121,7 +120,7 @@ In This step, you should find the cluster annotation to use in the Step 8.
 #### Marker 
 Finds markers (differentially expressed genes) for each of cluster
 ```
-sh $SCRNABOX_HOME/launch_pipeline.scrnabox.sh \
+bash $SCRNABOX_HOME/launch_scrnabox.sh\
 -d ${SCRNABOX_PWD} \
 --steps 7 \
 --marker T
@@ -130,7 +129,7 @@ sh $SCRNABOX_HOME/launch_pipeline.scrnabox.sh \
 #### FindTransferAnchors
 Find a set of anchors between a reference and query object and add it to query object `predictions`
 ```
-sh $SCRNABOX_HOME/launch_pipeline.scrnabox.sh \
+bash $SCRNABOX_HOME/launch_scrnabox.sh\
 -d ${SCRNABOX_PWD} \
 --steps 7 \
 --fta T
@@ -139,7 +138,7 @@ sh $SCRNABOX_HOME/launch_pipeline.scrnabox.sh \
 #### EnrichR 
 If Your HPC allows the access to internet under batch submission, run the following codes
 ```
-sh $SCRNABOX_HOME/launch_pipeline.scrnabox.sh \
+bash $SCRNABOX_HOME/launch_scrnabox.sh\
 -d ${SCRNABOX_PWD} \
 --steps 7 \
 --enrich T
@@ -176,7 +175,7 @@ This step runs the Differetial gene expression (DEG); first add the labels obtai
 #### DGEList
 This step creates a DGEListobject from a table of counts obtained from seurate objects. It might need alot of RAM, we suggest 3*size(seu_int_clu.rds)
 ```
-sh $SCRNABOX_HOME/launch_pipeline.scrnabox.sh \
+bash $SCRNABOX_HOME/launch_scrnabox.sh\
 -d ${SCRNABOX_PWD} \
 --steps 8 \
 --dgelist T
@@ -189,7 +188,7 @@ In this step, one can run the contrast on clustered result, which can be done on
 #### Genotype 
 There is a file ${SCRNABOX_PWD}/job_output/parameters/step8_contrast_main.txt, with columns of cont_name,control,ex_control,all, you can write the genotype contrast here, then select `--genotype T` to run the genotype contrast. 
 ```
-sh $SCRNABOX_HOME/launch_pipeline.scrnabox.sh \
+bash $SCRNABOX_HOME/launch_scrnabox.sh\
 -d ${SCRNABOX_PWD} \
 --steps 8 \
 --genotype T
@@ -198,7 +197,7 @@ sh $SCRNABOX_HOME/launch_pipeline.scrnabox.sh \
 #### Genotype-cell
 To run interact between celltype and genptype, write your contrast in `${SCRNABOX_PWD}/job_output/parameters/step8_contrast_inte.txt`. To run Step 8 on interact contrast, run the following command. Select `-celltype T` to run the main contrast. 
 ```
-sh $SCRNABOX_HOME/launch_pipeline.scrnabox.sh \
+bash $SCRNABOX_HOME/launch_scrnabox.sh\
 -d ${SCRNABOX_PWD} \
 --steps 8 \
 --celltype T
@@ -207,7 +206,7 @@ sh $SCRNABOX_HOME/launch_pipeline.scrnabox.sh \
 You can directly call the contrast to the pipeline, 
 ```
 CONTINT=~/des/step7_contrast_inte.txt
-sh $SCRNABOX_HOME/launch_pipeline.scrnabox.sh \
+bash $SCRNABOX_HOME/launch_scrnabox.sh\
 -d ${SCRNABOX_PWD} \
 --steps 8 \
 --celltype T \
@@ -216,7 +215,7 @@ sh $SCRNABOX_HOME/launch_pipeline.scrnabox.sh \
 
 ```
 CONTMAIN=~/des/step7_contrast_main.txt
-sh $SCRNABOX_HOME/launch_pipeline.scrnabox.sh \
+bash $SCRNABOX_HOME/launch_scrnabox.sh\
 -d ${SCRNABOX_PWD} \
 --steps 8 \
 --genotype T \
@@ -232,7 +231,7 @@ To combine different seurat objects, you can run the following codes.
 ```
 LISTOFSEU=~/list.txt
 
-sh $SCRNABOX_HOME/launch_pipeline.scrnabox.sh \
+bash $SCRNABOX_HOME/launch_scrnabox.sh\
 -d ${SCRNABOX_PWD} \
 --steps  integrate \
 --seulist ${LISTOFSEU} \

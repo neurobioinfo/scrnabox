@@ -1,7 +1,0 @@
-Compute_index           Different indices clustering
-annotation              generate annotation
-csv_to_xlsx             csv_to_xlsx
-dist_contrast           distance matrix of contrasts
-dittplot                dittplot
-extract_file            extract file
-split_up_down           split contrast

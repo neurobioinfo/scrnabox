@@ -1,0 +1,123 @@
+* using log directory ‘/Volumes/F/for_my_website/scrnabox0/scrnabox/scrnaboxR.Rcheck’
+* using R version 4.2.1 (2022-06-23)
+* using platform: x86_64-apple-darwin17.0 (64-bit)
+* using session charset: UTF-8
+* using options ‘--no-manual --as-cran’
+* checking for file ‘scrnaboxR/DESCRIPTION’ ... OK
+* checking extension type ... Package
+* this is package ‘scrnaboxR’ version ‘0.1.3’
+* package encoding: UTF-8
+* checking package namespace information ... OK
+* checking package dependencies ... OK
+* checking if this is a source package ... OK
+* checking if there is a namespace ... OK
+* checking for executable files ... OK
+* checking for hidden files and directories ... OK
+* checking for portable file names ... OK
+* checking for sufficient/correct file permissions ... OK
+* checking whether package ‘scrnaboxR’ can be installed ... OK
+* checking installed package size ... OK
+* checking package directory ... OK
+* checking for future file timestamps ... OK
+* checking DESCRIPTION meta-information ... OK
+* checking top-level files ... OK
+* checking for left-over files ... OK
+* checking index information ... OK
+* checking package subdirectories ... OK
+* checking R files for non-ASCII characters ... OK
+* checking R files for syntax errors ... OK
+* checking whether the package can be loaded ... OK
+* checking whether the package can be loaded with stated dependencies ... OK
+* checking whether the package can be unloaded cleanly ... OK
+* checking whether the namespace can be loaded with stated dependencies ... OK
+* checking whether the namespace can be unloaded cleanly ... OK
+* checking loading without being on the library search path ... OK
+* checking dependencies in R code ... WARNING
+'::' or ':::' imports not declared from:
+  ‘cli’ ‘crayon’
+'library' or 'require' calls not declared from:
+  ‘Seurat’ ‘aricode’ ‘dplyr’ ‘enrichR’ ‘ggplot2’ ‘mclust’ ‘xlsx’
+'library' or 'require' calls in package code:
+  ‘Seurat’ ‘aricode’ ‘dplyr’ ‘enrichR’ ‘ggplot2’ ‘mclust’ ‘xlsx’
+  Please use :: or requireNamespace() instead.
+  See section 'Suggested packages' in the 'Writing R Extensions' manual.
+Namespace in Imports field not imported from: ‘tibble’
+  All declared Imports should be used.
+* checking S3 generic/method consistency ... OK
+* checking replacement functions ... OK
+* checking foreign function calls ... OK
+* checking R code for possible problems ... NOTE
+annotation: warning in ggsave(file = "plotenrich1.pdf"): partial
+  argument match of 'file' to 'filename'
+annotation: warning in ggsave(file = "plotenrich2.pdf"): partial
+  argument match of 'file' to 'filename'
+annotation: warning in ggsave(file = "plotenrich3.pdf"): partial
+  argument match of 'file' to 'filename'
+annotation: no visible global function definition for ‘Idents<-’
+annotation: no visible binding for global variable ‘cluster’
+annotation: no visible binding for global variable ‘avg_log2FC’
+annotation: no visible global function definition for ‘enrichr’
+annotation: no visible global function definition for ‘plotEnrich’
+annotation: no visible global function definition for ‘select’
+annotation: no visible binding for global variable ‘Term’
+annotation: no visible binding for global variable ‘Genes’
+annotation: no visible binding for global variable ‘Combined.Score’
+dittplot: no visible global function definition for ‘aes’
+dittplot: no visible binding for global variable ‘contrast’
+dittplot: no visible binding for global variable ‘genes’
+dittplot: no visible binding for global variable ‘value’
+dittplot: no visible global function definition for ‘geom_point’
+dittplot: no visible global function definition for ‘theme_light’
+dittplot: no visible global function definition for ‘guides’
+dittplot: no visible global function definition for ‘guide_axis’
+dittplot: no visible binding for global variable ‘value2’
+Undefined global functions or variables:
+  Combined.Score Genes Idents<- Term aes avg_log2FC cluster contrast
+  enrichr genes geom_point guide_axis guides plotEnrich select
+  theme_light value value2
+* checking Rd files ... OK
+* checking Rd metadata ... OK
+* checking Rd line widths ... OK
+* checking Rd cross-references ... OK
+* checking for missing documentation entries ... WARNING
+Undocumented code objects:
+  ‘compute_index’
+All user-level objects in a package should have documentation entries.
+See chapter ‘Writing R documentation files’ in the ‘Writing R
+Extensions’ manual.
+* checking for code/documentation mismatches ... WARNING
+Codoc mismatches from documentation object 'extract_file':
+extract_file
+  Code: function(pwd)
+  Docs: function(file_path)
+  Argument names in code not in docs:
+    pwd
+  Argument names in docs not in code:
+    file_path
+  Mismatches in argument names:
+    Position: 1 Code: pwd Docs: file_path
+
+* checking Rd \usage sections ... WARNING
+Objects in \usage without \alias in documentation object 'Compute_index':
+  ‘compute_index’
+
+Undocumented arguments in documentation object 'csv_to_xlsx'
+  ‘name’
+
+Undocumented arguments in documentation object 'dittplot'
+  ‘des_path’
+Documented arguments not in \usage in documentation object 'dittplot':
+  ‘dest_path’
+
+Functions with \usage entries need to have the appropriate \alias
+entries, and all their arguments documented.
+The \usage entries must correspond to syntactically valid R code.
+See chapter ‘Writing R documentation files’ in the ‘Writing R
+Extensions’ manual.
+* checking Rd contents ... OK
+* checking for unstated dependencies in examples ... OK
+* checking examples ... OK
+* checking for non-standard things in the check directory ... OK
+* checking for detritus in the temp directory ... OK
+* DONE
+Status: 4 WARNINGs, 1 NOTE

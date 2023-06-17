@@ -1,8 +1,0 @@
-"0","if (length(sel_down_genes)!=0) {"
-"0","gmt <- msigdbr::msigdbr(species = ""human"", category = ""H"")"
-"0","sel_vs_norm_enrich <- clusterProfiler::enricher(gene = sel_down_genes,,pAdjustMethod = ""BH"",pvalueCutoff  = 0.05, qvalueCutoff  = 0.05, TERM2GENE = gmt[,c(""gs_name"", ""gene_symbol"")])"
-"0","write.csv(sel_vs_norm_enrich@result,file = paste(file0,'enricher','.csv',sep=''))"
-"0","dotplot(enrichplot::pairwise_termsim(enr_go),showCategory = 30,font.size = 3,label_format = 20)"
-"0","#ggsave(""PRKN-KO_w2_up_dotplot.png"")"
-"0",""
-"0","}"

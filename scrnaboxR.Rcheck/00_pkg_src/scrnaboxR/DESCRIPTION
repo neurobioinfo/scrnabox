@@ -1,0 +1,18 @@
+Package: scrnaboxR
+Type: Package
+Title: A supplementary codes for scrnabox pipeline
+Version: 0.1.3
+Author: Saeid Amiri
+Maintainer: Saeid Amiri <saeid.amiri1@gmail.com>
+Depends: R (>= 4.2.0)
+Imports: Seurat, gplots, tidyverse, ggplot2, reshape2, purrr, dplyr,
+        tibble, magrittr (>= 1.5.0), rlang (>= 0.4.10), xlsx, enrichR,
+        aricode, mclust
+Suggests: knitr, rmarkdown, testthat
+VignetteBuilder: knitr
+Description: This package includes.
+License: GPL (>= 2)
+Encoding: UTF-8
+RoxygenNote: 7.2.0
+NeedsCompilation: no
+Packaged: 2023-06-17 13:15:45 UTC; sam

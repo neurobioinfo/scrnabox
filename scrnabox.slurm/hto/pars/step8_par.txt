@@ -1,0 +1,7 @@
+######
+Save_RNA<-"NO"
+Save_metadata<-"NO"
+######
+select_cluster <-'integrated_snn_res.0.7'
+######
+step8_clus_label<-c('DAneurons','DAneurons','other','other','neurons','ependymal','neurons','neurons','neurons','DAneurons','DAneurons','progenitors','Glia','other','progenitors','progenitors','neuroblast','other','neurons','other','other','progenitors','other','DAneurons','neurons','DAneurons','progenitors','neurons','progenitors')

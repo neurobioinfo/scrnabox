@@ -1,0 +1,4 @@
+dropDN<-'yes'
+label_dropDN<-c('Doublet', 'Negative')
+Save_RNA<-"NO"
+Save_metadata<-"NO"

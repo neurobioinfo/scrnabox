@@ -1,2 +1,0 @@
-dropDN<-'yes'
-label_dropDN<-c('Doublet', 'Negative')

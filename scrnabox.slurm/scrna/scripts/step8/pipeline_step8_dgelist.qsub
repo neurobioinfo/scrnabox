@@ -1,0 +1,25 @@
+#!/bin/bash
+
+umask 002
+echo timestamp $(date +%s)
+
+
+#----------------------------------------------------------------#
+#                                                     #
+# INITIALIZE VARIABLES                                #
+#                                                     #
+#----------------------------------------------------------------#
+
+echo "-------------------------------------------"
+echo "* step8 DGE list `date +%FT%H.%M.%S`"
+echo "-------------------------------------------"
+echo "* PIPELINE_HOME:        $PIPELINE_HOME"
+echo "* DIR:                  $OUTPUT_DIR"
+echo "-------------------------------------------"
+
+#----------------------------------------------------------------#
+# START PIPELINE                                      #
+#----------------------------------------------------------------#
+module load r/$R_VERSION
+Rscript ${PIPELINE_HOME}/scrna/scripts/step8/scrna_step8_dgelist.R $OUTPUT_DIR  $R_LIB_PATH
+

@@ -1,0 +1,12 @@
+Save_RNA<-"NO"
+Save_metadata<-"NO"
+#
+top_sel=5
+level_cluster='integrated_snn_res.0.7'
+#level_genotype='MULTI_ID_Lables'
+reference='/lustre03/project/6070393/COMMON/Dark_Genome/scRNA.neuro.datasets/seuobjs/jerber52_ref.rds'
+level_celltype='celltype'
+# 
+futureglobalsmaxSize = 50000 * 1024^2
+# enrichment
+db <- c('Descartes_Cell_Types_and_Tissue_2021','CellMarker_Augmented_2021','Azimuth_Cell_Types_2021')

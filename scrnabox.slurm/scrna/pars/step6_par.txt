@@ -1,0 +1,17 @@
+#######
+Save_RNA<-"NO"
+Save_metadata<-"NO"
+#######
+par_selection.method="vst"
+par_nfeatures = 2500
+########   RunPCA
+par_npcs_pca = 30
+########  RunUMAP
+par_dims_umap=30
+par_n.neighbors=65
+####### FindNeighbors
+par_dims_fn=30
+par_k.param =60
+par_prune.SNN = 1/15
+#######
+par_resolution = seq(0.1, 0.9, by=0.1)

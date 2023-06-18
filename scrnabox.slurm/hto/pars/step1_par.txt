@@ -1,0 +1,4 @@
+REF_DIR_GRCH=/cvmfs/soft.mugqic/CentOS6/genomes/species/Homo_sapiens.GRCh38/genome/10xGenomics/refdata-cellranger-GRCh38-3.0.0
+#R1LENGTH=20
+#mempercore
+MEMPERCORE=30 

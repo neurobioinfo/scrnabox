@@ -1,4 +1,7 @@
-# Generate the annotation
+scrnaboxR::annotation(level_cluster,PWD,PSUE,top_sel,db)
+
+ClusterMarkers<-read.csv(file = paste(output_dir,'/step7/objs7/', "ClusterMarkers.csv",sep=''),row.names = 1)
+
 annotation<-function(level_cluster,ClusterMarkers,PWD,PSUE,top_sel,db) {
   library(Seurat)
   library(dplyr)
@@ -24,7 +27,7 @@ annotation<-function(level_cluster,ClusterMarkers,PWD,PSUE,top_sel,db) {
   # }
   # heat_map<-DoHeatmap(seu.q6, features = top5$gene, size=3, angle =90, group.bar.height = 0.02, group.by = level_cluster)
   # ggsave(file = "heatmap.pdf")
-  # dim_plot<-DimPlot(seu.q6,group.by = level_cluster, label = TRUE)
+  # dim_plot<-DimPlot(seu.q6,group.by = level_cluster)
   # ggsave(file = "umap.pdf")
   setEnrichrSite("Enrichr") # Human genes
   for (i in sort(unlist(unique(seu.q6[[level_cluster]])))) {

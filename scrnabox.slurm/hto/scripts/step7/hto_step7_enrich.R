@@ -1,31 +1,40 @@
-# Generate the annotation
-annotation<-function(level_cluster,ClusterMarkers,PWD,PSUE,top_sel,db) {
-  library(Seurat)
-  library(dplyr)
-  library(ggplot2)
+#!/usr/bin/env Rscript
+
+####################
+# step7
+
+args = commandArgs(trailingOnly=TRUE)
+output_dir=args[1]
+r_lib_path=args[2]
+.libPaths(r_lib_path)
+packages<-c('Seurat','ggplot2', 'dplyr')
+lapply(packages, library, character.only = TRUE)
+
+sample_name<-list.files(path = paste(output_dir, "/step6/objs6",sep=""),pattern = "*.rds")
+
+source(paste(output_dir,'/job_info/parameters/step7_par.txt',sep=""))
+PWD=paste(output_dir,'/step7/info7/', sep='')
+setwd(PWD)
+
+options(future.globals.maxSize = futureglobalsmaxSize)
+
+PSUE=paste(output_dir,'/step6/objs6/',sample_name, sep='')
+ClusterMarkers<-read.csv(file = paste(output_dir,'/step7/objs7/', "ClusterMarkers.csv",sep=''),row.names = 1)
+# scrnaboxR::annotation(level_cluster,ClusterMarkers,PWD,PSUE,top_sel,db)
+
+
+
+
+
   library(xlsx)
   library(enrichR)
   setwd(PWD)
   seu.q6 <- readRDS(PSUE)
-  # mkdir -p annot_enrich
   dir.create("annot_enrich")
   for (i in sort(unlist(unique(seu.q6[[level_cluster]])))) {
     dir.create(paste0(PWD,"/annot_enrich", "/clust",i))
   }
   Idents(seu.q6) <- level_cluster
-  # ClusterMarkers <- FindAllMarkers(seu.q6, only.pos = TRUE)
-  # top5 <- ClusterMarkers %>% group_by(cluster) %>% top_n(n=top_sel, wt = avg_log2FC)
-  # write.csv(top5,"top_sel.csv")
-  # for (i in  sort(unlist(unique(seu.q6[[level_cluster]])))) {
-  #   N1.c0 <- ClusterMarkers %>% filter(cluster == i & avg_log2FC > 0)
-  #   genes <- N1.c0$gene
-  #   write.xlsx(genes, file="cluster_just_genes.xlsx",sheetName=paste0('cluster',i), row.names=FALSE,append=TRUE)
-  #   write.xlsx(N1.c0, file="cluster_whole.xlsx",sheetName=paste0('cluster',i), row.names=FALSE,append=TRUE)
-  # }
-  # heat_map<-DoHeatmap(seu.q6, features = top5$gene, size=3, angle =90, group.bar.height = 0.02, group.by = level_cluster)
-  # ggsave(file = "heatmap.pdf")
-  # dim_plot<-DimPlot(seu.q6,group.by = level_cluster, label = TRUE)
-  # ggsave(file = "umap.pdf")
   setEnrichrSite("Enrichr") # Human genes
   for (i in sort(unlist(unique(seu.q6[[level_cluster]])))) {
     setwd(PWD)
@@ -48,4 +57,8 @@ annotation<-function(level_cluster,ClusterMarkers,PWD,PSUE,top_sel,db) {
     N1.Er.genes.3 <- N1.c0.Er[[3]] %>% select(Term, Genes, Combined.Score)
     write.csv(N1.Er.genes.3,"Er.genes.3.csv")
   }
-}
+
+
+
+writeLines(capture.output(sessionInfo()), paste(output_dir,'/step7/info7/sessionInfo_enrich.txt', sep=""))
+

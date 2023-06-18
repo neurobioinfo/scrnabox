@@ -1,0 +1,26 @@
+#!/bin/bash
+
+umask 002
+
+#----------------------------------------------------------------#
+#                                                     #
+# INITIALIZE VARIABLES                                #
+#                                                     #
+#----------------------------------------------------------------#
+echo "-------------------------------------------"
+echo "* step8 `date +%FT%H.%M.%S`"
+echo "-------------------------------------------"
+echo "* PIPELINE_HOME:        $PIPELINE_HOME"
+echo "* DIR:                  $OUTPUT_DIR"
+echo "* CONTRAST:                  ${CONT}"
+echo "-------------------------------------------"
+echo "------Parameters used to run this step-----"
+cat  $OUTPUT_DIR/job_info/parameters/step8_par.txt
+echo "-------------------------------------------"
+#----------------------------------------------------------------#
+# START PIPELINE                                      #
+#----------------------------------------------------------------#
+module load r/$R_VERSION
+Rscript ${PIPELINE_HOME}/hto/scripts/step8/hto_step8_m.R $OUTPUT_DIR  $R_LIB_PATH $CONT
+
+

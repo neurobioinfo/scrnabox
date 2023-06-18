@@ -1,0 +1,24 @@
+#!/bin/bash
+
+umask 002
+
+#----------------------------------------------------------------#
+#                                                     #
+# INITIALIZE VARIABLES                                #
+#                                                     #
+#----------------------------------------------------------------#
+
+echo "-------------------------------------------"
+echo "step7 enrich submitted at `date +%FT%H.%M.%S`" 
+echo "-------------------------------------------"
+echo "* PIPELINE_HOME:        $PIPELINE_HOME"
+echo "* DIR:                  $OUTPUT_DIR"
+echo "* SCRNA_METHOD:                  ${SCRNA_METHOD}"
+echo "-------------------------------------------"
+
+#----------------------------------------------------------------#
+# START PIPELINE                                      #
+#----------------------------------------------------------------#
+
+module load r/$R_VERSION 
+Rscript ${PIPELINE_HOME}/scrna/scripts/step7/scrna_step7_enrich.R $OUTPUT_DIR  $R_LIB_PATH

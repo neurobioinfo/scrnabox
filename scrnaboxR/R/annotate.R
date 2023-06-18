@@ -5,7 +5,7 @@ annotation<-function(level_cluster,ClusterMarkers,PWD,PSUE,top_sel,db) {
   # library(ggplot2)
   # library(xlsx)
   # library(enrichR)
-  # setwd(PWD)
+  setwd(PWD)
   seu.q6 <- readRDS(PSUE)
   # mkdir -p annot_enrich
   dir.create("annot_enrich")
@@ -27,7 +27,6 @@ annotation<-function(level_cluster,ClusterMarkers,PWD,PSUE,top_sel,db) {
   # dim_plot<-DimPlot(seu.q6,group.by = level_cluster, label = TRUE)
   # ggsave(file = "umap.pdf")
   setEnrichrSite("Enrichr") # Human genes
-  head(ClusterMarkers)
   for (i in sort(unlist(unique(seu.q6[[level_cluster]])))) {
     setwd(PWD)
     setwd(paste0('./annot_enrich/clust',i))

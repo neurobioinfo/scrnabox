@@ -75,7 +75,7 @@ the pipeline provides detailed guidance on processing and analyzing these specif
 The package is written in the bash, so it can be used with any slurm system. To download 
 `scrnabox.slurm` run the below comments 
 ```
-wget https://github.com/neurobioinfo/scrnabox/releases/download/0.1.0/scrnabox.slurm.zip
+wget https://github.com/neurobioinfo/scrnabox/releases/download/v0.1.0/scrnabox.slurm.zip
 unzip scrnabox.slurm.zip 
 ```
 

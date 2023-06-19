@@ -22,6 +22,8 @@ cat  $OUTPUT_DIR/job_info/parameters/step4_par.txt
 # echo "Anti Label used:"
 # cat  $OUTPUT_DIR/job_info/parameters/step4_antibody_label.txt
 echo "-------------------------------------------"
+echo -e "------Output of Run------------------------\n\n"
+
 #----------------------------------------------------------------#
 # START PIPELINE                                      #
 #----------------------------------------------------------------#

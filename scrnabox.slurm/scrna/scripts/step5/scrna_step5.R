@@ -76,9 +76,9 @@ seu_int <- Seurat::IntegrateData(anchorset = seu_anchors)
 Seurat::DefaultAssay(seu_int) <- "integrated"
 saveRDS(seu_int, paste(output_dir,'/step5/objs5',"/seu_step5.rds", sep=""))
 write.csv(colnames(seu_int[[]]), paste(output_dir,'/step5/info5',"/meta_info.csv", sep=""))
-if (scrna_method=='HTO') {
-    write.csv(table(seu_int$MULTI_ID), paste(output_dir,'/step5/info5',"/MULTI_IDcount.csv", sep=""))
-}
+# if (scrna_method=='HTO') {
+    # write.csv(table(seu_int$MULTI_ID), paste(output_dir,'/step5/info5',"/MULTI_IDcount.csv", sep=""))
+# }
 
 if (tolower(Save_RNA)=='yes') {
     mat <- GetAssayData(object = seu_int, assay = "RNA", slot = "data")

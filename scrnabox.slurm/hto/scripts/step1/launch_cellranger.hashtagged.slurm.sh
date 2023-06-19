@@ -71,7 +71,7 @@ module load $MODULECELLRANGER
 # echo $OUTPUT_DIR/job_info/logs/$(basename $(dirname ${RUN_NAME})).
 # pwd 
 pwd_dir=$(pwd)
-TEMPLOG=$OUTPUT_DIR/job_info/logs/step1_$(basename ${pwd_dir}).log
+TEMPLOG=$OUTPUT_DIR/job_info/logs/step_1_$(basename ${pwd_dir}).log
 echo "CELL RANGER is currently running on $(basename ${pwd_dir}). Please leave it undisturbed until it finishes. "
 if [[  -n ${R1LENGTH} ]]; then
     cellranger count  \

@@ -120,7 +120,7 @@ This step can be used to remove the 'Doublet'. By default, the pipeline removes 
 
 
 ### Step 5: Integration 
-In this step, the pipeline  combines multiple single-cell RNA-seq datasets.
+In this step, one combines multiple single-cell RNA-seq datasets.
 ```
 bash $SCRNABOX_HOME/launch_scrnabox.sh\
 -d ${SCRNABOX_PWD} \

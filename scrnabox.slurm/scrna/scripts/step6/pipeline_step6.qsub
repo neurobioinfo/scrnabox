@@ -1,7 +1,7 @@
 #!/bin/bash
 
 umask 002
-echo timestamp $(date +%s)
+# echo timestamp $(date +%s)
 
 #----------------------------------------------------------------#
 #                                                     #
@@ -16,7 +16,10 @@ echo "* PIPELINE_HOME:        $PIPELINE_HOME"
 echo "* DIR:                  $OUTPUT_DIR"
 echo "* SCRNA_METHOD:         ${SCRNA_METHOD}"
 echo "-------------------------------------------"
-
+echo "------Parameters used in this step---------"
+cat  $OUTPUT_DIR/job_info/parameters/step6_par.txt
+echo "-------------------------------------------"
+echo -e "------Output of Run------------------------\n\n"
 #----------------------------------------------------------------#
 # START PIPELINE                                      #
 #----------------------------------------------------------------#

@@ -5,11 +5,10 @@
 # The pipeline is written by Saeid Amiri (saeid.amiri@mcgill.ca)
 
 
-VERSION=0.1.41;DATE0=2023-06-17
-echo -e "scrnabox pipeline version $VERSION"
-# ; updated on $DATE0"
-# last updated version 2023-04-25
-# test on 2023-04-25
+VERSION=0.1.0;
+DATE0=2023-06-19
+echo -e "scrnabox pipeline version $VERSION, stable"
+# updated on $DATE0"
 
 # ===============================================
 # default variables values

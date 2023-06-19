@@ -97,7 +97,7 @@ bash $SCRNABOX_HOME/launch_scrnabox.sh\
 ```
 
 ### Step 5: Integration 
-In this step, the pipeline  combines multiple single-cell RNA-seq datasets.
+In this step, one combines multiple single-cell RNA-seq datasets.
 ```
 bash $SCRNABOX_HOME/launch_scrnabox.sh\
 -d ${SCRNABOX_PWD} \
@@ -113,12 +113,11 @@ bash $SCRNABOX_HOME/launch_scrnabox.sh\
 --steps 6 
 ```
 
-
-
 ### step 7: Cluster annotation
-In This step, you should find the cluster annotation to use in the Step 8. 
+In this step, you will use various methods to identify and annotate cell clusters. This may involve creating t-SNE or UMAP plots to visualize cell clusters, or using marker gene analysis or gene set enrichment analysis to identify cell types. The goal is to determine the cell types or states present in your dataset and assign them to each cluster. The cluster annotation information will be used in Step 8 for downstream analysis and interpretation
 #### Marker 
-Finds markers (differentially expressed genes) for each of cluster
+In this step, the pipeline finds differentially expressed genes for each cluster, which can be used to identify cluster-specific markers. This is done using the FindAllMarkers function in Seurat. The function compares gene expression in each cluster to the expression in all other clusters and identifies genes that are differentially expressed with a significant p-value. The output includes the top differentially expressed genes for each cluster and their corresponding p-values and fold changes. These markers can be used for downstream analysis such as cell type identification and functional annotation. The results are saved under ${SCRNABOX_PWD}/step7. This step produces `./step7/info7/top_sel.csv`, `./step7/info7/cluster_just_genes.xlsx`, `./step7/info7/cluster_whole.xlsx`, `./step7/info7/ClusterMarkers.rds`,  `./step7/figs7/heatmap.pdf`, `./step7/figs7/umap.pdf`, `./step7/figs7/umap_splitted.pdf`
+
 ```
 bash $SCRNABOX_HOME/launch_scrnabox.sh\
 -d ${SCRNABOX_PWD} \
@@ -127,7 +126,8 @@ bash $SCRNABOX_HOME/launch_scrnabox.sh\
 ```
 
 #### FindTransferAnchors
-Find a set of anchors between a reference and query object and add it to query object `predictions`
+In this step, the pipeline uses the `FindTransferAnchors` function in Seurat identifies anchors between a reference and query object and add it to query object `predictions`. This step produces `./step7/objs7/seu_step7.rds`.  
+
 ```
 bash $SCRNABOX_HOME/launch_scrnabox.sh\
 -d ${SCRNABOX_PWD} \
@@ -136,7 +136,9 @@ bash $SCRNABOX_HOME/launch_scrnabox.sh\
 ```
 
 #### EnrichR 
-If Your HPC allows the access to internet under batch submission, run the following codes
+In this step, the pipeline uses the EnrichR tool to perform gene set enrichment analysis on the differentially expressed genes identified in the previous step. EnrichR compares the list of genes against a large collection of gene set libraries, including pathways, gene ontology terms, and transcription factor targets, to identify enriched sets of genes that are related to biological functions, pathways, or processes. The results are saved as pdfs and csvs file.
+ 
+If your HPC allows access to the internet during batch submission, you can run the following codes
 ```
 bash $SCRNABOX_HOME/launch_scrnabox.sh\
 -d ${SCRNABOX_PWD} \
@@ -144,24 +146,27 @@ bash $SCRNABOX_HOME/launch_scrnabox.sh\
 --enrich T
 ```
 
-Otherwise, run the enrichment directively:
+Otherwise, run the enrichment directly:
 ```
 level_cluster='integrated_snn_res.0.7'
+ClusterMarkers='/SCRNABOX_PWD/step7/info7/ClusterMarkers.rds'
 PWD='/SCRNABOX_PWD/step7/annot/'
 PSUE='/SCRNABOX_PWD/step6/objs/seu_step6.rds'
 top_sel=5
 db <- c('Descartes_Cell_Types_and_Tissue_2021','CellMarker_Augmented_2021','Azimuth_Cell_Types_2021')
-scrnaboxR::annotation(level_cluster,PWD,PSUE,top_sel,db)
+scrnaboxR::annotation(level_cluster,ClusterMarkers,PWD,PSUE,top_sel,db)
 ```
 
 To run enrichment on your PC, first copy it to your PC, 
 ```
+scp -r usrid@beluga.computecanada.ca:${SCRNABOX_PWD}/step7 ~/Desktop/annot/
 scp -r usrid@beluga.computecanada.ca:${SCRNABOX_PWD}/step6 ~/Desktop/annot/
 ```
 
 Then run the following codes
 ```
 level_cluster='integrated_snn_res.0.7'
+ClusterMarkers='~/Desktop/annot/step7/info7/ClusterMarkers.rds'
 PWD='~/Desktop/annot/'
 PSUE='~/Desktop/annot/step6/objs/seu_step6.rds'
 top_sel=5
@@ -181,50 +186,6 @@ bash $SCRNABOX_HOME/launch_scrnabox.sh\
 --dgelist T
 ```
 
-<!-- This is commented out.
-#### DGE contrasts
-In this step, one can run the contrast on clustered result, which can be done on genotype and genotype-cell. 
-
-#### Genotype 
-There is a file ${SCRNABOX_PWD}/job_output/parameters/step8_contrast_main.txt, with columns of cont_name,control,ex_control,all, you can write the genotype contrast here, then select `--genotype T` to run the genotype contrast. 
-```
-bash $SCRNABOX_HOME/launch_scrnabox.sh\
--d ${SCRNABOX_PWD} \
---steps 8 \
---genotype T
-```
-
-#### Genotype-cell
-To run interact between celltype and genptype, write your contrast in `${SCRNABOX_PWD}/job_output/parameters/step8_contrast_inte.txt`. To run Step 8 on interact contrast, run the following command. Select `-celltype T` to run the main contrast. 
-```
-bash $SCRNABOX_HOME/launch_scrnabox.sh\
--d ${SCRNABOX_PWD} \
---steps 8 \
---celltype T
-```
-
-You can directly call the contrast to the pipeline, 
-```
-CONTINT=~/des/step7_contrast_inte.txt
-bash $SCRNABOX_HOME/launch_scrnabox.sh\
--d ${SCRNABOX_PWD} \
---steps 8 \
---celltype T \
---cont ${CONTINT}
-```
-
-```
-CONTMAIN=~/des/step7_contrast_main.txt
-bash $SCRNABOX_HOME/launch_scrnabox.sh\
--d ${SCRNABOX_PWD} \
---steps 8 \
---genotype T \
---cont ${CONTMAIN}
-```
-
-Note: If you have many contrasts, it is better to split them and submit batch jobs.  
-
--->
 
 ## Integrating seurat objects
 To combine different seurat objects, you can run the following codes. 

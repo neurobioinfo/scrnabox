@@ -72,7 +72,19 @@ for [Cell Hashtags](https://github.com/neurobioinfo/scrnabox/tree/main/README_HT
 the pipeline provides detailed guidance on processing and analyzing these specific types of single-cell RNA sequencing (scRNA-seq) data. 
 
 ## Installing
-The package is written using the bash, so it can be used with any slurm system, it needs `R` and `cellranger`.  For the R, you need to install 
+The package is written in the bash, so it can be used with any slurm system. To download 
+`scrnabox.slurm` run the below comments 
+```
+wget https://github.com/neurobioinfo/scrnabox/releases/download/0.1.0/scrnabox.slurm.zip
+unzip scrnabox.slurm.zip 
+```
+
+To obtain a brief guidance of the pipeline, execute the following code.
+```
+bash ./scrnabox.slurm/launch_scrnabox.sh -h 
+```
+
+`scrnabox.slurm` needs `R` and `cellranger`. For the R, you need to install 
 `'Seurat','ggplot2', 'dplyr', 'foreach', 'doParallel', 'Matrix', 'DoubletFinder','cowplot','clustree'`. Then install `'scrnaboxR'`: 
 ```
 devtools::install_github("neurobioinfo/scrnabox/scrnaboxR")

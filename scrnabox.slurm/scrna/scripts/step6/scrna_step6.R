@@ -67,9 +67,9 @@ saveRDS(seu_int, paste(output_dir,'/step6/objs6',"/seu_step6.rds", sep=""))
 write.csv(colnames(seu_int[[]]), paste(output_dir,'/step6/info6',"/meta_info.csv", sep=""))
 
 
-if (scrna_method=='HTO') {
-    write.table(unique(seu_int$MULTI_ID_Lables),file=paste(output_dir,'/step6/info6',"/class_label_phenotypes.txt", sep=""),col.names=FALSE)
-}
+# if (scrna_method=='HTO') {
+    # write.table(unique(seu_int$MULTI_ID_Lables),file=paste(output_dir,'/step6/info6',"/class_label_phenotypes.txt", sep=""),col.names=FALSE)
+# }
 
 
 

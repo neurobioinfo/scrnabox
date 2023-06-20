@@ -68,7 +68,7 @@ In this step, Cell Ranger is executed, and the resulting output is saved under $
 
 ```
 screen -S run_scrnabox_HTO
-bash $SCRNABOX_HOME/launch_scrnabox.sh\
+bash $SCRNABOX_HOME/launch_scrnabox.sh \
 -d ${SCRNABOX_PWD} \
 --steps 1
 ```
@@ -78,7 +78,7 @@ This step involves creating Seurat objects, which are a standard format for data
 `${SCRNABOX_PWD}/step2
 
 ```
-bash $SCRNABOX_HOME/launch_scrnabox.sh\
+bash $SCRNABOX_HOME/launch_scrnabox.sh \
 -d ${SCRNABOX_PWD} \
 --steps 2
 ```
@@ -86,7 +86,7 @@ bash $SCRNABOX_HOME/launch_scrnabox.sh\
 ### Step 3: QC and filter
 In this step, quality control is performed on the data, and the resulting output is saved under `${SCRNABOX_PWD}/step3`. The data is filtered based on the following criteria: `nFeature_RNA > 1000 & nCount_RNA < 65000 & mitochondria_percent < 25`.  
 ```
-bash $SCRNABOX_HOME/launch_scrnabox.sh\
+bash $SCRNABOX_HOME/launch_scrnabox.sh \
 -d ${SCRNABOX_PWD} \
 --steps 3 \
 --nFeature_RNA_L 1000 \
@@ -103,7 +103,7 @@ The parameters of this step are:
 ### Step 4: Demultiplexing
 If you are using hashtags, you need to select the appropriate label for the hashtags. You can obtain the hashtag labels by executing the following code:
 ```
-bash $SCRNABOX_HOME/launch_scrnabox.sh\
+bash $SCRNABOX_HOME/launch_scrnabox.sh \
 -d ${SCRNABOX_PWD} \
 --steps 4 \
 --msd T 
@@ -111,7 +111,7 @@ bash $SCRNABOX_HOME/launch_scrnabox.sh\
 
 You can add the current label and its corresponding new label in the file '${SCRNABOX_PWD}/job_output/parameters/step4_par.txt'. Once you have added the labels, run the following command to run the demultiplexing process.
 ```
-bash $SCRNABOX_HOME/launch_scrnabox.sh\
+bash $SCRNABOX_HOME/launch_scrnabox.sh \
 -d ${SCRNABOX_PWD} \
 --steps 4 
 ```
@@ -122,7 +122,7 @@ This step can be used to remove the 'Doublet'. By default, the pipeline removes 
 ### Step 5: Integration 
 In this step, one combines multiple single-cell RNA-seq datasets.
 ```
-bash $SCRNABOX_HOME/launch_scrnabox.sh\
+bash $SCRNABOX_HOME/launch_scrnabox.sh \
 -d ${SCRNABOX_PWD} \
 --steps 5 
 ```
@@ -131,7 +131,7 @@ bash $SCRNABOX_HOME/launch_scrnabox.sh\
 In this step, the pipeline
 runs clustering on the integrated dataset to group cells with similar gene expression patterns together based on a shared nearest neighbor graph (SNN). 
 ```
-bash $SCRNABOX_HOME/launch_scrnabox.sh\
+bash $SCRNABOX_HOME/launch_scrnabox.sh \
 -d ${SCRNABOX_PWD} \
 --steps 6 
 ```
@@ -143,7 +143,7 @@ In this step, you will use various methods to identify and annotate cell cluster
 In this step, the pipeline finds differentially expressed genes for each cluster, which can be used to identify cluster-specific markers. This is done using the FindAllMarkers function in Seurat. The function compares gene expression in each cluster to the expression in all other clusters and identifies genes that are differentially expressed with a significant p-value. The output includes the top differentially expressed genes for each cluster and their corresponding p-values and fold changes. These markers can be used for downstream analysis such as cell type identification and functional annotation. The results are saved under ${SCRNABOX_PWD}/step7. This step produces `./step7/info7/top_sel.csv`, `./step7/info7/cluster_just_genes.xlsx`, `./step7/info7/cluster_whole.xlsx`, `./step7/info7/ClusterMarkers.rds`,  `./step7/figs7/heatmap.pdf`, `./step7/figs7/umap.pdf`, `./step7/figs7/umap_splitted.pdf`
 
 ```
-bash $SCRNABOX_HOME/launch_scrnabox.sh\
+bash $SCRNABOX_HOME/launch_scrnabox.sh \
 -d ${SCRNABOX_PWD} \
 --steps 7 \
 --marker T
@@ -152,7 +152,7 @@ bash $SCRNABOX_HOME/launch_scrnabox.sh\
 #### FindTransferAnchors
 In this step, the pipeline uses the `FindTransferAnchors` function in Seurat identifies anchors between a reference and query object and add it to query object `predictions`. This step produces `./step7/objs7/seu_step7.rds`.  
 ```
-bash $SCRNABOX_HOME/launch_scrnabox.sh\
+bash $SCRNABOX_HOME/launch_scrnabox.sh \
 -d ${SCRNABOX_PWD} \
 --steps 7 \
 --fta T
@@ -163,7 +163,7 @@ In this step, the pipeline uses the EnrichR tool to perform gene set enrichment 
  
 If your HPC allows access to the internet during batch submission, you can run the following codes
 ```
-bash $SCRNABOX_HOME/launch_scrnabox.sh\
+bash $SCRNABOX_HOME/launch_scrnabox.sh \
 -d ${SCRNABOX_PWD} \
 --steps 7 \
 --enrich T
@@ -205,7 +205,7 @@ This step involves running the differential gene expression (DEG) analysis. To d
 This step involves creating a DGEListobject from a table of counts obtained from seurate objects.it is recommended to allocate at least 3 times the size of the seu_int_clu.rds file in RAM, 3*size(seu_int_clu.rds).
 
 ```
-bash $SCRNABOX_HOME/launch_scrnabox.sh\
+bash $SCRNABOX_HOME/launch_scrnabox.sh \
 -d ${SCRNABOX_PWD} \
 --steps 8 \
 --dgelist T
@@ -218,7 +218,7 @@ At this stage, it is possible to perform a contrast analysis on the clustered re
 You can find a file called `${SCRNABOX_PWD}/job_info/parameters/step8_contrast_main.txt`, which contains columns for `cont_name`, `control`, `ex_control`, and `all`. You can specify genotype contrasts in this file and then use the `--genotype T` option to run the genotype contrast
 
 ```
-bash $SCRNABOX_HOME/launch_scrnabox.sh\
+bash $SCRNABOX_HOME/launch_scrnabox.sh \
 -d ${SCRNABOX_PWD} \
 --steps 8 \
 --genotype T
@@ -227,7 +227,7 @@ bash $SCRNABOX_HOME/launch_scrnabox.sh\
 ###### Genotype-cell
 To perform an interaction analysis between cell type and genotype, specify your contrast in the file `${SCRNABOX_PWD}/job_info/parameters/step8_contrast_inte.txt`. To run Step 8 using the interaction contrast, execute the following command which use the `-celltype T` option to run the Genotype-cell contrast. 
 ```
-bash $SCRNABOX_HOME/launch_scrnabox.sh\
+bash $SCRNABOX_HOME/launch_scrnabox.sh \
 -d ${SCRNABOX_PWD} \
 --steps 8 \
 --celltype T
@@ -236,7 +236,7 @@ bash $SCRNABOX_HOME/launch_scrnabox.sh\
 You can integrate the contrast directly into the pipeline by calling it, 
 ```
 CONTINT=~/des/step7_contrast_inte.txt
-bash $SCRNABOX_HOME/launch_scrnabox.sh\
+bash $SCRNABOX_HOME/launch_scrnabox.sh \
 -d ${SCRNABOX_PWD} \
 --steps 8 \
 --celltype T \
@@ -245,7 +245,7 @@ bash $SCRNABOX_HOME/launch_scrnabox.sh\
 
 ```
 CONTMAIN=~/des/step7_contrast_main.txt
-bash $SCRNABOX_HOME/launch_scrnabox.sh\
+bash $SCRNABOX_HOME/launch_scrnabox.sh \
 -d ${SCRNABOX_PWD} \
 --steps 8 \
 --genotype T \
@@ -259,7 +259,7 @@ To combine different seurat objects, you can run the following codes.
 ```
 LISTOFSEU=~/list.txt
 
-bash $SCRNABOX_HOME/launch_scrnabox.sh\
+bash $SCRNABOX_HOME/launch_scrnabox.sh \
 -d ${SCRNABOX_PWD} \
 --steps  integrate \
 --seulist ${LISTOFSEU}

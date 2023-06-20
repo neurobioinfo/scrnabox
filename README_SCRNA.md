@@ -47,7 +47,7 @@ bash $SCRNABOX_HOME/launch_scrnabox.sh -h
 After defining the 'SCRNABOX_PWD' variable, create a folder named `samples_info`, then add subfolder for each sample in the `samples_info`, then prepare two files - library.csv and features_ref.csv - containing necessary information about the sample and save then inside the subfolder (note, the pipeline uses the name of subfolder as sample name under `orig.ident` in Seurat object). An example format for these files can be found at [link](https://github.com/neurobioinfo/scrnabox/tree/main/test_code/LaunchSamplescRNA); create a CSV file named library.csv with three columns: `fastq`, `sample`, and `library_type`. In the fastq column, provide the path to the file. In the sample column, write the first of sample name, e.g., write `Sample1GEXD01_MPS12347745_C12_S1_R1_001.fastq.gz` as "Sample1GEXD01_MPS12347745_C12". In the library_type column, specify the type of the library.  
 Then run the following code to setup pipeline:
 ```
-bash $SCRNABOX_HOME/launch_scrnabox.sh\
+bash $SCRNABOX_HOME/launch_scrnabox.sh \
 -d ${SCRNABOX_PWD} \
 --steps 0 \
 --method SCRNA
@@ -59,7 +59,7 @@ In the code, `-d ${SCRNABOX_PWD}`, `-steps 0`, and `--method SCRNA` specify cert
 In this step, Cell Ranger is executed, and the resulting output is saved under ${SCRNABOX_PWD}/step1, which generates a count matrix. As Cell Ranger runs a user interface, it is recommended to run this step in a 'screen'.
 ```
 screen -S run_scrnabox
-bash $SCRNABOX_HOME/launch_scrnabox.sh\
+bash $SCRNABOX_HOME/launch_scrnabox.sh \
 -d ${SCRNABOX_PWD} \
 --steps 1
 ```
@@ -67,7 +67,7 @@ bash $SCRNABOX_HOME/launch_scrnabox.sh\
 ### Step 2: Seurat object 
 This step involves creating Seurat objects, which are a standard format for data generated using the 10x Genomics platform. The resulting objects are saved under  `${SCRNABOX_PWD}/step2`
 ```
-bash $SCRNABOX_HOME/launch_scrnabox.sh\
+bash $SCRNABOX_HOME/launch_scrnabox.sh \
 -d ${SCRNABOX_PWD} \
 --steps 2
 ```
@@ -75,7 +75,7 @@ bash $SCRNABOX_HOME/launch_scrnabox.sh\
 ### Step 3: QC and filter
 In this step, quality control is performed on the data, and the resulting output is saved under `${SCRNABOX_PWD}/step3`. The data is filtered based on the following criteria: `nFeature_RNA > 1000 & nCount_RNA < 65000 & mitochondria_percent < 25`.  
 ```
-bash $SCRNABOX_HOME/launch_scrnabox.sh\
+bash $SCRNABOX_HOME/launch_scrnabox.sh \
 -d ${SCRNABOX_PWD} \
 --steps 3 \
 --nFeature_RNA_L 1000 \
@@ -91,7 +91,7 @@ The parameters of this step are:
 ### Step 4: Remove doublet
 This step can be used to remove the 'Doublet'. By default, the pipeline removes the doublet, if you want to keep them, just change 'yes' to 'no' in '${SCRNABOX_PWD}/job_info/parameters/step4_par.txt'. 
 ```
-bash $SCRNABOX_HOME/launch_scrnabox.sh\
+bash $SCRNABOX_HOME/launch_scrnabox.sh \
 -d ${SCRNABOX_PWD} \
 --steps 4 
 ```
@@ -99,7 +99,7 @@ bash $SCRNABOX_HOME/launch_scrnabox.sh\
 ### Step 5: Integration 
 In this step, one combines multiple single-cell RNA-seq datasets.
 ```
-bash $SCRNABOX_HOME/launch_scrnabox.sh\
+bash $SCRNABOX_HOME/launch_scrnabox.sh \
 -d ${SCRNABOX_PWD} \
 --steps 5 
 ```
@@ -108,7 +108,7 @@ bash $SCRNABOX_HOME/launch_scrnabox.sh\
 In this step, the pipeline runs clustering on the integrated dataset to group cells with similar gene expression patterns together based on a shared nearest neighbor network. 
 
 ```
-bash $SCRNABOX_HOME/launch_scrnabox.sh\
+bash $SCRNABOX_HOME/launch_scrnabox.sh \
 -d ${SCRNABOX_PWD} \
 --steps 6 
 ```
@@ -119,7 +119,7 @@ In this step, you will use various methods to identify and annotate cell cluster
 In this step, the pipeline finds differentially expressed genes for each cluster, which can be used to identify cluster-specific markers. This is done using the FindAllMarkers function in Seurat. The function compares gene expression in each cluster to the expression in all other clusters and identifies genes that are differentially expressed with a significant p-value. The output includes the top differentially expressed genes for each cluster and their corresponding p-values and fold changes. These markers can be used for downstream analysis such as cell type identification and functional annotation. The results are saved under ${SCRNABOX_PWD}/step7. This step produces `./step7/info7/top_sel.csv`, `./step7/info7/cluster_just_genes.xlsx`, `./step7/info7/cluster_whole.xlsx`, `./step7/info7/ClusterMarkers.rds`,  `./step7/figs7/heatmap.pdf`, `./step7/figs7/umap.pdf`, `./step7/figs7/umap_splitted.pdf`
 
 ```
-bash $SCRNABOX_HOME/launch_scrnabox.sh\
+bash $SCRNABOX_HOME/launch_scrnabox.sh \
 -d ${SCRNABOX_PWD} \
 --steps 7 \
 --marker T
@@ -129,7 +129,7 @@ bash $SCRNABOX_HOME/launch_scrnabox.sh\
 In this step, the pipeline uses the `FindTransferAnchors` function in Seurat identifies anchors between a reference and query object and add it to query object `predictions`. This step produces `./step7/objs7/seu_step7.rds`.  
 
 ```
-bash $SCRNABOX_HOME/launch_scrnabox.sh\
+bash $SCRNABOX_HOME/launch_scrnabox.sh \
 -d ${SCRNABOX_PWD} \
 --steps 7 \
 --fta T
@@ -140,7 +140,7 @@ In this step, the pipeline uses the EnrichR tool to perform gene set enrichment 
  
 If your HPC allows access to the internet during batch submission, you can run the following codes
 ```
-bash $SCRNABOX_HOME/launch_scrnabox.sh\
+bash $SCRNABOX_HOME/launch_scrnabox.sh \
 -d ${SCRNABOX_PWD} \
 --steps 7 \
 --enrich T
@@ -180,7 +180,7 @@ This step runs the Differetial gene expression (DEG); first add the labels obtai
 #### DGEList
 This step creates a DGEListobject from a table of counts obtained from seurate objects. It might need alot of RAM, we suggest 3*size(seu_int_clu.rds)
 ```
-bash $SCRNABOX_HOME/launch_scrnabox.sh\
+bash $SCRNABOX_HOME/launch_scrnabox.sh \
 -d ${SCRNABOX_PWD} \
 --steps 8 \
 --dgelist T
@@ -192,7 +192,7 @@ To combine different seurat objects, you can run the following codes.
 ```
 LISTOFSEU=~/list.txt
 
-bash $SCRNABOX_HOME/launch_scrnabox.sh\
+bash $SCRNABOX_HOME/launch_scrnabox.sh \
 -d ${SCRNABOX_PWD} \
 --steps  integrate \
 --seulist ${LISTOFSEU} \

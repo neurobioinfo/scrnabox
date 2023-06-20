@@ -50,7 +50,7 @@ After defining the 'SCRNABOX_PWD' variable, create a folder named `samples_info`
 Then run the following code to setup pipeline for cell Hashtag oligonucleotide analyzing (HTO):
 
 ```
-bash $SCRNABOX_HOME/launch_scrnabox.sh\
+bash $SCRNABOX_HOME/launch_scrnabox.sh \
 -d ${SCRNABOX_PWD} \
 --steps 0 \
 --method HTO

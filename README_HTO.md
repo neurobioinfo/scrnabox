@@ -129,7 +129,7 @@ bash $SCRNABOX_HOME/launch_scrnabox.sh\
 
 ### Step 6: Clustering 
 In this step, the pipeline
-runs clustering on the integrated dataset to group cells with similar gene expression patterns together based on a k-nearest neighbor graph. 
+runs clustering on the integrated dataset to group cells with similar gene expression patterns together based on a shared nearest neighbor graph (SNN). 
 ```
 bash $SCRNABOX_HOME/launch_scrnabox.sh\
 -d ${SCRNABOX_PWD} \

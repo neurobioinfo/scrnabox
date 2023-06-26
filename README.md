@@ -89,8 +89,7 @@ bash ./scrnabox.slurm/launch_scrnabox.sh -h
 ```
 devtools::install_github("neurobioinfo/scrnabox/scrnaboxR")
 ```
-The `'scrnaboxR'` is an R package that provides a collection of functions for conducting enrichment analysis and other analyses associated with single-cell RNA sequencing (scRNA-seq) data. It serves as a companion to scrnabox, offering a range of tools and functionalities to enhance scRNA-seq data analysis.
-Download the source [scrnabox](https://github.com/neurobioinfo/scrnabox/tree/main/scrnabox.slurm) in your system, which includes all files. The config are in `scrnabox_config.ini`, you can define the path of R library in `R_LIB_PATH=`, version of R in `R_VERSION`, you can add the path of `cell ranger`in `MODULECELLRANGER` 
+The `'scrnaboxR'` is an R package that provides a collection of functions for conducting enrichment analysis and other analyses associated with single-cell RNA sequencing (scRNA-seq) data. It serves as a companion to scrnabox, offering a range of tools and functionalities to enhance scRNA-seq data analysis. You need to add the R info in `scrnabox_config.ini`, you can define the path of R library in `R_LIB_PATH=`, version of R in `R_VERSION`, you can add the path of `cell ranger`in `MODULECELLRANGER` 
 
 ## [Processed Data](https://github.com/neurobioinfo/scrnabox/blob/main/README_PROC.md)
 The pipeline can also be used with [processed data](https://github.com/neurobioinfo/scrnabox/blob/main/README_PROC.md) from different projects.

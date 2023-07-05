@@ -187,6 +187,49 @@ bash $SCRNABOX_HOME/launch_scrnabox.sh \
 ```
 
 
+#### DGE contrasts
+At this stage, it is possible to perform a contrast analysis on the clustered results, either at the genotype level or at the genotype-cell level
+
+###### Genotype 
+You can find a file called `${SCRNABOX_PWD}/job_info/parameters/step8_contrast_main.txt`, which contains columns for `cont_name`, `control`, `ex_control`, and `all`. You can specify genotype contrasts in this file and then use the `--genotype T` option to run the genotype contrast
+
+```
+bash $SCRNABOX_HOME/launch_scrnabox.sh \
+-d ${SCRNABOX_PWD} \
+--steps 8 \
+--genotype T
+```
+
+###### Genotype-cell
+To perform an interaction analysis between cell type and genotype, specify your contrast in the file `${SCRNABOX_PWD}/job_info/parameters/step8_contrast_inte.txt`. To run Step 8 using the interaction contrast, execute the following command which use the `-celltype T` option to run the Genotype-cell contrast. 
+```
+bash $SCRNABOX_HOME/launch_scrnabox.sh \
+-d ${SCRNABOX_PWD} \
+--steps 8 \
+--celltype T
+```
+
+You can integrate the contrast directly into the pipeline by calling it, 
+```
+CONTINT=~/des/step7_contrast_inte.txt
+bash $SCRNABOX_HOME/launch_scrnabox.sh \
+-d ${SCRNABOX_PWD} \
+--steps 8 \
+--celltype T \
+--cont ${CONTINT}
+```
+
+```
+CONTMAIN=~/des/step7_contrast_main.txt
+bash $SCRNABOX_HOME/launch_scrnabox.sh \
+-d ${SCRNABOX_PWD} \
+--steps 8 \
+--genotype T \
+--cont ${CONTMAIN}
+```
+
+Note: If you have a large number of contrasts to run, it may be more efficient to split them up and submit batch jobs instead.
+
 ## Integrating seurat objects
 To combine different seurat objects, you can run the following codes. 
 ```

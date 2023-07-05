@@ -89,7 +89,8 @@ The parameters of this step are:
  - mitochondria_percent: High mitochondrial transcript levels relative to total RNA transcripts may indicate dead or dying cells and can affect clustering performance. By default, cells with mitochondrial transcript percentages greater than 25% are removed. The `--mitochondria_percent_U` option sets the upper threshold for mitochondrial transcript percentage.
 
 ### Step 4: Remove doublet
-This step can be used to remove the 'Doublet'. By default, the pipeline removes the doublet, if you want to keep them, just change 'yes' to 'no' in '${SCRNABOX_PWD}/job_info/parameters/step4_par.txt'. 
+This step can be used to remove the 'Doublet'. By default, the pipeline removes the doublet, if you want to keep them, just change 'yes' to 'no' in '${SCRNABOX_PWD}/job_info/parameters/step4_par.txt'.   Also you can add the current label and its corresponding new label in the file '${SCRNABOX_PWD}/job_output/parameters/step4_par.txt'. Once you have added the labels, run the following command to run this step.
+
 ```
 bash $SCRNABOX_HOME/launch_scrnabox.sh \
 -d ${SCRNABOX_PWD} \

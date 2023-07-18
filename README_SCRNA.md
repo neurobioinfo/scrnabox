@@ -166,7 +166,7 @@ scp -r usrid@beluga.computecanada.ca:${SCRNABOX_PWD}/step7 ~/Desktop/des/
 scp -r usrid@beluga.computecanada.ca:${SCRNABOX_PWD}/step6 ~/Desktop/des/
 ```
 
-Then run the following codes
+Then run the following codes in R:
 ```
 dir.create("~/Desktop/des/step7/annot")
 level_cluster='integrated_snn_res.0.7'

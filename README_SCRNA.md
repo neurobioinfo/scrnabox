@@ -164,15 +164,15 @@ To run enrichment on your PC, first copy it to your PC,
 mkdir ~/Desktop/des/
 scp -r usrid@beluga.computecanada.ca:${SCRNABOX_PWD}/step7 ~/Desktop/des/
 scp -r usrid@beluga.computecanada.ca:${SCRNABOX_PWD}/step6 ~/Desktop/des/
-mkdir ~/Desktop/des/step7/annot
 ```
 
 Then run the following codes
 ```
+dir.create("~/Desktop/des/step7/annot")
 level_cluster='integrated_snn_res.0.7'
-ClusterMarkers='~/Desktop/annot/step7/info7/ClusterMarkers.rds'
+ClusterMarkers='~/Desktop/des/step7/info7/ClusterMarkers.rds'
 PWD='~/Desktop/des/step7/annot/'
-PSUE='~/Desktop/des/step6/objs/seu_step6.rds'
+PSUE='~/Desktop/des/step6/objs6/seu_step6.rds'
 top_sel=5
 db <- c('Descartes_Cell_Types_and_Tissue_2021','CellMarker_Augmented_2021','Azimuth_Cell_Types_2021')
 scrnaboxR::annotation(level_cluster,PWD,PSUE,top_sel,db)

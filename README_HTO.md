@@ -108,8 +108,8 @@ bash $SCRNABOX_HOME/launch_scrnabox.sh \
 --steps 4 \
 --msd T 
 ```
-
-You can add the current label and its corresponding new label in the file '${SCRNABOX_PWD}/job_output/parameters/step4_par.txt'. Once you have added the labels, run the following command to run the demultiplexing process.
+They actually include the gentoptype and are saved under the column `MULTI_ID` as default. You can add the current label and its corresponding new label in the file '${SCRNABOX_PWD}/job_output/parameters/step4_par.txt': 'old_antibody_label='
+'new_antibody_label='. Once you have added the labels, run the following command to run the demultiplexing process, the new label will be saved under column `MULTI_ID_Lables`.
 ```
 bash $SCRNABOX_HOME/launch_scrnabox.sh \
 -d ${SCRNABOX_PWD} \

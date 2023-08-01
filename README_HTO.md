@@ -72,10 +72,11 @@ bash $SCRNABOX_HOME/launch_scrnabox.sh \
 -d ${SCRNABOX_PWD} \
 --steps 1
 ```
+If you already have the Count Matrices, skip this step and go next step. 
 
 ### Step 2: Seurat object 
 This step involves creating Seurat objects, which are a standard format for data generated using the 10x Genomics platform. The resulting objects are saved under 
-`${SCRNABOX_PWD}/step2
+`${SCRNABOX_PWD}/step2`. If you have the count matrices and skipt the Step 1, you should specify the path of count matrices under `count_matrices=` in the step 2's parameters: `${SCRNABOX_PWD}/job_output/parameters/step2_par.txt`. 
 
 ```
 bash $SCRNABOX_HOME/launch_scrnabox.sh \

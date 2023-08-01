@@ -65,12 +65,13 @@ bash $SCRNABOX_HOME/launch_scrnabox.sh \
 ```
 
 ### Step 2: Seurat object 
-This step involves creating Seurat objects, which are a standard format for data generated using the 10x Genomics platform. The resulting objects are saved under  `${SCRNABOX_PWD}/step2`
+This step involves creating Seurat objects, which are a standard format for data generated using the 10x Genomics platform. The resulting objects are saved under  `${SCRNABOX_PWD}/step2`.  If you have the count matrices and skipt the Step 1, you should specify the path of count matrices under `count_matrices=` in the step 2's parameters: `${SCRNABOX_PWD}/job_output/parameters/step2_par.txt`. 
 ```
 bash $SCRNABOX_HOME/launch_scrnabox.sh \
 -d ${SCRNABOX_PWD} \
 --steps 2
 ```
+If you already have the Count Matrices, skip this step and go next step. 
 
 ### Step 3: QC and filter
 In this step, quality control is performed on the data, and the resulting output is saved under `${SCRNABOX_PWD}/step3`. The data is filtered based on the following criteria: `nFeature_RNA > 1000 & nCount_RNA < 65000 & mitochondria_percent < 25`.  

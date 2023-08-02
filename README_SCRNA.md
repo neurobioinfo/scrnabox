@@ -176,7 +176,7 @@ PWD='~/Desktop/des/step7/annot/'
 PSUE='~/Desktop/des/step6/objs6/seu_step6.rds'
 top_sel=5
 db <- c('Descartes_Cell_Types_and_Tissue_2021','CellMarker_Augmented_2021','Azimuth_Cell_Types_2021')
-scrnaboxR::annotation(level_cluster,PWD,PSUE,top_sel,db)
+scrnaboxR::annotation(level_cluster,ClusterMarkers,PWD,PSUE,top_sel,db)
 ```
 
 ### step 8: DGE contrast

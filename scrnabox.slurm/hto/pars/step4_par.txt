@@ -1,7 +1,41 @@
-dropDN<-'yes'
-label_dropDN<-c('Doublet', 'Negative')
-Save_RNA<-"NO"
-Save_metadata<-"NO"
-### Labels of Antobody
-old_antibody_label=c("B0251-TotalSeqB","B0252-TotalSeqB","B0253-TotalSeqB","B0254-TotalSeqB","B0255-TotalSeqB","B0256-TotalSeqB","Doublet","Negative")
-new_antibody_label=c("AIW002","SNCA-A53T","GBA-KO","Parkin-KO","PINK1-KO","SNCA-KO","Doublet","Negative")
+Save_RNA='NO'
+Save_metadata='NO'
+normlazation_and_scalaing='YES'
+dimensionality_reduction='YES'
+###### dropDN, 'yes' drop the doublet and negative one. 
+dropDN='yes'
+label_dropDN=c('Doublet', 'Negative')
+###### Labels of Antobody in HTO 
+old_antibody_label=c('B0251-TotalSeqB','B0252-TotalSeqB','B0253-TotalSeqB','B0254-TotalSeqB','B0255-TotalSeqB','B0256-TotalSeqB','Doublet','Negative')
+new_antibody_label=c('AIW002','SNCA-A53T','GBA-KO','Parkin-KO','PINK1-KO','SNCA-KO','Doublet','Negative')
+###### Method for normalization
+par_normalization.method="LogNormalize"
+###### 	Sets the scale factor for cell-level normalization
+par_scale.factor=10000
+###### How to choose top variable features. vst, mean.var.plot (mvp), dispersion (disp). 
+par_selection.method='vst'
+# most variable genes
+par_top=10 
+###### Number of features to select as top variable features
+par_nfeatures = 2500
+###### The quantile to use for classification
+par_quantile=0.9
+###### Whether to perform automated threshold finding to define the best quantile. Default is FALSE
+par_autoThresh=TRUE
+###### Maximum number of iterations if autoThresh = TRUE. Default is 5
+par_maxiter=5
+###### Total Number of PCs to compute and store for RunPCA
+par_npcs_pca = 30
+###### number of cell for dimheatmap
+par_cells=500
+###### number of dimension for dimheatmap
+par_dims=12
+#######
+par_reduction="pca"
+par_features="percent.globin"
+######  Which dimensions to use as input features for RunUMAP
+par_dims_umap=3
+###### This determines the number of neighboring points used in local approximations of manifold structure.
+par_n.neighbors=65
+##### Number of columns if multiple plots are displayed for  RidgePlot
+par_RidgePlot_ncol=3

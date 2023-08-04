@@ -5,9 +5,10 @@
 # The pipeline is written by Saeid Amiri (saeid.amiri@mcgill.ca)
 
 
-VERSION=0.1.0;
-DATE0=2023-06-19
-echo -e "scrnabox pipeline version $VERSION, stable"
+
+VERSION=0.1.1;
+DATE0=2023-06-22
+echo -e "scrnabox pipeline version $VERSION, dev"
 # updated on $DATE0"
 
 # ===============================================
@@ -18,8 +19,11 @@ unset SAMPLE OUTPUT_DIR PIPELINE_HOME QUEUE ACCOUNT STEP8dgelist STEP8m STEP8i
 #Assuming script is in root of PIPELINE_HOME
 submit_cmd=sbatch
 
+
 PIPELINE_HOME0=`realpath ${BASH_SOURCE[0]}`
 export PIPELINE_HOME=$(cd $(dirname $PIPELINE_HOME0) && pwd -P)
+
+
 # echo $PIPELINE_HOME
 # echo $0
 # echo $PIPELINE_HOME0
@@ -50,7 +54,10 @@ Usage() {
           "\t\t--nFeature_RNA_U  = Upper threshold of number of unique RNA transcripts for each cell, it filters --nFeature_RNA_U.  \n" \
           "\t\t--nCount_RNA_L  = Lower threshold for nCount_RNA, it filters nCount_RNA > nCount_RNA_L   \n" \
           "\t\t--nCount_RNA_U  = Upper threshold for  nCount_RNA, it filters nCount_RNA < nCount_RNA_U  \n" \
-          "\t\t--mitochondria_percent_U  = Upper threshold  for the amount of mitochondrial transcript, it is in percent, mitochondria_percent < mitochondria_percent_U.  \n" \
+          "\t\t--mitochondria_percent_L  = Lower threshold for the amount of mitochondrial transcript, it is in percent, mitochondria_percent > mitochondria_percent_L. \n" \
+          "\t\t--mitochondria_percent_U  = Upper threshold for the amount of mitochondrial transcript, it is in percent, mitochondria_percent < mitochondria_percent_U. \n" \
+          "\t\t--log10GenesPerUMI_U  = Upper threshold for the log number of genes per UMI for each cell, it is in percent,log10GenesPerUMI=log10(nFeature_RNA)/log10(nCount_RNA). mitochondria_percent < log10GenesPerUMI_U. \n" \
+          "\t\t--log10GenesPerUMI_L  = Lower threshold for the log number of genes per UMI for each cell, log10GenesPerUMI=log10(nFeature_RNA)/log10(nCount_RNA). mitochondria_percent > log10GenesPerUMI_L.  \n" \
           "\t\t--msd  = you can get the hashtag labels by running the following code \n" \
           "\t\t--marker  = Find marker. \n" \
           "\t\t--sinfo  = Do you need sample info? \n" \
@@ -69,7 +76,7 @@ echo
 # ===============================================
 # PARSING ARGUMENTS
 # ===============================================
-if ! options=$(getopt --name pipeline --alternative --unquoted --options hs:d:t:m:vw:f:S:c:a:x: --longoptions dir:,steps:,method:,nFeature_RNA_L:,nFeature_RNA_U:,nCount_RNA_L:,nCount_RNA_U:,mitochondria_percent_U:,marker:,sinfo:,fta:,enrich:,dgelist:,genotype:,celltype:,msd:,cont:,seulist:,verbose,help -- "$@")
+if ! options=$(getopt --name pipeline --alternative --unquoted --options hs:d:t:m:vw:f:S:c:a:x: --longoptions dir:,steps:,method:,nFeature_RNA_L:,nFeature_RNA_U:,nCount_RNA_L:,nCount_RNA_U:,mitochondria_percent_U:,mitochondria_percent_L:,log10GenesPerUMI_U:,log10GenesPerUMI_L:,marker:,sinfo:,fta:,enrich:,dgelist:,genotype:,celltype:,msd:,cont:,seulist:,verbose,help -- "$@")
 then
     # something went wrong, getopt will put out an error message for us
     echo "Error processing options."
@@ -122,8 +129,11 @@ do
     --nFeature_RNA_L) NFRNAL="$2"; shift ;;
     --nFeature_RNA_U) NFRNAU="$2"; shift ;;    
     --nCount_RNA_L) NCRNAL="$2"; shift ;;
-    --nCount_RNA_U) NCRNAU="$2"; shift ;;    
+    --nCount_RNA_U) NCRNAU="$2"; shift ;;   
+    --mitochondria_percent_L) PMTL="$2"; shift ;;     
     --mitochondria_percent_U) PMTU="$2"; shift ;;
+    --log10GenesPerUMI_L) GENEUMIL="$2"; shift ;;     
+    --log10GenesPerUMIt_U) GENEUMIU="$2"; shift ;;    
     --marker) STEP7marker="$2"; shift ;;
     --fta) STEP7fta="$2"; shift ;;
     --enrich) STEP7enrich="$2"; shift ;;    
@@ -153,9 +163,10 @@ if [[ -z $NFRNAL ]]; then  NFRNAL="F"; fi
 if [[ -z $NFRNAU ]]; then  NFRNAU="F"; fi
 if [[ -z $NCRNAL ]]; then  NCRNAL="F"; fi
 if [[ -z $NCRNAU ]]; then  NCRNAU="F"; fi
+if [[ -z $PMTL ]]; then  PMTL="F"; fi
 if [[ -z $PMTU ]]; then  PMTU="F"; fi
-
-
+if [[ -z $GENEUMIL ]]; then  GENEUMIL="F"; fi
+if [[ -z $GENEUMIU ]]; then  GENEUMIU="F"; fi
 
 
 
@@ -187,6 +198,8 @@ fi
 # STEP 0: RUN setting 
 # ===============================================
 #
+
+
 
 if [[ ${MODE0[@]} == 0 ]]; then 
   JOB_OUTPUT_DIR=$OUTPUT_DIR/job_info
@@ -354,7 +367,10 @@ echo NFRNAL=$NFRNAL  >> $TEMPCONFIG
 echo NFRNAU=$NFRNAU  >> $TEMPCONFIG
 echo NCRNAL=$NCRNAL  >> $TEMPCONFIG
 echo NCRNAU=$NCRNAU  >> $TEMPCONFIG
+echo PMTL=$PMTL  >> $TEMPCONFIG
 echo PMTU=$PMTU  >> $TEMPCONFIG
+echo GENEUMIL=$GENEUMIL >> $TEMPCONFIG
+echo GENEUMIU=$GENEUMIU >> $TEMPCONFIG
 echo SEULIST=$SEULIST   >> $TEMPCONFIG
 echo STEP7enrich=$STEP7enrich   >> $TEMPCONFIG
 echo STEP7fta=$STEP7fta  >> $TEMPCONFIG
@@ -367,6 +383,8 @@ echo MODE=$MODE >> $TEMPCONFIG
 echo QUEUE=$QUEUE >> $TEMPCONFIG
 echo VERSION=$VERSION >> $TEMPCONFIG
 
+
+
 # $OUTPUT_DIR/job_info/configs/temp
 if  [[  ${MODE0[@]}  =~  integrate  ]]  ; then
    bash ${PIPELINE_HOME}/launch/launch_scrnabox_integ.sh
@@ -375,6 +393,5 @@ elif  [[  ${SCRNA_METHOD} =~ SCRNA ]] ; then
 elif [[  ${SCRNA_METHOD} =~ HTO ]] ; then
    bash ${PIPELINE_HOME}/launch/launch_scrnabox_hto.sh
 fi
-
 
 exit 0

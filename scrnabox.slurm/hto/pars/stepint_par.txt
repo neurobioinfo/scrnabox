@@ -1,2 +1,3 @@
-seu1_standardize<-'yes'
-seu2_standardize<-'yes'
+###### Should standardization on surat object
+seu1_standardize='yes'
+seu2_standardize='yes'

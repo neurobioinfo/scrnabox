@@ -8,12 +8,12 @@ output_dir=args[1]
 r_lib_path=args[2]
 
 .libPaths(r_lib_path)
-packages<-c('Seurat','ggplot2', 'dplyr')
+packages<-c('Seurat','ggplot2', 'dplyr','stringi','limma','tidyverse','edgeR')
 lapply(packages, library, character.only = TRUE)
 
-library('stringi')
-library('limma')
-library('tidyverse')
+# library('stringi')
+# library('limma')
+# library('tidyverse')
 
 sample_name<-list.files(path = paste(output_dir, "/step6/objs6",sep=""),pattern = "*.rds")
 seu.int.c<-readRDS(paste(output_dir,'/step6/objs6/',sample_name, sep=''))

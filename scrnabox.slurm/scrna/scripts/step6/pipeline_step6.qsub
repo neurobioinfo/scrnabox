@@ -25,4 +25,4 @@ echo -e "------Output of Run------------------------\n\n"
 #----------------------------------------------------------------#
 
 module load r/$R_VERSION
-Rscript ${PIPELINE_HOME}/scrna/scripts/step6/scrna_step6.R $OUTPUT_DIR  $R_LIB_PATH 
+Rscript ${PIPELINE_HOME}/scrna/scripts/step6/scrna_step6.R $OUTPUT_DIR  $R_LIB_PATH $PIPELINE_HOME

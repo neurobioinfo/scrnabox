@@ -1,4 +1,41 @@
-dropDN<-'yes'
-label_dropDN<-c('Doublet', 'Negative')
-Save_RNA<-"NO"
-Save_metadata<-"NO"
+Save_RNA='NO'
+Save_metadata='NO'
+normlazation_and_scalaing='YES'
+dimensionality_reduction='YES'
+###### dropDN, 'yes' drop the doublet and negative one. 
+dropDN='yes'
+label_dropDN=c('Doublet', 'Negative')
+###### Labels 
+old_label=c('LaunchSample1','LaunchSample2','LaunchSample3')
+new_label=c('control','treatment1','treatment2')
+#####rate_nExp: the doublet rate according to the number of cells
+par_rate_nExp=0.076
+###### Number of statistically-significant principal components
+par_PCs=20
+###### The number of generated artificial doublets.
+par_pN=0.25
+###### Logical representing whether SCTransform was used during original Seurat object pre-processing
+par_sct=FALSE
+######
+par_normalization.method="LogNormalize"
+par_scale.factor=10000
+par_top=10 # 10 most variable genes
+###### How to choose top variable features. vst, mean.var.plot (mvp), dispersion (disp). 
+par_selection.method='vst'
+###### Number of features to select as top variable features
+par_nfeatures = 2500
+###### Total Number of PCs to compute and store for RunPCA
+par_npcs_pca = 30
+###### number of cell for dimheatmap
+par_cells=500
+###### number of dimension for dimheatmap
+par_dims=12
+#######
+par_reduction="pca"
+par_features="percent.globin"
+######  Which dimensions to use as input features for RunUMAP
+par_dims_umap=30
+###### This determines the number of neighboring points used in local approximations of manifold structure.
+par_n.neighbors=65
+##### Number of columns if multiple plots are displayed for  RidgePlot
+par_RidgePlot_ncol=3

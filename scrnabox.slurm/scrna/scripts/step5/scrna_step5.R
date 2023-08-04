@@ -1,7 +1,7 @@
 #!/usr/bin/env Rscript
 
 ####################
-# step2 
+# step5
 
 args = commandArgs(trailingOnly=TRUE)
 output_dir=args[1]
@@ -40,9 +40,14 @@ seu_list<-list()
 
 seu_list<-foreach (i_s=1:length(sample_name)) %do% {  
     seu<-readRDS(paste(output_dir,'/step4/objs4/',sample_name[i_s], sep=""))
-    DefaultAssay(seu) <- "RNA"
-    seu <- Seurat::NormalizeData(seu)
-    seu <- Seurat::FindVariableFeatures(seu, selection.method = "vst", nfeatures = 2000,verbose = FALSE)
+    DefaultAssay(seu) <- par_DefaultAssay
+    if (tolower(normlazation_and_scalaing)=='yes'){
+                seu <- Seurat::NormalizeData(seu,normalization.method = par_normalization.method,scale.factor =par_scale.factor)
+                seu<- FindVariableFeatures(seu, selection.method = par_selection.method, nfeatures = par_nfeatures)
+                seu<- ScaleData(seu, verbose = FALSE)
+    }
+    # seu <- Seurat::NormalizeData(seu)
+    # seu <- Seurat::FindVariableFeatures(seu, selection.method = "vst", nfeatures = 2000,verbose = FALSE)
     # aa<-as.character(unique(seu$MULTI_ID))[!as.character(unique(seu$MULTI_ID)) %in% label_dropDN]
     # Idents(seu) <- "MULTI_ID"
     # seu=subset(seu,idents=aa)
@@ -70,12 +75,35 @@ seu_list<-foreach (i_s=1:length(sample_name)) %do% {
 #     }  
 # }
 
-
-seu_anchors <- Seurat::FindIntegrationAnchors(object.list = seu_list)
-seu_int <- Seurat::IntegrateData(anchorset = seu_anchors)
+seu_anchors <- Seurat::FindIntegrationAnchors(object.list = seu_list,dims = 1:par_FindIntegrationAnchors_dim)
+seu_int <- Seurat::IntegrateData(anchorset = seu_anchors,dims = 1:par_FindIntegrationAnchors_dim)
 Seurat::DefaultAssay(seu_int) <- "integrated"
+
+
+seu_int <- ScaleData(seu_int, verbose = FALSE)
+seu_int <- RunPCA(seu_int, npcs = par_RunPCA_npcs, verbose = FALSE)
+seu_int <- RunUMAP(seu_int, dims = 1:par_RunUMAP_dims, n.neighbors =par_RunUMAP_n.neighbors)
+
+# Seurat::DimPlot(seu_int, reduction = "umap")
+# ggsave(paste(output_dir,'/step5/figs5',"/dimumap.png",sep=""))
+
+# png(paste(output_dir,'/step5/figs5',"/elbow_pca.png", sep=""))
+# fig1<-DimPlot(seu_int, reduction = "pca")
+# fig2<-ElbowPlot(seu_int)
+# fig3<-Seurat::DimPlot(seu_int, reduction = "umap")
+# print(fig1 + fig2 + fig3)
+# dev.off()
+
+DimPlot(seu_int, reduction = "pca")
+ggsave(paste(output_dir,'/step5/figs5',"/DimPlot_pca.png", sep=""))
+ElbowPlot(seu_int)
+ggsave(paste(output_dir,'/step5/figs5',"/elbow.png", sep=""))
+DimPlot(seu_int, reduction = "umap")
+ggsave(paste(output_dir,'/step5/figs5',"/DimPlot_umap.png", sep=""))
+
+
 saveRDS(seu_int, paste(output_dir,'/step5/objs5',"/seu_step5.rds", sep=""))
-write.csv(colnames(seu_int[[]]), paste(output_dir,'/step5/info5',"/meta_info.csv", sep=""))
+write.csv(colnames(seu_int[[]]), paste(output_dir,'/step5/info5',"/meta_info_seu_step5.csv", sep=""))
 # if (scrna_method=='HTO') {
     # write.csv(table(seu_int$MULTI_ID), paste(output_dir,'/step5/info5',"/MULTI_IDcount.csv", sep=""))
 # }
@@ -91,3 +119,8 @@ if (tolower(Save_metadata)=='yes') {
 }
 
 writeLines(capture.output(sessionInfo()), paste(output_dir,'/step5/info5/sessionInfo.txt', sep=""))
+
+if(file.exists("Rplots.pdf")){
+    file.remove("Rplots.pdf")
+}
+

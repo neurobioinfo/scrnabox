@@ -8,7 +8,7 @@ output_dir=args[1]
 r_lib_path=args[2]
 
 .libPaths(r_lib_path)
-packages<-c('Seurat','ggplot2', 'dplyr','stringi','limma','tidyverse')
+packages<-c('Seurat','ggplot2', 'dplyr','stringi','limma','tidyverse','edgeR')
 lapply(packages, library, character.only = TRUE)
 
 # library('stringi')
@@ -41,7 +41,7 @@ dge <- edgeR::DGEList(counts = counts)
 dge <- edgeR::calcNormFactors(dge)  
 
 seu.int.c$ct<-seu.int.c$cell.types.pool
-# seu.int.c$d1<-seu.int.c$MULTI_ID_Lables
+seu.int.c$d1<-seu.int.c$MULTI_ID_Lables
 
 saveRDS(seu.int.c, paste(output_dir,'/step8/objs8',"/seu_step8.rds", sep=""))
 saveRDS(de_genes, paste(output_dir,'/step8/info8',"/de_genes.rds", sep=""))
@@ -63,3 +63,4 @@ if (tolower(Save_metadata)=='yes') {
 
 
 writeLines(capture.output(sessionInfo()), paste(output_dir,'/step8/info8/sessionInfo_dgelist.txt', sep=""))
+file.remove("Rplots.pdf")

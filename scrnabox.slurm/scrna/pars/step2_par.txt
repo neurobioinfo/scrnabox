@@ -1,4 +1,9 @@
-Save_RNA<-"NO"
-Save_metadata<-"NO"
+Save_RNA="NO"
+Save_metadata="NO"
+###### If you want to remove the ambient, change the default to YES. 
+ambient_RNA="NO"
+###### min.cells sets the threshold for genes to only take the genes that are present in at least a specified number of cells.
 min.cells_L=0
+###### min.features sets the thresholds for cells that express at least a specified number of genes.
 min.features_L=0
+###### count_matrices="", if you have the count matrix and do not want to run cellranger, use this add the path to this object.  count_matrices='/home/samamiri/NB043_dge/comm/Dark_Genome/samamiri/test_scrnabox/tutorial/download/course_data/count_matrices'

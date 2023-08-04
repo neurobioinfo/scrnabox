@@ -7,6 +7,7 @@ annotation<-function(level_cluster,ClusterMarkers,PWD,PSUE,top_sel,db) {
   library(enrichR)
   setwd(PWD)
   seu.q6 <- readRDS(PSUE)
+  ClusterMarkers<-readRDS(file = ClusterMarkers)
   # mkdir -p annot_enrich
   dir.create("annot_enrich")
   for (i in sort(unlist(unique(seu.q6[[level_cluster]])))) {

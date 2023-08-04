@@ -1,12 +1,22 @@
 Save_RNA<-"NO"
 Save_metadata<-"NO"
-#
-top_sel=5
-level_cluster='integrated_snn_res.0.7'
-level_genotype='MULTI_ID_Lables'
-reference='/lustre03/project/6070393/COMMON/Dark_Genome/scRNA.neuro.datasets/seuobjs/jerber52_ref.rds'
-level_celltype='celltype'
-# 
-futureglobalsmaxSize = 50000 * 1024^2
-# enrichment
-db <- c('Descartes_Cell_Types_and_Tissue_2021','CellMarker_Augmented_2021','Azimuth_Cell_Types_2021')
+###### number of top markers based on avg_log2FC
+par_top_sel=5
+###### The cluster you want to use. 
+par_level_cluster='integrated_snn_res.0.7'
+###### Name of a metadata column to split plot by
+par_level_genotype='MULTI_ID_Lables'
+###### Seurat object to use as the reference
+par_reference='/lustre03/project/6070393/COMMON/Dark_Genome/scRNA.neuro.datasets/seuobjs/jerber52_ref.rds'
+
+###### Name of a metadata column of celltype
+par_level_celltype='celltype'
+###### This will increase your RAM usage so set this number mindfully
+par_futureglobalsmaxSize = 50000 * 1024^2
+######
+par_FindTransferAnchors_dim=30
+###### Character vector of databases to search
+par_db = c('Descartes_Cell_Types_and_Tissue_2021','CellMarker_Augmented_2021','Azimuth_Cell_Types_2021')
+###### Define path of gens list for module score
+par_module_score='/lustre03/project/6070393/COMMON/Dark_Genome/samamiri/pipeline/scrnabox011.slurm/hto/pars/list_genes.csv'
+

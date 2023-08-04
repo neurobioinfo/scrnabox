@@ -26,4 +26,4 @@ echo -e "------Output of Run------------------------\n\n"
 #----------------------------------------------------------------#
 
 module load r/$R_VERSION
-Rscript ${PIPELINE_HOME}/hto/scripts/step6/hto_step6.R $OUTPUT_DIR  $R_LIB_PATH
+Rscript ${PIPELINE_HOME}/hto/scripts/step6/hto_step6.R $OUTPUT_DIR  $R_LIB_PATH $PIPELINE_HOME

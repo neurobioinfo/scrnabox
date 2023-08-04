@@ -1,2 +1,2 @@
-Save_RNA<-"NO"
-Save_metadata<-"NO"
+Save_RNA='NO'
+Save_metadata='NO'

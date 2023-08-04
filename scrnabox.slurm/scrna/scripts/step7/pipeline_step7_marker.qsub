@@ -28,6 +28,6 @@ module load r/$R_VERSION
 # Rscript ${PIPELINE_HOME}/scrna/scripts/step7/step7marker.R $OUTPUT_DIR  $R_LIB_PATH
 
 
-Rscript ${PIPELINE_HOME}/scrna/scripts/step7/scrna_step7_marker.R $OUTPUT_DIR  $R_LIB_PATH
+Rscript ${PIPELINE_HOME}/scrna/scripts/step7/scrna_step7_marker.R $OUTPUT_DIR  $R_LIB_PATH $PIPELINE_HOME
 
 

@@ -23,6 +23,7 @@ else
   MODE0=$MODE
 fi
 
+
 STEP=step_1
 
 if [[  ${MODE0[@]}  =~  1  ]]; then
@@ -259,7 +260,7 @@ if [[  ${MODE0[@]}  =~  3 ]]  &&  [[  ${MODE0[@]} =~ 2 ]] ; then
     --time=${WALLTIME} \
     --job-name $STEP \
     $DEPEND_step_2 \
-    --export OUTPUT_DIR=${OUTPUT_DIR},PIPELINE_HOME=${PIPELINE_HOME},R_LIB_PATH=${R_LIB_PATH},R_VERSION=${R_VERSION},NFRNAL=${NFRNAL},NFRNAU=${NFRNAU},NCRNAL=${NCRNAL},NCRNAU=${NCRNAU},PMTU=${PMTU} \
+    --export OUTPUT_DIR=${OUTPUT_DIR},PIPELINE_HOME=${PIPELINE_HOME},R_LIB_PATH=${R_LIB_PATH},R_VERSION=${R_VERSION},NFRNAL=${NFRNAL},NFRNAU=${NFRNAU},NCRNAL=${NCRNAL},NCRNAU=${NCRNAU},PMTL=${PMTL},PMTU=${PMTU},GENEUMIL=${GENEUMIL},GENEUMIU=${GENEUMIU} \
     --output $JOB_OUTPUT_DIR/logs/%x.o%j \
     $PIPELINE_HOME/hto/scripts/step3/pipeline_step3.qsub"
   step_3=$($step_3 | grep -oP "\d+")
@@ -294,7 +295,7 @@ elif [[  ${MODE0[@]}  =~  3  ]]  &&  [[  ${MODE0[@]} != 2 ]]; then
     --mem=${MEM} \
     --time=${WALLTIME} \
     --job-name $STEP \
-    --export OUTPUT_DIR=${OUTPUT_DIR},PIPELINE_HOME=${PIPELINE_HOME},R_LIB_PATH=${R_LIB_PATH},R_VERSION=${R_VERSION},NFRNAL=${NFRNAL},NFRNAU=${NFRNAU},NCRNAL=${NCRNAL},NCRNAU=${NCRNAU},PMTU=${PMTU} \
+    --export OUTPUT_DIR=${OUTPUT_DIR},PIPELINE_HOME=${PIPELINE_HOME},R_LIB_PATH=${R_LIB_PATH},R_VERSION=${R_VERSION},NFRNAL=${NFRNAL},NFRNAU=${NFRNAU},NCRNAL=${NCRNAL},NCRNAU=${NCRNAU},PMTL=${PMTL},PMTU=${PMTU},GENEUMIL=${GENEUMIL},GENEUMIU=${GENEUMIU} \
     --output $JOB_OUTPUT_DIR/logs/%x.o%j \
     $PIPELINE_HOME/hto/scripts/step3/pipeline_step3.qsub"
   step_3=$($step_3 | grep -oP "\d+")
@@ -556,7 +557,7 @@ if [[  ${MODE0[@]}  =~  5 ]]  &&  [[  ${MODE0[@]} =~ 4 ]] ; then
   if [ -z "${WALLTIME_ARRAY[$STEP]}" ]; then
       echo  -e "NOTE: WALLTIME of $STEP is empty, so pipeline assigns it based on  #samples,\n you can add WALLTIME_ARRAY in scrnabox_config.ini"   >> $EXPECTED_DONE_FILES
   fi    
-  DEPEND_step_5="--dependency=afterok:$step_5"; echo $DEPEND_step_5
+  DEPEND_step_5="--dependency=afterok:$step_5"
   echo_general="STEP 5: Job Number:$step_5"; echo -e $echo_general
   echo -e "\n------Parameters used to run this step-----" >> $EXPECTED_DONE_FILES
   cat  $OUTPUT_DIR/job_info/parameters/step5_par.txt >> $EXPECTED_DONE_FILES
@@ -1048,7 +1049,7 @@ if [[  ${MODE0[@]}  =~  8 ]]  &&  [[  ${STEP8dgelist}  =~  T ]] &&  [[   ${STEP8
     $DEPEND_step_8_dgelist \
     --export OUTPUT_DIR=${OUTPUT_DIR},PIPELINE_HOME=${PIPELINE_HOME},R_LIB_PATH=${R_LIB_PATH},R_VERSION=${R_VERSION},CONT=${CONT},SCRNA_METHOD=${SCRNA_METHOD} \
     --output $JOB_OUTPUT_DIR/logs/%x.o%j \
-    $PIPELINE_HOME/hto/scripts/step8/pipeline_step8_m.qsub"
+    $PIPELINE_HOME/hto/scripts/step8/pipeline_step8_genotype.qsub"
   step_8=$($step_8 | grep -oP "\d+")
   echo "[Q] STEP 8         : $step_8 " >> $EXPECTED_DONE_FILES
   echo "THREADS: ${THREADS} " >> $EXPECTED_DONE_FILES
@@ -1063,7 +1064,7 @@ if [[  ${MODE0[@]}  =~  8 ]]  &&  [[  ${STEP8dgelist}  =~  T ]] &&  [[   ${STEP8
   if [ -z "${WALLTIME_ARRAY[$STEP]}" ]; then
       echo  -e "NOTE: WALLTIME of $STEP is empty, so pipeline assigns it based on  #samples,\n you can add WALLTIME_ARRAY in scrnabox_config.ini"   >> $EXPECTED_DONE_FILES
   fi    
-  DEPEND_step_8="--dependency=afterok:$step_8"; echo $DEPEND_step_8
+  DEPEND_step_8="--dependency=afterok:$step_8"
   echo_general="STEP8 genotype, Job Number:$step_8"; echo -e $echo_general
   echo -e "\n------Parameters used to run this step-----" >> $EXPECTED_DONE_FILES
   cat  $OUTPUT_DIR/job_info/parameters/step8_par.txt >> $EXPECTED_DONE_FILES
@@ -1106,7 +1107,7 @@ elif [[  ${MODE0[@]}  =~  8  ]]  &&  [[  ${STEP8dgelist}  !=  T ]] &&  [[   ${ST
     --job-name ${STEP}_genotype \
     --export OUTPUT_DIR=${OUTPUT_DIR},PIPELINE_HOME=${PIPELINE_HOME},R_LIB_PATH=${R_LIB_PATH},R_VERSION=${R_VERSION},CONT=${CONT},SCRNA_METHOD=${SCRNA_METHOD} \
     --output $JOB_OUTPUT_DIR/logs/%x.o%j \
-    $PIPELINE_HOME/hto/scripts/step8/pipeline_step8_m.qsub"
+    $PIPELINE_HOME/hto/scripts/step8/pipeline_step8_genotype.qsub"
   step_8=$($step_8 | grep -oP "\d+")
   echo "[Q] STEP 8         : $step_8 " >> $EXPECTED_DONE_FILES 
   echo "THREADS: ${THREADS} " >> $EXPECTED_DONE_FILES
@@ -1166,7 +1167,7 @@ if [[  ${MODE0[@]}  =~  8 ]]  &&  [[  ${STEP8dgelist}  =~  T ]] &&  [[   ${STEP8
     $DEPEND_step_8_dgelist \
     --export OUTPUT_DIR=${OUTPUT_DIR},PIPELINE_HOME=${PIPELINE_HOME},R_LIB_PATH=${R_LIB_PATH},R_VERSION=${R_VERSION},CONT=${CONT},SCRNA_METHOD=${SCRNA_METHOD} \
     --output $JOB_OUTPUT_DIR/logs/%x.o%j \
-    $PIPELINE_HOME/hto/scripts/step8/pipeline_step8_i.qsub"
+    $PIPELINE_HOME/hto/scripts/step8/pipeline_step8_celltype.qsub"
   step_8=$($step_8 | grep -oP "\d+")
   echo "[Q] STEP 8         : $step_8 " >> $EXPECTED_DONE_FILES
   echo "THREADS: ${THREADS} " >> $EXPECTED_DONE_FILES
@@ -1224,7 +1225,7 @@ elif [[  ${MODE0[@]}  =~  8  ]]  &&  [[ ${STEP8dgelist}  !=  T ]] &&  [[   ${STE
     --job-name ${STEP}_celltype \
     --export OUTPUT_DIR=${OUTPUT_DIR},PIPELINE_HOME=${PIPELINE_HOME},R_LIB_PATH=${R_LIB_PATH},R_VERSION=${R_VERSION},CONT=${CONT},SCRNA_METHOD=${SCRNA_METHOD} \
     --output $JOB_OUTPUT_DIR/logs/%x.o%j \
-    $PIPELINE_HOME/hto/scripts/step8/pipeline_step8_i.qsub"
+    $PIPELINE_HOME/hto/scripts/step8/pipeline_step8_celltype.qsub"
   step_8=$($step_8 | grep -oP "\d+")
   echo "[Q] STEP 8         : $step_8 " >> $EXPECTED_DONE_FILES 
   echo "THREADS: ${THREADS} " >> $EXPECTED_DONE_FILES

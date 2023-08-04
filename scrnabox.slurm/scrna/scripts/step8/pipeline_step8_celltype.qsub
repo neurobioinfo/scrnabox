@@ -1,6 +1,9 @@
 #!/bin/bash
 
+
 umask 002
+echo timestamp $(date +%s)
+
 
 #----------------------------------------------------------------#
 #                                                     #
@@ -14,15 +17,11 @@ echo "* PIPELINE_HOME:        $PIPELINE_HOME"
 echo "* DIR:                  $OUTPUT_DIR"
 echo "* CONTRAST:                  ${CONT}"
 echo "-------------------------------------------"
-echo "------Parameters used in this step---------"
-cat  $OUTPUT_DIR/job_info/parameters/step8_par.txt
-echo "-------------------------------------------"
-echo -e "------Output of Run------------------------\n\n"
-echo -e ""
+
 #----------------------------------------------------------------#
 # START PIPELINE                                      #
 #----------------------------------------------------------------#
-module load r/$R_VERSION
-Rscript ${PIPELINE_HOME}/hto/scripts/step8/hto_step8_m.R $OUTPUT_DIR  $R_LIB_PATH $CONT
 
+module load r/$R_VERSION
+Rscript ${PIPELINE_HOME}/scrna/scripts/step8/scrna_step8_celltype.R $OUTPUT_DIR  $R_LIB_PATH $CONT
 

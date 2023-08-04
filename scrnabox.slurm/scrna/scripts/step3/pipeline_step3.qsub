@@ -21,7 +21,10 @@ echo "* nFeature_RNA Lower:   $NFRNAL"
 echo "* nFeature_RNA Upper:   $NFRNAU"
 echo "* nCount_RNA lower:     $NCRNAL"
 echo "* nCount_RNA Upper:     $NCRNAU"
-echo "* percent.mt:           $PMTU"
+echo "* percent.mt lower:        $PMTL"
+echo "* percent.mt upper:        $PMTU"
+echo "* log10GenesPerUMI lower:  $GENEUMIL"
+echo "* log10GenesPerUMI upper:  $GENEUMIU"
 echo "-------------------------------------------"
 echo "------Parameters used in this step---------"
 cat  $OUTPUT_DIR/job_info/parameters/step3_par.txt
@@ -31,6 +34,7 @@ echo -e "------Output of Run------------------------\n\n"
 # START PIPELINE                                      #
 #----------------------------------------------------------------#
 
+
 module load r/$R_VERSION 
-Rscript ${PIPELINE_HOME}/scrna/scripts/step3/scrna_step3.R $OUTPUT_DIR  $R_LIB_PATH ${NFRNAL} ${NFRNAU} ${NCRNAL} ${NCRNAU} ${PMTU}
+Rscript ${PIPELINE_HOME}/scrna/scripts/step3/scrna_step3.R $OUTPUT_DIR $R_LIB_PATH ${NFRNAL} ${NFRNAU} ${NCRNAL} ${NCRNAU} ${PMTL} ${PMTU} ${GENEUMIL} ${GENEUMIU}
 

@@ -1,4 +1,5 @@
+###### REF_DIR_GRCH, path of grch
 REF_DIR_GRCH=/cvmfs/soft.mugqic/CentOS6/genomes/species/Homo_sapiens.GRCh38/genome/10xGenomics/refdata-cellranger-GRCh38-3.0.0
-#R1LENGTH=20
-#mempercore
+###### R1LENGTH=20, Limit the length of the input Read 1 sequence of Gene Expression (and any Feature Barcode) library to the first N bases, where N is a user-supplied value. 
+###### mempercore, For clusters whose job managers do not support memory requests, it is possible to request memory in the form of cores via the --mempercore command-line option. This option will scale up the number of threads requested via the __MRO_THREADS__ variable according to how much memory a stage requires when given to the ratio of memory on your nodes.
 MEMPERCORE=30 

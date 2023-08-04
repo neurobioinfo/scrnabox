@@ -9,7 +9,7 @@ r_lib_path=args[2]
 .libPaths(r_lib_path)
 
 set.seed(1234)
-packages<-c('Seurat','ggplot2', 'dplyr')
+packages<-c('Seurat','ggplot2', 'dplyr','foreach', 'doParallel')
 lapply(packages, library, character.only = TRUE)
 
 sample_name<-list.files(path = paste(output_dir, "/step3/objs3",sep=""),pattern = "*.rds")
@@ -28,19 +28,40 @@ for (i in 1:length(sample_name)) {
 }   
 
 
-library(foreach)
-library(doParallel)
 numCores <- detectCores()
 cl <- makeCluster(numCores-1)
 registerDoParallel(cl) 
 
 foreach (i_s=1:length(sample_name)) %do% {   
-    set.seed(1234)
-    seu1<-readRDS(paste(output_dir,'/step3/objs3/',sample_name[i_s], sep=""))
-    DefaultAssay(seu1) <- "HTO"
-    seu1 <- NormalizeData(seu1, assay = "HTO", normalization.method = "CLR")
-    seu1 <- FindVariableFeatures(seu1, selection.method = "mean.var.plot")
-    seu1 <- ScaleData(seu1, features = VariableFeatures(seu1))
-    seu1 <- MULTIseqDemux(seu1, assay = "HTO", quantile = 0.9, autoThresh = TRUE, maxiter = 5) 
-    write.csv(table(seu1$MULTI_ID), paste(output_dir,'/step4/info4/seu',i_s,"MULTIseqDemuxHTOcounts.csv",sep=""))
+    seu<-readRDS(paste(output_dir,'/step3/objs3/',sample_name[i_s], sep=""))
+    DefaultAssay(seu) <- "HTO"
+    if (tolower(normlazation_and_scalaing)=='yes'){
+        seu <- NormalizeData(seu, assay = "HTO", normalization.method = par_normalization.method,scale.factor =par_scale.factor)
+        seu <- FindVariableFeatures(seu, selection.method = par_selection.method, nfeatures = par_nfeatures)
+        topsel <- head(Seurat::VariableFeatures(seu), par_top)
+        write.csv(topsel, file = paste(output_dir,'/step4/info4/most_variable_genes_',sample_name[i],'.txt', sep=""), quote = TRUE, sep = ",")
+        vf_plot <- Seurat::VariableFeaturePlot(seu)
+        Seurat::LabelPoints(plot = vf_plot,points = topsel, repel = TRUE)
+        ggsave(paste(output_dir,'/step4/figs4/VariableFeaturePlot',sample_name[i_s],".png",sep=""))
+        seu <- ScaleData(seu)
+    }
+    ## dimensionality reduction
+    if (tolower(dimensionality_reduction)=='yes'){
+        seu <- RunPCA(seu, npcs = par_npcs_pca, verbose = FALSE)
+        DimPlot(seu, reduction = "pca")
+        ggsave(paste(output_dir,'/step4/info4/',"dimplot_pca",sample_name[i_s],".png",sep=""))
+        ElbowPlot(seu)
+        ggsave(paste(output_dir,'/step4/info4/',"elbowplot",sample_name[i_s],".png",sep=""))
+        Seurat::DimHeatmap(seu, dims = 1:par_dims, cells = par_cells, balanced = TRUE)
+        ggsave(paste(output_dir,'/step4/info4/',"dimheatplot.",sample_name[i_s],".png",sep=""))
+        FeaturePlot(seu, reduction = par_reduction, features = par_features)
+        ggsave(paste(output_dir,'/step4/info4/',"featureplot",sample_name[i_s],".png",sep=""))
+        seu <- RunUMAP(seu, dims = 1:par_dims_umap, n.neighbors =par_n.neighbors)
+        Seurat::DimPlot(seu, reduction = "umap")
+        ggsave(paste(output_dir,'/step4/figs4',"dimplot_umap",sample_name[i_s],".png",sep=""))
+    }
+    seu <- MULTIseqDemux(seu, assay = "HTO", quantile = par_quantile, autoThresh = par_autoThresh, maxiter = par_maxiter) 
+    write.csv(table(seu$MULTI_ID), paste(output_dir,'/step4/info4/',sample_name[i_s],"MULTIseqDemuxHTOcounts.csv",sep=""))
 }
+
+

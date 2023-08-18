@@ -1,7 +1,7 @@
 # scrnabox: A pipeline for scRNA analysis under HPC  
 The `scrnabox.slurm` is a pipeline specifically designed for analyzing data under a High-Performance Computing (HPC) system  using the Slurm Workload Manager ([slurm work load manager system](https://slurm.schedmd.com/)). It has been extensively utilized on the  [Beluga](https://docs.alliancecan.ca/wiki/B%C3%A9luga), you can find comprehensive instructions on how to utilize the pipeline for [Cell Hashtags]() and [Standard scRNA-seq](), the pipeline provides detailed guidance on processing and analyzing these specific types of single-cell RNA sequencing (scRNA-seq) data. 
 
-Please refer to the [documentation](https://neurobioinfo.github.io/scrnabox/site/) for the tutorial.
+Please refer to the [documentation](https://neurobioinfo.github.io/scrnabox/site/) for an explanation and of how and why to use scrnabox's pipeline.
 
 ## Contents
 - [Workflow analysis](#workflow-analysis)

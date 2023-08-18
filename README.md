@@ -1,5 +1,7 @@
 # scrnabox: A pipeline for scRNA analysis under HPC  
-This repository includes a tutorial for the scRNA-seq data analysis using scrnabox pipeline under an HPC environment ([slurm work load manager system](https://slurm.schedmd.com/)). 
+The `scrnabox.slurm` is a pipeline specifically designed for analyzing data under a High-Performance Computing (HPC) system  using the Slurm Workload Manager ([slurm work load manager system](https://slurm.schedmd.com/)). It has been extensively utilized on the  [Beluga](https://docs.alliancecan.ca/wiki/B%C3%A9luga), you can find comprehensive instructions on how to utilize the pipeline for [Cell Hashtags]() and [Standard scRNA-seq](), the pipeline provides detailed guidance on processing and analyzing these specific types of single-cell RNA sequencing (scRNA-seq) data. 
+
+Please refer to the [documentation](https://neurobioinfo.github.io/scrnabox/site/) for the tutorial.
 
 ## Contents
 - [Workflow analysis](#workflow-analysis)
@@ -7,13 +9,11 @@ This repository includes a tutorial for the scRNA-seq data analysis using scrnab
   - [Cell hashtags](#cell-hashtags)
 - [scrnabox.slurm](#scrnaboxsvn)
 - [Installing](#installing)
-- [Processed Data](#processed-data)
 - [Tutorial](#tutorial)
-- [References](#references)
+
 
 ---
 
-  
 ## Workflow analysis
 The following figures illustrate the steps involved in analyzing scRNA-seq data using the Standard and Cell Hashtags with the scrnabox pipeline
 <br />
@@ -24,14 +24,10 @@ The following figures illustrate the steps involved in analyzing scRNA-seq data 
 <kbd>
 ![Steps of Cell Hashtags scRNA-seq](https://raw.githubusercontent.com/neurobioinfo/scrnabox/main/figs/hto.png)
 </kbd>
-  
 
 This pipeline currently includes implementation of the standard and cell hashtags scRNA.
-<details id=1>
-<summary>
-  
+
 #### [Standard scRNA-seq](https://github.com/neurobioinfo/scrnabox/tree/main/README_SCRNA.md)
-</summary>
 
 The following steps describe how to analyze scRNA-seq data using the pipeline:<br />
 - Step 1: cellranger - This step runs Cellranger on the scRNA-seq data to generate the feature-barcode matrices for each sample.<br />
@@ -44,13 +40,10 @@ The following steps describe how to analyze scRNA-seq data using the pipeline:<b
 - step 8: Differential gene expression (DEG)- There are multiple ways to perform differential gene expression analysis, but in this pipeline, we use the FindAllMarkers function to rank the highly differentially expressed genes in each cluster, which allows us to identify genes that are significantly differentially expressed between each cluster and the rest of the cells. From there, we can define contrasts to run statistical tests and investigate the phenotype and genotypes of each cluster.<br /> <br />
 The Step 1 - Step 8 can be done using [scrnabox.slurm](https://github.com/neurobioinfo/scrnabox/tree/main/README_SCRNA.md) in the HPC system ([slurm work load manager system](https://slurm.schedmd.com/)).
 - step 9, Enrichment analysis: in this step, we obtain a list of significant genes using enrichment methods. The step 9 can be done using scrnaboxR, see [Practice](https://github.com/neurobioinfo/scrnabox/blob/main/tutorial/practice.md).
-</details>
-<details id=2>
-<summary>
-  
+
+
 #### [Cell Hashtags](https://github.com/neurobioinfo/scrnabox/tree/main/README_HTO.md)
-</summary>
-  
+
 The following steps explain how to analyze the Hashtag oligonucleotide (henceforth referred to as HTO)
 - Step 1: cellranger - This step runs Cellranger on the scRNA-seq data to generate the feature-barcode matrices for each sample.
 - Step 2: Seurat object - This step runs Seurat on the feature-barcode matrices obtained from step 1 to generate a Seurat object for each sample. The Seurat object contains a lot of information, and accessing SeuratObject@meta.data will provide a data frame with relevant information on each cell.
@@ -63,13 +56,8 @@ The following steps explain how to analyze the Hashtag oligonucleotide (hencefor
 
 The Step 1 - Step 8 can be done using [scrnabox.slurm](https://github.com/neurobioinfo/scrnabox/tree/main/README_HTO.md) in the HPC system ([slurm work load manager system](https://slurm.schedmd.com/)).
 - step 9, Enrichment analysis: in this step, we obtain a list of significant genes using enrichment methods. The step 9 can be done using scrnaboxR, see [Practice](https://github.com/neurobioinfo/scrnabox/blob/main/tutorial/practice.md).
-</details>
 
-## [scrnabox.slurm](https://github.com/neurobioinfo/scrnabox/tree/main/scrnabox.slurm)
-The `scrnabox.slurm` is a pipeline specifically designed for analyzing data under a High-Performance Computing (HPC) system  using the Slurm Workload Manager ([slurm work load manager system](https://slurm.schedmd.com/)). 
-It has been extensively utilized on the  [Beluga](https://docs.alliancecan.ca/wiki/B%C3%A9luga), you can find comprehensive instructions on how to utilize the pipeline 
-for [Cell Hashtags](https://github.com/neurobioinfo/scrnabox/tree/main/README_HTO.md) and [Standard scRNA-seq](https://github.com/neurobioinfo/scrnabox/tree/main/README_SCRNA.md), 
-the pipeline provides detailed guidance on processing and analyzing these specific types of single-cell RNA sequencing (scRNA-seq) data. 
+
 
 ## Installing
 The package is written in the bash, so it can be used with any slurm system. To download 
@@ -91,25 +79,24 @@ devtools::install_github("neurobioinfo/scrnabox/scrnaboxR")
 ```
 The `'scrnaboxR'` is an R package that provides a collection of functions for conducting enrichment analysis and other analyses associated with single-cell RNA sequencing (scRNA-seq) data. It serves as a companion to scrnabox, offering a range of tools and functionalities to enhance scRNA-seq data analysis. You need to add the R info in `scrnabox_config.ini`, you can define the path of R library in `R_LIB_PATH=`, version of R in `R_VERSION`, you can add the path of `cell ranger`in `MODULECELLRANGER` 
 
-## [Processed Data](https://github.com/neurobioinfo/scrnabox/blob/main/README_PROC.md)
-The pipeline can also be used with [processed data](https://github.com/neurobioinfo/scrnabox/blob/main/README_PROC.md) from different projects.
 
 ## Tutorial
-To analyze DGE look at [Practice](https://github.com/neurobioinfo/scrnabox/blob/main/tutorial/practice.md). 
+You can find the details of how to use the pipeline in the 
+the [documentation](https://neurobioinfo.github.io/scrnabox/site/).
 
-## References
-- Stuart, T., Butler, A., Hoffman, P., Hafemeister, C., Papalexi, E., Mauck III, W. M., ... & Satija, R. (2019). Comprehensive integration of single-cell data. Cell, 177(7), 1888-1902.
 
-## Contributing
+---
+#### Contributing
 This is an early version, any contribute or suggestion is appreciated, you can directly contact with [Saeid Amiri](https://github.com/saeidamiri1) or [Rhalena Thomas](https://github.com/RhalenaThomas). 
 
-## Changelog
+#### Changelog
 Every release is documented on the [GitHub Releases page](https://github.com/neurobioinfo/scrnabox/releases).
-## License
-This project is licensed under the MIT License - see the [LICENSE.md](https://github.com/neurobioinfo/scrnabox/blob/main/LICENSE) file for details.
-## Acknowledgement
-The pipeline is done as part Dark Genome project, it is written by [Saeid Amiri](https://github.com/saeidamiri1) with associate of Rhalena Thomas and  Neuro Bioinformatics Core. Copyright belong MNI BIOINFO CORE (https://github.com/neurobioinfo). 
 
-## Todo
+#### License
+This project is licensed under the MIT License - see the [LICENSE.md](https://github.com/neurobioinfo/scrnabox/blob/main/LICENSE) file for details.
+
+#### Acknowledgement
+The pipeline is done as part Dark Genome project, it is written by [Saeid Amiri](https://github.com/saeidamiri1) with associate of Rhalena Thomas, Sali Farhan, and Michael Fiorini at  Neuro Bioinformatics Core. Copyright belong MNI BIOINFO CORE (https://github.com/neurobioinfo). 
+
 **[⬆ back to top](#contents)**
 

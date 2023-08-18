@@ -1,0 +1,16 @@
+site_name: scrnabox
+site_url: https://neurobioinfo.github.io/
+nav:
+    - Home: index.md
+    - Installation: installation.md
+    - Tutorial:
+        - Standard scRNA : README_SCRNA.md
+        - Cell hashtags : README_HTO.md
+        - Processed Data : README_PROC.md
+        - Dataset1 : Dataset1.md
+        - Dataset2 : Dataset2.md
+    - About:
+        - 'License': 'LICENSE.md'
+        - 'Changelog': 'changelog.md'
+        - Acknowledgement: Acknowledgement.md
+theme: readthedocs

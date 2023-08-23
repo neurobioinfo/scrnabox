@@ -52,24 +52,34 @@
               </ul>
               <p class="caption"><span class="caption-text">Tutorial</span></p>
               <ul>
-                  <li class="toctree-l1"><a class="reference internal" href="../README_SCRNA/">Standard scRNA</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../SCRNA/">- Standard scRNA</a>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../README_HTO/">Cell hashtags</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../HTO/">- Cell hashtags</a>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../README_PROC/">Processed Data</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../PROC/">- Processed Data</a>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../Dataset1/">Dataset1</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../Dataset1/">- Dataset1</a>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../Dataset2/">Dataset2</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../Dataset2/">- Dataset2</a>
                   </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../FAQ/">FAQ</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../reference/">Reference</a>
+                </li>
               </ul>
               <p class="caption"><span class="caption-text">About</span></p>
               <ul>
-                  <li class="toctree-l1"><a class="reference internal" href="../LICENSE/">License</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../LICENSE/">- License</a>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../changelog/">Changelog</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../changelog/">- Changelog</a>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../Acknowledgement/">Acknowledgement</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../contributing/">- Contributing</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../Acknowledgement/">- Acknowledgement</a>
                   </li>
               </ul>
       </div>
@@ -96,8 +106,7 @@
             <div class="section" itemprop="articleBody">
               
                 <h1 id="installation">Installation</h1>
-<p>The package is written in the bash, so it can be used with any slurm system. To download 
-<code>scrnabox.slurm</code> run the below comments </p>
+<p>The package is written in the bash, so it can be used with any slurm system. To download  <code>scrnabox.slurm</code>, run the below comments </p>
 <pre><code>wget https://github.com/neurobioinfo/scrnabox/releases/download/v0.1.0/scrnabox.slurm.zip
 unzip scrnabox.slurm.zip 
 </code></pre>
@@ -108,13 +117,13 @@ unzip scrnabox.slurm.zip
 <code>'Seurat','ggplot2', 'dplyr', 'foreach', 'doParallel', 'Matrix', 'DoubletFinder','cowplot','clustree'</code>. Then install <code>'scrnaboxR'</code>: </p>
 <pre><code>devtools::install_github(&quot;neurobioinfo/scrnabox/scrnaboxR&quot;)
 </code></pre>
-<p>The <code>'scrnaboxR'</code> is an R package that provides a collection of functions for conducting enrichment analysis and other analyses associated with single-cell RNA sequencing (scRNA-seq) data. It serves as a companion to scrnabox, offering a range of tools and functionalities to enhance scRNA-seq data analysis. You need to add the R info in <code>scrnabox_config.ini</code>, you can define the path of R library in <code>R_LIB_PATH=</code>, version of R in <code>R_VERSION</code>, you can add the path of <code>cell ranger</code>in <code>MODULECELLRANGER</code> </p>
+<p>The <code>scrnaboxR</code> is an R package that provides a collection of functions for conducting enrichment analysis and other analyses associated with single-cell RNA sequencing (scRNA-seq) data. It serves as a companion to scrnabox, offering a range of tools and functionalities to enhance scRNA-seq data analysis. You need to add the R info in <code>scrnabox_config.ini</code>, you can define the path of R library in <code>R_LIB_PATH=</code>, version of R in <code>R_VERSION</code>, you can add the path of <code>cell ranger</code>in <code>MODULECELLRANGER</code> </p>
               
             </div>
           </div><footer>
     <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
         <a href=".." class="btn btn-neutral float-left" title="Home"><span class="icon icon-circle-arrow-left"></span> Previous</a>
-        <a href="../README_SCRNA/" class="btn btn-neutral float-right" title="Standard scRNA">Next <span class="icon icon-circle-arrow-right"></span></a>
+        <a href="../SCRNA/" class="btn btn-neutral float-right" title="- Standard scRNA">Next <span class="icon icon-circle-arrow-right"></span></a>
     </div>
 
   <hr/>
@@ -140,7 +149,7 @@ unzip scrnabox.slurm.zip
       <span><a href=".." style="color: #fcfcfc">&laquo; Previous</a></span>
     
     
-      <span><a href="../README_SCRNA/" style="color: #fcfcfc">Next &raquo;</a></span>
+      <span><a href="../SCRNA/" style="color: #fcfcfc">Next &raquo;</a></span>
     
   </span>
 </div>

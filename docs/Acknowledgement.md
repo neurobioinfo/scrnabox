@@ -1,1 +1,2 @@
-# Coming soon
+## Acknowledgement
+The pipeline is done as part Dark Genome project, it is written by [Saeid Amiri](https://github.com/saeidamiri1) with associate of Rhalena Thomas, Sali Farhan, and Michael Fiorini at Neuro Bioinformatics Core. Copyright belongs [MNI BIOINFO CORE](https://github.com/neurobioinfo). 

@@ -4,13 +4,16 @@ nav:
     - Home: index.md
     - Installation: installation.md
     - Tutorial:
-        - Standard scRNA : SCRNA.md
-        - Cell hashtags : HTO.md
-        - Processed Data : PROC.md
-        - Dataset1 : Dataset1.md
-        - Dataset2 : Dataset2.md
+        - '- Standard scRNA' : SCRNA.md
+        - '- Cell hashtags' : HTO.md
+        - '- Processed Data' : PROC.md
+        - '- Dataset1' : Dataset1.md
+        - '- Dataset2' : Dataset2.md
+    - FAQ : FAQ.md        
+    - Reference : reference.md        
     - About:
-        - 'License': 'LICENSE.md'
-        - 'Changelog': 'changelog.md'
-        - Acknowledgement: Acknowledgement.md
+        - '- License': 'LICENSE.md'
+        - '- Changelog': 'changelog.md'
+        - '- Contributing': contributing.md
+        - '- Acknowledgement': Acknowledgement.md
 theme: readthedocs

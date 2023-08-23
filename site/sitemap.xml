@@ -2,62 +2,77 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
     <url>
          <loc>https://neurobioinfo.github.io/</loc>
-         <lastmod>2023-08-18</lastmod>
+         <lastmod>2023-08-23</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://neurobioinfo.github.io/Acknowledgement/</loc>
-         <lastmod>2023-08-18</lastmod>
+         <lastmod>2023-08-23</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://neurobioinfo.github.io/Dataset1/</loc>
-         <lastmod>2023-08-18</lastmod>
+         <lastmod>2023-08-23</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://neurobioinfo.github.io/Dataset2/</loc>
-         <lastmod>2023-08-18</lastmod>
+         <lastmod>2023-08-23</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
+         <loc>https://neurobioinfo.github.io/FAQ/</loc>
+         <lastmod>2023-08-23</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
+         <loc>https://neurobioinfo.github.io/HTO/</loc>
+         <lastmod>2023-08-23</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://neurobioinfo.github.io/LICENSE/</loc>
-         <lastmod>2023-08-18</lastmod>
+         <lastmod>2023-08-23</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>https://neurobioinfo.github.io/README_HTO/</loc>
-         <lastmod>2023-08-18</lastmod>
+         <loc>https://neurobioinfo.github.io/PROC/</loc>
+         <lastmod>2023-08-23</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>https://neurobioinfo.github.io/README_PROC/</loc>
-         <lastmod>2023-08-18</lastmod>
-         <changefreq>daily</changefreq>
-    </url>
-    <url>
-         <loc>https://neurobioinfo.github.io/README_SCRNA/</loc>
-         <lastmod>2023-08-18</lastmod>
+         <loc>https://neurobioinfo.github.io/SCRNA/</loc>
+         <lastmod>2023-08-23</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://neurobioinfo.github.io/about/</loc>
-         <lastmod>2023-08-18</lastmod>
+         <lastmod>2023-08-23</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://neurobioinfo.github.io/changelog/</loc>
-         <lastmod>2023-08-18</lastmod>
+         <lastmod>2023-08-23</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
+         <loc>https://neurobioinfo.github.io/contributing/</loc>
+         <lastmod>2023-08-23</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://neurobioinfo.github.io/installation/</loc>
-         <lastmod>2023-08-18</lastmod>
+         <lastmod>2023-08-23</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
+         <loc>https://neurobioinfo.github.io/reference/</loc>
+         <lastmod>2023-08-23</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://neurobioinfo.github.io/tutorial/</loc>
-         <lastmod>2023-08-18</lastmod>
+         <lastmod>2023-08-23</lastmod>
          <changefreq>daily</changefreq>
     </url>
 </urlset>

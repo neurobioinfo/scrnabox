@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><link rel="canonical" href="https://neurobioinfo.github.io/Dataset2/" />
+      <link rel="shortcut icon" href="../img/favicon.ico" />
+    <title>- Dataset2 - scrnabox</title>
+    <link rel="stylesheet" href="../css/theme.css" />
+    <link rel="stylesheet" href="../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/styles/github.min.css" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "- Dataset2";
+        var mkdocs_page_input_path = "Dataset2.md";
+        var mkdocs_page_url = "/Dataset2/";
+      </script>
+    
+    <script src="../js/jquery-3.6.0.min.js" defer></script>
+    <!--[if lt IE 9]>
+      <script src="../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/highlight.min.js"></script>
+      <script>hljs.initHighlightingOnLoad();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href=".." class="icon icon-home"> scrnabox
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="..">Home</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../installation/">Installation</a>
+                </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Tutorial</span></p>
+              <ul class="current">
+                  <li class="toctree-l1"><a class="reference internal" href="../SCRNA/">- Standard scRNA</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../HTO/">- Cell hashtags</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../PROC/">- Processed Data</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../Dataset1/">- Dataset1</a>
+                  </li>
+                  <li class="toctree-l1 current"><a class="reference internal current" href="./">- Dataset2</a>
+    <ul class="current">
+    </ul>
+                  </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../FAQ/">FAQ</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../reference/">Reference</a>
+                </li>
+              </ul>
+              <p class="caption"><span class="caption-text">About</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../LICENSE/">- License</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../changelog/">- Changelog</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../contributing/">- Contributing</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../Acknowledgement/">- Acknowledgement</a>
+                  </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="..">scrnabox</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href=".." class="icon icon-home" aria-label="Docs"></a> &raquo;</li>
+          <li>Tutorial &raquo;</li>
+      <li>- Dataset2</li>
+    <li class="wy-breadcrumbs-aside">
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h2 id="dataset2">Dataset2</h2>
+<h2 id="contents">Contents</h2>
+<ul>
+<li><a href="#introduction">Introduction</a></li>
+<li><a href="#from-step-2">From step 2</a></li>
+<li><a href="#from-step-3">From step 3</a>  </li>
+<li><a href="#from-step-4">From step 4</a></li>
+<li><a href="#from-step-5-integration">From Step 5: integration</a></li>
+<li><a href="#from-step-6-clustering">From Step 6: Clustering</a>   </li>
+</ul>
+<h2 id="introduction">Introduction</h2>
+<p>This guide provides a concise introduction to analyzing data using the Scrnabox pipeline. The <code>scrnabox.slurm</code> pipeline is primarily designed to initiate Step 1, which involves running cellranger on fastq data. However, it can also be utilized with processed data, where some of the steps have already been completed. The following section explains how to use the pipeline for analyzing processed data. To begin, you need to set up the pipeline for analysis and determine the starting step based on your requirements.</p>
+<h3 id="from-step-2">From Step 2</h3>
+<p>If the cellranger is already run the raw data, copy the results under <code>${SCRNABOX_PWD}/step1</code>, then follow the step2 to analyze data </p>
+<pre><code>bash $SCRNABOX_HOME/launch_scrnabox.sh \
+-d ${SCRNABOX_PWD} \
+--steps 2
+</code></pre>
+<h3 id="from-step-3">From step 3</h3>
+<p>If the seurat objects are available and you want to run <code>QC and filter cell</code>; save the seurate objects under  <code>${SCRNABOX_PWD}/step2/objs</code> and run the following codes, </p>
+<pre><code>bash $SCRNABOX_HOME/launch_scrnabox.sh \
+-d ${SCRNABOX_PWD} \
+--steps 3 \
+--nFeature_RNA_L 1000 \
+--nCount_RNA_U 65000 \
+--mitochondria_percent_U 25
+</code></pre>
+<h3 id="from-step-4">From step 4</h3>
+<p>If the QC and filtering is already done, you can save under  <code>${SCRNABOX_PWD}/step3/objs</code> and run the following codes to get the hashtag labels by running the following code </p>
+<pre><code>bash $SCRNABOX_HOME/launch_scrnabox.sh \
+-d ${SCRNABOX_PWD} \
+--steps 4 \
+--msd T 
+</code></pre>
+<p>Add the old label and its new corresponding label in '${SCRNABOX_PWD}/job_output/parameters/step4_par.txt'. Run the following to run the demuplixing  </p>
+<pre><code>bash $SCRNABOX_HOME/launch_scrnabox.sh \
+-d ${SCRNABOX_PWD} \
+--steps 4 
+</code></pre>
+<h3 id="from-step-5-integration">From Step 5: Integration</h3>
+<p>If you want to integrate the surate objects, just save them in  <code>${SCRNABOX_PWD}/step4/objs</code> and follow Srep 5</p>
+<pre><code>bash $SCRNABOX_HOME/launch_scrnabox.sh \
+-d ${SCRNABOX_PWD} \
+--steps 5 
+</code></pre>
+<h3 id="from-step-6-clustering">From Step 6: Clustering</h3>
+<p>In this step, you need to have just one seurat object which should be save in  <code>${SCRNABOX_PWD}/step5/objs</code></p>
+<pre><code>bash $SCRNABOX_HOME/launch_scrnabox.sh \
+-d ${SCRNABOX_PWD} \
+--steps 6 
+</code></pre>
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="../Dataset1/" class="btn btn-neutral float-left" title="- Dataset1"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../FAQ/" class="btn btn-neutral float-right" title="FAQ">Next <span class="icon icon-circle-arrow-right"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+    
+      <span><a href="../Dataset1/" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="../FAQ/" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script>var base_url = '..';</script>
+    <script src="../js/theme_extra.js" defer></script>
+    <script src="../js/theme.js" defer></script>
+      <script src="../search/main.js" defer></script>
+    <script defer>
+        window.onload = function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        };
+    </script>
+
+</body>
+</html>

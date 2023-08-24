@@ -26,3 +26,5 @@ new_antibody_label=c('AIW002','SNCA-A53T','GBA-KO','Parkin-KO','PINK1-KO','SNCA-
 ## How to skip the integration step
 If you only have a single sample in the case, there is no need for the integration step; once you run step 4, go to step 6 and add `par_skip_step5='YES'` to the step 6 parameter, `/job_info/parameters/step6_par.txt`.
 
+## Can we run without cellraanger. 
+if you have the matrix file, .......

@@ -21,3 +21,6 @@ par_FindNeighbors_prune.SNN = 1/15
 par_FindClusters_resolution = seq(0.1, 0.9, by=0.1)
 ###### number of repeation of generated clusters to calculate ARI
 par_RI_reps<-100
+###### You can skip the step 5, if you single sample 
+#par_skip_step5='YES'
+

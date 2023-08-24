@@ -15,20 +15,47 @@ lapply(packages, library, character.only = TRUE)
 # library('cowplot')
 # library('clustree')
 
-sample_name<-list.files(path = paste(output_dir, "/step5/objs5",sep=""),pattern = "*.rds")
+# sample_name<-list.files(path = paste(output_dir, "/step5/objs5",sep=""),pattern = "*.rds")
+# if(length(sample_name)<1) {
+#    print("You do not have any object from step 2 ")
+# }
+# for (i in 1:length(sample_name)) {
+#   if (!grepl(".rds",tolower(sample_name[i]), fixed = TRUE)){
+#      print(c(sample_name[i],"is not R rds"))
+#   }
+# }   
+# seu_int<-readRDS(paste(output_dir,'/step5/objs5/',sample_name, sep=''))
 
-if(length(sample_name)<1) {
-   print("You do not have any object from step 2 ")
+source(paste(output_dir,'/job_info/parameters/step6_par.txt',sep=""))
+
+if (tolower(skip_step5)=='yes') {
+    sample_name<-list.files(path = paste(output_dir, "/step4/objs4",sep=""),pattern = "*.rds")
+    if(length(sample_name)<1) {
+    print("You do not have any object from step 2 ")
+    }
+    for (i in 1:length(sample_name)) {
+    if (!grepl(".rds",tolower(sample_name[i]), fixed = TRUE)){
+        print(c(sample_name[i],"is not R rds"))
+    }
+    }   
+    seu_int<-readRDS(paste(output_dir,'/step4/objs4/',sample_name, sep=''))
+    par_whatAssay<-'RNA'
+} else {
+    sample_name<-list.files(path = paste(output_dir, "/step5/objs5",sep=""),pattern = "*.rds")
+    if(length(sample_name)<1) {
+    print("You do not have any object from step 2 ")
+    }
+    for (i in 1:length(sample_name)) {
+    if (!grepl(".rds",tolower(sample_name[i]), fixed = TRUE)){
+        print(c(sample_name[i],"is not R rds"))
+    }
+    }   
+    seu_int<-readRDS(paste(output_dir,'/step5/objs5/',sample_name, sep=''))
+    par_whatAssay<-'integrated'
 }
 
-for (i in 1:length(sample_name)) {
-  if (!grepl(".rds",tolower(sample_name[i]), fixed = TRUE)){
-     print(c(sample_name[i],"is not R rds"))
-  }
-}   
 
-seu_int<-readRDS(paste(output_dir,'/step5/objs5/',sample_name, sep=''))
-source(paste(output_dir,'/job_info/parameters/step6_par.txt',sep=""))
+# source(paste(output_dir,'/job_info/parameters/step6_par.txt',sep=""))
 
 # DefaultAssay(seu_int) <- "RNA"
 # seu_int <- NormalizeData(seu_int)
@@ -46,7 +73,7 @@ source(paste(output_dir,'/job_info/parameters/step6_par.txt',sep=""))
 
 
 #######
-Seurat::DefaultAssay(seu_int) <- "integrated"
+Seurat::DefaultAssay(seu_int) <-  par_whatAssay #"integrated"
 # seu_int <- ScaleData(seu_int, verbose = FALSE)
 # seu_int <- RunPCA(seu_int, npcs = par_RunPCA_npcs, verbose = FALSE)
 # seu_int <- RunUMAP(seu_int, dims = 1:par_RunUMAP_dims, n.neighbors =par_RunUMAP_n.neighbors)
@@ -54,11 +81,11 @@ seu_int <- FindNeighbors(seu_int,  dims = 1:par_FindNeighbors_dims, k.param = pa
 seu_int <- Seurat::FindClusters(seu_int, resolution = par_FindClusters_resolution)
 
 
-clustree(seu_int@meta.data, prefix = "integrated_snn_res.")
+clustree(seu_int@meta.data, prefix = paste0(par_whatAssay,"_snn_res."))
 ggsave(paste(output_dir,"/step6/figs6/clustree_int.png", sep=""))
 for (i in par_FindClusters_resolution){
-    Seurat::DimPlot(seu_int, group.by = paste("integrated_snn_res.",i,sep=''))
-    ggsave(paste(output_dir,'/step6/figs6',"/integrated_snn_res.",i,".png",sep=""))
+    Seurat::DimPlot(seu_int, group.by = paste((par_whatAssay,"_snn_res.",i,sep=''))
+    ggsave(paste(output_dir,'/step6/figs6/',par_whatAssay,"_snn_res.",i,".png",sep=""))
 }
 
 ########

@@ -2,10 +2,13 @@
 ## v0.1.1
 This is the initial release.  
 ## v0.1.2
-Deployed on  2023-08-18 -- new  features
+Deployed on  2023-08-23 -- new features
 
--  Ambient-RNA is added
--  Multiple control is added  
+-  Possibility to consider multiple control
+-  Works with sole
 
-## v0.1.3
+## v0.1.21
 Supposed to add
+
+-  Complete the documentation 
+-  Add CellBender

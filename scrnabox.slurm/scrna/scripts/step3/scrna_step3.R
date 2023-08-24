@@ -16,15 +16,6 @@ GENEUMIL=as.numeric(args[9])
 GENEUMIU=as.numeric(args[10])
 
 
-print(output_dir)
-print(NFRNAL)
-print(NFRNAU)
-print(NCRNAL)
-print(NCRNAU)
-print(PMTL)
-print(PMTU)
-print(GENEUMIL)
-print(GENEUMIU)
 
 .libPaths(r_lib_path)
 packages<-c('Seurat','ggplot2', 'dplyr','Matrix', 'foreach', 'doParallel')
@@ -47,6 +38,29 @@ for (i in 1:length(sample_name)) {
 
 source(paste(output_dir,'/job_info/parameters/step3_par.txt',sep=""))
 # save.image(file = "/lustre03/project/6070393/COMMON/Dark_Genome/analysis_DarkGenome2weeks_SCRNA/temp.RData")
+
+
+if (exists("nFeature_RNA_L")) NFRNAL=nFeature_RNA_L
+if (exists("nFeature_RNA_U")) NFRNAU=nFeature_RNA_U
+
+if (exists("nCount_RNA_L")) NCRNAL=nCount_RNA_L
+if (exists("nCount_RNA_U")) NCRNAU=nCount_RNA_U
+
+if (exists("mitochondria_percent_L")) PMTL=mitochondria_percent_L
+if (exists("mitochondria_percent_U")) PMTU=mitochondria_percent_U
+
+if (exists("log10GenesPerUMI_L")) GENEUMIL=log10GenesPerUMI_L
+if (exists("log10GenesPerUMI_U")) GENEUMIU=log10GenesPerUMI_U
+
+print(output_dir)
+print(NFRNAL)
+print(NFRNAU)
+print(NCRNAL)
+print(NCRNAU)
+print(PMTL)
+print(PMTU)
+print(GENEUMIL)
+print(GENEUMIU)
 
 set.seed(1234)
 # library(foreach)

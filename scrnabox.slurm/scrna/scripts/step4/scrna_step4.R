@@ -113,8 +113,8 @@ if (tolower(dropDN)=='yes') {
 ###############       
         write.csv(table(seu$MULTI_ID), paste(output_dir,'/step4/info4/',sample_nameb[i_s],"MULTI_ID.csv",sep="")) 
         Idents(seu) <- "MULTI_ID"
-        RidgePlot(seu, assay = "RNA", features = rownames(seu[["RNA"]]), ncol =par_RidgePlot_ncol) 
-        ggsave(paste(output_dir,'/step4/figs4/',sample_nameb[i_s],"RidgeplotRNA.png",sep=""))
+        # RidgePlot(seu, assay = "RNA", features = rownames(seu[["RNA"]]), ncol =par_RidgePlot_ncol) 
+        # ggsave(paste(output_dir,'/step4/figs4/',sample_nameb[i_s],"RidgeplotRNA.png",sep=""))
         # Idents(seu) <- "HTO_classification.global"
         VlnPlot(seu, features = "nCount_RNA", pt.size = 0.01, log = TRUE)
         ggsave(paste(output_dir,'/step4/figs4/seu',i_s,"VlnPlot_nCounts_RNA.png",sep=""))

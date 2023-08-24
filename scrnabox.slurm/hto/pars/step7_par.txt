@@ -2,7 +2,7 @@ Save_RNA<-"NO"
 Save_metadata<-"NO"
 ###### number of top markers based on avg_log2FC
 par_top_sel=5
-###### The cluster you want to use. 
+###### The cluster you want to use.  if you skip step 5, use par_level_cluster='RNA_snn_res.0.7'
 par_level_cluster='integrated_snn_res.0.7'
 ###### Name of a metadata column to split plot by
 par_level_genotype='MULTI_ID_Lables'

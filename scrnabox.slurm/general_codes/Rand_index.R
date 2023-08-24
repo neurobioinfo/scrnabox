@@ -12,7 +12,7 @@ library(ggpubr)
 #read in seurat object
 # seu_int <- readRDS("/Users/mfiorini/Desktop/scRNA pipeline paper/seu_step6.rds") #we will take step 6 seurat object
 
-Seurat::DefaultAssay(seu_int) <- "integrated"
+Seurat::DefaultAssay(seu_int) <- par_whatAssay 
 # seu_int <- ScaleData(seu_int, verbose = FALSE)
 # seu_int <- RunPCA(seu_int, npcs = 25, verbose = FALSE)
 # seu_int <- RunUMAP(seu_int, dims = 1:25, n.neighbors =30)
@@ -40,7 +40,7 @@ calculate_rand_index <- function(seu_object, par_FindClusters_resolution, OUT_DI
     for(n in 1:reps) { 
     seu_object <- Seurat::FindClusters(seu_int, resolution = i, random.seed = n) 
     #retrieve the clustering
-    column <- paste0("integrated_snn_res.",i)
+    column <- paste0(par_whatAssay,"_snn_res.",i)
     df <- data.frame(seu_object@meta.data)
     df1 <- df %>% select(column)
     result[[n]] <- df1[,1]
@@ -118,7 +118,7 @@ test_plot <- calculate_rand_index(seu_int,par_FindClusters_resolution, OUT_DIR )
 calculate_clusters<- function(seu_int, par_FindClusters_resolution, test_plot, OUT_DIR) {
   mybiglist <- list()
   for(i in par_FindClusters_resolution) { 
-    column <- paste0("integrated_snn_res.",i)
+    column <- paste0(par_whatAssay,"_snn_res.",i)
     df <- data.frame(seu_int@meta.data)
     df1 <- df %>% select(column)
     n_levels <-length(unique(df1[,1]))

@@ -21,6 +21,18 @@ seu.int.c<-readRDS(paste(output_dir,'/step6/objs6/',sample_name, sep=''))
 
 source(paste(output_dir,'/job_info/parameters/step8_par.txt',sep=""))
 
+if (tolower(new_genotype)=='yes') {
+old.names<-old_antibody_label
+new.names<-new_antibody_label
+Idents(seu.int.c)  <- "MULTI_ID"
+for (i in 1:length(old.names)){
+    newIdent <- new.names[i]
+    names(newIdent) <- old.names[i]
+    seu.int.c <- RenameIdents(object = seu.int.c, newIdent)
+}
+seu.int.c[["MULTI_ID_Lables"]] <- Idents(seu.int.c)
+}
+
 
 # clus_label<-read.csv(paste(output_dir,'/job_info/parameters/step8_clus_label.txt',sep=''), header=FALSE, sep="")
 # cluster.ids<-str_split(clus_label[1,],",")[[1]]

@@ -1,2 +1,21 @@
 Save_RNA='NO'
 Save_metadata='NO'
+#### QC parameter 
+#nFeature_RNA_L
+#nFeature_RNA_U
+#nCount_RNA_L
+#nCount_RNA_U
+#mitochondria_percent_L
+#mitochondria_percent_U
+#log10GenesPerUMI_L
+#log10GenesPerUMI_U
+
+
+
+
+
+
+
+
+
+

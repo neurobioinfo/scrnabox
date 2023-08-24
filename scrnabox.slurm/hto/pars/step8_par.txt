@@ -1,6 +1,10 @@
 Save_RNA='NO'
 Save_metadata='NO'
-###### The cluster you want to use. 
+###### The cluster you want to use.  if you skip step 5, use par_level_cluster='RNA_snn_res.0.7'
 select_cluster='integrated_snn_res.0.7'
 ######  The new name for cluster level 
 step8_clus_label=c('DAneurons','DAneurons','other','other','neurons','ependymal','neurons','neurons','neurons','DAneurons','DAneurons','progenitors','Glia','other','progenitors','progenitors','neuroblast','other','neurons','other','other','progenitors','other','DAneurons','neurons','DAneurons','progenitors','neurons','progenitors')
+##### If you want to add new genotype, use the following
+#new_genotype='YES'
+#old_antibody_label=c('B0251-TotalSeqB','B0252-TotalSeqB','B0253-TotalSeqB','B0254-TotalSeqB','B0255-TotalSeqB','B0256-TotalSeqB','Doublet','Negative')
+#new_antibody_label=c('AIW002','SNCA-A53T','GBA-KO','Parkin-KO','PINK1-KO','SNCA-KO','Doublet','Negative')

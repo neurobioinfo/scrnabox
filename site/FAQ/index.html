@@ -113,13 +113,11 @@
 <h2 id="possibility-to-consider-multiple-control">Possibility to consider multiple control</h2>
 <p>User can redefine the genotype; in the step8, add <code>/job_info/parameters/step8_par.txt</code>, add <code>new_genotype='YES</code> and redefine the labels: </p>
 <pre><code>new_genotype='YES'
-old_antibody_label=c('B0251-TotalSeqB','B0252-TotalSeqB','B0253-TotalSeqB','B0254-TotalSeqB','B0255-TotalSeqB','B0256-TotalSeqB','Doublet','Negative')
-new_antibody_label=c('AIW002','SNCA-A53T','GBA-KO','Parkin-KO','PINK1-KO','SNCA-KO','Doublet','Negative')
+old_antibody_label=c('B0251-TotalSeqB','B0252-TotalSeqB','B0253-TotalSeqB','B0254-TotalSeqB','B0255-TotalSeqB','B0256-TotalSeqB')
+new_antibody_label=c('AIW002','SNCA-A53T','GBA-KO','Parkin-KO','PINK1-KO','SNCA-KO')
 </code></pre>
-<p>To obtain a brief guidance on the parameters, execute the following code.</p>
-<h2 id="how-skip-the-integration-step">How skip the integration step</h2>
-<p>In the case, you have one sample, you do not need the integration step; once you run step 4 jump on step 6 and add <code>skip_step5='NO'</code> to <code>/job_info/parameters/step6_par.txt</code>. 
-whatAssay&lt;-'integrated'???</p>
+<h2 id="how-to-skip-the-integration-step">How to skip the integration step</h2>
+<p>If you only have a single sample in the case, there is no need for the integration step; once you run step 4, go to step 6 and add <code>par_skip_step5='YES'</code> to the step 6 parameter, <code>/job_info/parameters/step6_par.txt</code>.</p>
               
             </div>
           </div><footer>

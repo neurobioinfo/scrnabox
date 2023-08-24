@@ -5,7 +5,7 @@ This is the initial release.
 Deployed on  2023-08-23 -- new features
 
 -  Possibility to consider multiple control
--  Works with sole
+-  Works with sole sample
 
 ## v0.1.21
 Supposed to add

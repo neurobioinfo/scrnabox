@@ -13,7 +13,7 @@ comments: false
 
 - [Possibility to consider multiple control](#possibility-to-consider-multiple-control)
 - [How skip the integration step](#how-skip-the-integration-step)
-
+- [Can we run without cellraanger](#can-we-run-without-cellraanger)
 ## Possibility to consider multiple control
 User can redefine the genotype; in the step8, add `/job_info/parameters/step8_par.txt`, add `new_genotype='YES` and redefine the labels: 
 

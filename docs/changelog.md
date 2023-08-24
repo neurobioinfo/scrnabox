@@ -7,7 +7,7 @@ Deployed on  2023-08-23 -- new features
 -  Possibility to consider multiple control
 -  Works with sole sample
 
-## v0.1.21
+## v0.1.25
 Supposed to add
 
 -  Complete the documentation 

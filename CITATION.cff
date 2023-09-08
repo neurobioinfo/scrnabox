@@ -4,9 +4,11 @@ authors:
 - family-names: "Amiri"
   given-names: "Saeid"
   orcid: "https://orcid.org/0000-0003-2028-092X"
+- family-names: "Fiorini"
+  given-names: "Michael"
 - family-names: "Thomas"
   given-names: "Rhalena"
 title: "scrnabox: A pipeline for scRNA"
-version: 0.1.0
-date-released: 2023-06-16
+version: 0.1.3
+date-released: 2023-09-08
 url: "https://github.com/neurobioinfo/scrnabox"

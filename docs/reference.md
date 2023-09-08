@@ -10,7 +10,13 @@
 - MEMPERCORE: For clusters whose job managers do not support memory requests, it is possible to request memory in the form of cores via the --mempercore command-line option. This option will scale up the number of threads requested via the __MRO_THREADS__ variable according to how much memory a stage requires when given to the ratio of memory on your nodes.
 
 ### Step 2
+- par_Save_RNA: If you want to save an RNA expression matrix and metadata dataframe set the following to "yes"
+- par_Save_metadata: If you want to save an RNA expression matrix and metadata dataframe set the following to "yes"
 ### Step 3
+- par_Save_RNA: If you want to save an RNA expression matrix and metadata dataframe set the following to "yes"
+- par_Save_metadata: If you want to save an RNA expression matrix and metadata dataframe set the following to "yes"
+- par_nFeature_RNA_L: 
+- par_nFeature_RNA_U: 
 ### Step 4
 ### Step 5
 ### Step 6

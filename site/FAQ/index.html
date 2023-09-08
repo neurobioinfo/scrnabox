@@ -109,6 +109,7 @@
 <ul>
 <li><a href="#possibility-to-consider-multiple-control">Possibility to consider multiple control</a></li>
 <li><a href="#how-skip-the-integration-step">How skip the integration step</a></li>
+<li><a href="#can-we-run-without-cellraanger">Can we run without cellraanger</a></li>
 </ul>
 <h2 id="possibility-to-consider-multiple-control">Possibility to consider multiple control</h2>
 <p>User can redefine the genotype; in the step8, add <code>/job_info/parameters/step8_par.txt</code>, add <code>new_genotype='YES</code> and redefine the labels: </p>
@@ -117,7 +118,9 @@ old_antibody_label=c('B0251-TotalSeqB','B0252-TotalSeqB','B0253-TotalSeqB','B025
 new_antibody_label=c('AIW002','SNCA-A53T','GBA-KO','Parkin-KO','PINK1-KO','SNCA-KO')
 </code></pre>
 <h2 id="how-to-skip-the-integration-step">How to skip the integration step</h2>
-<p>If you only have a single sample in the case, there is no need for the integration step; once you run step 4, go to step 6 and add <code>par_skip_step5='YES'</code> to the step 6 parameter, <code>/job_info/parameters/step6_par.txt</code>.</p>
+<p>If you have a sole sample, there is no need for the integration step; once you run step 4, go to step 6 and add <code>par_skip_step5='YES'</code> to the step 6 parameter, <code>/job_info/parameters/step6_par.txt</code>.</p>
+<h2 id="can-we-run-without-cellraanger">Can we run without cellraanger.</h2>
+<p>if you have the matrix file, .......</p>
               
             </div>
           </div><footer>

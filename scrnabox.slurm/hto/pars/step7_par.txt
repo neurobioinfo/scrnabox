@@ -1,22 +1,50 @@
-Save_RNA<-"NO"
-Save_metadata<-"NO"
-###### number of top markers based on avg_log2FC
-par_top_sel=5
-###### The cluster you want to use.  if you skip step 5, use par_level_cluster='RNA_snn_res.0.7'
-par_level_cluster='integrated_snn_res.0.7'
-###### Name of a metadata column to split plot by
-par_level_genotype='MULTI_ID_Lables'
-###### Seurat object to use as the reference
-par_reference='/lustre03/project/6070393/COMMON/Dark_Genome/scRNA.neuro.datasets/seuobjs/jerber52_ref.rds'
+############################################################################
+# If you want to save an RNA expression matrix and metadata dataframe set the following to "yes"
+############################################################################
+par_save_RNA<-"NO"
+par_save_metadata<-"NO"
 
-###### Name of a metadata column of celltype
-par_level_celltype='celltype'
-###### This will increase your RAM usage so set this number mindfully
-par_futureglobalsmaxSize = 50000 * 1024^2
-######
-par_FindTransferAnchors_dim=30
-###### Character vector of databases to search
+############################################################################
+# General parameters for cluster annotation 
+############################################################################
+## The cluster you want to use. If you skipped integration, use par_level_cluster='RNA_snn_res.0.7', if you want to proceed with a clustering resolution of 0.7
+par_level_cluster='RNA_snn_res.0.7'
+## Name of the metadata column in your Seurat object that describes the sample names
+par_level_genotype='MULTI_ID_Lables'
+
+############################################################################
+# Marker gene set enrichment analysis parameters
+############################################################################
+## Number of top markers based on avg_log2FC
+par_top_sel=5
+## Character vector of EnrichR databases to search for enrichment
 par_db = c('Descartes_Cell_Types_and_Tissue_2021','CellMarker_Augmented_2021','Azimuth_Cell_Types_2021')
-###### Define path of gens list for module score
-par_module_score='/lustre03/project/6070393/COMMON/Dark_Genome/samamiri/pipeline/scrnabox011.slurm/hto/pars/list_genes.csv'
+
+######################################################################
+#Module score analysis parameters
+######################################################################
+## Whether or not to conduct module score analysis. If you do not want to perform this computation set the following to "no".
+par_compute_module_score="yes"
+## Define path of genes sets for module score
+par_module_score='/home/fiorini9/scratch/scrna_pipeline/HTO_v1.1/module_gene_set/module_test.csv'
+
+######################################################################
+#Visualize select markers analysis parameters
+######################################################################
+## Whether or not to visualize select features. If you do not want to, set the following to "no".
+par_visualize_select_features="yes"
+## List of select features
+par_select_features <- c("LDHB", "IL7R", "LEF1", "NOSIP","S100A8", "S100A9")
+
+#####################################################################
+#Reference-based annotation parameters
+######################################################################
+## Seurat object to use as the reference
+par_reference='/home/fiorini9/scratch/scrna_pipeline/HTO_v1.1/reference_seurat/ifnb_processed.Rds'
+## Name of a metadata column in the reference Seurat object that contains celltype annotations
+par_level_celltype='ident'
+## Which dimensions to use to find transfer anchors bewteen query and reference dataset
+par_FindTransferAnchors_dim=10
+## This will increase your RAM usage so set this number mindfully
+par_futureglobalsmaxSize = 50000 * 1024^2
 

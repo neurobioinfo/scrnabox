@@ -1,32 +1,35 @@
 #!/usr/bin/env Rscript
 
 ####################
-# step8
+# step8 -- genotype-genotype DGE contrasts
+####################
 
+## load parameters
 args = commandArgs(trailingOnly=TRUE)
 output_dir=args[1]
 r_lib_path=args[2]
 contrast=args[3]
 
+## load library
 .libPaths(r_lib_path)
-packages<-c('Seurat','ggplot2', 'dplyr','stringi','limma','tidyverse')
+packages<-c('Seurat','ggplot2', 'dplyr','stringi','limma','tidyverse', 'edgeR')
 lapply(packages, library, character.only = TRUE)
 
-# library('stringi')
-# library('limma')
-# library('tidyverse')
-
-
+## load user-defined contrasts
 if (contrast=="F") {
    dd<-read.csv(paste(output_dir,'/job_info/parameters/step8_contrast_genotype.txt',sep='/'), sep="")
 } else {
    dd<-read.csv(paste(contrast), sep="")
 }
 
-#######
+## print contrast matrix
+dd
+
+## load Seurat object and DGE object
 seu.int.c<-readRDS(paste(output_dir,'/step8/objs8',"/seu_step8.rds", sep=""))
 dge<-readRDS(paste(output_dir,'/step8/info8',"/dge.rds", sep=""))
 
+## function for DGE contrast
 run_func_genotype<- function(design,des,pheno,selvar,gp2){
     xcontrol<-pheno 
     xrest<-'ALLNEED' 
@@ -45,11 +48,12 @@ run_func_genotype<- function(design,des,pheno,selvar,gp2){
    write.csv(aa,file=paste(output_dir,paste('/step8/cont_genotype',paste(des,'.csv',sep=''),sep='/'),sep=''))
 }
 
-gp2<-unique(seu.int.c$MULTI_ID_Lables)
+## create DGE design
+gp2<-unique(seu.int.c$New_Sample_ID)
 gp2<-stri_replace_all_regex(gp2,pattern=c(':', '-'),replacement=c(''),vectorize=FALSE)
 design <- model.matrix(~ 0 + d1 , data = seu.int.c@meta.data)
 
-
+## perform DGE contrasts and print differentially expressed genes
 for(i in 1:dim(dd)[1]){
     des<-str_split(dd[i,1],",")[[1]]
     pheno<-str_split(dd[i,2],",")[[1]]
@@ -59,5 +63,6 @@ for(i in 1:dim(dd)[1]){
     run_func_genotype(design,des,pheno,selvar,gp2)
 }
 
+## write session information
 writeLines(capture.output(sessionInfo()), paste(output_dir,'/step8/info8/sessionInfo_cont_genotype.txt', sep=""))
 file.remove("Rplots.pdf")

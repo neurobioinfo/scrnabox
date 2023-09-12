@@ -1,26 +1,47 @@
-######
-Save_RNA='NO'
-Save_metadata='NO'
-###### How to choose top variable features. vst, mean.var.plot (mvp), dispersion (disp). 
-par_FindVariableFeatures_selection.method='vst'
-###### Number of features to select as top variable features
-par_FindVariableFeatures_nfeatures = 2500
-###### Total Number of PCs to compute and store for RunPCA
-par_RunPCA_npcs = 30
-######  Which dimensions to use as input features for RunUMAP
-par_RunUMAP_dims=30
-###### This determines the number of neighboring points used in local approximations of manifold structure.
-par_RunUMAP_n.neighbors=65
-###### Dimensions of reduction to use as input
+############################################################################
+# If you want to save an RNA expression matrix and metadata dataframe set the following to "yes"
+############################################################################
+par_save_RNA='NO'
+par_save_metadata='NO'
+
+############################################################################
+# If you skipped integration in step 5, set the following to "yes"
+############################################################################
+par_skip_step5='no'
+
+############################################################################
+# Clustering parameters
+############################################################################
+## Dimensions of reduction to use as input. Can be informed by the elbow and jackstraw plots produced in Dstep 5. 
 par_FindNeighbors_dims=30
-###### Defines k for the k-nearest neighbor algorithm
+## Defines k for the k-nearest neighbor algorithm
 par_FindNeighbors_k.param =60
-###### Sets the cutoff for acceptable Jaccard index when computing the neighborhood overlap for the SNN construction
+## Sets the cutoff for acceptable Jaccard index when computing the neighborhood overlap for the SNN construction
 par_FindNeighbors_prune.SNN = 1/15
-###### Value of the resolution parameter, use a value above (below) 1.0 if you want to obtain a larger (smaller) number of communities
+## Value of the clustering resolution parameter. You may provide multiple resolution values. Use a value above 1.0 if you want to obtain a larger number of smaller communities.
 par_FindClusters_resolution = seq(0.1, 0.9, by=0.1)
-###### number of repeation of generated clusters to calculate ARI
-par_RI_reps<-100
-###### You can skip the step 5, if you single sample 
-#par_skip_step5='YES'
+
+############################################################################
+# Adjusted Rand Index for clustering resolutions
+############################################################################
+## If you want to compute ARI, set the following to "yes". This takes a long time. 
+par_compute_ARI = "yes"
+## Number of repetions of generated clusters to calculate ARI. We recommend 100
+par_RI_reps=5
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 

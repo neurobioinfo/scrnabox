@@ -7,7 +7,7 @@ The Standard Analysis Track is designed for experiments where each sample is cap
 
 ![GitHub figure 1](https://github.com/neurobioinfo/scrnabox/assets/110110777/3a6df83e-e104-45d2-9b04-fe246642c6a8)
 
-<img src="https://github.com/neurobioinfo/scrnabox/assets/110110777/3a6df83e-e104-45d2-9b04-fe246642c6a8" height="500">
+<img src="https://github.com/neurobioinfo/scrnabox/assets/110110777/3a6df83e-e104-45d2-9b04-fe246642c6a8" height="300">
 
 Please refer to the [documentation](https://neurobioinfo.github.io/scrnabox/site/) for comprehensive instructions regarding the application of each Analysis Track.   
 

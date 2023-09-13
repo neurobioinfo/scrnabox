@@ -21,7 +21,11 @@ Please refer to the [documentation](https://neurobioinfo.github.io/scrnabox/site
 ---
 
 ## scRNAbox analysis workflow
-The following figures illustrate the steps involved in analyzing scRNA-seq data using the Standard and Cell Hashtags with the scrnabox pipeline
+The following figure illustrates the Anlytical Steps comprising each Analysis Track – Standard and Cell Hashtag – of the the scRNAbox pipeline. Prior to running each Analytical Step, users can adjust the execution parameters in the Step-specific parameters text file, which is automatically downloaded upon [Installation](#installing). Following each Analytical Step, intermediate Seurat objects are generated and, where applicable, results are reported as intuitive summary files, tables, or figures, deposited directly into the working directory. 
+
+
+
+A summary of each Analytical Step in the [Standard scRNAseq](#standard-scRNA-seq) and [Cell Hashtag scRNAseq](#cell-hashtags) Analysis Tracks is provided below. 
 <br />
 <br />
 <kbd>

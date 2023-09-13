@@ -85,7 +85,7 @@ devtools::install_github("neurobioinfo/scrnabox/scrnaboxR")
 ```
 `'scrnaboxR'` provides a collection of functions for conducting enrichment analysis and other analyses associated with scRNAseq data. It serves as a companion to scRNAbox, offering a range of tools and functionalities to enhance scRNAseq data analysis. 
 
-Please note that all R packages must be loaded into a common R library. For further instructions regarding the preparation of an R library please visit scRNAbox's [documentation](https://neurobioinfo.github.io/scrnabox/site/). Users must then define the location of their R library (`R_LIB_PATH=`), their version of R (`R_VERSION`), and the location of CellRanger (`MODULECELLRANGER`) in the `scrnabox_config.ini` file which is deposited into the working directory upon running the pipeline initation step:
+Please note that all R packages must be loaded into a common R library. For further instructions regarding the preparation of an R library please visit scRNAbox's [documentation](https://neurobioinfo.github.io/scrnabox/site/). Users must then define the location of their R library (`R_LIB_PATH=`), their version of R (`R_VERSION=`), and the location of CellRanger (`MODULECELLRANGER=`) in the `scrnabox_config.ini` file which is deposited into the working directory upon running the pipeline initation Step:
 ```
 bash ./scrnabox.slurm/launch_scrnabox.sh \
 -d ./working_directory \

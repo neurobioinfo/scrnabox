@@ -28,7 +28,6 @@ Summaries of each Analytical Step comprising the [Standard scRNAseq](#standard-s
 
 #### [Standard scRNAseq](https://github.com/neurobioinfo/scrnabox/tree/main/README_SCRNA.md)
 
-The following steps describe how to analyze scRNA-seq data using the pipeline:<br />
 - **Step 1: FASTQ pre-processing** - Feature-barcode expression matrices are generated from FASTQ files using the CellRanger _counts_ pipeline.<br />
 - **Step 2.1: Ambient RNA removal** - The ambient RNA rate is estimated and the gene expression profiles are corrected for RNA contamination (optional) using SoupX (Young et al. 2020).<br />
 - **Step 2.2: Create Seurat object** - CellRanger- or SoupX-generated feature-barcode expression matrices are transformed into Seurat objects. Genes expressed in less than a minimum number of cells and cells expressing less than a minimum number of genes can be filtered.<br />

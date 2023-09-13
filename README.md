@@ -12,7 +12,7 @@ Please refer to the [documentation](https://neurobioinfo.github.io/scrnabox/site
 ## Contents
 - [scRNAbox analysis workflow](#scRNAbox-analysis-workflow)
   - [Standard scRNAseq](#standard-scRNAseq)
-  - [Cell Hashtag scRNAseq](#cell-hashtags)
+  - [Cell Hashtag scRNAseq](#Cell-Hashtag-scRNAseq)
 - [Installation](#installing)
 - [Tutorial](#tutorial)
 
@@ -24,7 +24,7 @@ The following figure illustrates the Anlytical Steps comprising each Analysis Tr
 
 <img src="https://github.com/neurobioinfo/scrnabox/assets/110110777/3729254c-0ca1-4866-aa27-1bda6129e7ca" height="800">
 
-Summaries of each Analytical Step comprising the [Standard scRNAseq](#standard-scRNA-seq) and [Cell Hashtag scRNAseq](#cell-hashtags) Analysis Tracks are provided below.
+Summaries of each Analytical Step comprising the [Standard scRNAseq](#standard-scRNAseq) and [Cell Hashtag scRNAseq](#Cell-Hashtag-scRNAseq) Analysis Tracks are provided below.
 
 #### [Standard scRNAseq](https://github.com/neurobioinfo/scrnabox/tree/main/README_SCRNA.md)
 

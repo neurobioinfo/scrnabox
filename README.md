@@ -13,14 +13,14 @@ Please refer to the [documentation](https://neurobioinfo.github.io/scrnabox/site
 - [scRNAbox analysis workflow](#scRNAbox-analysis-workflow)
   - [Standard scRNAseq](#standard-scRNAseq)
   - [Cell Hashtag scRNAseq](#Cell-Hashtag-scRNAseq)
-- [Installation](#installing)
+- [Installation](#Installation)
 - [Tutorial](#tutorial)
 
 
 ---
 
 ## scRNAbox analysis workflow
-The following figure illustrates the Anlytical Steps comprising each Analysis Track – Standard scRNAseq and Cell Hashtag scRNAseq – of the the scRNAbox pipeline. Prior to running each Analytical Step, users can adjust the execution parameters in the Step-specific parameters text file, which is automatically downloaded upon [Installation](#installing). Following each Analytical Step, intermediate Seurat objects are generated and, where applicable, results are reported as intuitive summary files, tables, or figures, deposited directly into the working directory. 
+The following figure illustrates the Anlytical Steps comprising each Analysis Track – Standard scRNAseq and Cell Hashtag scRNAseq – of the the scRNAbox pipeline. Prior to running each Analytical Step, users can adjust the execution parameters in the Step-specific parameters text file, which is automatically downloaded upon [Installation](#Installation). Following each Analytical Step, intermediate Seurat objects are generated and, where applicable, results are reported as intuitive summary files, tables, or figures, deposited directly into the working directory. 
 
 <img src="https://github.com/neurobioinfo/scrnabox/assets/110110777/3729254c-0ca1-4866-aa27-1bda6129e7ca" height="800">
 
@@ -67,12 +67,12 @@ Steps 1-8 are performed using [scrnabox.slurm](https://github.com/neurobioinfo/s
 For a comprehensive decription of each Analytical Step please visit scRNAbox's [documentation](https://neurobioinfo.github.io/scrnabox/site/).
 
 
-## Installing
+## Installation
 The package is written in the bash, so it can be used with any slurm system. To download 
 `scrnabox.slurm` run the below comments 
 ```
-wget https://github.com/neurobioinfo/scrnabox/releases/download/v0.1.0/scrnabox.slurm.zip
-unzip scrnabox.slurm.zip 
+wget https://github.com/neurobioinfo/scrnabox/releases/download/v0.1.35/scrnabox.slurm.zip
+unzip scrnabox.slurm.zip
 ```
 
 To obtain a brief guidance of the pipeline, execute the following code.

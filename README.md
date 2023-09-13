@@ -65,7 +65,7 @@ Steps 1-8 are performed using [scrnabox.slurm](https://github.com/neurobioinfo/s
 
 - **Step 9: Differentially expressed genes enrichment analysis**: in this step, we obtain a list of significant genes using enrichment methods. This Step is performed using scrnaboxR. For more details see [Practice](https://github.com/neurobioinfo/scrnabox/blob/main/tutorial/practice.md).
 
-For a comprehensive decription of each Analytical Step please visit scRNAbox's [documentation](https://neurobioinfo.github.io/scrnabox/site/)
+For a comprehensive decription of each Analytical Step please visit scRNAbox's [documentation](https://neurobioinfo.github.io/scrnabox/site/).
 
 
 ## Installing

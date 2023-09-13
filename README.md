@@ -5,7 +5,7 @@ The `scrnabox.slurm` is a single-cell RNA sequencing (scRNAseq) pipeline specifi
 
 The Standard Analysis Track is designed for experiments where each sample is captured and sequenced separately, while the Cell Hashtag Analysis Track is designed for multiplexed experiments, whereby samples are tagged with sample-specific barcodes, pooled, and sequenced together. The Cell Hashtag Analysis Track is distinguished by an additional sample demultiplexing Step that assigns cells to their sample-of-origin via the sample-specific barcodes. 
 
-![GitHub figure 1](https://github.com/neurobioinfo/scrnabox/assets/110110777/72d505c7-d811-4c2e-bc6f-230b36701dbd)
+![GitHub figure 1 (1)](https://github.com/neurobioinfo/scrnabox/assets/110110777/b6fecdf7-57cf-44e3-bf60-1f0ed8b33a53)
 
 Please refer to the [documentation](https://neurobioinfo.github.io/scrnabox/site/) for comprehensive instructions regarding the application of each Analysis Track.   
 

@@ -68,14 +68,14 @@ For a comprehensive decription of each Analytical Step please visit scRNAbox's [
 
 
 ## Installation
-The package is written in the bash, so it can be used with any slurm system. To download 
-`scrnabox.slurm` run the below comments 
+`scrnabox.slurm` is written in the bash and, therefoe, can be used with any slurm system. To download the latest version of
+`scrnabox.slurm` (v0.1.35) run the following command: 
 ```
 wget https://github.com/neurobioinfo/scrnabox/releases/download/v0.1.35/scrnabox.slurm.zip
 unzip scrnabox.slurm.zip
 ```
 
-To obtain a brief guidance of the pipeline, execute the following code.
+For a description of the options for running `scrnabox.slurm` run the following command:
 ```
 bash ./scrnabox.slurm/launch_scrnabox.sh -h 
 ```

@@ -1,7 +1,7 @@
 # scRNAbox: a comprehensive single-cell RNA sequencing pipeline designed for high-performance computing systems  
 The `scrnabox.slurm` is a single-cell RNA sequencing (scRNAseq) pipeline specifically designed for analyzing data under a High-Performance Computing (HPC) systems  using the Slurm Workload Manager ([slurm work load manager system](https://slurm.schedmd.com/)). The pipeline has been extensively utilized on the Digital Research Alliance of Canada's  [Beluga](https://docs.alliancecan.ca/wiki/B%C3%A9luga) cluster. ScRNAbox provides two distinct, yet high comparable Analysis Tracks: 
-1. [Cell Hashtags]()
-2. [Standard scRNA-seq]()
+1. [Standard scRNAseq](#standard-scRNA-seq)
+2. [Cell Hashtag scRNAseq](#cell-hashtags)
 
 The Standard Analysis Track is designed for experiments where each sample is captured and sequenced separately, while the Cell Hashtag Analysis Track is designed for multiplexed experiments, whereby samples are tagged with sample-specific barcodes, pooled, and sequenced together. The Cell Hashtag Analysis Track is distinguished by an additional sample demultiplexing Step that assigns cells to their sample-of-origin via the sample-specific barcodes. 
 
@@ -11,8 +11,8 @@ Please refer to the [documentation](https://neurobioinfo.github.io/scrnabox/site
 
 ## Contents
 - [scRNAbox analysis workflow](#scRNAbox-analysis-workflow)
-  - [Standard scRNA-seq](#standard-scRNA-seq)
-  - [Cell hashtags](#cell-hashtags)
+  - [Standard scRNAseq](#standard-scRNA-seq)
+  - [Cell Hashtag scRNAseq](#cell-hashtags)
 - [scrnabox.slurm](#scrnaboxsvn)
 - [Installing](#installing)
 - [Tutorial](#tutorial)

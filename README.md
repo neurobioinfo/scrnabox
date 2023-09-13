@@ -13,8 +13,7 @@ Please refer to the [documentation](https://neurobioinfo.github.io/scrnabox/site
 - [scRNAbox analysis workflow](#scRNAbox-analysis-workflow)
   - [Standard scRNAseq](#standard-scRNA-seq)
   - [Cell Hashtag scRNAseq](#cell-hashtags)
-- [scrnabox.slurm](#scrnaboxsvn)
-- [Installing](#installing)
+- [Installation](#installing)
 - [Tutorial](#tutorial)
 
 
@@ -30,9 +29,10 @@ Summaries of each Analytical Step comprising the [Standard scRNAseq](#standard-s
 #### [Standard scRNA-seq](https://github.com/neurobioinfo/scrnabox/tree/main/README_SCRNA.md)
 
 The following steps describe how to analyze scRNA-seq data using the pipeline:<br />
-- Step 1: cellranger - This step runs Cellranger on the scRNA-seq data to generate the feature-barcode matrices for each sample.<br />
-- Step 2: Seurat object - This step runs Seurat on the feature-barcode matrices obtained from step 1 to generate a Seurat object for each sample. The Seurat object contains a lot of information, and accessing SeuratObject@meta.data will provide a data frame with relevant information on each cell.<br />
-- Step 3: QC and filter - The Seurat object includes quality metrics that can be used to filter cells and genes against possible doublets. Metrics such as total UMI counts per cell (nCount_RNA), total number of detected features per cell (nFeature_RNA), and mitochondrial count (percent.mito) are often used.<br />
+- Step 1: FASTQ pre-processing - Feature-barcode expression matrices are generated from FASTQ files using the CellRanger counts pipeline.<br />
+- Step 2.1: Ambient RNA removal - The ambient RNA rate is estimated and the gene expression profiles are corrected for RNA contamination (optional) using SoupX (Young et al. 2020).<br />
+- Step 2.2: Create Seurat object - CellRanger- or SoupX-generated feature-barcode expression matrices are transformed into Seurat objects. Genes expressed in less than a minimum number of cells and cells expressing less than a minimum number of genes can be filtered.<br />
+- Step 3: Quality control (QC) and filtering - Low quality cells are filtered based on the user-defined thresholds for the number of genes detected per cell,	number of unique transcripts detected per cell, percentage of mitochondrial-encoded transcripts, and percentage of ribosomal-encoded transcripts. In addition, mitochondrial- and ribosomal-encoded genes can be filtered out.<br />
 - Step 4: Doublet removal - This step can be used to remove doublets from the data. By default, the pipeline removes doublets, but you can choose to keep them by changing the parameter from 'yes' to 'no'.<br />
 - Step 5: Integration - This step integrates multiple scRNA-seq datasets using the Comprehensive Integration of Single Cell Data (CCA) method in Seurat, Tim, et al. (2019). The pipeline identifies anchors using the FindIntegrationAnchors function and passes them to the IntegrateData function to get a single Seurat object representing all the datasets.<br />
 - Step 6: Clustering- It involves clustering the data using a k-nearest neighbor graph based on the integrated PCA. This step produces UMAP and heatmaps of unlabelled clusters. However, it is up to the user to decide on the best cluster resolution outside the pipeline by examining the output and selecting the most appropriate annotation for the clusters.<br />

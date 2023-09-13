@@ -15,6 +15,7 @@ Please refer to the [documentation](https://neurobioinfo.github.io/scrnabox/site
   - [Cell Hashtag scRNAseq](#Cell-Hashtag-scRNAseq)
 - [Installation](#Installation)
 - [Tutorial](#tutorial)
+- [Citations](#Citations)
 
 
 ---
@@ -94,13 +95,11 @@ bash ./scrnabox.slurm/launch_scrnabox.sh \
 ```
 
 ## Tutorial
-You can find the details of how to use the pipeline in the 
-the [documentation](https://neurobioinfo.github.io/scrnabox/site/).
-
+Comprehensive instructions for running both Analytical Tracks of the scRNAbox pipeline are provided [here](https://neurobioinfo.github.io/scrnabox/site/).
 
 ---
 #### Contributing
-This is an early version, any contribute or suggestion is appreciated, you can directly contact with developers:  [Saeid Amiri](https://github.com/saeidamiri1), [Michael Fiorini](https://github.com/fiorini9), or [Rhalena Thomas](https://github.com/RhalenaThomas). 
+This is an early version of scRNAbox and any contributions or suggestions are appreciated. To do so, you can directly contact the developers:  [Saeid Amiri](https://github.com/saeidamiri1), [Michael Fiorini](https://github.com/fiorini9), or [Rhalena Thomas](https://github.com/RhalenaThomas). 
 
 #### Changelog
 Every release is documented on the [GitHub Releases page](https://github.com/neurobioinfo/scrnabox/releases).
@@ -109,7 +108,10 @@ Every release is documented on the [GitHub Releases page](https://github.com/neu
 This project is licensed under the MIT License - see the [LICENSE.md](https://github.com/neurobioinfo/scrnabox/blob/main/LICENSE) file for details.
 
 #### Acknowledgement
-The pipeline is done as part Dark Genome project, it is written by [Saeid Amiri](https://github.com/saeidamiri1) with associate of Rhalena Thomas, Sali Farhan, and Michael Fiorini at  Neuro Bioinformatics Core. Copyright belong MNI BIOINFO CORE (https://github.com/neurobioinfo). 
+The scRNAbox pipeline is part of the Dark Genome project. It is written by [Saeid Amiri](https://github.com/saeidamiri1) with associate of Rhalena Thomas, Sali Farhan, and Michael Fiorini at  Neuro Bioinformatics Core. Copyright belongs tp MNI BIOINFO CORE (https://github.com/neurobioinfo). 
+
+#### Citations
+
 
 **[⬆ back to top](#contents)**
 

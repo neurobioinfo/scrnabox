@@ -25,6 +25,7 @@ The following figure illustrates the Anlytical Steps comprising each Analysis Tr
 
 <img src="https://github.com/neurobioinfo/scrnabox/assets/110110777/3729254c-0ca1-4866-aa27-1bda6129e7ca" height="800">
 
+Summaries of each Analytical Step comprising the [Standard scRNAseq](#standard-scRNA-seq) and [Cell Hashtag scRNAseq](#cell-hashtags) Analysis Tracks are provided below.
 
 #### [Standard scRNA-seq](https://github.com/neurobioinfo/scrnabox/tree/main/README_SCRNA.md)
 

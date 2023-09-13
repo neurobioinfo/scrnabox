@@ -79,7 +79,7 @@ For a description of the options for running `scrnabox.slurm` run the following 
 bash ./scrnabox.slurm/launch_scrnabox.sh -h 
 ```
 
-`scrnabox.slurm` requires that `R` and `cellranger` are also installed on the HPC system. In addition, the following R packages must be loaded: `'Seurat','ggplot2', 'dplyr', 'foreach', 'doParallel', 'Matrix', 'DoubletFinder','cowplot','clustree'`. Then users must install the `'scrnaboxR'` R package by running the following command: 
+`scrnabox.slurm` requires that `R` and `cellranger` are also installed on the HPC system. In addition, the following R packages must be loaded: `'Seurat','ggplot2', 'dplyr', 'foreach', 'doParallel', 'Matrix', 'DoubletFinder','cowplot','clustree'`. Then, install the `'scrnaboxR'` R package by running the following command: 
 ```
 devtools::install_github("neurobioinfo/scrnabox/scrnaboxR")
 ```

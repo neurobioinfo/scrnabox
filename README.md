@@ -15,7 +15,6 @@ Please refer to the [documentation](https://neurobioinfo.github.io/scrnabox/site
   - [Cell Hashtag scRNAseq](#Cell-Hashtag-scRNAseq)
 - [Installation](#Installation)
 - [Tutorial](#tutorial)
-- [Citations](#Citations)
 
 
 ---
@@ -109,9 +108,6 @@ This project is licensed under the MIT License - see the [LICENSE.md](https://gi
 
 #### Acknowledgement
 The scRNAbox pipeline is part of the Dark Genome project. It is written by [Saeid Amiri](https://github.com/saeidamiri1) with associate of Rhalena Thomas, Sali Farhan, and Michael Fiorini at  Neuro Bioinformatics Core. Copyright belongs tp MNI BIOINFO CORE (https://github.com/neurobioinfo). 
-
-#### Citations
-
 
 **[⬆ back to top](#contents)**
 

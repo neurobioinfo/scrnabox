@@ -11,7 +11,7 @@ Please refer to the [documentation](https://neurobioinfo.github.io/scrnabox/site
 
 ## Contents
 - [scRNAbox analysis workflow](#scRNAbox-analysis-workflow)
-  - [Standard scRNAseq](#standard-scRNA-seq)
+  - [Standard scRNAseq](#standard-scRNAseq)
   - [Cell Hashtag scRNAseq](#cell-hashtags)
 - [Installation](#installing)
 - [Tutorial](#tutorial)
@@ -26,21 +26,24 @@ The following figure illustrates the Anlytical Steps comprising each Analysis Tr
 
 Summaries of each Analytical Step comprising the [Standard scRNAseq](#standard-scRNA-seq) and [Cell Hashtag scRNAseq](#cell-hashtags) Analysis Tracks are provided below.
 
-#### [Standard scRNA-seq](https://github.com/neurobioinfo/scrnabox/tree/main/README_SCRNA.md)
+#### [Standard scRNAseq](https://github.com/neurobioinfo/scrnabox/tree/main/README_SCRNA.md)
 
 The following steps describe how to analyze scRNA-seq data using the pipeline:<br />
-- **Step 1: FASTQ pre-processing** - Feature-barcode expression matrices are generated from FASTQ files using the CellRanger counts pipeline.<br />
+- **Step 1: FASTQ pre-processing** - Feature-barcode expression matrices are generated from FASTQ files using the CellRanger _counts_ pipeline.<br />
 - **Step 2.1: Ambient RNA removal** - The ambient RNA rate is estimated and the gene expression profiles are corrected for RNA contamination (optional) using SoupX (Young et al. 2020).<br />
 - **Step 2.2: Create Seurat object** - CellRanger- or SoupX-generated feature-barcode expression matrices are transformed into Seurat objects. Genes expressed in less than a minimum number of cells and cells expressing less than a minimum number of genes can be filtered.<br />
-- **Step 3: Quality control (QC) and filtering** - Low quality cells are filtered based on the user-defined thresholds for the number of genes detected per cell,	number of unique transcripts detected per cell, percentage of mitochondrial-encoded transcripts, and percentage of ribosomal-encoded transcripts. In addition, mitochondrial- and ribosomal-encoded genes can be filtered out.<br />
+- **Step 3: Quality control and filtering** - Low quality cells are filtered based on the user-defined thresholds for the number of genes detected per cell,	number of unique transcripts detected per cell, percentage of mitochondrial-encoded transcripts, and percentage of ribosomal-encoded transcripts. In addition, mitochondrial- and ribosomal-encoded genes can be filtered out.<br />
 - **Step 4: Doublet removal** - Doublets are identified and removed from downstream analysis (optional) using the DoubletFinder tool (McGinnis et al. 2019).<br />
-- **Step 5: Integration and linear dimensional reduction**- This step integrates multiple scRNA-seq datasets using the Comprehensive Integration of Single Cell Data (CCA) method in Seurat, Tim, et al. (2019). The pipeline identifies anchors using the FindIntegrationAnchors function and passes them to the IntegrateData function to get a single Seurat object representing all the datasets.<br />
-- Step 6: Clustering- It involves clustering the data using a k-nearest neighbor graph based on the integrated PCA. This step produces UMAP and heatmaps of unlabelled clusters. However, it is up to the user to decide on the best cluster resolution outside the pipeline by examining the output and selecting the most appropriate annotation for the clusters.<br />
-- step 7: Cluster annotate - In this step, you can annotate the clusters with known cell types or use marker genes to predict the cell type of each cluster. <br />
-- step 8: Differential gene expression (DEG)- There are multiple ways to perform differential gene expression analysis, but in this pipeline, we use the FindAllMarkers function to rank the highly differentially expressed genes in each cluster, which allows us to identify genes that are significantly differentially expressed between each cluster and the rest of the cells. From there, we can define contrasts to run statistical tests and investigate the phenotype and genotypes of each cluster.<br /> <br />
-The Step 1 - Step 8 can be done using [scrnabox.slurm](https://github.com/neurobioinfo/scrnabox/tree/main/README_SCRNA.md) in the HPC system ([slurm work load manager system](https://slurm.schedmd.com/)).
+- **Step 5: Integration and linear dimensional reduction** - Individual Seurat objects are integrated to enable the joint analysis across sequencing runs using Seurat's integration algorithm (Stuart et al. 2019); if experiments are limited to a single sequencing run, the integration Step can be bypassed. Linear dimensional reduction is then performed on the resulting Seurat object to inform the optimal parameters for clustering in Step 6.<br />
+- **Step 6: Clustering** - Clustering is performed to define groups of cells with similar expression profiles using the graph-based clustering approach implemented in the Seurat framework (Macosko et al. 2015).<br />
+- **Step 7: Cluster annotation** - Cell populations, or clusters, with similar expression profiles are annotated to define cell types by three distinct methods:<br />
+1. _Cluster marker gene set enrichment analysis (GSEA)_: Seurat's _FindAllMarkers_ function is used to identify differentially expressed marker genes (DEG) by the Wilcoxon rank-sum test (Macosko et al. 2015). DEGs in the positive direction (Log2 fold-change > 0.00) are then tested for enrichment across user-defined gene set libraries that define cell types using the EnrichR tool (Chen et al. 2013).<br />
+2. _Reference-based annotation_: Seurat's _FindTransferAnchors_ and _TransferData_ functions are used to leverage cell-type annotations from a reference Seurat object and generate annotation predictions for the query dataset (Macosko et al. 2015). User's must define the location of their referene Seurat object in the parameters file of Step 7.<br />
+3. _Cluster module score_: Seurat’s implementation (_AddModuleScore_) of Tirosh et al.’s algorithm is used to comparatively quantify the expression of gene sets across clusters at the single-cell level (Tirosh et al. 2016). Users must define their desired gene sets in the parameters file of Step 7.<br /> 
+- **Step 8: Differential gene expression (DEG) contrasts** - There are multiple ways to perform differential gene expression analysis, but in this pipeline, we use the FindAllMarkers function to rank the highly differentially expressed genes in each cluster, which allows us to identify genes that are significantly differentially expressed between each cluster and the rest of the cells. From there, we can define contrasts to run statistical tests and investigate the phenotype and genotypes of each cluster.<br />
 - step 9, Enrichment analysis: in this step, we obtain a list of significant genes using enrichment methods. The step 9 can be done using scrnaboxR, see [Practice](https://github.com/neurobioinfo/scrnabox/blob/main/tutorial/practice.md).
 
+The Step 1 - Step 8 can be done using [scrnabox.slurm](https://github.com/neurobioinfo/scrnabox/tree/main/README_SCRNA.md) in the HPC system ([slurm work load manager system](https://slurm.schedmd.com/)).
 
 #### [Cell Hashtags](https://github.com/neurobioinfo/scrnabox/tree/main/README_HTO.md)
 
@@ -57,7 +60,7 @@ The following steps explain how to analyze the Hashtag oligonucleotide (hencefor
 The Step 1 - Step 8 can be done using [scrnabox.slurm](https://github.com/neurobioinfo/scrnabox/tree/main/README_HTO.md) in the HPC system ([slurm work load manager system](https://slurm.schedmd.com/)).
 - step 9, Enrichment analysis: in this step, we obtain a list of significant genes using enrichment methods. The step 9 can be done using scrnaboxR, see [Practice](https://github.com/neurobioinfo/scrnabox/blob/main/tutorial/practice.md).
 
-
+For a comprehensive decription of each Analytical Step please visit scRNAbox's [documentation](https://neurobioinfo.github.io/scrnabox/site/)
 
 ## Installing
 The package is written in the bash, so it can be used with any slurm system. To download 

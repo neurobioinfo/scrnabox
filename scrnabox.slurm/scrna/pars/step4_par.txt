@@ -9,7 +9,7 @@ par_save_metadata='NO'
 ############################################################################
 ## If you want to remove predicted doublets from downstream analyses set the following to "yes"
 par_dropDN='yes'
-## Number of statistically-significant principal components. Can be informed by elbow plot produced in Step 3
+## Number of statistically significant principal components. Can be informed by elbow plot produced in Step 3
 par_PCs=20
 ## The number of artificial doublets to generate. DoubletFinderr is largely invariant to this parameter. We suggest keeping 0.25
 par_pN=0.25

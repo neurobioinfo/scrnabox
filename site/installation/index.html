@@ -8,7 +8,7 @@
     <title>Installation - scrnabox</title>
     <link rel="stylesheet" href="../css/theme.css" />
     <link rel="stylesheet" href="../css/theme_extra.css" />
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/styles/github.min.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
     
       <script>
         // Current page data
@@ -17,12 +17,11 @@
         var mkdocs_page_url = "/installation/";
       </script>
     
-    <script src="../js/jquery-3.6.0.min.js" defer></script>
     <!--[if lt IE 9]>
       <script src="../js/html5shiv.min.js"></script>
     <![endif]-->
-      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/highlight.min.js"></script>
-      <script>hljs.initHighlightingOnLoad();</script> 
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+      <script>hljs.highlightAll();</script> 
 </head>
 
 <body class="wy-body-for-nav" role="document">
@@ -96,7 +95,7 @@
         <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
   <ul class="wy-breadcrumbs">
     <li><a href=".." class="icon icon-home" aria-label="Docs"></a> &raquo;</li>
-      <li>Installation</li>
+      <li class="breadcrumb-item active">Installation</li>
     <li class="wy-breadcrumbs-aside">
     </li>
   </ul>
@@ -106,18 +105,45 @@
             <div class="section" itemprop="articleBody">
               
                 <h1 id="installation">Installation</h1>
-<p>The package is written in the bash, so it can be used with any slurm system. To download  <code>scrnabox.slurm</code>, run the below comments </p>
-<pre><code>wget https://github.com/neurobioinfo/scrnabox/releases/download/v0.1.0/scrnabox.slurm.zip
-unzip scrnabox.slurm.zip 
+<p><code>scrnabox.slurm</code> is written in bash and can be used with any Slurm system. To download the latest version of <code>scrnabox.slurm</code> (v0.1.35) run the following command: </p>
+<pre><code>wget https://github.com/neurobioinfo/scrnabox/releases/download/v0.1.35/scrnabox.slurm.zip
+unzip scrnabox.slurm.zip
 </code></pre>
-<p>To obtain a brief guidance of the pipeline, execute the following code.</p>
+<p>For a description of the options for running <code>scrnabox.slurm</code> run the following command:</p>
 <pre><code>bash ./scrnabox.slurm/launch_scrnabox.sh -h 
 </code></pre>
-<p><code>scrnabox.slurm</code> needs <code>R</code> and <code>cellranger</code>. For the R, you need to install 
-<code>'Seurat','ggplot2', 'dplyr', 'foreach', 'doParallel', 'Matrix', 'DoubletFinder','cowplot','clustree'</code>. Then install <code>'scrnaboxR'</code>: </p>
+<p><code>scrnabox.slurm</code> requires that <code>cellranger</code> and <code>R</code> are also installed on the HPC system. In addition, the following R packages must be loaded: <code>'Seurat','ggplot2', 'dplyr', 'foreach', 'doParallel', 'Matrix', 'DoubletFinder','cowplot','clustree'</code>. Then, install the <code>'scrnaboxR'</code> R package by running the following command: </p>
 <pre><code>devtools::install_github(&quot;neurobioinfo/scrnabox/scrnaboxR&quot;)
 </code></pre>
-<p>The <code>scrnaboxR</code> is an R package that provides a collection of functions for conducting enrichment analysis and other analyses associated with single-cell RNA sequencing (scRNA-seq) data. It serves as a companion to scrnabox, offering a range of tools and functionalities to enhance scRNA-seq data analysis. You need to add the R info in <code>scrnabox_config.ini</code>, you can define the path of R library in <code>R_LIB_PATH=</code>, version of R in <code>R_VERSION</code>, you can add the path of <code>cell ranger</code>in <code>MODULECELLRANGER</code> </p>
+<p>Please note that all R packages must be loaded to a common R library. Shown below is an example of how to load packages into a common library in R.</p>
+<pre><code>R_LIB_PATH=“Path_to_R_library”
+.libPaths(R_LIB_PATH)
+devtools::install_github(&quot;neurobioinfo/scrnabox/scrnaboxR&quot;)
+</code></pre>
+<p>Upon installing <code>scrnabox.slurm</code>,<code>cellranger</code>, <code>R</code>, and the required R packages, users can run the pipeline initiation Step and define their desired Analysis Track (SCRNA or HTO for Standard scRNAseq or Cell Hashtag scRNAseq, respectively) using the following command:</p>
+<pre><code>bash ./scrnabox.slurm/launch_scrnabox.sh \
+-d ./working_directory \
+--steps 0 \
+--method SCRNA
+</code></pre>
+<p>After initiating the pipeline, the structure of the working directory should be as follows:</p>
+<pre><code>├── working_directory
+    ├── job_info
+        ├── configs
+        ├── logs
+        ├── parameters
+</code></pre>
+<ul>
+<li>The <code>configs/</code> directory contains the <code>scrnabox_config.ini</code> file which allows users to specify their job allocations (memory, threads, and walltime) for each Analytical Step using the Slurm Workload Manager <br /> </li>
+<li>The <code>logs/</code> directory records the events of each Analytical Step <br /></li>
+<li>The <code>parameters/</code> directory contains adjustable, Step-specific text files which allow users to define the execution parameters for each Analytical Step <br /></li>
+</ul>
+<p>Users must then navigate to the <code>scrnabox_config.ini</code> file in <code>~/working_directory/job_info/configs</code> to define the location of their R library (<code>R_LIB_PATH=</code>), their version of R (<code>R_VERSION=</code>), and the location of CellRanger (<code>MODULECELLRANGER=</code>). For example: </p>
+<pre><code>MODULECELLRANGER=mugqic/cellranger/5.0.1
+R_VERSION=4.2.1
+R_LIB_PATH=Path_to_R_library
+</code></pre>
+<p>Upon completing the installation procedures, users can proceed with the scRNAbox pipeline using either the <a href="../SCRNA/">Standard scRNAseq Analysis Track</a> or <a href="../HTO/">Cell Hashtag scRNAseq Analysis Track</a>. </p>
               
             </div>
           </div><footer>
@@ -153,14 +179,15 @@ unzip scrnabox.slurm.zip
     
   </span>
 </div>
-    <script>var base_url = '..';</script>
-    <script src="../js/theme_extra.js" defer></script>
-    <script src="../js/theme.js" defer></script>
-      <script src="../search/main.js" defer></script>
-    <script defer>
-        window.onload = function () {
+    <script src="../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "..";</script>
+    <script src="../js/theme_extra.js"></script>
+    <script src="../js/theme.js"></script>
+      <script src="../search/main.js"></script>
+    <script>
+        jQuery(function () {
             SphinxRtdTheme.Navigation.enable(true);
-        };
+        });
     </script>
 
 </body>

@@ -8,7 +8,7 @@
     <title>scrnabox</title>
     <link rel="stylesheet" href="css/theme.css" />
     <link rel="stylesheet" href="css/theme_extra.css" />
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/styles/github.min.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
     
       <script>
         // Current page data
@@ -17,12 +17,11 @@
         var mkdocs_page_url = "/";
       </script>
     
-    <script src="js/jquery-3.6.0.min.js" defer></script>
     <!--[if lt IE 9]>
       <script src="js/html5shiv.min.js"></script>
     <![endif]-->
-      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/highlight.min.js"></script>
-      <script>hljs.initHighlightingOnLoad();</script> 
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+      <script>hljs.highlightAll();</script> 
 </head>
 
 <body class="wy-body-for-nav" role="document">
@@ -98,7 +97,7 @@
         <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
   <ul class="wy-breadcrumbs">
     <li><a href="." class="icon icon-home" aria-label="Docs"></a> &raquo;</li>
-      <li>Home</li>
+      <li class="breadcrumb-item active">Home</li>
     <li class="wy-breadcrumbs-aside">
     </li>
   </ul>
@@ -107,18 +106,24 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
             <div class="section" itemprop="articleBody">
               
-                <h1 id="welcome-to-scrnaboxs-documentation">Welcome to scrnabox's documentation!</h1>
-<p>Scrnabox is a pipeline for scRNA analysis under HPC. This documrentation includes a tutorial for the scRNA-seq data analysis using scrnabox pipeline under an HPC environment (<a href="https://slurm.schedmd.com/">slurm work load manager system</a>). </p>
-<p>For an explanation and of how and why to use scrnabox's pipeline, look at tutorial. </p>
+                <h1 id="welcome-to-scrnaboxs-documentation">Welcome to scRNAbox's documentation!</h1>
+<p>ScRNAbox is a single-cell RNA sequencing (scRNAseq) pipeline specifically designed for analyzing data under a High-Performance Computing (HPC) systems using the <a href="https://slurm.schedmd.com/">Slurm Workload Manager</a>. ScRNAbox provides two distinct, yet highly comparable Analysis Tracks:</p>
+<ol>
+<li><strong>Standard scRNAseq</strong></li>
+<li><strong>Cell Hashtag scRNAseq</strong></li>
+</ol>
+<p>The Standard Analysis Track is designed for experiments where each sample is captured and sequenced separately, while the Cell Hashtag Analysis Track is designed for multiplexed experiments, whereby samples are tagged with sample-specific barcodes, pooled, and sequenced together. The Cell Hashtag Analysis Track is distinguished by an additional sample demultiplexing Step that assigns cells to their sample-of-origin via the sample-specific barcodes. </p>
+<p><img src="https://github.com/neurobioinfo/scrnabox/assets/110110777/3a6df83e-e104-45d2-9b04-fe246642c6a8" height="300"> </p>
+<p>For instructions on how to run each Analytical Step of the <a href="SCRNA/">Standard scRNAseq</a> and <a href="HTO/">Cell Hashtag scRNAseq</a> Analysis Track please see the respective tutorials. For a demonstration that leverages the datasets used as the application cases in the manuscript please see <a href="Dataset1/">Dataset1: Smajic et al.</a> and <a href="Dataset2/">Datset2: Stoeckius et al.</a> for the Standard scRNAseq and Cell Hashtag scRNAseq Analysis Track, respectively.</p>
 <h2 id="contents">Contents</h2>
 <ul>
 <li><a href="installation/">Installation</a></li>
 <li><a href="">Tutorial:</a><ul>
-<li><a href="SCRNA/">Standard scRNA</a></li>
-<li><a href="HTO/">Cell hashtags</a></li>
+<li><a href="SCRNA/">Standard scRNAseq</a></li>
+<li><a href="HTO/">Cell Hashtag scRNAseq</a></li>
 <li><a href="PROC/">Processed Data</a></li>
-<li><a href="Dataset1/">Dataset1</a></li>
-<li><a href="Dataset2/">Datset2</a></li>
+<li><a href="Dataset1/">Dataset1: Smajic et al.</a></li>
+<li><a href="Dataset2/">Datset2: Stoeckius et al.</a></li>
 </ul>
 </li>
 <li><a href="FAQ/">FAQ</a></li>
@@ -156,20 +161,21 @@
     
   </span>
 </div>
-    <script>var base_url = '.';</script>
-    <script src="js/theme_extra.js" defer></script>
-    <script src="js/theme.js" defer></script>
-      <script src="search/main.js" defer></script>
-    <script defer>
-        window.onload = function () {
+    <script src="js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = ".";</script>
+    <script src="js/theme_extra.js"></script>
+    <script src="js/theme.js"></script>
+      <script src="search/main.js"></script>
+    <script>
+        jQuery(function () {
             SphinxRtdTheme.Navigation.enable(true);
-        };
+        });
     </script>
 
 </body>
 </html>
 
 <!--
-MkDocs version : 1.4.3
-Build Date UTC : 2023-09-08 13:15:03.231700+00:00
+MkDocs version : 1.5.2
+Build Date UTC : 2023-09-14 23:17:51.116368+00:00
 -->

@@ -9,15 +9,15 @@ tags: scRNA
 categories: 
 comments: false
 ---
-## ScRNAbox pipeline: Standard Analysis Track
+## ScRNAbox pipeline: Standard scRNAseq Analysis Track
 ## Contents
 - [Introduction](#introduction)
   - [Setup](#setup)
   - [Step 1: FASTQ pre-processing](#step-1-fastq-pre-processing)
   - [Step 2: Ambient RNA removal and create Seurat object](#step-2-ambient-rna-removal-and-create-seurat-object)  
   - [Step 3: Quality control and filtering](#step-3-quality-control-and-filtering)
-  - [Step 4: Doublet Removal](#step-4-doublet-removal)
-  - [Step 5: Integration and linear dimensional reduction](#step-5-integration)
+  - [Step 4: Doublet removal](#step-4-doublet-removal)
+  - [Step 5: Integration and linear dimensional reduction](#step-5-integration-and-linear-dimensional-reduction)
   - [Step 6: Clustering](#step-6-clustering)   
   - [step 7: Cluster annotation](#step-7-cluster-annotation)    
   - [step 8: Differential gene expression contrasts](#step-8-differential-gene-expression-contrasts)     
@@ -30,8 +30,8 @@ This guide provides instructions for analyzing single-cell RNA sequencing (scRNA
 The main component of the scRNAbox pipeline is `scrnabox.slurm`, which is an open-source pipeline for scRNAseq analysis that is specifically designed to run on high-performance computing (HPC) systems using the [Slurm Workload Manager](https://slurm.schedmd.com/). `scrnabox.slurm` outlines the Analytical Steps involved in a comprehensive scRNAseq analysis workflow, including FASTQ pre-processing, quality control and filtering, clustering, cluster annotation, and differential gene expression contrasts. The Analytical Steps involved in the Standard Analysis Track of the scRNAbox pipeline are outlined in the figure below.<br />  
 
  
- <img src="https://github.com/neurobioinfo/scrnabox/assets/110110777/ce4382ed-2e33-4d7f-94c9-c6c9d578a92e" width="550" height="100">
- 
+ <img src="https://github.com/neurobioinfo/scrnabox/assets/110110777/328966c3-04dc-4e42-91cb-c6181026d1d6" width="550" height="100">
+
 
 **Note:** This tutorial assumes that `scrnabox.slurm`,`cellranger`, `R`, and the required R packages have already been installed onto the HPC system. If this is not the case, please visit [Installation](installation.md) to do so before proceeding. If the required packages are installed, you can proceed to [Setup](#setup).
 
@@ -180,6 +180,8 @@ bash $SCRNABOX_HOME/launch_scrnabox.sh \
 
 The resulting output files are deposited into `~/working_directory/step1`
 
+**Parameter names need to be updated.**
+
 ### Step 2: Ambient RNA removal and create Seurat object 
 In this step, the ambient RNA rate is estimated and the gene expression profiles are corrected for RNA contamination (optional) using SoupX (Young et al. 2020). Then, CellRanger- or SoupX-generated feature-barcode expression matrices are transformed into Seurat objects. Genes expressed in less than a minimum number of cells and cells expressing less than a minimum number of genes can be filtered.<br />
 <br />
@@ -227,7 +229,7 @@ The following parameters are adjustable for Step 3:
 |par_remove_ribosomal_genes|Yes| Whether or not to remove ribosomal genes|
 |par_remove_genes|NULL|If users want to remove specific genes from their data, they may define a list of gene identifiers|
 |par_normalization.method|LogNormalize|Method to use for normalization|
-|par_scale.factor|10000|Scale factor|
+|par_scale.factor|10000|Scale factor for scaling the data|
 |par_selection.method|vst|Method for choosing the top variable features|
 |par_nfeatures|2500|Number of features to select as top variable features|
 |par_top|10|Number of most variable features to be reported in the csv file|
@@ -271,8 +273,8 @@ bash $SCRNABOX_HOME/launch_scrnabox.sh \
 ```
 The resulting output files are deposited into `~/working_directory/step4`
 
-### Step 5: Integration 
-Individual Seurat objects are integrated to enable the joint analysis across sequencing runs using Seurat's integration algorithm (Stuart et al. 2019); if experiments are limited to a single sequencing run, the integration Step can be bypassed. Normalization, scaling, and Linear dimensional reduction is then performed on the resulting Seurat object to inform the optimal parameters for clustering in Step 6.<br />
+### Step 5: Integration and linear dimensional reduction
+Individual Seurat objects are integrated to enable the joint analysis across samples runs using Seurat's integration algorithm (Stuart et al. 2019); if experiments are limited to a single sequencing run, the integration Step can be bypassed. Normalization, scaling, and Linear dimensional reduction is then performed on the resulting Seurat object to inform the optimal parameters for clustering in Step 6.<br />
 <br />
 The following parameters are adjustable for Step 5:
 

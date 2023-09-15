@@ -105,7 +105,7 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
             <div class="section" itemprop="articleBody">
               
-                <h2 id="scrnabox-pipeline-standard-analysis-track">ScRNAbox pipeline: Standard Analysis Track</h2>
+                <h2 id="scrnabox-pipeline-standard-scrnaseq-analysis-track">ScRNAbox pipeline: Standard scRNAseq Analysis Track</h2>
 <h2 id="contents">Contents</h2>
 <ul>
 <li><a href="#introduction">Introduction</a></li>
@@ -113,8 +113,8 @@
 <li><a href="#step-1-fastq-pre-processing">Step 1: FASTQ pre-processing</a></li>
 <li><a href="#step-2-ambient-rna-removal-and-create-seurat-object">Step 2: Ambient RNA removal and create Seurat object</a>  </li>
 <li><a href="#step-3-quality-control-and-filtering">Step 3: Quality control and filtering</a></li>
-<li><a href="#step-4-doublet-removal">Step 4: Doublet Removal</a></li>
-<li><a href="#step-5-integration">Step 5: Integration and linear dimensional reduction</a></li>
+<li><a href="#step-4-doublet-removal">Step 4: Doublet removal</a></li>
+<li><a href="#step-5-integration-and-linear-dimensional-reduction">Step 5: Integration and linear dimensional reduction</a></li>
 <li><a href="#step-6-clustering">Step 6: Clustering</a>   </li>
 <li><a href="#step-7-cluster-annotation">step 7: Cluster annotation</a>    </li>
 <li><a href="#step-8-differential-gene-expression-contrasts">step 8: Differential gene expression contrasts</a>     </li>
@@ -123,7 +123,7 @@
 <h2 id="introduction">Introduction</h2>
 <p>This guide provides instructions for analyzing single-cell RNA sequencing (scRNAseq) data using the Standard Analysis Track of the scRNAbox pipeline. The Standard Analysis Track is designed for scRNAseq experiments where each sample is captured and sequenced separately; thus, users should have unique FASTQ files for each of the samples in their experiment. If instead samples were pooled prior to sequencing, resulting in FASTQ files comprising scRNAseq data of multiple samples, users should leverage the <a href="../HTO/">Cell Hashtag scRNAseq</a> Analysis Track.<br /> </p>
 <p>The main component of the scRNAbox pipeline is <code>scrnabox.slurm</code>, which is an open-source pipeline for scRNAseq analysis that is specifically designed to run on high-performance computing (HPC) systems using the <a href="https://slurm.schedmd.com/">Slurm Workload Manager</a>. <code>scrnabox.slurm</code> outlines the Analytical Steps involved in a comprehensive scRNAseq analysis workflow, including FASTQ pre-processing, quality control and filtering, clustering, cluster annotation, and differential gene expression contrasts. The Analytical Steps involved in the Standard Analysis Track of the scRNAbox pipeline are outlined in the figure below.<br />  </p>
-<p><img src="https://github.com/neurobioinfo/scrnabox/assets/110110777/ce4382ed-2e33-4d7f-94c9-c6c9d578a92e" width="550" height="100"></p>
+<p><img src="https://github.com/neurobioinfo/scrnabox/assets/110110777/328966c3-04dc-4e42-91cb-c6181026d1d6" width="550" height="100"></p>
 <p><strong>Note:</strong> This tutorial assumes that <code>scrnabox.slurm</code>,<code>cellranger</code>, <code>R</code>, and the required R packages have already been installed onto the HPC system. If this is not the case, please visit <a href="../installation/">Installation</a> to do so before proceeding. If the required packages are installed, you can proceed to <a href="#setup">Setup</a>.</p>
 <h3 id="setup">Setup</h3>
 <p>Before running the pipeline, create a dedicated folder for the analysis (hereafter referred to as the working directory). Then, define the path of the working directory (<code>SCRNABOX_PWD=</code>) and the path to <code>scrnabox.slurm</code> (<code>SCRNABOX_HOME=</code>). For example:</p>
@@ -262,6 +262,7 @@ bash $SCRNABOX_HOME/launch_scrnabox.sh \
 --steps 1
 </code></pre>
 <p>The resulting output files are deposited into <code>~/working_directory/step1</code></p>
+<p><strong>Parameter names need to be updated.</strong></p>
 <h3 id="step-2-ambient-rna-removal-and-create-seurat-object">Step 2: Ambient RNA removal and create Seurat object</h3>
 <p>In this step, the ambient RNA rate is estimated and the gene expression profiles are corrected for RNA contamination (optional) using SoupX (Young et al. 2020). Then, CellRanger- or SoupX-generated feature-barcode expression matrices are transformed into Seurat objects. Genes expressed in less than a minimum number of cells and cells expressing less than a minimum number of genes can be filtered.<br />
 <br />
@@ -414,7 +415,7 @@ The following parameters are adjustable for Step 3:</p>
 <tr>
 <td style="text-align: left;">par_scale.factor</td>
 <td style="text-align: left;">10000</td>
-<td style="text-align: left;">Scale factor</td>
+<td style="text-align: left;">Scale factor for scaling the data</td>
 </tr>
 <tr>
 <td style="text-align: left;">par_selection.method</td>
@@ -525,8 +526,8 @@ The following parameters are adjustable for Step 4:</p>
 --steps 4 
 </code></pre>
 <p>The resulting output files are deposited into <code>~/working_directory/step4</code></p>
-<h3 id="step-5-integration">Step 5: Integration</h3>
-<p>Individual Seurat objects are integrated to enable the joint analysis across sequencing runs using Seurat's integration algorithm (Stuart et al. 2019); if experiments are limited to a single sequencing run, the integration Step can be bypassed. Normalization, scaling, and Linear dimensional reduction is then performed on the resulting Seurat object to inform the optimal parameters for clustering in Step 6.<br />
+<h3 id="step-5-integration-and-linear-dimensional-reduction">Step 5: Integration and linear dimensional reduction</h3>
+<p>Individual Seurat objects are integrated to enable the joint analysis across samples runs using Seurat's integration algorithm (Stuart et al. 2019); if experiments are limited to a single sequencing run, the integration Step can be bypassed. Normalization, scaling, and Linear dimensional reduction is then performed on the resulting Seurat object to inform the optimal parameters for clustering in Step 6.<br />
 <br />
 The following parameters are adjustable for Step 5:</p>
 <table>

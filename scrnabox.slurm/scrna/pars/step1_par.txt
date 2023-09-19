@@ -1,5 +1,26 @@
-###### REF_DIR_GRCH, path of grch
+############################################################################
+# If you wan to automate the libraries preparation process,
+# set par_automated_library_prep to "yes" and adress the remaining parameters.
+############################################################################
+## Do you want to perform automated library prep?
+par_automated_library_prep <- "yes"
+## Path to the directory containing the FASTQ files for the experiment.
+## This folder should only contain the FASTQ files for the experiment. 
+par_fastq_directory <- "/home/fiorini9/scratch/scrna_pipeline/smajic_markdown/fastqs"
+## list the sample names used in the FASTQ nomenclature
+par_sample_names <- c("PD1", "PD2", "PD3", "PD4", "PD5", "CTRL1", "CTRL2", "CTRL3", "CTRL4", "CTRL5", "CTRL6")
+## If you want to rename the samples, set par_rename_samples  to yes. 
+par_rename_samples <- "yes"
+## If you want to renames the samples (i.e. par_rename_samples <- "yes"), then list the new sample names in the same order as the old labels are listed in  par_sample_names.
+par_new_sample_names <- c("Parkinson1", "Parkinson2", "Parkinson3", "Parkinson4", "Parkinson5", "Control1", "Control2", "Control3", "Control4", "Control5", "Control6")
+## If your sequencing is paired-end, set the following to TRUE. Otherwise set it as FALSE.
+par_paired_end_seq <- TRUE
+############################################################################
+# CellRanger counts pipeline parameters.
+############################################################################
+## path to reference genome
 REF_DIR_GRCH=/cvmfs/soft.mugqic/CentOS6/genomes/species/Homo_sapiens.GRCh38/genome/10xGenomics/refdata-cellranger-GRCh38-3.0.0
-###### R1LENGTH=20, Limit the length of the input Read 1 sequence of Gene Expression (and any Feature Barcode) library to the first N bases, where N is a user-supplied value. 
-###### mempercore, For clusters whose job managers do not support memory requests, it is possible to request memory in the form of cores via the --mempercore command-line option. This option will scale up the number of threads requested via the __MRO_THREADS__ variable according to how much memory a stage requires when given to the ratio of memory on your nodes.
+## Minimum number of bases to retain for R1 sequence of gene expression assay. If you want to use this parameter uncomment the line below and define your R1LENGTH.
+# R1LENGTH=20
+## For clusters whose job managers do not support memory requests, it is possible to request memory in the form of cores. This option will scale up the number of threads requested via the MRO_THREADS variable according to how much memory a stage requires when given to the ratio of memory on your nodes.
 MEMPERCORE=30 

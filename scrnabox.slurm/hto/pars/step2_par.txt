@@ -1,8 +1,28 @@
-Save_RNA="NO"
-Save_metadata="NO"
-###### min.cells sets the threshold for genes to only take the genes that are present in at least a specified number of cells.
-min.cells_L=0
-###### min.features sets the thresholds for cells that express at least a specified number of genes.
-min.features_L=0
-###### count_matrices="", if you have the count matrix and do not want to run cellranger, use this add the path to this object. 
-#count_matrices='/lustre03/project/6070393/COMMON/Dark_Genome/samamiri/test_scrnabox/tutorial_scrna/download/course_data/count_matrices'
+############################################################################
+# If you want to save an RNA expression matrix and metadata dataframe set the following to "yes"
+############################################################################
+par_save_RNA="NO"
+par_save_metadata="NO"
+
+############################################################################
+# Ambient RNA removal
+############################################################################
+## If you want to remove the ambient RNA, change the default to "yes". 
+par_ambient_rna="yes"
+
+############################################################################
+# Exisiting feature-barcode matrices
+############################################################################
+## If you already have feature-barcode matrices and want to initiate scRNAbox at step 2, without running step 1 (cell ranger),
+## uncomment the line below and add the path to the directory containing the feature-barcode matrices. 
+#par_count_matrices='/lustre03/project/6070393/COMMON/Dark_Genome/samamiri/test_scrnabox/tutorial_scrna/download/course_data/count_matrices'
+
+############################################################################
+# Filtering parameters
+############################################################################
+## Only retain the genes that are present in at least a specified number of cells.
+par_min.cells_L=0
+## Only retain the cells that express at least a specified number of genes.
+par_min.features_L=0
+
+

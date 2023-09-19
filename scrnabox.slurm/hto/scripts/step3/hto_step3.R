@@ -135,10 +135,10 @@ foreach (i=1:length(sample_name)) %do% {
     #     GENEUMIU=max(seu[["log10GenesPerUMI"]],na.rm =T)
     # }
     if (is.na(PRIBOU)) {
-        PRIBOU=max(seu[["percent.ribo"]]) #new code
+        PRIBOU=max(seu[["percent.ribo"]],na.rm =T) #new code
     }
     if (is.na(PRIBOL)) {
-        PRIBOL=min(seu[["percent.ribo"]])
+        PRIBOL=min(seu[["percent.ribo"]],na.rm =T)
     }
 
     ## perform QC according to user defined thresholds
@@ -236,7 +236,7 @@ foreach (i=1:length(sample_name)) %do% {
 
 } 
 
-## QC and filtering if using the Seurat objects produced in step 2
+## QC and filtering if using the Seurat objects produced in Step 2
 if (!exists("par_seurat_object")) {
 foreach (i=1:length(sample_name)) %do% {    
     set.seed(1234)
@@ -275,10 +275,10 @@ foreach (i=1:length(sample_name)) %do% {
     #     GENEUMIU=max(seu[["log10GenesPerUMI"]],na.rm =T)
     # }
     if (is.na(PRIBOU)) {
-        PRIBOU=max(seu[["percent.ribo"]]) #new code
+        PRIBOU=max(seu[["percent.ribo"]],na.rm =T) #new code
     }
     if (is.na(PRIBOL)) {
-        PRIBOL=min(seu[["percent.ribo"]])
+        PRIBOL=min(seu[["percent.ribo"]],na.rm =T)
     }
 
     ## perform QC according to user-defined thresholds
@@ -305,7 +305,7 @@ foreach (i=1:length(sample_name)) %do% {
     counts <- GetAssayData(seu, assay = "RNA")
     counts <- counts[-(which(rownames(counts) %in% par_remove_genes)),]
     seu[["RNA"]] <- subset(seu[["RNA"]], features = rownames(counts))    
-    }
+    } 
     
 ## Normalize and scale individual Seurat object prior to cell-cycle scoring
      seu <- Seurat::NormalizeData(seu,normalization.method = par_normalization.method,scale.factor =par_scale.factor)

@@ -19,7 +19,7 @@ GENEUMIU=as.numeric(args[10])
 #PRIBOL=as.numeric(args[11]) ######## NEEDS SAEIDS ATTENTION: Saeid, can you please modify the underlying code to make the two commented lines possible? This is to set the thresholds for percent ribosomal genes (it is the same aa mitochondria but for ribosome). For now I am setting them manually to NA
 #PRIBOU=as.numeric(args[12])
 PRIBOL <- 0
-PRIBOU<- 10
+PRIBOU<- 100
 
 ## load library
 .libPaths(r_lib_path)
@@ -102,6 +102,8 @@ foreach (i=1:length(sample_name)) %do% {
     set.seed(1234)
     seu<-readRDS(paste(par_seurat_object, "/", sample_name[i], sep=""))
 
+    print(sample_name[i])
+
     ## calculate percentage of mitochondrial transcripts
     seu[["percent.mt"]] <- Seurat::PercentageFeatureSet(seu, pattern = "^MT-")
 
@@ -122,23 +124,23 @@ foreach (i=1:length(sample_name)) %do% {
         NCRNAU=max(seu[["nCount_RNA"]])
     }
     if (is.na(PMTL)) {
-        PMTL=min(seu[["percent.mt"]])
+        PMTL=min(na.omit(seu[["percent.mt"]]))
     }
     if (is.na(PMTU)) {
-        PMTU=max(seu[["percent.mt"]])
+        PMTU=max(na.omit(seu[["percent.mt"]]))
     }
     seu$log10GenesPerUMI <- log10(seu$nFeature_RNA) / log10(seu$nCount_RNA)
     if (is.na(GENEUMIL)) {
-        GENEUMIL=min(seu[["log10GenesPerUMI"]])
+        GENEUMIL=min(na.omit(seu[["log10GenesPerUMI"]]))
     }
     if (is.na(GENEUMIU)) {
-        GENEUMIU=max(seu[["log10GenesPerUMI"]])
+        GENEUMIU=max(na.omit(seu[["log10GenesPerUMI"]]))
     }
     if (is.na(PRIBOU)) {
-        PRIBOU=max(seu[["percent.ribo"]]) #new code
+        PRIBOU=max(na.omit(seu[["percent.ribo"]])) #new code
     }
     if (is.na(PRIBOL)) {
-        PRIBOL=min(seu[["percent.ribo"]])
+        PRIBOL=min(na.omit(seu[["percent.ribo"]]))
     }
 
     ## subset dataset to only retain cells that pass the user-define QC metrics
@@ -247,6 +249,8 @@ foreach (i=1:length(sample_name)) %do% {
     set.seed(1234)
     seu<-readRDS(paste(output_dir,'/step2/objs2/',sample_name[i], sep=""))
 
+    print(sample_name[i])
+
     ## calculate percentage of mitochondrial transcripts
     seu[["percent.mt"]] <- Seurat::PercentageFeatureSet(seu, pattern = "^MT-")
 
@@ -267,23 +271,23 @@ foreach (i=1:length(sample_name)) %do% {
         NCRNAU=max(seu[["nCount_RNA"]])
     }
     if (is.na(PMTL)) {
-        PMTL=min(seu[["percent.mt"]])
+        PMTL=min(na.omit(seu[["percent.mt"]]))
     }
     if (is.na(PMTU)) {
-        PMTU=max(seu[["percent.mt"]])
+        PMTU=max(na.omit(seu[["percent.mt"]]))
     }
     seu$log10GenesPerUMI <- log10(seu$nFeature_RNA) / log10(seu$nCount_RNA)
     if (is.na(GENEUMIL)) {
-        GENEUMIL=min(seu[["log10GenesPerUMI"]])
+        GENEUMIL=min(na.omit(seu[["log10GenesPerUMI"]]))
     }
     if (is.na(GENEUMIU)) {
-        GENEUMIU=max(seu[["log10GenesPerUMI"]])
+        GENEUMIU=max(na.omit(seu[["log10GenesPerUMI"]]))
     }
     if (is.na(PRIBOU)) {
-        PRIBOU=max(seu[["percent.ribo"]]) #new code
+        PRIBOU=max(na.omit(seu[["percent.ribo"]])) #new code
     }
     if (is.na(PRIBOL)) {
-        PRIBOL=min(seu[["percent.ribo"]])
+        PRIBOL=min(na.omit(seu[["percent.ribo"]]))
     }
 
     ## subset dataset to only retain cells that pass the user-define QC metrics

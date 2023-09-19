@@ -115,8 +115,8 @@ Finally, in preparation for Step 1 (FASTQ pre-processing with CellRanger) users 
 The `library.csv` file defines the necessary information of the FASTQ files for the experiment, including the gene expression and antibody assays. The structure of the `library.csv` file should be: <br />
 ```
 fastqs,sample,library_type
-~/fastqs/,CTRL1_GEX,Gene Expression
-~/fastqs/,CTRL1_HTO,Antibody Capture
+~/fastqs/,RUN1GEX,Gene Expression
+~/fastqs/,RUN1HTO,Antibody Capture
 ```
 - The `fastqs` column defines the path to the directory that contains the FASTQ files for the experiment. <br /> 
 - The `sample` column defines the sample name of the corresponding FASTQ file. Please note that FASTQ files must be named according to standard CellRanger nomenclature. For example, "CTRL1_S1_L001_R1_001.fastq". For more information please visit CellRanger's [documentation](https://support.10xgenomics.com/single-cell-gene-expression/software/pipelines/latest/using/fastq-input). <br />

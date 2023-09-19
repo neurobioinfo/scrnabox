@@ -104,22 +104,39 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
             <div class="section" itemprop="articleBody">
               
-                <h2 id="frequently-asked-questions">Frequently asked questions</h2>
+                <h4 id="frequently-asked-questions">Frequently asked questions</h4>
 <ul>
 <li><a href="#possibility-to-consider-multiple-control">Possibility to consider multiple control</a></li>
 <li><a href="#how-skip-the-integration-step">How skip the integration step</a></li>
 <li><a href="#can-we-run-without-cellraanger">Can we run without cellraanger</a></li>
+<li><a href="#error-batch-job-submission-failed-requested-node-configuration-is-not-available">error: Batch job submission failed: Requested node configuration is not available</a></li>
 </ul>
-<h2 id="possibility-to-consider-multiple-control">Possibility to consider multiple control</h2>
+<h4 id="possibility-to-consider-multiple-control">Possibility to consider multiple control</h4>
 <p>User can redefine the genotype; in the step8, add <code>/job_info/parameters/step8_par.txt</code>, add <code>new_genotype='YES</code> and redefine the labels: </p>
 <pre><code>new_genotype='YES'
 old_antibody_label=c('B0251-TotalSeqB','B0252-TotalSeqB','B0253-TotalSeqB','B0254-TotalSeqB','B0255-TotalSeqB','B0256-TotalSeqB')
 new_antibody_label=c('AIW002','SNCA-A53T','GBA-KO','Parkin-KO','PINK1-KO','SNCA-KO')
 </code></pre>
-<h2 id="how-to-skip-the-integration-step">How to skip the integration step</h2>
+<h4 id="how-to-skip-the-integration-step">How to skip the integration step</h4>
 <p>If you have a sole sample, there is no need for the integration step; once you run step 4, go to step 6 and add <code>par_skip_step5='YES'</code> to the step 6 parameter, <code>/job_info/parameters/step6_par.txt</code>.</p>
-<h2 id="can-we-run-without-cellraanger">Can we run without cellraanger.</h2>
+<h4 id="can-we-run-without-cellraanger">Can we run without cellraanger.</h4>
 <p>if you have the matrix file, .......</p>
+<h4 id="error-batch-job-submission-failed-requested-node-configuration-is-not-available">error: Batch job submission failed: Requested node configuration is not available</h4>
+<p>If you get the above error, navigate to the <code>scrnabox_config.ini</code> file in <code>~/working_directory/job_info/configs</code> and adjust the Job parameters for the Analytical Step that produced the error. Make sure to uncomment the corresponding lines in the configuration file. For example, if you get the error in Step 2, navigate to the configuration file and you will see the following.</p>
+<pre><code>############# [step2]
+# THREADS_ARRAY[&quot;step_2&quot;]=10
+# MEM_ARRAY[&quot;step_2&quot;]=16g
+# WALLTIME_ARRAY[&quot;step_2&quot;]=00-05:00
+</code></pre>
+<p>To resolve the error, uncomment the lines and change the values. For instance:</p>
+<pre><code>############# [step2]
+THREADS_ARRAY[&quot;step_2&quot;]=4
+MEM_ARRAY[&quot;step_2&quot;]=10g
+WALLTIME_ARRAY[&quot;step_2&quot;]=00-05:00
+</code></pre>
+<h4 id="step-3-error-in-task-1-failed-no-cells-found">Step 3: Error in { : task 1 failed - "No cells found"</h4>
+<p>adjust the filtering parameters, this means that none of the cells in the users experiment pass all of the filtering thresholds. </p>
+<h4 id="how-to-edit-text-files-in-the-terminal">how to edit text files in the terminal</h4>
               
             </div>
           </div><footer>

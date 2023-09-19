@@ -1,7 +1,7 @@
 #!/usr/bin/env Rscript
 
 ####################
-# step2 -- create Seurat object
+# step2 -- ambient rna removal and create Seurat object
 ####################
 
 ## load parameters
@@ -112,18 +112,18 @@ if (tolower(par_ambient_RNA)=="yes" & !exists("par_count_matrices")) {
       sc = load10X(paste0(list[i],"/ouput_folder","/outs"))
       sc = autoEstCont(sc) 
       out = adjustCounts(sc)
-      dir.create(file.path(output_dir, 'step1_ambient'), showWarnings = FALSE)
-      dir0 <- paste0(output_dir, '/step1_ambient/',sample_name[i])
+      dir.create(file.path(output_dir, 'step2_ambient'), showWarnings = FALSE)
+      dir0 <- paste0(output_dir, '/step2_ambient/',sample_name[i])
       if (file.exists(dir0)) {
         unlink(dir0,recursive = TRUE)
       }
 
       ## save ambient RNA-corrected feature barcode atrices
-      DropletUtils:::write10xCounts(paste0(output_dir, '/step1_ambient/',sample_name[i]), out)
+      DropletUtils:::write10xCounts(paste0(output_dir, '/step2_ambient/',sample_name[i]), out)
       saveRDS(sc, paste(output_dir,'/step2/info2/',sample_name[i],'_ambient_rna_summary.rds', sep=''))
       
       ## create Seurat object with feature-barcode matrices correct for ambient RNA expression and filter according to user-defined parameters
-      datadirs <- file.path(paste0(output_dir, '/step1_ambient/',sample_name[i]))
+      datadirs <- file.path(paste0(output_dir, '/step2_ambient/',sample_name[i]))
       sparse_matrix <- Seurat::Read10X(data.dir = datadirs)
       seurat_object <- Seurat::CreateSeuratObject(counts = sparse_matrix, min.cells=par_min.cells_L, min.features=par_min.features_L)
       nam <- paste("seurat_object", sample_name[i], sep = ".")

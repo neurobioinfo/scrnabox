@@ -6,8 +6,8 @@
 
 
 
-VERSION=0.1.35;
-DATE0=2023-06-22
+VERSION=0.1.3;
+DATE0=2023-09-21
 echo -e "scrnabox pipeline version $VERSION, dev"
 # updated on $DATE0"
 
@@ -48,17 +48,9 @@ Usage() {
           "\t\t-d  (--dir)  = Working directory (where all the outputs will be printed) (give full path)\n" \
           "\t\t--steps  =  Specify what steps, e.g., 2 to run just step 2, 2-4, run steps 2 through 4)\n" 
 	echo -e "\toptional arguments:\n " \
-          "\t\t-h  (--help)  = See helps regarding the pipeline options. \n" \
-          "\t\t--method  = Choose what scRNA method you want to use; use HTO  and SCRNA for for hashtag nad Standard scRNA, respectively. \n" \
-          "\t\t--nFeature_RNA_L  = Lower threshold of number of unique RNA transcripts for each cell, it filters nFeature_RNA > nFeature_RNA_L.  \n" \
-          "\t\t--nFeature_RNA_U  = Upper threshold of number of unique RNA transcripts for each cell, it filters --nFeature_RNA_U.  \n" \
-          "\t\t--nCount_RNA_L  = Lower threshold for nCount_RNA, it filters nCount_RNA > nCount_RNA_L   \n" \
-          "\t\t--nCount_RNA_U  = Upper threshold for  nCount_RNA, it filters nCount_RNA < nCount_RNA_U  \n" \
-          "\t\t--mitochondria_percent_L  = Lower threshold for the amount of mitochondrial transcript, it is in percent, mitochondria_percent > mitochondria_percent_L. \n" \
-          "\t\t--mitochondria_percent_U  = Upper threshold for the amount of mitochondrial transcript, it is in percent, mitochondria_percent < mitochondria_percent_U. \n" \
-          "\t\t--log10GenesPerUMI_U  = Upper threshold for the log number of genes per UMI for each cell, it is in percent,log10GenesPerUMI=log10(nFeature_RNA)/log10(nCount_RNA). mitochondria_percent < log10GenesPerUMI_U. \n" \
-          "\t\t--log10GenesPerUMI_L  = Lower threshold for the log number of genes per UMI for each cell, log10GenesPerUMI=log10(nFeature_RNA)/log10(nCount_RNA). mitochondria_percent > log10GenesPerUMI_L.  \n" \
-          "\t\t--msd  = you can get the hashtag labels by running the following code \n" \
+          "\t\t-h  (--help)  = See helps regarding the pipeline arguments. \n" \
+          "\t\t--method  = Select your preferred method: HTO and SCRNA for hashtag, and Standard scRNA, respectively. \n" \
+          "\t\t--msd  = You can get the hashtag labels by running the following code \n" \
           "\t\t--marker  = Find marker. \n" \
           "\t\t--sinfo  = Do you need sample info? \n" \
           "\t\t--fta  = FindTransferAnchors \n" \
@@ -76,7 +68,7 @@ echo
 # ===============================================
 # PARSING ARGUMENTS
 # ===============================================
-if ! options=$(getopt --name pipeline --alternative --unquoted --options hs:d:t:m:vw:f:S:c:a:x: --longoptions dir:,steps:,method:,nFeature_RNA_L:,nFeature_RNA_U:,nCount_RNA_L:,nCount_RNA_U:,mitochondria_percent_U:,mitochondria_percent_L:,log10GenesPerUMI_U:,log10GenesPerUMI_L:,marker:,sinfo:,fta:,enrich:,dgelist:,genotype:,celltype:,msd:,cont:,seulist:,verbose,help -- "$@")
+if ! options=$(getopt --name pipeline --alternative --unquoted --options hs:d:t:m:vw:f:S:c:a:x: --longoptions dir:,steps:,method:,marker:,sinfo:,fta:,enrich:,dgelist:,genotype:,celltype:,msd:,cont:,seulist:,verbose,help -- "$@")
 then
     # something went wrong, getopt will put out an error message for us
     echo "Error processing options."
@@ -126,14 +118,6 @@ do
     --steps) MODE="$2"; shift ;; 
     --method) SCRNA_METHOD0="$2"; shift ;; 
     --sinfo) SINFO="$2"; shift ;;
-    --nFeature_RNA_L) NFRNAL="$2"; shift ;;
-    --nFeature_RNA_U) NFRNAU="$2"; shift ;;    
-    --nCount_RNA_L) NCRNAL="$2"; shift ;;
-    --nCount_RNA_U) NCRNAU="$2"; shift ;;   
-    --mitochondria_percent_L) PMTL="$2"; shift ;;     
-    --mitochondria_percent_U) PMTU="$2"; shift ;;
-    --log10GenesPerUMI_L) GENEUMIL="$2"; shift ;;     
-    --log10GenesPerUMIt_U) GENEUMIU="$2"; shift ;;    
     --marker) STEP7marker="$2"; shift ;;
     --fta) STEP7fta="$2"; shift ;;
     --enrich) STEP7enrich="$2"; shift ;;    
@@ -159,15 +143,14 @@ if [[ -z $MSD ]]; then  MSD="F"; fi
 if [[ -z $CONT ]]; then  CONT="F"; fi
 
 
-if [[ -z $NFRNAL ]]; then  NFRNAL="F"; fi
-if [[ -z $NFRNAU ]]; then  NFRNAU="F"; fi
-if [[ -z $NCRNAL ]]; then  NCRNAL="F"; fi
-if [[ -z $NCRNAU ]]; then  NCRNAU="F"; fi
-if [[ -z $PMTL ]]; then  PMTL="F"; fi
-if [[ -z $PMTU ]]; then  PMTU="F"; fi
-if [[ -z $GENEUMIL ]]; then  GENEUMIL="F"; fi
-if [[ -z $GENEUMIU ]]; then  GENEUMIU="F"; fi
-
+# if [[ -z $NFRNAL ]]; then  NFRNAL="F"; fi
+# if [[ -z $NFRNAU ]]; then  NFRNAU="F"; fi
+# if [[ -z $NCRNAL ]]; then  NCRNAL="F"; fi
+# if [[ -z $NCRNAU ]]; then  NCRNAU="F"; fi
+# if [[ -z $PMTL ]]; then  PMTL="F"; fi
+# if [[ -z $PMTU ]]; then  PMTU="F"; fi
+# if [[ -z $GENEUMIL ]]; then  GENEUMIL="F"; fi
+# if [[ -z $GENEUMIU ]]; then  GENEUMIU="F"; fi
 
 
 FOUND_ERROR=0
@@ -208,7 +191,7 @@ if [[ ${MODE0[@]} == 0 ]]; then
     read answer
     answer=${answer,,}; answer=${answer:0:1}
     if [[ $answer == "y" ]]; then 
-      echo "Note: the config file and parameters are Overwritten."
+      echo "NOTE: the config file and parameters are Overwritten."
         if [ ! -d $JOB_OUTPUT_DIR ]; then   
         mkdir -p $OUTPUT_DIR/job_info
         mkdir -p $OUTPUT_DIR/job_info/parameters
@@ -246,12 +229,27 @@ if [[ ${MODE0[@]} == 0 ]]; then
           cp $PIPELINE_HOME/hto/pars/step8_contrast_celltype.txt $OUTPUT_DIR/job_info/parameters/ 
           # cp $PIPELINE_HOME/hto/pars/step8_clus_label.txt $OUTPUT_DIR/job_info/parameters/ 
           cp $PIPELINE_HOME/hto/pars/stepint_par.txt $OUTPUT_DIR/job_info/parameters/ 
+        elif [[ -z  ${SCRNA_METHOD0}  ]]; then
+          cp $PIPELINE_HOME/scrna/configs/scrnabox_config.ini $OUTPUT_DIR/job_info/configs/ 
+          cp $PIPELINE_HOME/scrna/pars/step1_par.txt $OUTPUT_DIR/job_info/parameters/ 
+          cp $PIPELINE_HOME/scrna/pars/step2_par.txt $OUTPUT_DIR/job_info/parameters/
+          cp $PIPELINE_HOME/scrna/pars/step3_par.txt $OUTPUT_DIR/job_info/parameters/  
+          cp $PIPELINE_HOME/scrna/pars/step4_par.txt $OUTPUT_DIR/job_info/parameters/ 
+          cp $PIPELINE_HOME/scrna/pars/step5_par.txt $OUTPUT_DIR/job_info/parameters/ 
+          cp $PIPELINE_HOME/scrna/pars/step6_par.txt $OUTPUT_DIR/job_info/parameters/ 
+          cp $PIPELINE_HOME/scrna/pars/step7_par.txt $OUTPUT_DIR/job_info/parameters/ 
+          cp $PIPELINE_HOME/scrna/pars/step8_par.txt $OUTPUT_DIR/job_info/parameters/   
+          cp $PIPELINE_HOME/scrna/pars/step8_contrast_genotype.txt $OUTPUT_DIR/job_info/parameters/ 
+          cp $PIPELINE_HOME/scrna/pars/step8_contrast_celltype.txt $OUTPUT_DIR/job_info/parameters/ 
+          # cp $PIPELINE_HOME/scrna/pars/step8_clus_label.txt $OUTPUT_DIR/job_info/parameters/ 
+          cp $PIPELINE_HOME/scrna/pars/stepint_par.txt $OUTPUT_DIR/job_info/parameters/ 
+              echo "NOTE: You didn't specify the method, so the pipeline selected"
           else
                echo "Error: the pipeline is not developed for ${SCRNA_METHOD0}"
                exit 42
           fi
     else
-     echo "Note: the pipeline is using the existing config file and parameters."
+     echo "NOTE: the pipeline is using the existing config file and parameters."
     fi
   else 
     echo "The configuration files do not exist, the pipeline will create them during execution."
@@ -363,14 +361,14 @@ echo STEP8dgelist=$STEP8dgelist   >> $TEMPCONFIG
 echo STEP8i=$STEP8i  >> $TEMPCONFIG
 echo MSD=$MSD  >> $TEMPCONFIG
 echo CONT=$CONT  >> $TEMPCONFIG
-echo NFRNAL=$NFRNAL  >> $TEMPCONFIG
-echo NFRNAU=$NFRNAU  >> $TEMPCONFIG
-echo NCRNAL=$NCRNAL  >> $TEMPCONFIG
-echo NCRNAU=$NCRNAU  >> $TEMPCONFIG
-echo PMTL=$PMTL  >> $TEMPCONFIG
-echo PMTU=$PMTU  >> $TEMPCONFIG
-echo GENEUMIL=$GENEUMIL >> $TEMPCONFIG
-echo GENEUMIU=$GENEUMIU >> $TEMPCONFIG
+# echo NFRNAL=$NFRNAL  >> $TEMPCONFIG
+# echo NFRNAU=$NFRNAU  >> $TEMPCONFIG
+# echo NCRNAL=$NCRNAL  >> $TEMPCONFIG
+# echo NCRNAU=$NCRNAU  >> $TEMPCONFIG
+# echo PMTL=$PMTL  >> $TEMPCONFIG
+# echo PMTU=$PMTU  >> $TEMPCONFIG
+# echo GENEUMIL=$GENEUMIL >> $TEMPCONFIG
+# echo GENEUMIU=$GENEUMIU >> $TEMPCONFIG
 echo SEULIST=$SEULIST   >> $TEMPCONFIG
 echo STEP7enrich=$STEP7enrich   >> $TEMPCONFIG
 echo STEP7fta=$STEP7fta  >> $TEMPCONFIG

@@ -27,13 +27,17 @@ STEP=step_1
 if [[  ${MODE0[@]}  =~  1  ]]; then
 # echo $ACCOUNT
 export ACCOUNT=$ACCOUNT
-# export REF_DIR_GRCH=$REF_DIR_GRCH
-  # module use $MODULEUSE
-  # module load $MODULELOAD
   if [ ! -d $OUTPUT_DIR/step1 ]; then 
     mkdir -p $OUTPUT_DIR/step1 
-    cp -r  $OUTPUT_DIR/samples_info/* $OUTPUT_DIR/step1 
   fi
+  step1_par_auto=`grep 'par_automated_library_prep=' ${OUTPUT_DIR}/job_info/parameters/step1_par.txt`
+  step1_par_auto1=`echo ${step1_par_auto//[[:blank:]]/} | tr 'A-Z' 'a-z'`
+  if [[ "${step1_par_auto1}" == "par_automated_library_prep=\"yes\"" ]]; then
+        module load r/$R_VERSION 
+        Rscript ${PIPELINE_HOME}/scrna/scripts/step1/scrna_step1_auto.R $OUTPUT_DIR  $R_LIB_PATH 
+      echo "Note: You are generating samples_info automatically"
+  fi
+  cp -r  $OUTPUT_DIR/samples_info/* $OUTPUT_DIR/step1 
   if  [ -f $JOB_OUTPUT_DIR/.tmp/sample.list ]; then rm $JOB_OUTPUT_DIR/.tmp/sample.list; touch $JOB_OUTPUT_DIR/.tmp/sample.list ; else touch $JOB_OUTPUT_DIR/.tmp/sample.list; fi 
   if  [ -f $JOB_OUTPUT_DIR/.tmp/sample_dir.list ]; then rm $JOB_OUTPUT_DIR/.tmp/sample_dir.list; touch $JOB_OUTPUT_DIR/.tmp/sample_dir.list ; else touch $JOB_OUTPUT_DIR/.tmp/sample_dir.list; fi  
   search_dir=${OUTPUT_DIR}/step1
@@ -51,11 +55,7 @@ export ACCOUNT=$ACCOUNT
   done < ${OUTPUT_DIR}/job_info/.tmp/sample_dir.list
   while read item
   do
-      # if [[  ${SCRNA_METHOD} =~ SCRNA ]] ; then
       cd ${item}; bash  ${item}/launch_cellranger.slurm.sh -r ouput_folder &
-      # elif [[  ${SCRNA_METHOD} =~ HTO ]] ; then
-      # cd ${item}; bash  ${item}/launch_cellranger.hashtagged.slurm.sh -r ouput_folder &
-      # fi
   done < ${OUTPUT_DIR}/job_info/.tmp/sample_dir.list
   wait
   # echo $TIMESTAMP  >> $EXPECTED_DONE_FILES
@@ -247,7 +247,7 @@ if [[  ${MODE0[@]}  =~  3 ]]  &&  [[  ${MODE0[@]} =~ 2 ]] ; then
     --time=${WALLTIME} \
     --job-name $STEP \
     $DEPEND_step_2 \
-    --export OUTPUT_DIR=${OUTPUT_DIR},PIPELINE_HOME=${PIPELINE_HOME},R_LIB_PATH=${R_LIB_PATH},R_VERSION=${R_VERSION},NFRNAL=${NFRNAL},NFRNAU=${NFRNAU},NCRNAL=${NCRNAL},NCRNAU=${NCRNAU},PMTL=${PMTL},PMTU=${PMTU},GENEUMIL=${GENEUMIL},GENEUMIU=${GENEUMIU} \
+    --export OUTPUT_DIR=${OUTPUT_DIR},PIPELINE_HOME=${PIPELINE_HOME},R_LIB_PATH=${R_LIB_PATH},R_VERSION=${R_VERSION} \
     --output $JOB_OUTPUT_DIR/logs/%x.o%j \
     $PIPELINE_HOME/scrna/scripts/step3/pipeline_step3.qsub"
   step_3=$($step_3 | grep -oP "\d+")
@@ -273,7 +273,7 @@ elif [[  ${MODE0[@]}  =~  3  ]]  &&  [[  ${MODE0[@]} != 2 ]]; then
     --mem=${MEM} \
     --time=${WALLTIME} \
     --job-name $STEP \
-    --export OUTPUT_DIR=${OUTPUT_DIR},PIPELINE_HOME=${PIPELINE_HOME},R_LIB_PATH=${R_LIB_PATH},R_VERSION=${R_VERSION},NFRNAL=${NFRNAL},NFRNAU=${NFRNAU},NCRNAL=${NCRNAL},NCRNAU=${NCRNAU},PMTL=${PMTL},PMTU=${PMTU},GENEUMIL=${GENEUMIL},GENEUMIU=${GENEUMIU} \
+    --export OUTPUT_DIR=${OUTPUT_DIR},PIPELINE_HOME=${PIPELINE_HOME},R_LIB_PATH=${R_LIB_PATH},R_VERSION=${R_VERSION} \
     --output $JOB_OUTPUT_DIR/logs/%x.o%j \
     $PIPELINE_HOME/scrna/scripts/step3/pipeline_step3.qsub"
   step_3=$($step_3 | grep -oP "\d+")

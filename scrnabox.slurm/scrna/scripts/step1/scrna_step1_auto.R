@@ -6,7 +6,7 @@
 args = commandArgs(trailingOnly=TRUE)
 output_dir=args[1]
 r_lib_path=args[2]
-pipeline_home=args[3]
+
 
 ## load libraries
 .libPaths(r_lib_path)

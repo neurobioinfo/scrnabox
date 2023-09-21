@@ -6,7 +6,7 @@
 args = commandArgs(trailingOnly=TRUE)
 output_dir=args[1]
 r_lib_path=args[2]
-pipeline_home=args[3]
+# pipeline_home=args[3]
 
 ## load libraries
 .libPaths(r_lib_path)
@@ -16,8 +16,8 @@ source(paste(output_dir,'/job_info/parameters/step1_par.txt',sep=""))
 
 ## automated library prep 
 if (tolower(par_automated_library_prep)=='yes') {
-    dir.create(paste(output_dir, "/samples_info", sep = ""))
-    new_dir <- paste(output_dir, "/samples_info/", sep = "")
+    dir.create(paste(output_dir, "/samples_info1", sep = ""))
+
 
 for(i in length(par_seq_run_names)) {
     #create directory

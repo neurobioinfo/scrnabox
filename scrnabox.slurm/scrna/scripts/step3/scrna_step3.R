@@ -183,7 +183,7 @@ foreach (i=1:length(sample_name)) %do% {
             DimPlot(seu, reduction = "pca")
             ggsave(paste(output_dir,'/step3/figs3/',"dimplot_pca",sample_nameb[i],".png",sep=""))
             ## print elbow plot
-            ElbowPlot(seu)
+            ElbowPlot(seu, ndims = par_npcs_pca)
             ggsave(paste(output_dir,'/step3/figs3/',"elbowplot",sample_nameb[i],".png",sep=""))
             ## print heatmap
             #Seurat::DimHeatmap(seu, dims = 1:par_dims, cells = par_cells, balanced = TRUE)            ## Saeid this does not produce a figure for some reason. I could not figure out whye. If we really want this figure then we can return and look into it.

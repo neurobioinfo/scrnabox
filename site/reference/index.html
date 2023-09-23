@@ -5,14 +5,14 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><link rel="canonical" href="https://neurobioinfo.github.io/reference/" />
       <link rel="shortcut icon" href="../img/favicon.ico" />
-    <title>Reference - scrnabox</title>
+    <title>- Execution parameters - scRNAbox</title>
     <link rel="stylesheet" href="../css/theme.css" />
     <link rel="stylesheet" href="../css/theme_extra.css" />
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
     
       <script>
         // Current page data
-        var mkdocs_page_name = "Reference";
+        var mkdocs_page_name = "- Execution parameters";
         var mkdocs_page_input_path = "reference.md";
         var mkdocs_page_url = "/reference/";
       </script>
@@ -30,7 +30,7 @@
     <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
     <div class="wy-side-scroll">
       <div class="wy-side-nav-search">
-          <a href=".." class="icon icon-home"> scrnabox
+          <a href=".." class="icon icon-home"> scRNAbox
         </a><div role="search">
   <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
       <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
@@ -47,27 +47,32 @@
                 <li class="toctree-l1"><a class="reference internal" href="../installation/">Installation</a>
                 </li>
               </ul>
+              <p class="caption"><span class="caption-text">Overview</span></p>
+              <ul class="current">
+                  <li class="toctree-l1"><a class="reference internal" href="../SCRNA/">- Standard Analysis Track</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../HTO/">- Cell Hashtag Analysis Track</a>
+                  </li>
+                  <li class="toctree-l1 current"><a class="reference internal current" href="./">- Execution parameters</a>
+    <ul class="current">
+    </ul>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../outputs/">- Outputs</a>
+                  </li>
+              </ul>
               <p class="caption"><span class="caption-text">Tutorial</span></p>
               <ul>
-                  <li class="toctree-l1"><a class="reference internal" href="../SCRNA/">- Standard scRNA</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../Dataset1/">- Standard Analysis: Midbrain dataset</a>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../HTO/">- Cell hashtags</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../Dataset2/">- Cell Hashtag Analysis: PBMC dataset</a>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../PROC/">- Processed Data</a>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../Dataset1/">- Dataset1</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../Dataset2/">- Dataset2</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../library_prep/">- Library preparation</a>
                   </li>
               </ul>
               <ul>
                 <li class="toctree-l1"><a class="reference internal" href="../FAQ/">FAQ</a>
-                </li>
-              </ul>
-              <ul class="current">
-                <li class="toctree-l1 current"><a class="reference internal current" href="./">Reference</a>
-    <ul class="current">
-    </ul>
                 </li>
               </ul>
               <p class="caption"><span class="caption-text">About</span></p>
@@ -88,14 +93,15 @@
     <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
       <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="..">scrnabox</a>
+          <a href="..">scRNAbox</a>
         
       </nav>
       <div class="wy-nav-content">
         <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
   <ul class="wy-breadcrumbs">
     <li><a href=".." class="icon icon-home" aria-label="Docs"></a> &raquo;</li>
-      <li class="breadcrumb-item active">Reference</li>
+          <li>Overview &raquo;</li>
+      <li class="breadcrumb-item active">- Execution parameters</li>
     <li class="wy-breadcrumbs-aside">
     </li>
   </ul>
@@ -110,7 +116,7 @@
 <li><a href="#cell-hashtag-scrnaseq-analysis-track">Cell Hashtag scRNAseq Analysis Track</a></li>
 </ul>
 <h2 id="standard-scrnaseq-analysis-track">Standard scRNAseq Analysis Track</h2>
-<h4 id="step-1">Step 1</h4>
+<h4 id="step-1-fastq-pre-processing">Step 1: FASTQ pre-processing</h4>
 <table>
 <thead>
 <tr>
@@ -137,7 +143,7 @@
 </tr>
 </tbody>
 </table>
-<h4 id="step-2">Step 2</h4>
+<h4 id="step-2-ambient-rna-removal-and-create-seurat-object">Step 2: Ambient RNA removal and create Seurat object</h4>
 <table>
 <thead>
 <tr>
@@ -179,7 +185,7 @@
 </tr>
 </tbody>
 </table>
-<h4 id="step-3">Step 3</h4>
+<h4 id="step-3-quality-control-and-filtering">Step 3: Quality control and filtering</h4>
 <table>
 <thead>
 <tr>
@@ -321,7 +327,7 @@
 </tr>
 </tbody>
 </table>
-<h4 id="step-4">Step 4</h4>
+<h4 id="step-4-doublet-removal">Step 4: Doublet removal</h4>
 <table>
 <thead>
 <tr>
@@ -373,7 +379,7 @@
 </tr>
 </tbody>
 </table>
-<h4 id="step-5">Step 5</h4>
+<h4 id="step-5-integration-and-linear-dimensional-reduction">Step 5: Integration and linear dimensional reduction</h4>
 <table>
 <thead>
 <tr>
@@ -445,7 +451,7 @@
 </tr>
 </tbody>
 </table>
-<h4 id="step-6">Step 6</h4>
+<h4 id="step-6-clustering">Step 6: Clustering</h4>
 <table>
 <thead>
 <tr>
@@ -502,7 +508,7 @@
 </tr>
 </tbody>
 </table>
-<h4 id="step-7">Step 7</h4>
+<h4 id="step-7-cluster-annotation">Step 7: Cluster annotation</h4>
 <table>
 <thead>
 <tr>
@@ -584,7 +590,7 @@
 </tr>
 </tbody>
 </table>
-<h4 id="step-8">Step 8</h4>
+<h4 id="step-8-differential-gene-expression-contrasts">Step 8: Differential gene expression contrasts</h4>
 <table>
 <thead>
 <tr>
@@ -632,7 +638,7 @@
 </tbody>
 </table>
 <h2 id="cell-hashtag-scrnaseq-analysis-track">Cell Hashtag scRNAseq Analysis Track</h2>
-<h4 id="step-1_1">Step 1</h4>
+<h4 id="step-1-fastq-pre-processing_1">Step 1: FASTQ pre-processing</h4>
 <table>
 <thead>
 <tr>
@@ -659,7 +665,7 @@
 </tr>
 </tbody>
 </table>
-<h4 id="step-2_1">Step 2</h4>
+<h4 id="step-2-ambient-rna-removal-and-create-seurat-object_1">Step 2: Ambient RNA removal and create Seurat object</h4>
 <table>
 <thead>
 <tr>
@@ -696,7 +702,7 @@
 </tr>
 </tbody>
 </table>
-<h4 id="step-3_1">Step 3</h4>
+<h4 id="step-3-quality-control-and-filtering_1">Step 3: Quality control and filtering</h4>
 <table>
 <thead>
 <tr>
@@ -838,7 +844,7 @@
 </tr>
 </tbody>
 </table>
-<h4 id="step-4_1">Step 4</h4>
+<h4 id="step-4-doublet-removal_1">Step 4: Doublet removal</h4>
 <table>
 <thead>
 <tr>
@@ -940,7 +946,7 @@
 </tr>
 </tbody>
 </table>
-<h4 id="step-5_1">Step 5</h4>
+<h4 id="step-5-integration-and-linear-dimensional-reduction_1">Step 5: Integration and linear dimensional reduction</h4>
 <table>
 <thead>
 <tr>
@@ -1017,7 +1023,7 @@
 </tr>
 </tbody>
 </table>
-<h4 id="step-6_1">Step 6</h4>
+<h4 id="step-6-clustering_1">Step 6: Clustering</h4>
 <table>
 <thead>
 <tr>
@@ -1074,7 +1080,7 @@
 </tr>
 </tbody>
 </table>
-<h4 id="step-7_1">Step 7</h4>
+<h4 id="step-7-cluster-annotation_1">Step 7: Cluster annotation</h4>
 <table>
 <thead>
 <tr>
@@ -1161,7 +1167,7 @@
 </tr>
 </tbody>
 </table>
-<h4 id="step-8_1">Step 8</h4>
+<h4 id="step-8-differential-gene-expression-contrasts_1">Step 8: Differential gene expression contrasts</h4>
 <table>
 <thead>
 <tr>
@@ -1212,8 +1218,8 @@
             </div>
           </div><footer>
     <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
-        <a href="../FAQ/" class="btn btn-neutral float-left" title="FAQ"><span class="icon icon-circle-arrow-left"></span> Previous</a>
-        <a href="../LICENSE/" class="btn btn-neutral float-right" title="- License">Next <span class="icon icon-circle-arrow-right"></span></a>
+        <a href="../HTO/" class="btn btn-neutral float-left" title="- Cell Hashtag Analysis Track"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../outputs/" class="btn btn-neutral float-right" title="- Outputs">Next <span class="icon icon-circle-arrow-right"></span></a>
     </div>
 
   <hr/>
@@ -1236,10 +1242,10 @@
   <span class="rst-current-version" data-toggle="rst-current-version">
     
     
-      <span><a href="../FAQ/" style="color: #fcfcfc">&laquo; Previous</a></span>
+      <span><a href="../HTO/" style="color: #fcfcfc">&laquo; Previous</a></span>
     
     
-      <span><a href="../LICENSE/" style="color: #fcfcfc">Next &raquo;</a></span>
+      <span><a href="../outputs/" style="color: #fcfcfc">Next &raquo;</a></span>
     
   </span>
 </div>

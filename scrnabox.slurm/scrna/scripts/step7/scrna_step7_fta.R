@@ -11,7 +11,7 @@ r_lib_path=args[2]
 .libPaths(r_lib_path)
 
 ## load libraries
-packages<-c('Seurat','ggplot2', 'dplyr')
+packages<-c('Seurat','ggplot2', 'dplyr','Matrix')
 lapply(packages, library, character.only = TRUE)
 
 ## load existing Seurat objects
@@ -32,12 +32,20 @@ dir.create(OUT_dir_figs_reference)
 
 ## set user defined clustering resolution
 seu_int <- SetIdent(seu_int, value = par_level_cluster)
+#DefaultAssay(seu_int) <- "RNA" ## new code
 
 ## load reference Seurat object
 reference0 <-readRDS(par_reference)
+DefaultAssay(reference0) <- "RNA" ## new code
 
 ## load parallelization parameters
 options(future.globals.maxSize = par_futureglobalsmaxSize)
+
+# perform standard preprocessing on reference object
+reference0<- NormalizeData(reference0)
+reference0 <- FindVariableFeatures(reference0)
+reference0<- ScaleData(reference0)
+reference0 <- RunPCA(object = reference0, assay = "RNA", npcs = par_FindTransferAnchors_dim)
 
 ## find transfer anchors between reference and query Seurat objects
 transfer.anchors <- FindTransferAnchors(reference = reference0, query = seu_int, dims = 1:par_FindTransferAnchors_dim, reference.reduction = "pca")
@@ -53,10 +61,10 @@ saveRDS(seu_int,paste(output_dir,'/step7/objs7','/seu_step7.rds', sep=''))
 write.csv(colnames(seu_int[[]]), file= paste(output_dir,'/step7/info7/meta_info_seu_step7',".txt", sep=""))
 
 ## Print a umap projection showing the predicted cell types on the query object 
-reference0 <- RunUMAP(reference0, dims = 1:30, reduction = "pca", return.model = TRUE)
+reference0 <- RunUMAP(reference0, dims = 1:par_FindTransferAnchors_dim, reduction = "pca", return.model = TRUE)
 seu_int <- MapQuery(anchorset = transfer.anchors, reference = reference0, query = seu_int,
     refdata = list(celltype = par_level_celltype), reference.reduction = "pca", reduction.model = "umap")
-p1 <- DimPlot(reference0, reduction = "umap", group.by = par_level_celltype, label = TRUE, label.size = 3,repel = TRUE) + NoLegend() + ggtitle("Reference annotations")
+p1 <- DimPlot(reference0, reduction = "umap", group.by = par_level_celltype, label = TRUE, label.size = 3,repel = TRUE, raster=FALSE) + NoLegend() + ggtitle("Reference annotations")
 p2 <- DimPlot(seu_int, reduction = "umap", group.by = "predicted.id", label = TRUE, label.size = 3, repel = TRUE) + NoLegend() + ggtitle("Query transferred labels")
 p1 + p2
 ggsave(file = paste(OUT_dir_figs_reference,'UMAP_transferred_labels.pdf', sep=''))

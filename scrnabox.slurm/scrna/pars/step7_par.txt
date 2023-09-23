@@ -1,8 +1,8 @@
 ############################################################################
 # If you want to save an RNA expression matrix and metadata dataframe set the following to "yes"
 ############################################################################
-par_save_RNA<-"NO"
-par_save_metadata<-"NO"
+par_save_RNA="NO"
+par_save_metadata="NO"
 
 ############################################################################
 # General parameters for cluster annotation 
@@ -32,7 +32,7 @@ par_module_score='/lustre03/project/6070393/COMMON/Dark_Genome/samamiri/pipeline
 ## Whether or not to visualize select features. If you do not want to, set the following to "no".
 par_visualize_select_features="yes"
 ## List of select features
-par_select_features <- c("C1QB", "CD163", "RNASET2", "C1QC","SLC11A1", "CD74")
+par_select_features= c("C1QB", "CD163", "RNASET2", "C1QC","SLC11A1", "CD74")
 
 #####################################################################
 #Reference-based annotation parameters
@@ -44,4 +44,4 @@ par_level_celltype='celltype'
 ## Which dimensions to use to find transfer anchors bewteen query and reference dataset
 par_FindTransferAnchors_dim=10
 ## This will increase your RAM usage so set this number mindfully
-par_futureglobalsmaxSize = 50000 * 1024^2
+par_futureglobalsmaxSize= 50000 * 1024^2

@@ -21,64 +21,31 @@ comments: false
   - [Step 6: Clustering](#step-6-clustering)   
   - [step 7: Cluster annotation](#step-7-cluster-annotation)    
   - [step 8: Differential gene expression contrasts](#step-8-differential-gene-expression-contrasts)     
-- [Integrating Seurat objects](#integrating-seurat-objects)  
+
+ - - - -
 
 ## Introduction 
-This guide provides instructions for analyzing single-cell RNA sequencing (scRNAseq) data using the Standard Analysis Track of the scRNAbox pipeline. The Standard Analysis Track is designed for scRNAseq experiments where each sample is captured and sequenced separately; thus, users should have unique FASTQ files for each of the samples in their experiment. If instead samples were pooled prior to sequencing, resulting in FASTQ files comprising scRNAseq data of multiple samples, users should leverage the [Cell Hashtag scRNAseq](HTO.md) Analysis Track.<br /> 
+This guide provides an overview of the Analytical Steps that comprise the Standard Analysis Track of the scRNAbox pipeline. The Standard Analysis Track is designed for scRNAseq experiments where each sample is captured and sequenced separately; thus, users should have unique FASTQ files for each of the samples in their experiment. If instead samples were labelled with sample-specific barcodes and pooled prior to sequencing, users should leverage the [Cell Hashtag scRNAseq](HTO.md) Analysis Track.<br /> 
 
-
-The main component of the scRNAbox pipeline is `scrnabox.slurm`, which is an open-source pipeline for scRNAseq analysis that is specifically designed to run on high-performance computing (HPC) systems using the [Slurm Workload Manager](https://slurm.schedmd.com/). `scrnabox.slurm` outlines the Analytical Steps involved in a comprehensive scRNAseq analysis workflow, including FASTQ pre-processing, quality control and filtering, clustering, cluster annotation, and differential gene expression contrasts. The Analytical Steps involved in the Standard Analysis Track of the scRNAbox pipeline are outlined in the figure below.<br />  
-
+The Analytical Steps involved in the Standard Analysis Track of the scRNAbox pipeline are outlined in the figure below.<br />  
  
  <img src="https://github.com/neurobioinfo/scrnabox/assets/110110777/328966c3-04dc-4e42-91cb-c6181026d1d6" width="550" height="100">
 
 
-**Note:** This tutorial assumes that `scrnabox.slurm`,`cellranger`, `R`, and the required R packages have already been installed onto the HPC system. If this is not the case, please visit [Installation](installation.md) to do so before proceeding. If the required packages are installed, you can proceed to [Setup](#setup).
+**Note:** This tutorial assumes that `scrnabox.slurm`,`CellRanger`, `R`, and the required R packages have already been installed onto the HPC system. If this is not the case, please visit [Installation](installation.md) to do so before proceeding. If the required packages are installed, you can proceed to [Setup](#setup).
 
+ - - - -
 
 ### Setup
 
-Before running the pipeline, create a dedicated folder for the analysis (hereafter referred to as the working directory). Then, define the path of the working directory (`SCRNABOX_PWD=`) and the path to `scrnabox.slurm` (`SCRNABOX_HOME=`). For example:
+Before running the pipeline, create a dedicated folder for the analysis (hereafter referred to as the working directory). Then, export the path to the working directory and the path to `scrnabox.slurm`:
 ```
 mkdir ~/working_directory
-cd ~/working_directory 
+cd ~/working_directory
+
 export SCRNABOX_HOME=~/scrnabox.slurm
 export SCRNABOX_PWD=~/working_directory
 ```
-For a description of the options for running `scrnabox.slurm` and to ensure that the path was properly defined, run the following command:
-
-```
-bash $SCRNABOX_HOME/launch_scrnabox.sh -h 
-```
-
-If the pipeline has been installed properly, the above command should return the folllowing:
-```
-        mandatory arguments:
-                -d  (--dir)  = Working directory (where all the outputs will be printed) (give full path)
-                --steps  =  Specify what steps, e.g., 2 to run just step 2, 2-4, run steps 2 through 4)
-
-        optional arguments:
-                -h  (--help)  = See helps regarding the pipeline options. 
-                --method  = Choose what scRNA method you want to use; use HTO  and SCRNA for for hashtag nad Standard scRNA, respectively. 
-                --nFeature_RNA_L  = Lower threshold of number of unique RNA transcripts for each cell, it filters nFeature_RNA > nFeature_RNA_L.  
-                --nFeature_RNA_U  = Upper threshold of number of unique RNA transcripts for each cell, it filters --nFeature_RNA_U.  
-                --nCount_RNA_L  = Lower threshold for nCount_RNA, it filters nCount_RNA > nCount_RNA_L   
-                --nCount_RNA_U  = Upper threshold for  nCount_RNA, it filters nCount_RNA < nCount_RNA_U  
-                --mitochondria_percent_L  = Lower threshold for the amount of mitochondrial transcript, it is in percent, mitochondria_percent > mitochondria_percent_L. 
-                --mitochondria_percent_U  = Upper threshold for the amount of mitochondrial transcript, it is in percent, mitochondria_percent < mitochondria_percent_U. 
-                --log10GenesPerUMI_U  = Upper threshold for the log number of genes per UMI for each cell, it is in percent,log10GenesPerUMI=log10(nFeature_RNA)/log10(nCount_RNA). mitochondria_percent < log10GenesPerUMI_U. 
-                --log10GenesPerUMI_L  = Lower threshold for the log number of genes per UMI for each cell, log10GenesPerUMI=log10(nFeature_RNA)/log10(nCount_RNA). mitochondria_percent > log10GenesPerUMI_L.  
-                --msd  = you can get the hashtag labels by running the following code 
-                --marker  = Find marker. 
-                --sinfo  = Do you need sample info? 
-                --fta  = FindTransferAnchors 
-                --enrich  = Annotation 
-                --dgelist  = creates a DGEListobject from a table of counts obtained from seurate objects. 
-                --genotype  = Run the genotype contrast. 
-                --celltype  = Run the Genotype-cell contrast. 
-                --cont  = You can directly call the contrast to the pipeline.  
-                --seulist                = You can directly call the list of seurat objects to the pipeline. 
-```                
 
 Next, run the pipeline initiation Step (`--steps 0`) and define the Standard scRNAseq Analysis Track (`--method SCRNA`) using the following command from the working directory:
 ```
@@ -92,76 +59,38 @@ bash $SCRNABOX_HOME/launch_scrnabox.sh \
 
 After running the pipeline initiation Step, the structure of the working directory should be as follows:
 ```
-├── working_directory
-    ├── job_info
-        ├── configs
-        ├── logs
-        ├── parameters
+ working_directory
+ └── job_info
+     ├── configs
+     ├── logs
+     └── parameters
 ```
 - The `configs/` directory contains the `scrnabox_config.ini` file which allows users to specify their job allocations (memory, threads, and walltime) for each Analytical Step using the Slurm Workload Manager; <br /> 
 - The `logs/` directory records the events of each Analytical Step; <br />
 - The `parameters/` directory contains adjustable, Step-specific text files which allow users to define the execution parameters for each Analytical Step. <br />
 
-Next, navigate to the `scrnabox_config.ini` file in `~/working_directory/job_info/configs` to define the path to the R library (`R_LIB_PATH=`), the version of R (`R_VERSION=`), and the path to CellRanger (`MODULECELLRANGER=`). For example: 
+Next, navigate to the `scrnabox_config.ini` file in `~/working_directory/job_info/configs` to define the path to the R library, the version of R, and the path to CellRanger. For example: 
 
 ```
 MODULECELLRANGER=mugqic/cellranger/5.0.1
 R_VERSION=4.2.1
-R_LIB_PATH=Path_to_R_library
+R_LIB_PATH=Path/to/R/library
 ```
 
-Finally, in preparation for Step 1 (FASTQ pre-processing with CellRanger) users must create `library.csv` files for each of their samples, which defines the necessary information of the FASTQ files for the experiment. The structure of the `library.csv` file should be: <br />
-```
-fastqs,sample,library_type
-~/fastqs/,CTRL1,Gene Expression
-```
-- The `fastqs` column defines the path to the directory that contains the FASTQ files for the experiment. <br /> 
-- The `sample` column defines the sample name of the corresponding FASTQ file. Please note that FASTQ files must be named according to standard CellRanger nomenclature. For example, "CTRL1_S1_L001_R1_001.fastq". For more information please visit CellRanger's [documentation](https://support.10xgenomics.com/single-cell-gene-expression/software/pipelines/latest/using/fastq-input). <br />
-- The `library_type` column defines the assay type. For The Standard Analysis Track of scRNAbox, `library_type` will always be "Gene Expression". <br />
+Upon completing the setup procedures, users can run their analysis using the scRNAbox pipeline. 
 
-For example, if the experiment comprises four samples (two controls and two cases) the following steps should be taken: <br />
-
-1) Navigate to the working directory and create a `samples_info` folder: <br />
-```
-cd ~/working_directory
-mkdir samples_info
-```
-2) Navigate to the `samples_info` folder and create a folder for each sample. Please note that the sample names used here will eventually be used to define samples in the Seurat object, so choose them wisely: <br />
-```
-cd samples_info
-mkdir control1
-mkdir control2
-mkdir case1
-mkdir case2
-```
-3) Navigate to the folder for each sample and create the `library.csv` file. <br />
-
-After performing steps 1-3 above, the structure of the samples_info folder for an experiment with four samples should be:
-```
-├── working_directory
-    ├── samples_info
-        ├── control1
-            ├── library.csv
-        ├── control2
-            ├── library.csv
-        ├── case1
-            ├── library.csv
-        ├── case2
-            ├── library.csv
-```
-
-Upon completing the above steps to setup the pipeline, users can run their analysis. Please note that if you do not have access to FASTQ files for your experiment, you may intiate the pipeline at which ever Analytical Step takes your data object as input. In the case where FASTQ files are not available, users do not have to create the `samples_info` folder. For more information see [Processed Data](PROC.md).  
+ - - - -
 
 ### scRNAbox Analytical Steps
-Specific Analytical Steps are called using the `--steps` flag. The output of each Analytical Step is deposited into its respective folder within the working directory (e.g. `~/working_directory/step1`). Prior to running each Analytical Step, users are strongly encouraged to modify the execution parameters of the analysis using the adjustable, Step-specific parameters text files. The parameters text files are located in `~/working_directory/job_info/parameters`. For instructions on how to modify these text files please see [FAQ](FAQ.md). To ensure replicability, a summary report file documents the execution parameters for each iteration of each analytical Step, which is located in `~/working_directory/job_info/summary_report.txt`.
+Specific Analytical Steps are called using the `--steps` flag. The output of each Analytical Step is deposited into its respective folder within the working directory (e.g. `~/working_directory/step1`). Prior to running each Analytical Step, users are strongly encouraged to modify the execution parameters of the analysis using the adjustable, Step-specific parameters text files. The parameters text files are located in `~/working_directory/job_info/parameters`. To ensure replicability, a summary report file documents the execution parameters for each iteration of each Analytical Step, which is located in `~/working_directory/job_info/summary_report.txt`.
 
 
 For detailed descriptions of each Analytical Step please see our pre-print manuscript. 
-
+- - - -
 
 ### Step 1: FASTQ pre-processing
-In this step, feature-barcode expression matrices are generated from FASTQ files using the CellRanger _counts_ pipeline. Given that CellRanger runs a user interface, it is recommended to run Step 1 in a 'screen'. <br />
-<br />
+In this step, feature-barcode expression matrices are generated from FASTQ files using the CellRanger _counts_ pipeline. Prior to running CellRanger, `library.csv` files must be prepared to define the FASTQ files for each sample. ScRNAbox provides an option for automating this process or users may manually prepare the libraries. For more information, please see the the [Library preparation](library_prep.md) tutorial.<br />
+
 The following parameters are adjustable for Step 1:
 
 |Parameter|Default|Description|
@@ -169,8 +98,14 @@ The following parameters are adjustable for Step 1:
 |REF_DIR_GRCH|NULL|Path to reference genome for FASTQ alignment. 10X Genomics reference genomes are available for download. For more information see their [documentation](https://support.10xgenomics.com/single-cell-gene-expression/software/pipelines/latest/using/tutorial_ct).|
 |R1LENGTH|NULL|Minimum number of bases to retain for R1 sequence of gene expression|
 |MEMPERCORE|30|For clusters whose job managers do not support memory requests, it is possible to request memory in the form of cores. This option will scale up the number of threads requested via the __MRO_THREADS__ variable according to how much memory a stage requires when given to the ratio of memory on your nodes.|
+|par_automated_library_prep|No| Whether or not to perform automated library prep. Alternatively, you may set this parameter to "no" and manually prepare the libraries.|
+|par_fastq_directory|NULL|Path to directory containing the FASTQ files. This directory should only contain FASTQ files for the experiment.|
+|par_sample_names|NULL|The sample names used to name the FASTQ files according to CellRanger nomeclature|
+|par_rename_samples|Yes| Whether or not you want to rename your samples. These names will be used to identify cells in the Seurat objects|
+|par_new_sample_names|NULL| New sample names. Make sure they are defined in the same order as 'par_sample_names'|
+|par_paired_end_seq|Yes| Whether or not paired-end sequencing was performed|
 
-To run Step 1, use the following command:
+Given that CellRanger runs a user interface, it is recommended to run Step 1 in a 'screen'. To run Step 1, use the following command:
 ```
 screen -S run_scrnabox
 bash $SCRNABOX_HOME/launch_scrnabox.sh \
@@ -180,7 +115,9 @@ bash $SCRNABOX_HOME/launch_scrnabox.sh \
 
 The resulting output files are deposited into `~/working_directory/step1`
 
-**Parameter names need to be updated.**
+
+**Note:** If you do not have access to FASTQ files for your experiment, you may intiate the pipeline at which ever Analytical Step takes your data object as input. In the case where FASTQ files are not available, users do not have to create the `samples_info` folder. For more information see [Processed Data](PROC.md).  
+- - - -
 
 ### Step 2: Ambient RNA removal and create Seurat object 
 In this step, the ambient RNA rate is estimated and the gene expression profiles are corrected for RNA contamination (optional) using SoupX (Young et al. 2020). Then, CellRanger- or SoupX-generated feature-barcode expression matrices are transformed into Seurat objects. Genes expressed in less than a minimum number of cells and cells expressing less than a minimum number of genes can be filtered.<br />
@@ -204,9 +141,16 @@ bash $SCRNABOX_HOME/launch_scrnabox.sh \
 ```
 
 The resulting output files are deposited into `~/working_directory/step2`
-
+ - - - -
 ### Step 3: Quality control and filtering
-Low quality cells are filtered based on the user-defined thresholds for the number of genes detected per cell, number of unique transcripts detected per cell, percentage of mitochondrial-encoded transcripts, and percentage of ribosomal-encoded transcripts. Mitochondrial- and ribosomal-encoded genes can be filtered out, as well as a custom user-defined list of genes. Finally, normalization and scaling is performed on the individual Seurat objects prior to cell-cycle scoring. <br />
+Low quality cells are filtered based on the user-defined thresholds for:
+
+- the number of genes detected per cell;
+- the number of unique transcripts detected per cell;
+- the percentage of mitochondrial-encoded transcripts; 
+- the percentage of ribosomal-encoded transcripts.
+
+In addition, mitochondrial- and ribosomal-encoded genes can be filtered out, as well as a custom user-defined list of genes. Finally, normalization and scaling is performed on the individual Seurat objects prior to cell-cycle scoring. <br />
 <br />
 The following parameters are adjustable for Step 3:
 
@@ -223,8 +167,6 @@ The following parameters are adjustable for Step 3:
 |par_mitochondria_percent_U|NULL |Only retain cells with a maximum percentage of mitochondrial genes|
 |par_ribosomal_percent_L|NULL |Only retain cells with a minimum percentage of ribosomal genes|
 |par_ribosomal_percent_U|NULL |Only retain cells with a maximum percentage of ribosomal genes|
-|par_log10GenesPerUMI_L|NULL | Only retain cells with a minimum number of genes per unique molecular identifier|
-|par_log10GenesPerUMI_U|NULL | Only retain cells with a maximum number of genes per unique molecular identifier|
 |par_remove_mitochondrial_genes|Yes| Whether or not to remove mitochondrial genes|
 |par_remove_ribosomal_genes|Yes| Whether or not to remove ribosomal genes|
 |par_remove_genes|NULL|If users want to remove specific genes from their data, they may define a list of gene identifiers|
@@ -248,7 +190,7 @@ bash $SCRNABOX_HOME/launch_scrnabox.sh \
 ```
 The resulting output files are deposited into `~/working_directory/step3`
 
-
+ - - - -
 ### Step 4: Doublet removal
 Doublets are identified and removed from downstream analysis (optional) using the DoubletFinder tool (McGinnis et al. 2019).  <br />
 <br />
@@ -272,9 +214,9 @@ bash $SCRNABOX_HOME/launch_scrnabox.sh \
 --steps 4 
 ```
 The resulting output files are deposited into `~/working_directory/step4`
-
+ - - - -
 ### Step 5: Integration and linear dimensional reduction
-Individual Seurat objects are integrated to enable the joint analysis across samples runs using Seurat's integration algorithm (Stuart et al. 2019); if experiments are limited to a single sequencing run, the integration Step can be bypassed. Normalization, scaling, and Linear dimensional reduction is then performed on the resulting Seurat object to inform the optimal parameters for clustering in Step 6.<br />
+Individual Seurat objects are integrated to enable the joint analysis across samples using Seurat's integration algorithm (Stuart et al. 2019); if experiments are limited to a single sequencing run, the integration Step can be bypassed. Normalization, scaling, and linear dimensional reduction is then performed on the resulting Seurat object to inform the optimal parameters for clustering in Step 6.<br />
 <br />
 The following parameters are adjustable for Step 5:
 
@@ -301,6 +243,7 @@ bash $SCRNABOX_HOME/launch_scrnabox.sh \
 ```
 The resulting output files are deposited into `~/working_directory/step5`
 
+ - - - -
 ### Step 6: Clustering 
 Clustering is performed to define groups of cells with similar expression profiles using the graph-based clustering approach implemented in the Seurat framework (Macosko et al. 2015).<br />
 <br />
@@ -312,6 +255,7 @@ The following parameters are adjustable for Step 6:
 |par_save_metadata| No|Whether or not to export a metadata dataframe|
 |par_skip_step5|No|Whether or not the user skipped integration in Step 5| 
 |par_FindNeighbors_dims|30| Number of dimensions from linear dimensional reduction used as input to identify neighbours. Can be informed by the elbow and Jackstraw plots produced in Step 5|
+|par_RunUMAP_dims|30| Number of dimensions from linear dimensional reduction used as input to compute UMAP. Can be informed by the elbow and Jackstraw plots produced in Step 5 |
 |par_FindNeighbors_k.param|60|Defines k for the k-nearest neighbor algorithm|
 |par_FindNeighbors_prune.SNN|1/15|Sets the cutoff for acceptable Jaccard index when computing the neighborhood overlap for the shared nearest-neighbour (SNN) construction
 |par_FindClusters_resolution|0.1 to 0.9, in intervals of 0.1|Value of the clustering resolution parameter. You may provide multiple resolution values|
@@ -326,8 +270,9 @@ bash $SCRNABOX_HOME/launch_scrnabox.sh \
 ```
 The resulting output files are deposited into `~/working_directory/step6`
 
+ - - - -
 ### Step 7: Cluster annotation
-Cell populations, or clusters, with similar expression profiles are annotated to define cell types by three distinct methods:<br />
+Cell populations, or clusters, are annotated to define cell types by three distinct methods:<br />
 <br />
  **Method 1. Cluster marker gene set enrichment analysis (GSEA)**: Seurat's _FindAllMarkers_ function is used to identify differentially expressed marker genes (DEG) by the Wilcoxon rank-sum test (Macosko et al. 2015). DEGs in the positive direction     (Log2 fold-change > 0.00) are then tested for enrichment across user-defined gene set libraries that define cell types using the EnrichR tool (Chen et al. 2013).<br />
  <br />
@@ -351,8 +296,8 @@ Cell populations, or clusters, with similar expression profiles are annotated to
  
 <br /> 
  **Method 3. Reference-based annotation**: Seurat's _FindTransferAnchors_ and _TransferData_ functions are used to leverage cell-type annotations from a reference Seurat object and generate annotation predictions for the query dataset (Macosko et        al. 2015). User's must define the location of their referene Seurat object in the parameters file of Step 7.<br />
- <br />
- In addition, scRNAbox allows users to **visualize the expression of select features** at the cluster or cell level via a user-provided list of gene identifiers in order to further inform the cellular species that make up specific clusters. 
+
+ In addition to the three annotation methods, scRNAbox allows users to **visualize the expression of select features** at the cluster or cell level via a user-provided list of gene identifiers in order to further inform the cellular species that make up specific clusters. 
 
 The following parameters are adjustable for Step 7:
 
@@ -390,7 +335,7 @@ bash $SCRNABOX_HOME/launch_scrnabox.sh \
 --enrich T
 ```
 
-Please note that in order to test the cluster marker genes for enrichment across EnrichR libraries, the HPC must have access to the internet. If your HPC cannot access the internet, it is possible to run the enrichment step on your local machine directly in R. To do so, begin by downloading the Step 6 Seurat RDS object (`~/working_directory/step6/objs6/seu_step6.rds `)  and cluster marker RDS object (`~/working_directory/step7/info7/marker/ClusterMarkers.rds`) to your computer using the following commands
+**Note:** In order to test the cluster marker genes for enrichment across EnrichR libraries, the HPC must have access to the internet. If your HPC cannot access the internet, it is possible to run the enrichment step on your local machine directly in R. To do so, begin by downloading the Step 6 Seurat RDS object (`~/working_directory/step6/objs6/seu_step6.rds `)  and cluster marker RDS object (`~/working_directory/step7/info7/marker/ClusterMarkers.rds`) to your computer using the following commands:
 
 ```
 scp username@beluga.computecanada.ca:~/working_directory/step7/info7/marker/ClusterMarkers.rds  ~/Desktop/working_directory
@@ -421,9 +366,9 @@ bash $SCRNABOX_HOME/launch_scrnabox.sh \
 ```
 The resulting output files are deposited into `~/working_directory/step7`.
 
-
+ - - - -
 ### Step 8: Differential gene expression contrasts
-This step performs differetial gene expression (DGE) analyses according to user-defined contrasts. Contrast can be performed between samples (e.g. case vs control; **sample-sample contrasts**) or between samples, stratified by cell type (e.g. case vs control for excitatory neurons only; **sample-cell contrasts**).
+This step performs differential gene expression (DGE) analyses according to user-defined contrasts. Contrast can be performed between samples (e.g. case vs control; **sample-sample contrasts**) or between samples, stratified by cell type (e.g. case vs control for excitatory neurons only; **sample-cell contrasts**).
  
 The following parameters are adjustable for Step 8:
 
@@ -447,7 +392,7 @@ bash $SCRNABOX_HOME/launch_scrnabox.sh \
 --dgelist T
 ```
 
-The next step is to perform DGE contrasts. As mentioned, useers can perform **sample-sample contrasts** or **sample-cell contrasts**
+The next step is to perform DGE contrasts. As mentioned, users can perform **sample-sample contrasts** or **sample-cell contrasts**.
 
 To perform **sample-sample contrasts**, users must first modify the `step8_contrast_genotype.txt` contrast matrix located in `~/working_directory/job_info/parameters`. The contrast matrix comprises three columns that define the arbitrary name of the contrast (cont_name), the control sample (control), and the case sample (versus). For example:
 
@@ -495,18 +440,7 @@ bash $SCRNABOX_HOME/launch_scrnabox.sh \
 ```
 The resulting output files are deposited into `~/working_directory/step8`.
 
-**Note:** that if you have a large number of contrasts to run, it may be more efficient to split them up and submit batch jobs instead.
+**Note:** If you have a large number of contrasts to run, it may be more efficient to split them up and submit batch jobs instead.
 
-## Integrating Seurat objects
-To combine different seurat objects, you can run the following codes. 
-```
-LISTOFSEU=~/list.txt
 
-bash $SCRNABOX_HOME/launch_scrnabox.sh \
--d ${SCRNABOX_PWD} \
---steps  integrate \
---seulist ${LISTOFSEU} \
-```
-
-LISTOFSEU includes the path of seurate files, put them in different lines. By default, the pipeline standardize the seurat objects before integrating, you can change the default in `${SCRNABOX_PWD}/job_output/parameters/stepint_par.txt`.
 

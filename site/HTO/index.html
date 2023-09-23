@@ -5,14 +5,14 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><link rel="canonical" href="https://neurobioinfo.github.io/HTO/" />
       <link rel="shortcut icon" href="../img/favicon.ico" />
-    <title>- Cell hashtags - scrnabox</title>
+    <title>- Cell Hashtag Analysis Track - scRNAbox</title>
     <link rel="stylesheet" href="../css/theme.css" />
     <link rel="stylesheet" href="../css/theme_extra.css" />
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
     
       <script>
         // Current page data
-        var mkdocs_page_name = "- Cell hashtags";
+        var mkdocs_page_name = "- Cell Hashtag Analysis Track";
         var mkdocs_page_input_path = "HTO.md";
         var mkdocs_page_url = "/HTO/";
       </script>
@@ -30,7 +30,7 @@
     <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
     <div class="wy-side-scroll">
       <div class="wy-side-nav-search">
-          <a href=".." class="icon icon-home"> scrnabox
+          <a href=".." class="icon icon-home"> scRNAbox
         </a><div role="search">
   <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
       <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
@@ -47,27 +47,32 @@
                 <li class="toctree-l1"><a class="reference internal" href="../installation/">Installation</a>
                 </li>
               </ul>
-              <p class="caption"><span class="caption-text">Tutorial</span></p>
+              <p class="caption"><span class="caption-text">Overview</span></p>
               <ul class="current">
-                  <li class="toctree-l1"><a class="reference internal" href="../SCRNA/">- Standard scRNA</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../SCRNA/">- Standard Analysis Track</a>
                   </li>
-                  <li class="toctree-l1 current"><a class="reference internal current" href="./">- Cell hashtags</a>
+                  <li class="toctree-l1 current"><a class="reference internal current" href="./">- Cell Hashtag Analysis Track</a>
     <ul class="current">
     </ul>
                   </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../reference/">- Execution parameters</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../outputs/">- Outputs</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Tutorial</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../Dataset1/">- Standard Analysis: Midbrain dataset</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../Dataset2/">- Cell Hashtag Analysis: PBMC dataset</a>
+                  </li>
                   <li class="toctree-l1"><a class="reference internal" href="../PROC/">- Processed Data</a>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../Dataset1/">- Dataset1</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../Dataset2/">- Dataset2</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../library_prep/">- Library preparation</a>
                   </li>
               </ul>
               <ul>
                 <li class="toctree-l1"><a class="reference internal" href="../FAQ/">FAQ</a>
-                </li>
-              </ul>
-              <ul>
-                <li class="toctree-l1"><a class="reference internal" href="../reference/">Reference</a>
                 </li>
               </ul>
               <p class="caption"><span class="caption-text">About</span></p>
@@ -88,15 +93,15 @@
     <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
       <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="..">scrnabox</a>
+          <a href="..">scRNAbox</a>
         
       </nav>
       <div class="wy-nav-content">
         <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
   <ul class="wy-breadcrumbs">
     <li><a href=".." class="icon icon-home" aria-label="Docs"></a> &raquo;</li>
-          <li>Tutorial &raquo;</li>
-      <li class="breadcrumb-item active">- Cell hashtags</li>
+          <li>Overview &raquo;</li>
+      <li class="breadcrumb-item active">- Cell Hashtag Analysis Track</li>
     <li class="wy-breadcrumbs-aside">
     </li>
   </ul>
@@ -118,49 +123,20 @@
 <li><a href="#step-6-clustering">Step 6: Clustering</a>   </li>
 <li><a href="#step-7-cluster-annotation">step 7: Cluster annotation</a>    </li>
 <li><a href="#step-8-differential-gene-expression-contrasts">step 8: Differential gene expression contrasts</a>     </li>
-<li><a href="#integrating-seurat-objects">Integrating Seurat objects</a>  </li>
 </ul>
 <h2 id="introduction">Introduction</h2>
-<p>This guide provides instructions for analyzing single-cell RNA sequencing (scRNAseq) data using the Cell Hashtag Analysis Track of the scRNAbox pipeline. The Cell Hashtag Analysis Track is designed for multiplexed scRNAseq experiments, whereby samples are tagged with sample-specific barcodes, pooled, and sequenced together; thus, users should have FASTQ files that contain scRNAseq data from multiple samples. If instead samples were sequenced separately, resulting in unique FASTQ files for each sample, users should leverage the <a href="../SCRNA/">Standard scRNAseq</a> Analysis Track.<br /> </p>
-<p>The main component of the scRNAbox pipeline is <code>scrnabox.slurm</code>, which is an open-source pipeline for scRNAseq analysis that is specifically designed to run on high-performance computing (HPC) systems using the <a href="https://slurm.schedmd.com/">Slurm Workload Manager</a>. <code>scrnabox.slurm</code> outlines the Analytical Steps involved in a comprehensive scRNAseq analysis workflow, including FASTQ pre-processing, quality control and filtering, clustering, cluster annotation, and differential gene expression contrasts. The Analytical Steps involved in the Cell Hashtag Analysis Track of the scRNAbox pipeline are outlined in the figure below.<br />  </p>
+<p>This guide provides an overview of the Analytical Steps that comprise the Cell Hashtag Analysis Track of the scRNAbox pipeline. The Cell Hashtag Analysis Track is designed for multiplexed scRNAseq experiments, whereby samples are tagged with sample-specific barcodes, pooled, and sequenced together; thus, users should have FASTQ files that contain scRNAseq data from multiple samples. If instead samples were sequenced separately, users should leverage the <a href="../SCRNA/">Standard scRNAseq</a> Analysis Track.<br /> </p>
+<p>The Analytical Steps involved in the Cell Hashtag Analysis Track of the scRNAbox pipeline are outlined in the figure below.<br />  </p>
 <p><img src="https://github.com/neurobioinfo/scrnabox/assets/110110777/eccddd8e-4ea2-4c1e-9427-8ba40e6418ba" width="550" height="100"></p>
 <p><strong>Note:</strong> This tutorial assumes that <code>scrnabox.slurm</code>,<code>cellranger</code>, <code>R</code>, and the required R packages have already been installed onto the HPC system. If this is not the case, please visit <a href="../installation/">Installation</a> to do so before proceeding. If the required packages are installed, you can proceed to <a href="#setup">Setup</a>.</p>
+<hr />
 <h3 id="setup">Setup</h3>
-<p>Before running the pipeline, create a dedicated folder for the analysis (hereafter referred to as the working directory). Then, define the path of the working directory (<code>SCRNABOX_PWD=</code>) and the path to <code>scrnabox.slurm</code> (<code>SCRNABOX_HOME=</code>). For example:</p>
+<p>Before running the pipeline, create a dedicated folder for the analysis (hereafter referred to as the working directory). Then, define the path of the working directory and the path to <code>scrnabox.slurm</code>:</p>
 <pre><code>mkdir ~/working_directory
-cd ~/working_directory 
+cd ~/working_directory
+
 export SCRNABOX_HOME=~/scrnabox.slurm
 export SCRNABOX_PWD=~/working_directory
-</code></pre>
-<p>For a description of the options for running <code>scrnabox.slurm</code> and to ensure that the path was properly defined, run the following command:</p>
-<pre><code>bash $SCRNABOX_HOME/launch_scrnabox.sh -h 
-</code></pre>
-<p>If the pipeline has been installed properly, the above command should return the folllowing:</p>
-<pre><code>        mandatory arguments:
-                -d  (--dir)  = Working directory (where all the outputs will be printed) (give full path)
-                --steps  =  Specify what steps, e.g., 2 to run just step 2, 2-4, run steps 2 through 4)
-
-        optional arguments:
-                -h  (--help)  = See helps regarding the pipeline options. 
-                --method  = Choose what scRNA method you want to use; use HTO  and SCRNA for for hashtag nad Standard scRNA, respectively. 
-                --nFeature_RNA_L  = Lower threshold of number of unique RNA transcripts for each cell, it filters nFeature_RNA &gt; nFeature_RNA_L.  
-                --nFeature_RNA_U  = Upper threshold of number of unique RNA transcripts for each cell, it filters --nFeature_RNA_U.  
-                --nCount_RNA_L  = Lower threshold for nCount_RNA, it filters nCount_RNA &gt; nCount_RNA_L   
-                --nCount_RNA_U  = Upper threshold for  nCount_RNA, it filters nCount_RNA &lt; nCount_RNA_U  
-                --mitochondria_percent_L  = Lower threshold for the amount of mitochondrial transcript, it is in percent, mitochondria_percent &gt; mitochondria_percent_L. 
-                --mitochondria_percent_U  = Upper threshold for the amount of mitochondrial transcript, it is in percent, mitochondria_percent &lt; mitochondria_percent_U. 
-                --log10GenesPerUMI_U  = Upper threshold for the log number of genes per UMI for each cell, it is in percent,log10GenesPerUMI=log10(nFeature_RNA)/log10(nCount_RNA). mitochondria_percent &lt; log10GenesPerUMI_U. 
-                --log10GenesPerUMI_L  = Lower threshold for the log number of genes per UMI for each cell, log10GenesPerUMI=log10(nFeature_RNA)/log10(nCount_RNA). mitochondria_percent &gt; log10GenesPerUMI_L.  
-                --msd  = you can get the hashtag labels by running the following code 
-                --marker  = Find marker. 
-                --sinfo  = Do you need sample info? 
-                --fta  = FindTransferAnchors 
-                --enrich  = Annotation 
-                --dgelist  = creates a DGEListobject from a table of counts obtained from seurate objects. 
-                --genotype  = Run the genotype contrast. 
-                --celltype  = Run the Genotype-cell contrast. 
-                --cont  = You can directly call the contrast to the pipeline.  
-                --seulist                = You can directly call the list of seurat objects to the pipeline. 
 </code></pre>
 <p>Next, run the pipeline initiation Step (<code>--steps 0</code>) and define the Standard scRNAseq Analysis Track (<code>--method HTO</code>) using the following command from the working directory:</p>
 <pre><code>cd ~/working_directory 
@@ -171,94 +147,32 @@ bash $SCRNABOX_HOME/launch_scrnabox.sh \
 --method HTO
 </code></pre>
 <p>After running the pipeline initiation Step, the structure of the working directory should be as follows:</p>
-<pre><code>├── working_directory
-    ├── job_info
-        ├── configs
-        ├── logs
-        ├── parameters
+<pre><code> working_directory
+ └── job_info
+     ├── configs
+     ├── logs
+     └── parameters
+
 </code></pre>
 <ul>
 <li>The <code>configs/</code> directory contains the <code>scrnabox_config.ini</code> file which allows users to specify their job allocations (memory, threads, and walltime) for each Analytical Step using the Slurm Workload Manager; <br /> </li>
 <li>The <code>logs/</code> directory records the events of each Analytical Step; <br /></li>
 <li>The <code>parameters/</code> directory contains adjustable, Step-specific text files which allow users to define the execution parameters for each Analytical Step. <br /></li>
 </ul>
-<p>Next, navigate to the <code>scrnabox_config.ini</code> file in <code>~/working_directory/job_info/configs</code> to define the path to the R library (<code>R_LIB_PATH=</code>), the version of R (<code>R_VERSION=</code>), and the path to CellRanger (<code>MODULECELLRANGER=</code>). For example: </p>
+<p>Next, navigate to the <code>scrnabox_config.ini</code> file in <code>~/working_directory/job_info/configs</code> to define the path to the R library, the version of R, and the path to CellRanger. For example: </p>
 <pre><code>MODULECELLRANGER=mugqic/cellranger/5.0.1
 R_VERSION=4.2.1
-R_LIB_PATH=Path_to_R_library
+R_LIB_PATH=Path/to/R/library
 </code></pre>
-<p>Finally, in preparation for Step 1 (FASTQ pre-processing with CellRanger) users must create <code>library.csv</code> and <code>feature_ref.csv</code> files for each of their sequencing runs.<br /></p>
-<h4 id="librarycsv">library.csv</h4>
-<p>The <code>library.csv</code> file defines the necessary information of the FASTQ files for the experiment, including the gene expression and antibody assays. The structure of the <code>library.csv</code> file should be: <br /></p>
-<pre><code>fastqs,sample,library_type
-~/fastqs/,RUN1GEX,Gene Expression
-~/fastqs/,RUN1HTO,Antibody Capture
-</code></pre>
-<ul>
-<li>The <code>fastqs</code> column defines the path to the directory that contains the FASTQ files for the experiment. <br /> </li>
-<li>The <code>sample</code> column defines the sample name of the corresponding FASTQ file. Please note that FASTQ files must be named according to standard CellRanger nomenclature. For example, "CTRL1_S1_L001_R1_001.fastq". For more information please visit CellRanger's <a href="https://support.10xgenomics.com/single-cell-gene-expression/software/pipelines/latest/using/fastq-input">documentation</a>. <br /></li>
-<li>The <code>library_type</code> column defines the assay type. For the Cell Hashtag Analysis track, each sequencing run should have a "Gene Expression" and "Antibody Capture" assay. For more information, please visit CellRanger's <a href="" title="https://support.10xgenomics.com/single-cell-gene-expression/software/pipelines/latest/using/feature-bc-analysis">documentation</a> <br /></li>
-</ul>
-<p>For example, if the experiment comprises three sequencing runs the following steps should be taken: <br /></p>
-<p>1) Navigate to the working directory and create a <code>samples_info</code> folder: <br /></p>
-<pre><code>cd ~/working_directory
-mkdir samples_info
-</code></pre>
-<p>2) Navigate to the <code>samples_info</code> folder and create a folder for each sequencing run: <br /></p>
-<pre><code>cd samples_info
-mkdir run1
-mkdir run2
-mkdir run3
-</code></pre>
-<p>3) Navigate to the folder for each sequencing and create the <code>library.csv</code> file. <br /></p>
-<p>After performing steps 1-3 above, the structure of the samples_info folder for an experiment with three sequencing runs should be:</p>
-<pre><code>├── working_directory
-    ├── samples_info
-        ├── run1
-            ├── library.csv
-        ├── run2
-            ├── library.csv
-        ├── run3
-            ├── library.csv
-</code></pre>
-<h4 id="feature_refcsv">feature_ref.csv</h4>
-<p>The <code>feature_ref.csv</code> file defines the necessary information for processing the sample-specific barcodes that will eventually be used to demultiplex the pooled samples. For example, if there are four samples pooled together with four unique barcode identifiers, the structure of the <code>feature_ref.csv</code> file should be:</p>
-<pre><code>id,name,read,pattern,sequence,feature_type
-Hash1,B0251_TotalSeqB,R2,5PNNNNNNNNNN(BC),GTCAACTCTTTAGCG,Antibody Capture
-Hash2,B0252_TotalSeqB,R2,5PNNNNNNNNNN(BC),TGATGGCCTATTGGG,Antibody Capture
-Hash3,B0253_TotalSeqB,R2,5PNNNNNNNNNN(BC),TTCCGCCTCTCTTTG,Antibody Capture
-Hash4,B0254_TotalSeqB,R2,5PNNNNNNNNNN(BC),AGTAAGTTCAGCGTA,Antibody Capture
-</code></pre>
-<ul>
-<li>The <code>id</code> column defines the barcode ID which will be used to track the feature counts. <br /> </li>
-<li>The <code>name</code> column defines the arbitrary name for the barcode identifier. <br /> </li>
-<li>The <code>read</code> column defines which RNA sequencing read contains the barcode sequence. This value Will be either R1 or R2.<br /> </li>
-<li>The <code>pattern</code> column defines the pattern of the barcode identifiers. For more information please visit the 10X Genomics <a href="https://support.10xgenomics.com/single-cell-gene-expression/software/pipelines/latest/using/feature-bc-analysis#pattern">documentation</a><br /> </li>
-<li>The <code>sequence</code> column defines nucleotide sequence associated with the barcode identifier.<br /> </li>
-<li>The <code>feature_type</code> column defines the type of feature used for sample identification. Please ensure that the feature_type in the <code>feature_ref.csv</code> file matches a library_type in the <code>library.csv</code> file.  <br /> </li>
-</ul>
-<p>For more information regarding the preparation of the <code>feature_ref.csv</code>, please see CellRanger's <a href="https://support.10xgenomics.com/single-cell-gene-expression/software/pipelines/latest/using/feature-bc-analysis">documentation</a>.</p>
-<p><code>feature_ref.csv</code> files can be prepared the same way as the <code>library.csv</code> files. After producing the <code>feature_ref.csv</code> for each sequncing run, the structure of the samples_info folder for an experiment with three sequencing runs should be:</p>
-<pre><code>├── working_directory
-    ├── samples_info
-        ├── run1
-            ├── library.csv
-            ├── feature_ref.csv
-        ├── run2
-            ├── library.csv
-            ├── feature_ref.csv
-        ├── run3
-            ├── library.csv
-            ├── feature_ref.csv
-</code></pre>
-<p>Upon completing the above steps to setup the pipeline, users can run their analysis. Please note that if you do not have access to FASTQ files for your experiment, you may intiate the pipeline at which ever Analytical Step takes your data object as input. In the case where FASTQ files are not available, users do not have to create the <code>samples_info</code> folder. For more information see <a href="../PROC/">Processed Data</a>. </p>
+<p>Upon completing the setup procedures, users can run their analysis using the scRNAbox pipeline.</p>
+<hr />
 <h3 id="scrnabox-analytical-steps">scRNAbox Analytical Steps</h3>
-<p>Specific Analytical Steps are called using the <code>--steps</code> flag. The output of each Analytical Step is deposited into its respective folder within the working directory (e.g. <code>~/working_directory/step1</code>). Prior to running each Analytical Step, users are strongly encouraged to modify the execution parameters of the analysis using the adjustable, Step-specific parameters text files. The parameters text files are located in <code>~/working_directory/job_info/parameters</code>. For instructions on how to modify these text files please see <a href="../FAQ/">FAQ</a>. To ensure replicability, a summary report file documents the execution parameters for each iteration of each analytical Step, which is located in <code>~/working_directory/job_info/summary_report.txt</code>.</p>
+<p>Specific Analytical Steps are called using the <code>--steps</code> flag. The output of each Analytical Step is deposited into its respective folder within the working directory (e.g. <code>~/working_directory/step1</code>). Prior to running each Analytical Step, users are strongly encouraged to modify the execution parameters of the analysis using the adjustable, Step-specific parameters text files. The parameters text files are located in <code>~/working_directory/job_info/</code>. To ensure replicability, a summary report file documents the execution parameters for each iteration of each Analytical Step, which is located in <code>~/working_directory/job_info/summary_report.txt</code>.</p>
 <p>For detailed descriptions of each Analytical Step please see our pre-print manuscript. </p>
+<hr />
 <h3 id="step-1-fastq-pre-processing">Step 1: FASTQ pre-processing</h3>
-<p>In this step, feature-barcode expression matrices are generated from FASTQ files using the CellRanger <em>counts</em> pipeline. Given that CellRanger runs a user interface, it is recommended to run Step 1 in a 'screen'. <br />
-<br />
-The following parameters are adjustable for Step 1:</p>
+<p>In this step, feature-barcode expression matrices are generated from FASTQ files using the CellRanger <em>counts</em> pipeline. Prior to running CellRanger, <code>library.csv</code> files must be prepared to define the FASTQ files for each sample. ScRNAbox provides an option for automating this process or users may manually prepare the libraries. For more information, please see the the <a href="../library_prep/">Library preparation</a> tutorial.<br /></p>
+<p>The following parameters are adjustable for Step 1:</p>
 <table>
 <thead>
 <tr>
@@ -283,18 +197,74 @@ The following parameters are adjustable for Step 1:</p>
 <td style="text-align: left;">30</td>
 <td style="text-align: left;">For clusters whose job managers do not support memory requests, it is possible to request memory in the form of cores. This option will scale up the number of threads requested via the <strong>MRO_THREADS</strong> variable according to how much memory a stage requires when given to the ratio of memory on your nodes.</td>
 </tr>
+<tr>
+<td style="text-align: left;">par_automated_library_prep</td>
+<td style="text-align: left;">No</td>
+<td style="text-align: left;">Whether or not to perform automated library prep. Alternatively, you may set this parameter to "no" and manually prepare the libraries.</td>
+</tr>
+<tr>
+<td style="text-align: left;">par_fastq_directory</td>
+<td style="text-align: left;">NULL</td>
+<td style="text-align: left;">Path to directory containing the FASTQ files. This directory should only contain FASTQ files for the experiment.</td>
+</tr>
+<tr>
+<td style="text-align: left;">par_RNA_run_names</td>
+<td style="text-align: left;">NULL</td>
+<td style="text-align: left;">The names of the sequencing runs for the RNA assay</td>
+</tr>
+<tr>
+<td style="text-align: left;">par_HTO_run_names</td>
+<td style="text-align: left;">NULL</td>
+<td style="text-align: left;">The names of the sequencing runs for the HTO assay</td>
+</tr>
+<tr>
+<td style="text-align: left;">par_seq_run_names</td>
+<td style="text-align: left;">NULL</td>
+<td style="text-align: left;">The user-selected name for the sequencing run.  These names will be used to identify cells in the Seurat objects</td>
+</tr>
+<tr>
+<td style="text-align: left;">par_paired_end_seq</td>
+<td style="text-align: left;">Yes</td>
+<td style="text-align: left;">Whether or not paired-end sequencing was performed</td>
+</tr>
+<tr>
+<td style="text-align: left;">id</td>
+<td style="text-align: left;">NULL</td>
+<td style="text-align: left;">Barcode ID which will be used to track the feature counts</td>
+</tr>
+<tr>
+<td style="text-align: left;">name</td>
+<td style="text-align: left;">NULL</td>
+<td style="text-align: left;">The user-selected name for the barcode identifier</td>
+</tr>
+<tr>
+<td style="text-align: left;">read</td>
+<td style="text-align: left;">R2</td>
+<td style="text-align: left;">Which RNA sequencing read contains the barcode sequence. This value Will be either R1 or R2.</td>
+</tr>
+<tr>
+<td style="text-align: left;">pattern</td>
+<td style="text-align: left;">NULL</td>
+<td style="text-align: left;">The pattern of the barcode identifiers</td>
+</tr>
+<tr>
+<td style="text-align: left;">sequence</td>
+<td style="text-align: left;">NULL</td>
+<td style="text-align: left;">The nucleotide sequence associated with the barcode identifier</td>
+</tr>
 </tbody>
 </table>
-<p>To run Step 1, use the following command:</p>
+<p>Given that CellRanger runs a user interface, it is recommended to run Step 1 in a 'screen'. To run Step 1, use the following command:</p>
 <pre><code>screen -S run_scrnabox
 bash $SCRNABOX_HOME/launch_scrnabox.sh \
 -d ${SCRNABOX_PWD} \
 --steps 1
 </code></pre>
 <p>The resulting output files are deposited into <code>~/working_directory/step1</code></p>
-<p><strong>Parameter names need to be updated.</strong></p>
-<h3 id="step-2-create-seurat-object">Step 2: Create Seurat object</h3>
-<p>In this step, CellRanger-generated feature-barcode expression matrices are transformed into Seurat objects. Genes expressed in less than a minimum number of cells and cells expressing less than a minimum number of genes can be filtered.<br />
+<p><strong>Note:</strong> If you do not have access to FASTQ files for your experiment, you may intiate the pipeline at which ever Analytical Step takes your data object as input. In the case where FASTQ files are not available, users do not have to create the <code>samples_info</code> folder. For more information see <a href="../PROC/">Processed Data</a>.  </p>
+<hr />
+<h3 id="step-2-ambient-rna-removal-and-create-seurat-object">Step 2: Ambient RNA removal and create Seurat object</h3>
+<p>In this step, the ambient RNA rate is estimated and the gene expression profiles are corrected for RNA contamination (optional) using SoupX (Young et al. 2020). Then, CellRanger- or SoupX-generated feature-barcode expression matrices are transformed into Seurat objects. Genes expressed in less than a minimum number of cells and cells expressing less than a minimum number of genes can be filtered.<br />
 <br />
 The following parameters are adjustable for Step 2:</p>
 <table>
@@ -307,27 +277,32 @@ The following parameters are adjustable for Step 2:</p>
 </thead>
 <tbody>
 <tr>
-<td style="text-align: left;">Save_RNA</td>
+<td style="text-align: left;">par_save_RNA</td>
 <td style="text-align: left;">No</td>
 <td style="text-align: left;">Whether or not to export an RNA expression matrix</td>
 </tr>
 <tr>
-<td style="text-align: left;">Save_metadata</td>
+<td style="text-align: left;">par_save_metadata</td>
 <td style="text-align: left;">No</td>
 <td style="text-align: left;">Whether or not to export a metadata dataframe</td>
 </tr>
 <tr>
-<td style="text-align: left;">count_matrices</td>
+<td style="text-align: left;">par_ambient_RNA</td>
+<td style="text-align: left;">Yes</td>
+<td style="text-align: left;">Whether or not to correct the feature-barcode expression matrices for ambient RNA contamination</td>
+</tr>
+<tr>
+<td style="text-align: left;">par_count_matrices</td>
 <td style="text-align: left;">NULL</td>
 <td style="text-align: left;">If users skipped Step 1, the may provide the path to a directory that contains existing feature-barcode expression matrices to initiate the pipeline at Step 2</td>
 </tr>
 <tr>
-<td style="text-align: left;">min.cells_L</td>
+<td style="text-align: left;">par_min.cells_L</td>
 <td style="text-align: left;">0</td>
 <td style="text-align: left;">Only retain genes expressed in a minimum number of cells</td>
 </tr>
 <tr>
-<td style="text-align: left;">min.features_L</td>
+<td style="text-align: left;">par_min.features_L</td>
 <td style="text-align: left;">0</td>
 <td style="text-align: left;">Only retain cells expressing a minimum number of genes</td>
 </tr>
@@ -339,9 +314,16 @@ The following parameters are adjustable for Step 2:</p>
 --steps 2
 </code></pre>
 <p>The resulting output files are deposited into <code>~/working_directory/step2</code></p>
-<p><strong>Parameter names need to be updated and the code for ambient RNA detection must be added.</strong></p>
+<hr />
 <h3 id="step-3-quality-control-and-filtering">Step 3: Quality control and filtering</h3>
-<p>Low quality cells are filtered based on the user-defined thresholds for the number of genes detected per cell, number of unique transcripts detected per cell, percentage of mitochondrial-encoded transcripts, and percentage of ribosomal-encoded transcripts. Mitochondrial- and ribosomal-encoded genes can be filtered out, as well as a custom user-defined list of genes. Finally, normalization and scaling is performed on the individual Seurat objects prior to cell-cycle scoring. <br />
+<p>Low quality cells are filtered based on the user-defined thresholds for:</p>
+<ul>
+<li>the number of genes detected per cell;</li>
+<li>the number of unique transcripts detected per cell;</li>
+<li>the percentage of mitochondrial-encoded transcripts; </li>
+<li>the percentage of ribosomal-encoded transcripts.</li>
+</ul>
+<p>In addition, mitochondrial- and ribosomal-encoded genes can be filtered out, as well as a custom user-defined list of genes. Finally, normalization and scaling is performed on the individual Seurat objects prior to cell-cycle scoring. <br />
 <br />
 The following parameters are adjustable for Step 3:</p>
 <table>
@@ -407,16 +389,6 @@ The following parameters are adjustable for Step 3:</p>
 <td style="text-align: left;">par_ribosomal_percent_U</td>
 <td style="text-align: left;">NULL</td>
 <td style="text-align: left;">Only retain cells with a maximum percentage of ribosomal genes</td>
-</tr>
-<tr>
-<td style="text-align: left;">par_log10GenesPerUMI_L</td>
-<td style="text-align: left;">NULL</td>
-<td style="text-align: left;">Only retain cells with a minimum number of genes per unique molecular identifier</td>
-</tr>
-<tr>
-<td style="text-align: left;">par_log10GenesPerUMI_U</td>
-<td style="text-align: left;">NULL</td>
-<td style="text-align: left;">Only retain cells with a maximum number of genes per unique molecular identifier</td>
 </tr>
 <tr>
 <td style="text-align: left;">par_remove_mitochondrial_genes</td>
@@ -491,8 +463,9 @@ The following parameters are adjustable for Step 3:</p>
 --steps 3 
 </code></pre>
 <p>The resulting output files are deposited into <code>~/working_directory/step3</code></p>
+<hr />
 <h3 id="step-4-demultiplexing-and-doublet-removal">Step 4: Demultiplexing and doublet removal</h3>
-<p>Seurat’s implementation (MULTIseqDemux) of the tag assignment algorithm outlined in Multi-seq is used to demultiplex pooled samples and identify doublets according to the expression matrices of the sample-specific barcodes (McGinnis et al 2019).</p>
+<p>Seurat’s implementation (<em>MULTIseqDemux</em>) of the tag assignment algorithm outlined in Multi-seq is used to demultiplex pooled samples and identify doublets according to the expression matrices of the sample-specific barcodes (McGinnis et al 2019).</p>
 <p>The following parameters are adjustable for Step 4:</p>
 <table>
 <thead>
@@ -608,8 +581,9 @@ The following parameters are adjustable for Step 3:</p>
 --steps 4 
 </code></pre>
 <p>The resulting output files are deposited into <code>~/working_directory/step4</code></p>
+<hr />
 <h3 id="step-5-integration-and-linear-dimensional-reduction">Step 5: Integration and linear dimensional reduction</h3>
-<p>Individual Seurat objects are integrated to enable the joint analysis across sequencing runs using Seurat's integration algorithm (Stuart et al. 2019); if experiments are limited to a single sequencing run, the integration Step can be bypassed. Normalization, scaling, and Linear dimensional reduction is then performed on the resulting Seurat object to inform the optimal parameters for clustering in Step 6.<br />
+<p>Individual Seurat objects are integrated to enable the joint analysis across sequencing runs using Seurat's integration algorithm (Stuart et al. 2019); if experiments are limited to a single sequencing run, the integration Step can be bypassed. Normalization, scaling, and linear dimensional reduction is then performed on the resulting Seurat object to inform the optimal parameters for clustering in Step 6.<br />
 <br />
 The following parameters are adjustable for Step 5:</p>
 <table>
@@ -694,6 +668,7 @@ The following parameters are adjustable for Step 5:</p>
 --steps 5 
 </code></pre>
 <p>The resulting output files are deposited into <code>~/working_directory/step5</code></p>
+<hr />
 <h3 id="step-6-clustering">Step 6: Clustering</h3>
 <p>Clustering is performed to define groups of cells with similar expression profiles using the graph-based clustering approach implemented in the Seurat framework (Macosko et al. 2015).<br />
 <br />
@@ -728,6 +703,11 @@ The following parameters are adjustable for Step 6:</p>
 <td style="text-align: left;">Number of dimensions from linear dimensional reduction used as input to identify neighbours. Can be informed by the elbow and Jackstraw plots produced in Step 5</td>
 </tr>
 <tr>
+<td style="text-align: left;">par_RunUMAP_dims</td>
+<td style="text-align: left;">30</td>
+<td style="text-align: left;">Number of dimensions from linear dimensional reduction used as input to compute UMAP. Can be informed by the elbow and Jackstraw plots produced in Step 5</td>
+</tr>
+<tr>
 <td style="text-align: left;">par_FindNeighbors_k.param</td>
 <td style="text-align: left;">60</td>
 <td style="text-align: left;">Defines k for the k-nearest neighbor algorithm</td>
@@ -760,8 +740,9 @@ The following parameters are adjustable for Step 6:</p>
 --steps 6 
 </code></pre>
 <p>The resulting output files are deposited into <code>~/working_directory/step6</code></p>
+<hr />
 <h3 id="step-7-cluster-annotation">Step 7: Cluster annotation</h3>
-<p>Cell populations, or clusters, with similar expression profiles are annotated to define cell types by three distinct methods:<br />
+<p>Cell populations, or clusters, are annotated to define cell types by three distinct methods::<br />
 <br />
  <strong>Method 1. Cluster marker gene set enrichment analysis (GSEA)</strong>: Seurat's <em>FindAllMarkers</em> function is used to identify differentially expressed marker genes (DEG) by the Wilcoxon rank-sum test (Macosko et al. 2015). DEGs in the positive direction     (Log2 fold-change &gt; 0.00) are then tested for enrichment across user-defined gene set libraries that define cell types using the EnrichR tool (Chen et al. 2013).<br />
  <br />
@@ -838,9 +819,8 @@ The following parameters are adjustable for Step 6:</p>
 </tbody>
 </table>
 <p><br /> 
- <strong>Method 3. Reference-based annotation</strong>: Seurat's <em>FindTransferAnchors</em> and <em>TransferData</em> functions are used to leverage cell-type annotations from a reference Seurat object and generate annotation predictions for the query dataset (Macosko et        al. 2015). User's must define the location of their referene Seurat object in the parameters file of Step 7.<br />
- <br />
- In addition, scRNAbox allows users to <strong>visualize the expression of select features</strong> at the cluster or cell level via a user-provided list of gene identifiers in order to further inform the cellular species that make up specific clusters. </p>
+ <strong>Method 3. Reference-based annotation</strong>: Seurat's <em>FindTransferAnchors</em> and <em>TransferData</em> functions are used to leverage cell-type annotations from a reference Seurat object and generate annotation predictions for the query dataset (Macosko et        al. 2015). User's must define the location of their referene Seurat object in the parameters file of Step 7.<br /></p>
+<p>In addition to the three annotation methods, scRNAbox allows users to <strong>visualize the expression of select features</strong> at the cluster or cell level via a user-provided list of gene identifiers in order to further inform the cellular species that make up specific clusters. </p>
 <p>The following parameters are adjustable for Step 7:</p>
 <table>
 <thead>
@@ -940,7 +920,7 @@ The following parameters are adjustable for Step 6:</p>
 --steps 7 \
 --enrich T
 </code></pre>
-<p>Please note that in order to test the cluster marker genes for enrichment across EnrichR libraries, the HPC must have access to the internet. If your HPC cannot access the internet, it is possible to run the enrichment step on your local machine directly in R. To do so, begin by downloading the Step 6 Seurat RDS object (<code>~/working_directory/step6/objs6/seu_step6.rds</code>)  and cluster marker RDS object (<code>~/working_directory/step7/info7/marker/ClusterMarkers.rds</code>) to your computer using the following commands:</p>
+<p><strong>Note:</strong> In order to test the cluster marker genes for enrichment across EnrichR libraries, the HPC must have access to the internet. If your HPC cannot access the internet, it is possible to run the enrichment step on your local machine directly in R. To do so, begin by downloading the Step 6 Seurat RDS object (<code>~/working_directory/step6/objs6/seu_step6.rds</code>)  and cluster marker RDS object (<code>~/working_directory/step7/info7/marker/ClusterMarkers.rds</code>) to your computer using the following commands:</p>
 <pre><code>scp username@beluga.computecanada.ca:~/working_directory/step7/info7/marker/ClusterMarkers.rds  ~/Desktop/working_directory
 scp username@beluga.computecanada.ca:~/working_directory/step6/objs6/seu_step6.rds  ~/Desktop/working_directory
 
@@ -963,8 +943,9 @@ scrnaboxR::annotation(level_cluster,ClusterMarkers,PWD,PSUE,top_sel,db)
 --fta T
 </code></pre>
 <p>The resulting output files are deposited into <code>~/working_directory/step7</code>.</p>
+<hr />
 <h3 id="step-8-differential-gene-expression-contrasts">Step 8: Differential gene expression contrasts</h3>
-<p>This step performs differetial gene expression (DGE) analyses according to user-defined contrasts. Contrast can be performed between samples (e.g. case vs control; <strong>sample-sample contrasts</strong>) or between samples, stratified by cell type (e.g. case vs control for excitatory neurons only; <strong>sample-cell contrasts</strong>).</p>
+<p>This step performs differential gene expression (DGE) analyses according to user-defined contrasts. Contrast can be performed between samples (e.g. case vs control; <strong>sample-sample contrasts</strong>) or between samples, stratified by cell type (e.g. case vs control for excitatory neurons only; <strong>sample-cell contrasts</strong>).</p>
 <p>The following parameters are adjustable for Step 8:</p>
 <table>
 <thead>
@@ -1056,23 +1037,13 @@ design9 excitatory_neuron control case1,case2
 --celltype T
 </code></pre>
 <p>The resulting output files are deposited into <code>~/working_directory/step8</code>.</p>
-<p><strong>Note:</strong> that if you have a large number of contrasts to run, it may be more efficient to split them up and submit batch jobs instead.</p>
-<h2 id="integrating-seurat-objects">Integrating seurat objects</h2>
-<p>To combine different seurat objects, you can run the following codes. </p>
-<pre><code>LISTOFSEU=~/list.txt
-
-bash $SCRNABOX_HOME/launch_scrnabox.sh \
--d ${SCRNABOX_PWD} \
---steps  integrate \
---seulist ${LISTOFSEU}
-</code></pre>
-<p>LISTOFSEU includes the path of seurate files, put them in different lines. By default, the pipeline standardize the seurat objects before integrating, you can change the default in <code>${SCRNABOX_PWD}/job_info/parameters/stepint_par.txt</code>.</p>
+<p><strong>Note:</strong> If you have a large number of contrasts to run, it may be more efficient to split them up and submit batch jobs instead.</p>
               
             </div>
           </div><footer>
     <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
-        <a href="../SCRNA/" class="btn btn-neutral float-left" title="- Standard scRNA"><span class="icon icon-circle-arrow-left"></span> Previous</a>
-        <a href="../PROC/" class="btn btn-neutral float-right" title="- Processed Data">Next <span class="icon icon-circle-arrow-right"></span></a>
+        <a href="../SCRNA/" class="btn btn-neutral float-left" title="- Standard Analysis Track"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../reference/" class="btn btn-neutral float-right" title="- Execution parameters">Next <span class="icon icon-circle-arrow-right"></span></a>
     </div>
 
   <hr/>
@@ -1098,7 +1069,7 @@ bash $SCRNABOX_HOME/launch_scrnabox.sh \
       <span><a href="../SCRNA/" style="color: #fcfcfc">&laquo; Previous</a></span>
     
     
-      <span><a href="../PROC/" style="color: #fcfcfc">Next &raquo;</a></span>
+      <span><a href="../reference/" style="color: #fcfcfc">Next &raquo;</a></span>
     
   </span>
 </div>

@@ -1,4 +1,8 @@
-#Rand index
+####################
+# Adjusted Rand Index
+####################
+
+## load library
 library(Seurat)
 library(RColorBrewer)
 library(ggplot2)
@@ -8,22 +12,11 @@ library(openxlsx)
 library(stringr)
 library(ggpubr)
 
-
-#read in seurat object
-# seu_int <- readRDS("/Users/mfiorini/Desktop/scRNA pipeline paper/seu_step6.rds") #we will take step 6 seurat object
-
+## set default assay
+par_whatAssay
 Seurat::DefaultAssay(seu_int) <- par_whatAssay 
-# seu_int <- ScaleData(seu_int, verbose = FALSE)
-# seu_int <- RunPCA(seu_int, npcs = 25, verbose = FALSE)
-# seu_int <- RunUMAP(seu_int, dims = 1:25, n.neighbors =30)
-# seu_int <- FindNeighbors(seu_int,  dims = 1:25, k.param = 30, prune.SNN = 1/15)
-# seu_int <- Seurat::FindClusters(seu_int, resolution = par_FindClusters_resolution)
 
-#### THE CODE ABOVE ALREADY EXISTS IN THE STEP 6 CODE
-
-
-#### THE CODE BELOW IS NOT YET IMPLEMNETED, AND COULD COME after the above code. The code does not change the existing Seurat object, it only produces a plot and a summary
-# par_FindClusters_resolution = seq(0.1, 0.3, by=0.1) # this is define in the parameters of step 6
+## create output directory for ARI outputs
 OUT_DIR <- paste(output_dir,"/step6/ARI",sep='')  #this is defined in the parameters of step 6
 dir.create(OUT_DIR)
 
@@ -39,17 +32,14 @@ calculate_rand_index <- function(seu_object, par_FindClusters_resolution, OUT_DI
   for(i in par_FindClusters_resolution) { 
     for(n in 1:reps) { 
     seu_object <- Seurat::FindClusters(seu_int, resolution = i, random.seed = n) 
-    #retrieve the clustering
+    ## retrieve the clustering
     column <- paste0(par_whatAssay,"_snn_res.",i)
     df <- data.frame(seu_object@meta.data)
     df1 <- df %>% select(column)
     result[[n]] <- df1[,1]
     }
-    # result 
-    # print(result)
     mybiglist <- list()
     for (f in 1:length(result)){
-      # inner loop
       for (j in 1:length(result)){
         if (f==j) {
           name <- paste0(f, ",", j)
@@ -64,18 +54,17 @@ calculate_rand_index <- function(seu_object, par_FindClusters_resolution, OUT_DI
         }
       }
     }
-    #remove values from list if they are equal to -5 (i.e those computing the adj rand index between the same clusters)
+    ## remove values from list if they are equal to -5 (i.e those computing the adj rand index between the same clusters)
     mybiglist_test <-  mybiglist[mybiglist != -5]
-    # print(mybiglist_test)
+    
+    ## retrieve summary values
     mean <- mean(unlist((mybiglist_test)))
     sd <- sd(unlist((mybiglist_test)))
     means[[paste0("mean_",i)]] <- mean                           
     standard_devs[[paste0("sd_",i)]] <- sd                            
-    # print(means)
-    # print(standard_devs)
   }
-  # standard_devs
-  # #plot standard dev
+  ### standard deviation
+  ## plot standard deviation
   sd_df<- data.frame(standard_devs)
   sd_df<- data.frame(t(sd_df))
   sd_df$resolution <- rownames(sd_df)
@@ -85,9 +74,10 @@ calculate_rand_index <- function(seu_object, par_FindClusters_resolution, OUT_DI
     geom_line() + geom_point() + theme_bw() +
     theme(axis.text.x = element_blank(),
           axis.title.x = element_blank(),
-          axis.ticks.x = element_blank())
-  # means
-  #plot means
+          axis.ticks.x = element_blank()) +
+          ylab("SD ARI")
+  ### means
+  ## plot means
   sd_mean<- data.frame(means)
   sd_mean<- data.frame(t(sd_mean))
   sd_mean$resolution <- rownames(sd_mean)
@@ -97,24 +87,25 @@ calculate_rand_index <- function(seu_object, par_FindClusters_resolution, OUT_DI
     geom_line() + geom_point() + theme_bw() +
     theme(axis.text.x = element_blank(),
           axis.title.x = element_blank(),
-          axis.ticks.x = element_blank())
-  #arrange plots
+          axis.ticks.x = element_blank()) +
+          ylab("Mean ARI")
+
+  ## arrange plots
   ggarrange(mean_plot, sd_plot, ncol = 1, nrow = 2)
-  #combine sd and means list
+  ## combine standard deviation and means list
   list3 <- c(means,standard_devs)
   list3_df <- data.frame(list3)
   list3_df
-  #write excel file
-  write.xlsx(list3_df, paste(OUT_DIR, "/test.xlsx", sep='')) #output dir must be changed to the output dir of the pipeline
+  ## write excel file
+  write.xlsx(list3_df, paste(OUT_DIR, "/clustering_ARI.xlsx", sep='')) 
   plots <- ggarrange(mean_plot, sd_plot, ncol = 1, nrow = 2, align = "hv")
   plots
 }  
 
-test_plot <- calculate_rand_index(seu_int,par_FindClusters_resolution, OUT_DIR ) #this must be run inorder to prepare for below code
+## compute standard deviation and mean of ARI at different clustering resolutions
+test_plot <- calculate_rand_index(seu_int,par_FindClusters_resolution, OUT_DIR ) 
 
-
-
-#function to plot ARI and cluster together
+## function to plot ARI information and cluster resolution together
 calculate_clusters<- function(seu_int, par_FindClusters_resolution, test_plot, OUT_DIR) {
   mybiglist <- list()
   for(i in par_FindClusters_resolution) { 
@@ -134,10 +125,11 @@ calculate_clusters<- function(seu_int, par_FindClusters_resolution, test_plot, O
     geom_line() +
     geom_point() +
     theme_bw() +
-    theme(axis.text.x = element_text(angle = 45, hjust = 1))
+    theme(axis.text.x = element_text(angle = 45, hjust = 1)) +
+    ylab("Number of clusters")
   ggarrange(test_plot, cluster_plot, ncol = 1, nrow = 2, heights = c(1.25,1))
-  ggsave(file = paste(OUT_DIR, "/ARI.png", sep='')) #change this to piepline directory
+  ggsave(file = paste(OUT_DIR, "/ARI.png", sep=''))
 }  
 
-calculate_clusters(seu_int, par_FindClusters_resolution, test_plot, OUT_DIR) #this must be run
-
+## produce final plot
+calculate_clusters(seu_int, par_FindClusters_resolution, test_plot, OUT_DIR) 

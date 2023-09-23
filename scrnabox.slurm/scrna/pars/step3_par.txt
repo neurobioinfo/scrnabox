@@ -39,7 +39,7 @@ par_remove_ribosomal_genes = "yes"
 ## However, if instead you wish to filter out specific genes (mitochondrial, ribosomal, or other) set the above parameters to "no" and provide a list of the genes you wish to remove below. 
 ## If you wish to remove all mitochondrial and ribosomal genes as well as other genes, set the above parameters to "yes" and add the additional genes in the list below.
 ## Uncomment the line to activate the parameter
-#par_remove_genes <- c("MT-ATP6", "MT-ATP8", "MT-CO1",  "MT-CO2",  "MT-CO3",  "MT-CYB",  "MT-ND1", "RPL10", "RPL10A", "RPL10L", "RPL11")
+#par_remove_genes= c("MT-ATP6", "MT-ATP8", "MT-CO1",  "MT-CO2",  "MT-CO3",  "MT-CYB",  "MT-ND1", "RPL10", "RPL10A", "RPL10L", "RPL11")
 
 ############################################################################
 # Parameters for normalization and scaling
@@ -52,11 +52,11 @@ par_scale.factor=10000
 ## Method for choosing the top variable features. vst, mean.var.plot (mvp), dispersion (disp). 
 par_selection.method='vst'
 ## Number of features to select as top variable features
-par_nfeatures = 2500
+par_nfeatures= 2500
 ## Number of most variable features to be reported in csv file
 par_top=10 
 ## Total Number of PCs to compute and store for RunPCA
-par_npcs_pca = 30
+par_npcs_pca= 30
 ## Number of cell for dimheatmap
 par_cells=500
 ## number of dimension for dimheatmap

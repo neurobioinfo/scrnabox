@@ -1,8 +1,8 @@
 ############################################################################
 # If you want to save an RNA expression matrix and metadata dataframe set the following to "yes"
 ############################################################################
-par_save_RNA<-"NO"
-par_save_metadata<-"NO"
+par_save_RNA="NO"
+par_save_metadata="NO"
 
 ############################################################################
 # General parameters for cluster annotation 
@@ -34,7 +34,7 @@ par_module_score='/home/fiorini9/scratch/scrna_pipeline/HTO_v1.1/module_gene_set
 ## Whether or not to visualize select features. If you do not want to, set the following to "no".
 par_visualize_select_features="yes"
 ## List of select features
-par_select_features <- c("LDHB", "IL7R", "LEF1", "NOSIP","S100A8", "S100A9")
+par_select_features =c("LDHB", "IL7R", "LEF1", "NOSIP","S100A8", "S100A9")
 
 #####################################################################
 #Reference-based annotation parameters

@@ -11,7 +11,7 @@ r_lib_path=args[2]
 .libPaths(r_lib_path)
 
 ## load library
-packages<-c('Seurat','ggplot2', 'dplyr', 'foreach', 'doParallel','DoubletFinder')
+packages<-c('Seurat','ggplot2', 'dplyr', 'foreach', 'doParallel','DoubletFinder', 'Matrix')
 lapply(packages, library, character.only = TRUE)
 
 

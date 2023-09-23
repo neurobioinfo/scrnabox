@@ -47,7 +47,12 @@ cluster.ids<-par_step8_clus_label
 seu.int.c <- SetIdent(seu.int.c, value = par_select_cluster)
 names(cluster.ids) <- levels(seu.int.c)    
 seu.int.c <- RenameIdents(seu.int.c, cluster.ids) 
-seu.int.c$cell.types.pool <- Idents(seu.int.c)  
+seu.int.c$cell.types.pool <- Idents(seu.int.c) 
+
+## print UMAP with final cluster annotation
+dir.create(paste(output_dir,'/step8/figs8',sep=''))
+DimPlot(seu.int.c, reduction = "umap", label = TRUE, pt.size = 0.5) + NoLegend()
+ggsave(file = paste(output_dir,'/step8/figs8','/final_cluster_annotation.pdf', sep=''))
 
 ## identify cluster-specific marker genes
 de_genes <- Seurat::FindAllMarkers(seu.int.c,  min.pct = 0.25,only.pos = TRUE)

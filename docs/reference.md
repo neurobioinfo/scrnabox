@@ -4,14 +4,14 @@
 - [Cell Hashtag scRNAseq Analysis Track](#cell-hashtag-scrnaseq-analysis-track)
 
 ## Standard scRNAseq Analysis Track
-#### Step 1
+#### Step 1: FASTQ pre-processing
 |Parameter|Default|Description|
 |:--|:--|:--|
 |REF_DIR_GRCH|NULL|Path to reference genome for FASTQ alignment. 10X Genomics reference genomes are available for download. For more information see their [documentation](https://support.10xgenomics.com/single-cell-gene-expression/software/pipelines/latest/using/tutorial_ct).|
 |R1LENGTH|NULL|Minimum number of bases to retain for R1 sequence of gene expression|
 |MEMPERCORE|30|For clusters whose job managers do not support memory requests, it is possible to request memory in the form of cores. This option will scale up the number of threads requested via the __MRO_THREADS__ variable according to how much memory a stage requires when given to the ratio of memory on your nodes.|
 
-#### Step 2
+#### Step 2: Ambient RNA removal and create Seurat object
 |Parameter|Default|Description|
 |:--|:--|:--|
 |par_save_RNA| No| Whether or not to export an RNA expression matrix|
@@ -21,7 +21,7 @@
 |par_min.cells_L| 0|Only retain genes expressed in a minimum number of cells|
 |par_min.features_L| 0|Only retain cells expressing a minimum number of genes|
 
-#### Step 3
+#### Step 3: Quality control and filtering
 |Parameter|Default|Description|
 |:--|:--|:--|
 |par_save_RNA| No| Whether or not to export an RNA expression matrix|
@@ -51,7 +51,7 @@
 |par_dims_umap|10|Number of dimensions to use as input features for uniform manifold approximation and projection (UMAP)|
 |par_n.neighbors|65|Number of neighboring points to use in local approximations of manifold structure|
 
-#### Step 4
+#### Step 4: Doublet removal
 |Parameter|Default|Description|
 |:--|:--|:--|
 |par_save_RNA| No| Whether or not to export an RNA expression matrix|
@@ -63,7 +63,7 @@
 |par_sample_names|NULL| A list of sample names for each sample in the experiement, corresponding to the expected doublet rates listed in the parameter below. Sample names should be the same as those used to produce the `samples_info` folder during the setup procedures.|
 |par_expected_doublet_rate|NULL| A list of expected doublet rates for each sample, corresponding to the sample names listed in the above parameter|
 
-#### Step 5
+#### Step 5: Integration and linear dimensional reduction
 |Parameter|Default|Description|
 |:--|:--|:--|
 |par_save_RNA| No| Whether or not to export an RNA expression matrix|
@@ -79,7 +79,7 @@
 |par_RunUMAP_dims|10| Number of dimensions to use as input features for uniform manifold approximation and projection (UMAP)|
 |par_compute_jackstraw |No|Whether or not to perform JackStraw computation. This computation takes a long time.|
 
-#### Step 6
+#### Step 6: Clustering
 |Parameter|Default|Description|
 |:--|:--|:--|
 |par_save_RNA| No| Whether or not to export an RNA expression matrix|
@@ -92,7 +92,7 @@
 |par_compute_ARI|Yes| Whether or not you want to compute the Adjusted Rand Index (ARI) between clusters at a given clustering resolution|
 |par_RI_reps|100|Number of iterations for clustering the data at a given resolution in order to calculate the ARI|
 
-#### Step 7
+#### Step 7: Cluster annotation
 |Parameter|Default|Description (the cluster annotation method associated with the parameter is shown)|
 |:--|:--|:--|
 |par_save_RNA| No| Whether or not to export an RNA expression matrix|
@@ -110,7 +110,7 @@
 |par_visualize_select_features|No|**Visualize select features:** Whether or not to visualize select features|
 |par_select_features|NULL|**Visualize select features:** list of gene identifiers to visualize the expression of select features|
 
-#### Step 8
+#### Step 8: Differential gene expression contrasts
 |Parameter|Default|Description (the cluster annotation method associated with the parameter is shown)|
 |:--|:--|:--|
 |par_save_RNA| No| Whether or not to export an RNA expression matrix|
@@ -122,14 +122,14 @@
 |par_new_sample_label|NULL|list of new sample labels corresponding to the old sample labels defined in the parameter above|
 
 ## Cell Hashtag scRNAseq Analysis Track
-#### Step 1
+#### Step 1: FASTQ pre-processing
 |Parameter|Default|Description|
 |:--|:--|:--|
 |REF_DIR_GRCH|NULL|Path to reference genome for FASTQ alignment. 10X Genomics reference genomes are available for download. For more information see their [documentation](https://support.10xgenomics.com/single-cell-gene-expression/software/pipelines/latest/using/tutorial_ct).|
 |R1LENGTH|NULL|Minimum number of bases to retain for R1 sequence of gene expression|
 |MEMPERCORE|30|For clusters whose job managers do not support memory requests, it is possible to request memory in the form of cores. This option will scale up the number of threads requested via the __MRO_THREADS__ variable according to how much memory a stage requires when given to the ratio of memory on your nodes.|
 
-#### Step 2
+#### Step 2: Ambient RNA removal and create Seurat object
 |Parameter|Default|Description|
 |:--|:--|:--|
 |Save_RNA| No| Whether or not to export an RNA expression matrix|
@@ -138,7 +138,7 @@
 |min.cells_L| 0|Only retain genes expressed in a minimum number of cells|
 |min.features_L| 0|Only retain cells expressing a minimum number of genes|
 
-#### Step 3
+#### Step 3: Quality control and filtering
 |Parameter|Default|Description|
 |:--|:--|:--|
 |par_save_RNA| No| Whether or not to export an RNA expression matrix|
@@ -168,7 +168,7 @@
 |par_dims_umap|10|Number of dimensions to use as input features for uniform manifold approximation and projection (UMAP)|
 |par_n.neighbors|65|Number of neighboring points to use in local approximations of manifold structure|
 
-#### Step 4
+#### Step 4: Doublet removal
 |Parameter|Default|Description|
 |:--|:--|:--|
 |par_save_RNA| No| Whether or not to export an RNA expression matrix|
@@ -190,7 +190,7 @@
 |par_old_antibody_label|NULL| If you wish to rename the barcode labels, first list the existing barcode labels in this parameter. old antibody labels can be identified in the "_old_antibody_label_MULTIseqDemuxHTOcounts" file produced by running Step 4 msd|
 |par_new_antibody_label|NULL|If you wish to rename the barcode labels, list the new labels corresponding to the old labels listed in the parameter above|
 
-#### Step 5
+#### Step 5: Integration and linear dimensional reduction
 |Parameter|Default|Description|
 |:--|:--|:--|
 |par_save_RNA| No| Whether or not to export an RNA expression matrix|
@@ -207,7 +207,7 @@
 |par_RunUMAP_dims|10| Number of dimensions to use as input features for uniform manifold approximation and projection (UMAP)|
 |par_compute_jackstraw |No|Whether or not to perform JackStraw computation. This computation takes a long time.|
 
-#### Step 6
+#### Step 6: Clustering
 |Parameter|Default|Description|
 |:--|:--|:--|
 |par_save_RNA| No| Whether or not to export an RNA expression matrix|
@@ -220,7 +220,7 @@
 |par_compute_ARI|Yes| Whether or not you want to compute the Adjusted Rand Index (ARI) between clusters at a given clustering resolution|
 |par_RI_reps|100|Number of iterations for clustering the data at a given resolution in order to calculate the ARI|
 
-#### Step 7
+#### Step 7: Cluster annotation
 |Parameter|Default|Description (the cluster annotation method associated with the parameter is shown)|
 |:--|:--|:--|
 |par_save_RNA| No| Whether or not to export an RNA expression matrix|
@@ -239,7 +239,7 @@
 |par_visualize_select_features|No|**Visualize select features:** Whether or not to visualize select features|
 |par_select_features|NULL|**Visualize select features:** list of gene identifiers to visualize the expression of select features|
 
-#### Step 8
+#### Step 8: Differential gene expression contrasts
 |Parameter|Default|Description (the cluster annotation method associated with the parameter is shown)|
 |:--|:--|:--|
 |par_save_RNA| No| Whether or not to export an RNA expression matrix|

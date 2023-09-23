@@ -26,7 +26,7 @@ par_normalization.method="LogNormalize"
 ## Method for detecting top variable features. vst, mean.var.plot (mvp), dispersion (disp)
 par_selection.method='vst'
 ## Number of features to select as top variable features
-par_nfeatures = 2500
+par_nfeatures= 2500
 
 ############################################################################
 # Parameters for linear dimensional reduction

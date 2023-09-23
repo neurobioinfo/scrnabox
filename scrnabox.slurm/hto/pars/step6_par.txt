@@ -15,17 +15,17 @@ par_skip_step5='YES'
 ## Dimensions of reduction to use as input. Can be informed by the elbow and jackstraw plots produced in Dstep 5. 
 par_FindNeighbors_dims=30
 ## Defines k for the k-nearest neighbor algorithm
-par_FindNeighbors_k.param =60
+par_FindNeighbors_k.param=60
 ## Sets the cutoff for acceptable Jaccard index when computing the neighborhood overlap for the SNN construction
-par_FindNeighbors_prune.SNN = 1/15
+par_FindNeighbors_prune.SNN= 1/15
 ## Value of the clustering resolution parameter. You may provide multiple resolution values. Use a value above 1.0 if you want to obtain a larger number of smaller communities.
-par_FindClusters_resolution = seq(0.1, 0.9, by=0.1)
+par_FindClusters_resolution= seq(0.1, 0.9, by=0.1)
 
 ############################################################################
 # Adjusted Rand Index for clustering resolutions
 ############################################################################
 ## If you want to compute ARI, set the following to "yes". This takes a long time. 
-par_compute_ARI = "yes"
+par_compute_ARI= "yes"
 ## Number of repetions of generated clusters to calculate ARI. We recommend 100
 par_RI_reps=5
 

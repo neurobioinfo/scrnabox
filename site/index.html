@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="description" content="None" /><link rel="canonical" href="https://neurobioinfo.github.io/" />
       <link rel="shortcut icon" href="img/favicon.ico" />
-    <title>scrnabox</title>
+    <title>scRNAbox</title>
     <link rel="stylesheet" href="css/theme.css" />
     <link rel="stylesheet" href="css/theme_extra.css" />
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
@@ -30,7 +30,7 @@
     <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
     <div class="wy-side-scroll">
       <div class="wy-side-nav-search">
-          <a href="." class="icon icon-home"> scrnabox
+          <a href="." class="icon icon-home"> scRNAbox
         </a><div role="search">
   <form id ="rtd-search-form" class="wy-form" action="./search.html" method="get">
       <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
@@ -51,25 +51,30 @@
                 <li class="toctree-l1"><a class="reference internal" href="installation/">Installation</a>
                 </li>
               </ul>
+              <p class="caption"><span class="caption-text">Overview</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="SCRNA/">- Standard Analysis Track</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="HTO/">- Cell Hashtag Analysis Track</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="reference/">- Execution parameters</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="outputs/">- Outputs</a>
+                  </li>
+              </ul>
               <p class="caption"><span class="caption-text">Tutorial</span></p>
               <ul>
-                  <li class="toctree-l1"><a class="reference internal" href="SCRNA/">- Standard scRNA</a>
+                  <li class="toctree-l1"><a class="reference internal" href="Dataset1/">- Standard Analysis: Midbrain dataset</a>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="HTO/">- Cell hashtags</a>
+                  <li class="toctree-l1"><a class="reference internal" href="Dataset2/">- Cell Hashtag Analysis: PBMC dataset</a>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="PROC/">- Processed Data</a>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="Dataset1/">- Dataset1</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="Dataset2/">- Dataset2</a>
+                  <li class="toctree-l1"><a class="reference internal" href="library_prep/">- Library preparation</a>
                   </li>
               </ul>
               <ul>
                 <li class="toctree-l1"><a class="reference internal" href="FAQ/">FAQ</a>
-                </li>
-              </ul>
-              <ul>
-                <li class="toctree-l1"><a class="reference internal" href="reference/">Reference</a>
                 </li>
               </ul>
               <p class="caption"><span class="caption-text">About</span></p>
@@ -90,7 +95,7 @@
     <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
       <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href=".">scrnabox</a>
+          <a href=".">scRNAbox</a>
         
       </nav>
       <div class="wy-nav-content">
@@ -107,27 +112,35 @@
             <div class="section" itemprop="articleBody">
               
                 <h1 id="welcome-to-scrnaboxs-documentation">Welcome to scRNAbox's documentation!</h1>
-<p>ScRNAbox is a single-cell RNA sequencing (scRNAseq) pipeline specifically designed for analyzing data under a High-Performance Computing (HPC) systems using the <a href="https://slurm.schedmd.com/">Slurm Workload Manager</a>. ScRNAbox provides two distinct, yet highly comparable Analysis Tracks:</p>
+<p>ScRNAbox is a single-cell RNA sequencing (scRNAseq) pipeline specifically designed for analyzing data under a High-Performance Computing (HPC) systems using the <a href="https://slurm.schedmd.com/">Slurm Workload Manager</a>. The scRNAbox pipeline incorporates nine Analytical Steps into a comprehensive scRNAseq analysis and provides the foundation for further investigations. The nine Analytical Steps are outlined below. </p>
+<p><img src="https://github.com/neurobioinfo/scrnabox/assets/110110777/eccddd8e-4ea2-4c1e-9427-8ba40e6418ba" width="550" height="100"></p>
+<p>The scRNAbox pipeline provides two distinct, yet highly comparable Analysis Tracks:</p>
 <ol>
 <li><strong>Standard scRNAseq</strong></li>
 <li><strong>Cell Hashtag scRNAseq</strong></li>
 </ol>
-<p>The Standard Analysis Track is designed for experiments where each sample is captured and sequenced separately, while the Cell Hashtag Analysis Track is designed for multiplexed experiments, whereby samples are tagged with sample-specific barcodes, pooled, and sequenced together. The Cell Hashtag Analysis Track is distinguished by an additional sample demultiplexing Step that assigns cells to their sample-of-origin via the sample-specific barcodes. </p>
+<p>The <strong>Standard Analysis Track</strong> is designed for experiments where each sample is captured and sequenced separately, while the <strong>Cell Hashtag Analysis Track</strong> is designed for multiplexed experiments, whereby samples are tagged with sample-specific barcodes, pooled, and sequenced together. The Cell Hashtag Analysis Track is distinguished by an additional sample demultiplexing Step that assigns cells to their sample-of-origin via the sample-specific barcodes. </p>
 <p><img src="https://github.com/neurobioinfo/scrnabox/assets/110110777/3a6df83e-e104-45d2-9b04-fe246642c6a8" height="300"> </p>
-<p>For instructions on how to run each Analytical Step of the <a href="SCRNA/">Standard scRNAseq</a> and <a href="HTO/">Cell Hashtag scRNAseq</a> Analysis Track please see the respective tutorials. For a demonstration that leverages the datasets used as the application cases in the manuscript please see <a href="Dataset1/">Dataset1: Smajic et al.</a> and <a href="Dataset2/">Datset2: Stoeckius et al.</a> for the Standard scRNAseq and Cell Hashtag scRNAseq Analysis Track, respectively.</p>
+<p>For a comprehenseive description of each Analytical Step, please see <a href="SCRNA/">Standard Analysis Track</a> and <a href="HTO/">Cell Hashtag Analysis Track</a>. <br/></p>
+<p>For a tutorial that leverages the datasets used as the application cases in our pre-print manuscript, please see <a href="Dataset1/">Standard Analysis: Midbrain dataset</a> and <a href="Dataset2/">Cell Hashtag Analysis: PBMC dataset</a>.</p>
+<hr />
 <h2 id="contents">Contents</h2>
 <ul>
 <li><a href="installation/">Installation</a></li>
-<li><a href="">Tutorial:</a><ul>
-<li><a href="SCRNA/">Standard scRNAseq</a></li>
-<li><a href="HTO/">Cell Hashtag scRNAseq</a></li>
+<li>Overview:<ul>
+<li><a href="SCRNA/">Standard Analysis Track</a></li>
+<li><a href="HTO/">Cell Hashtag Analysis Track</a></li>
+<li><a href="reference/">Execution parameters</a></li>
+<li><a href="outputs/">Outputs</a></li>
+</ul>
+</li>
+<li>Tutorial   <ul>
+<li><a href="Dataset1/">Standard Analysis Track: Midbrain dataset</a></li>
+<li><a href="Dataset2/">Cell Hashtag Analysis Track: PBMC dataset</a></li>
 <li><a href="PROC/">Processed Data</a></li>
-<li><a href="Dataset1/">Dataset1: Smajic et al.</a></li>
-<li><a href="Dataset2/">Datset2: Stoeckius et al.</a></li>
 </ul>
 </li>
 <li><a href="FAQ/">FAQ</a></li>
-<li><a href="reference/">Reference</a></li>
 </ul>
               
             </div>
@@ -177,5 +190,5 @@
 
 <!--
 MkDocs version : 1.5.2
-Build Date UTC : 2023-09-19 19:09:06.839763+00:00
+Build Date UTC : 2023-09-23 02:15:46.280304+00:00
 -->

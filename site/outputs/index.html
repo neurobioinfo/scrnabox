@@ -1,0 +1,936 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><link rel="canonical" href="https://neurobioinfo.github.io/outputs/" />
+      <link rel="shortcut icon" href="../img/favicon.ico" />
+    <title>- Outputs - scRNAbox</title>
+    <link rel="stylesheet" href="../css/theme.css" />
+    <link rel="stylesheet" href="../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "- Outputs";
+        var mkdocs_page_input_path = "outputs.md";
+        var mkdocs_page_url = "/outputs/";
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href=".." class="icon icon-home"> scRNAbox
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="..">Home</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../installation/">Installation</a>
+                </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Overview</span></p>
+              <ul class="current">
+                  <li class="toctree-l1"><a class="reference internal" href="../SCRNA/">- Standard Analysis Track</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../HTO/">- Cell Hashtag Analysis Track</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../reference/">- Execution parameters</a>
+                  </li>
+                  <li class="toctree-l1 current"><a class="reference internal current" href="./">- Outputs</a>
+    <ul class="current">
+    </ul>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Tutorial</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../Dataset1/">- Standard Analysis: Midbrain dataset</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../Dataset2/">- Cell Hashtag Analysis: PBMC dataset</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../PROC/">- Processed Data</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../library_prep/">- Library preparation</a>
+                  </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../FAQ/">FAQ</a>
+                </li>
+              </ul>
+              <p class="caption"><span class="caption-text">About</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../LICENSE/">- License</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../changelog/">- Changelog</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../contributing/">- Contributing</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../Acknowledgement/">- Acknowledgement</a>
+                  </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="..">scRNAbox</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href=".." class="icon icon-home" aria-label="Docs"></a> &raquo;</li>
+          <li>Overview &raquo;</li>
+      <li class="breadcrumb-item active">- Outputs</li>
+    <li class="wy-breadcrumbs-aside">
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h2 id="outputs-of-each-analytical-step-in-the-scrnabox-pipeline">Outputs of each Analytical Step in the scRNAbox pipeline</h2>
+<ul>
+<li><a href="#standard-scrnaseq-analysis-track">Standard scRNAseq Analysis Track</a></li>
+<li><a href="#cell-hashtag-scrnaseq-analysis-track">Cell Hashtag scRNAseq Analysis Track</a></li>
+</ul>
+<h2 id="standard-scrnaseq-analysis-track">Standard scRNAseq Analysis Track</h2>
+<h4 id="step-1-fastq-pre-processing">Step 1: FASTQ pre-processing</h4>
+<p>All of the outputs of the CellRanger <em>counts</em> pipeline are produced. For more information on the outputs, please visit the CellRanger <a href="https://support.10xgenomics.com/single-cell-gene-expression/software/pipelines/latest/using/count">documentation</a>.</p>
+<h4 id="step-2-ambient-rna-removal-and-create-seurat-object">Step 2: Ambient RNA removal and create Seurat object</h4>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Output type</th>
+<th style="text-align: left;">Name</th>
+<th style="text-align: left;">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">Figure</td>
+<td style="text-align: left;">vioplot_sample_name.png</td>
+<td style="text-align: left;">Sample-specific violin plot showing the distribution of cells according to QC metrics</td>
+</tr>
+<tr>
+<td style="text-align: left;">Info</td>
+<td style="text-align: left;">sample_name_RNA.txt</td>
+<td style="text-align: left;">Sample-specific sparse matrix of RNA assay</td>
+</tr>
+<tr>
+<td style="text-align: left;">Info</td>
+<td style="text-align: left;">MetaData_sample_name.txt</td>
+<td style="text-align: left;">Sample-specific dataframe showing the Seurat object metadata</td>
+</tr>
+<tr>
+<td style="text-align: left;">Info</td>
+<td style="text-align: left;">meta_info_sample_name.txt</td>
+<td style="text-align: left;">Sample-specific text file showing the column names of the Seurat object metadata</td>
+</tr>
+<tr>
+<td style="text-align: left;">Info</td>
+<td style="text-align: left;">summary_sample_name.txt</td>
+<td style="text-align: left;">Sample-specific text file showing the summary of QC metrics (Minimum, 1st Quartile, Median, Mean, 3rd Quartile, Maximum)</td>
+</tr>
+<tr>
+<td style="text-align: left;">Info</td>
+<td style="text-align: left;">sessionInfo.txt</td>
+<td style="text-align: left;">Session information for the R session</td>
+</tr>
+<tr>
+<td style="text-align: left;">Data object</td>
+<td style="text-align: left;">sample_name.rds</td>
+<td style="text-align: left;">Sample-specific intermediate Seurat RDS object</td>
+</tr>
+</tbody>
+</table>
+<h4 id="step-3-quality-control-and-filtering">Step 3: Quality control and filtering</h4>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Output type</th>
+<th style="text-align: left;">Name</th>
+<th style="text-align: left;">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">Figure</td>
+<td style="text-align: left;">cellcycle_sample_name.png</td>
+<td style="text-align: left;">Sample-specific violin plot showing the distribution of cells according to cell cycle S and G2M scores</td>
+</tr>
+<tr>
+<td style="text-align: left;">Figure</td>
+<td style="text-align: left;">dimplot_pca_sample_name.png</td>
+<td style="text-align: left;">Sample-specific PCA showing the first two PCs</td>
+</tr>
+<tr>
+<td style="text-align: left;">Figure</td>
+<td style="text-align: left;">dimplot_umap_sample_name.png</td>
+<td style="text-align: left;">Sample-specific UMAP</td>
+</tr>
+<tr>
+<td style="text-align: left;">Figure</td>
+<td style="text-align: left;">QC_vioplot_sample_name.png</td>
+<td style="text-align: left;">Sample-specific violin plot showing the distribution of cells according to QC metrics after filtering</td>
+</tr>
+<tr>
+<td style="text-align: left;">Figure</td>
+<td style="text-align: left;">VariableFeaturePlot_sample_name.png</td>
+<td style="text-align: left;">Sample-specific figure showing the most variably expressed genes</td>
+</tr>
+<tr>
+<td style="text-align: left;">Info</td>
+<td style="text-align: left;">sample_name_RNA.txt</td>
+<td style="text-align: left;">Sample-specific sparse matrix of RNA assay</td>
+</tr>
+<tr>
+<td style="text-align: left;">Info</td>
+<td style="text-align: left;">MetaData_sample_name.txt</td>
+<td style="text-align: left;">Sample-specific dataframe showing the Seurat object metadata</td>
+</tr>
+<tr>
+<td style="text-align: left;">Info</td>
+<td style="text-align: left;">meta_info_sample_name.txt</td>
+<td style="text-align: left;">Sample-specific text file showing the column names of the Seurat object metadata</td>
+</tr>
+<tr>
+<td style="text-align: left;">Info</td>
+<td style="text-align: left;">most_variable_genes_sample_name.txt</td>
+<td style="text-align: left;">Sample-specific text file showing the column names of the Seurat object metadata</td>
+</tr>
+<tr>
+<td style="text-align: left;">Info</td>
+<td style="text-align: left;">summary_sample_name.txt</td>
+<td style="text-align: left;">Sample-specific text file showing the summary of QC metrics (Minimum, 1st Quartile, Median, Mean, 3rd Quartile, Maximum)</td>
+</tr>
+<tr>
+<td style="text-align: left;">Info</td>
+<td style="text-align: left;">sessionInfo.txt</td>
+<td style="text-align: left;">Session information for the R session</td>
+</tr>
+<tr>
+<td style="text-align: left;">Data object</td>
+<td style="text-align: left;">sample_name.rds</td>
+<td style="text-align: left;">Sample-specific intermediate Seurat RDS object</td>
+</tr>
+</tbody>
+</table>
+<h4 id="step-4-doublet-removal">Step 4: Doublet removal</h4>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Output type</th>
+<th style="text-align: left;">Name</th>
+<th style="text-align: left;">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">Figure</td>
+<td style="text-align: left;">sample_nameDF.classifications.png</td>
+<td style="text-align: left;">Sample-specific UMAP plot showing droplet classifications (singlet or doublet)</td>
+</tr>
+<tr>
+<td style="text-align: left;">Info</td>
+<td style="text-align: left;">sample_name_RNA.txt</td>
+<td style="text-align: left;">Sample-specific sparse matrix of RNA assay</td>
+</tr>
+<tr>
+<td style="text-align: left;">Info</td>
+<td style="text-align: left;">MetaData_sample_name.txt</td>
+<td style="text-align: left;">Sample-specific dataframe showing the Seurat object metadata</td>
+</tr>
+<tr>
+<td style="text-align: left;">Info</td>
+<td style="text-align: left;">meta_info_sample_name.txt</td>
+<td style="text-align: left;">Sample-specific text file showing the column names of the Seurat object metadata</td>
+</tr>
+<tr>
+<td style="text-align: left;">Info</td>
+<td style="text-align: left;">sessionInfo.txt</td>
+<td style="text-align: left;">Session information for the R session</td>
+</tr>
+<tr>
+<td style="text-align: left;">Data object</td>
+<td style="text-align: left;">sample_name.rds</td>
+<td style="text-align: left;">Sample-specific intermediate Seurat RDS object</td>
+</tr>
+</tbody>
+</table>
+<h4 id="step-5-integration-and-linear-dimensional-reduction">Step 5: Integration and linear dimensional reduction</h4>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Output type</th>
+<th style="text-align: left;">Name</th>
+<th style="text-align: left;">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">Figure</td>
+<td style="text-align: left;">DimPlot_pca.png</td>
+<td style="text-align: left;">PCA showing the first two PCs, colour-coded by sample</td>
+</tr>
+<tr>
+<td style="text-align: left;">Figure</td>
+<td style="text-align: left;">DimPlot_umap.png</td>
+<td style="text-align: left;">UMAP, colour-coded by sample</td>
+</tr>
+<tr>
+<td style="text-align: left;">Figure</td>
+<td style="text-align: left;">elbow.png</td>
+<td style="text-align: left;">Elbow plot to visualize the percentage of variance explained by each PC</td>
+</tr>
+<tr>
+<td style="text-align: left;">Figure</td>
+<td style="text-align: left;">Jackstraw_plot.png</td>
+<td style="text-align: left;">Jackstraw plot to visualize the distribution of p-values for each PC</td>
+</tr>
+<tr>
+<td style="text-align: left;">Info</td>
+<td style="text-align: left;">seu_int_RNA.txt</td>
+<td style="text-align: left;">Sparse matrix of integrated assay</td>
+</tr>
+<tr>
+<td style="text-align: left;">Info</td>
+<td style="text-align: left;">seu_int_MetaData.txt</td>
+<td style="text-align: left;">Dataframe showing the Seurat object metadata</td>
+</tr>
+<tr>
+<td style="text-align: left;">Info</td>
+<td style="text-align: left;">meta_info_seu_step5.csv</td>
+<td style="text-align: left;">Text file showing the column names of the Seurat object metadata</td>
+</tr>
+<tr>
+<td style="text-align: left;">Info</td>
+<td style="text-align: left;">sessionInfo.txt</td>
+<td style="text-align: left;">Session information for the R session</td>
+</tr>
+<tr>
+<td style="text-align: left;">Data object</td>
+<td style="text-align: left;">seu_step5.rds</td>
+<td style="text-align: left;">Integrated intermediate Seurat RDS object</td>
+</tr>
+</tbody>
+</table>
+<h4 id="step-6-clustering">Step 6: Clustering</h4>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Output type</th>
+<th style="text-align: left;">Name</th>
+<th style="text-align: left;">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">Figure</td>
+<td style="text-align: left;">clustree_int.png</td>
+<td style="text-align: left;">Clustree plot showing the stability across the user-defied clustering resolutions</td>
+</tr>
+<tr>
+<td style="text-align: left;">Figure</td>
+<td style="text-align: left;">integrated_snn_res.png</td>
+<td style="text-align: left;">UMAP at the user defined clustering-resolution</td>
+</tr>
+<tr>
+<td style="text-align: left;">Figure</td>
+<td style="text-align: left;">ARI.png</td>
+<td style="text-align: left;">Mean and standard deviation of the Adjusted Rand Index (ARI) between clustering pairs at a user-defined resolution</td>
+</tr>
+<tr>
+<td style="text-align: left;">Info</td>
+<td style="text-align: left;"><strong>test.xlsx</strong></td>
+<td style="text-align: left;">Excel file showing the mean and standard deviation of the ARI between clustering pairs at a user-defined resolution</td>
+</tr>
+<tr>
+<td style="text-align: left;">Info</td>
+<td style="text-align: left;">seu_RNA.txt</td>
+<td style="text-align: left;">Sparse matrix of integrated assay</td>
+</tr>
+<tr>
+<td style="text-align: left;">Info</td>
+<td style="text-align: left;">seu_MetaData.txt</td>
+<td style="text-align: left;">Dataframe showing the Seurat object metadata</td>
+</tr>
+<tr>
+<td style="text-align: left;">Info</td>
+<td style="text-align: left;">meta_info.csv</td>
+<td style="text-align: left;">Text file showing the column names of the Seurat object metadata</td>
+</tr>
+<tr>
+<td style="text-align: left;">Info</td>
+<td style="text-align: left;">sessionInfo.txt</td>
+<td style="text-align: left;">Session information for the R session</td>
+</tr>
+<tr>
+<td style="text-align: left;">Data object</td>
+<td style="text-align: left;">seu_step6.rds</td>
+<td style="text-align: left;">Intermediate Seurat RDS object</td>
+</tr>
+</tbody>
+</table>
+<h4 id="step-7-cluster-annotation">Step 7: Cluster annotation</h4>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Cluster annotation method</th>
+<th style="text-align: left;">Output type</th>
+<th style="text-align: left;">Name</th>
+<th style="text-align: left;">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">General</td>
+<td style="text-align: left;">Figure</td>
+<td style="text-align: left;">umap.pdf</td>
+<td style="text-align: left;">UMAP plot of integrated assay at the user-defined clustering resolution used for cluster annotation</td>
+</tr>
+<tr>
+<td style="text-align: left;">General</td>
+<td style="text-align: left;">Figure</td>
+<td style="text-align: left;">umap_splitted.pdf</td>
+<td style="text-align: left;">UMAP plot of integrated assay at the user-defined clustering resolution used for cluster annotation, split by sample</td>
+</tr>
+<tr>
+<td style="text-align: left;">Cluster marker GSEA (Method 1)</td>
+<td style="text-align: left;">Figure</td>
+<td style="text-align: left;">heatmap.pdf</td>
+<td style="text-align: left;">Heatmap showing the expression of the top marker genes across cells, stratified by cluster</td>
+</tr>
+<tr>
+<td style="text-align: left;">Cluster marker GSEA (Method 1)</td>
+<td style="text-align: left;">Figure</td>
+<td style="text-align: left;">plotenrich.pdf</td>
+<td style="text-align: left;">Barplot showing the 20 most enriched terms for a particular cluster and cell type library</td>
+</tr>
+<tr>
+<td style="text-align: left;">Module score (Method 2)</td>
+<td style="text-align: left;">Figure</td>
+<td style="text-align: left;">module_score_gene_set.png</td>
+<td style="text-align: left;">UMAP plot showing the module score across cells for user-defined gene sets</td>
+</tr>
+<tr>
+<td style="text-align: left;">Reference-based annotations (Method 3)</td>
+<td style="text-align: left;">Figure</td>
+<td style="text-align: left;">UMAP_transferred_labels.pdf</td>
+<td style="text-align: left;">UMAP plots showing the cluster annotations from the reference Seurat object projected onto the query Seurat object</td>
+</tr>
+<tr>
+<td style="text-align: left;">Visualize select features</td>
+<td style="text-align: left;">Figure</td>
+<td style="text-align: left;">select_feature_dot_plot.pdf</td>
+<td style="text-align: left;">Dotplot showing the expression of user-defined features at the cluster level</td>
+</tr>
+<tr>
+<td style="text-align: left;">Visualize select features</td>
+<td style="text-align: left;">Figure</td>
+<td style="text-align: left;">select_feature_violin_plot.pdf</td>
+<td style="text-align: left;">Violin plot showing the expression of user-defined features at the cluster level</td>
+</tr>
+<tr>
+<td style="text-align: left;">Visualize select features</td>
+<td style="text-align: left;">Figure</td>
+<td style="text-align: left;">select_feature_feature_plot.pdf</td>
+<td style="text-align: left;">UMAP plots showing the expression of user-defined features at the cell level</td>
+</tr>
+<tr>
+<td style="text-align: left;">General</td>
+<td style="text-align: left;">Info</td>
+<td style="text-align: left;">meta_info_seu_step7.txt</td>
+<td style="text-align: left;">Text file showing the column names of the Seurat object metadata</td>
+</tr>
+<tr>
+<td style="text-align: left;">General</td>
+<td style="text-align: left;">Info</td>
+<td style="text-align: left;">sessionInfo_marker.txt</td>
+<td style="text-align: left;">Session information for the R session</td>
+</tr>
+<tr>
+<td style="text-align: left;">Cluster marker GSEA (Method 1)</td>
+<td style="text-align: left;">Info</td>
+<td style="text-align: left;">cluster_just_genes.xlsx</td>
+<td style="text-align: left;">Excel file showing the marker genes for each cluster</td>
+</tr>
+<tr>
+<td style="text-align: left;">Cluster marker GSEA (Method 1)</td>
+<td style="text-align: left;">Info</td>
+<td style="text-align: left;">cluster_whole.xlsx</td>
+<td style="text-align: left;">Excel file showing the marker genes and corresponding summary statistics for each cluster</td>
+</tr>
+<tr>
+<td style="text-align: left;">Cluster marker GSEA (Method 1)</td>
+<td style="text-align: left;">Info</td>
+<td style="text-align: left;">ClusterMarkers.csv</td>
+<td style="text-align: left;">csv file showing the marker genes and corresponding summary statistics for each cluster</td>
+</tr>
+<tr>
+<td style="text-align: left;">Cluster marker GSEA (Method 1)</td>
+<td style="text-align: left;">Info</td>
+<td style="text-align: left;">top_sel.csv</td>
+<td style="text-align: left;">csv file showing the top n marker genes for each cluster. The user defined n in the execution parameters</td>
+</tr>
+<tr>
+<td style="text-align: left;">Cluster marker GSEA (Method 1)</td>
+<td style="text-align: left;">Info</td>
+<td style="text-align: left;">Er.genes.csv</td>
+<td style="text-align: left;">Enrichment terms and the corresponding statistics for a particular cluster and cell type library</td>
+</tr>
+<tr>
+<td style="text-align: left;">Module score (Method 2)</td>
+<td style="text-align: left;">Info</td>
+<td style="text-align: left;">geneset_by_cluster.csv</td>
+<td style="text-align: left;">Mean module score across clusters for each user-defined gene set</td>
+</tr>
+<tr>
+<td style="text-align: left;">General</td>
+<td style="text-align: left;">Data object</td>
+<td style="text-align: left;">seu_step7.rds</td>
+<td style="text-align: left;">Intermediate Seurat RDS object</td>
+</tr>
+<tr>
+<td style="text-align: left;">Cluster marker GSEA (Method 1)</td>
+<td style="text-align: left;">Data object</td>
+<td style="text-align: left;">ClusterMarkers.rds</td>
+<td style="text-align: left;">RDS object containing the marker genes for each cluster</td>
+</tr>
+</tbody>
+</table>
+<h4 id="step-8-differential-gene-expression-contrasts">Step 8: Differential gene expression contrasts</h4>
+<h2 id="cell-hashtag-scrnaseq-analysis-track">Cell Hashtag scRNAseq Analysis Track</h2>
+<h4 id="step-1-fastq-pre-processing_1">Step 1: FASTQ pre-processing</h4>
+<p>All of the outputs of the CellRanger <em>counts</em> pipeline are produced. For more information on the outputs, please visit the CellRanger <a href="https://support.10xgenomics.com/single-cell-gene-expression/software/pipelines/latest/using/count">documentation</a>.</p>
+<h4 id="step-2-ambient-rna-removal-and-create-seurat-object_1">Step 2: Ambient RNA removal and create Seurat object</h4>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Output type</th>
+<th style="text-align: left;">Name</th>
+<th style="text-align: left;">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">Figure</td>
+<td style="text-align: left;">vioplot_sample_name.png</td>
+<td style="text-align: left;">Sample-specific violin plot showing the distribution of cells according to QC metrics</td>
+</tr>
+<tr>
+<td style="text-align: left;">Info</td>
+<td style="text-align: left;">sample_name_RNA.txt</td>
+<td style="text-align: left;">Sample-specific sparse matrix of RNA assay</td>
+</tr>
+<tr>
+<td style="text-align: left;">Info</td>
+<td style="text-align: left;">MetaData_sample_name.txt</td>
+<td style="text-align: left;">Sample-specific dataframe showing the Seurat object metadata</td>
+</tr>
+<tr>
+<td style="text-align: left;">Info</td>
+<td style="text-align: left;">meta_info_sample_name.txt</td>
+<td style="text-align: left;">Sample-specific text file showing the column names of the Seurat object metadata</td>
+</tr>
+<tr>
+<td style="text-align: left;">Info</td>
+<td style="text-align: left;">summary_sample_name.txt</td>
+<td style="text-align: left;">Sample-specific text file showing the summary of QC metrics (Minimum, 1st Quartile, Median, Mean, 3rd Quartile, Maximum)</td>
+</tr>
+<tr>
+<td style="text-align: left;">Info</td>
+<td style="text-align: left;">sessionInfo.txt</td>
+<td style="text-align: left;">Session information for the R session</td>
+</tr>
+<tr>
+<td style="text-align: left;">Data object</td>
+<td style="text-align: left;">sample_name.rds</td>
+<td style="text-align: left;">Sample-specific intermediate Seurat RDS object</td>
+</tr>
+</tbody>
+</table>
+<h4 id="step-3-quality-control-and-filtering_1">Step 3: Quality control and filtering</h4>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Output type</th>
+<th style="text-align: left;">Name</th>
+<th style="text-align: left;">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">Figure</td>
+<td style="text-align: left;">cellcycle_sample_name.png</td>
+<td style="text-align: left;">Sample-specific violin plot showing the distribution of cells according to cell cycle S and G2M scores</td>
+</tr>
+<tr>
+<td style="text-align: left;">Figure</td>
+<td style="text-align: left;">dimplot_pca_sample_name.png</td>
+<td style="text-align: left;">Sample-specific PCA showing the first two PCs</td>
+</tr>
+<tr>
+<td style="text-align: left;">Figure</td>
+<td style="text-align: left;">dimplot_umap_sample_name.png</td>
+<td style="text-align: left;">Sample-specific UMAP</td>
+</tr>
+<tr>
+<td style="text-align: left;">Figure</td>
+<td style="text-align: left;">QC_vioplot_sample_name.png</td>
+<td style="text-align: left;">Sample-specific violin plot showing the distribution of cells according to QC metrics after filtering</td>
+</tr>
+<tr>
+<td style="text-align: left;">Figure</td>
+<td style="text-align: left;">VariableFeaturePlot_sample_name.png</td>
+<td style="text-align: left;">Sample-specific figure showing the most variably expressed genes</td>
+</tr>
+<tr>
+<td style="text-align: left;">Info</td>
+<td style="text-align: left;">sample_name_RNA.txt</td>
+<td style="text-align: left;">Sample-specific sparse matrix of RNA assay</td>
+</tr>
+<tr>
+<td style="text-align: left;">Info</td>
+<td style="text-align: left;">MetaData_sample_name.txt</td>
+<td style="text-align: left;">Sample-specific dataframe showing the Seurat object metadata</td>
+</tr>
+<tr>
+<td style="text-align: left;">Info</td>
+<td style="text-align: left;">meta_info_sample_name.txt</td>
+<td style="text-align: left;">Sample-specific text file showing the column names of the Seurat object metadata</td>
+</tr>
+<tr>
+<td style="text-align: left;">Info</td>
+<td style="text-align: left;">most_variable_genes_sample_name.txt</td>
+<td style="text-align: left;">Sample-specific text file showing the column names of the Seurat object metadata</td>
+</tr>
+<tr>
+<td style="text-align: left;">Info</td>
+<td style="text-align: left;">summary_sample_name.txt</td>
+<td style="text-align: left;">Sample-specific text file showing the summary of QC metrics (Minimum, 1st Quartile, Median, Mean, 3rd Quartile, Maximum)</td>
+</tr>
+<tr>
+<td style="text-align: left;">Info</td>
+<td style="text-align: left;">sessionInfo.txt</td>
+<td style="text-align: left;">Session information for the R session</td>
+</tr>
+<tr>
+<td style="text-align: left;">Data object</td>
+<td style="text-align: left;">sample_name.rds</td>
+<td style="text-align: left;">Sample-specific intermediate Seurat RDS object</td>
+</tr>
+</tbody>
+</table>
+<h4 id="step-4-demultiplexing-and-doublet-removal">Step 4: Demultiplexing and doublet removal</h4>
+<h4 id="step-5-integration-and-linear-dimensional-reduction_1">Step 5: Integration and linear dimensional reduction</h4>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Output type</th>
+<th style="text-align: left;">Name</th>
+<th style="text-align: left;">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">Figure</td>
+<td style="text-align: left;">DimPlot_pca.png</td>
+<td style="text-align: left;">PCA showing the first two PCs, colour-coded by sample</td>
+</tr>
+<tr>
+<td style="text-align: left;">Figure</td>
+<td style="text-align: left;">DimPlot_umap.png</td>
+<td style="text-align: left;">UMAP, colour-coded by sample</td>
+</tr>
+<tr>
+<td style="text-align: left;">Figure</td>
+<td style="text-align: left;">elbow.png</td>
+<td style="text-align: left;">Elbow plot to visualize the percentage of variance explained by each PC</td>
+</tr>
+<tr>
+<td style="text-align: left;">Figure</td>
+<td style="text-align: left;">Jackstraw_plot.png</td>
+<td style="text-align: left;">Jackstraw plot to visualize the distribution of p-values for each PC</td>
+</tr>
+<tr>
+<td style="text-align: left;">Info</td>
+<td style="text-align: left;">seu_int_RNA.txt</td>
+<td style="text-align: left;">Sparse matrix of integrated assay</td>
+</tr>
+<tr>
+<td style="text-align: left;">Info</td>
+<td style="text-align: left;">seu_int_MetaData.txt</td>
+<td style="text-align: left;">Dataframe showing the Seurat object metadata</td>
+</tr>
+<tr>
+<td style="text-align: left;">Info</td>
+<td style="text-align: left;">meta_info_seu_step5.csv</td>
+<td style="text-align: left;">Text file showing the column names of the Seurat object metadata</td>
+</tr>
+<tr>
+<td style="text-align: left;">Info</td>
+<td style="text-align: left;">sessionInfo.txt</td>
+<td style="text-align: left;">Session information for the R session</td>
+</tr>
+<tr>
+<td style="text-align: left;">Data object</td>
+<td style="text-align: left;">seu_step5.rds</td>
+<td style="text-align: left;">Integrated intermediate Seurat RDS object</td>
+</tr>
+</tbody>
+</table>
+<h4 id="step-6-clustering_1">Step 6: Clustering</h4>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Output type</th>
+<th style="text-align: left;">Name</th>
+<th style="text-align: left;">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">Figure</td>
+<td style="text-align: left;">clustree_int.png</td>
+<td style="text-align: left;">Clustree plot showing the stability across the user-defied clustering resolutions</td>
+</tr>
+<tr>
+<td style="text-align: left;">Figure</td>
+<td style="text-align: left;">integrated_snn_res.png</td>
+<td style="text-align: left;">UMAP at the user defined clustering-resolution</td>
+</tr>
+<tr>
+<td style="text-align: left;">Figure</td>
+<td style="text-align: left;">ARI.png</td>
+<td style="text-align: left;">Mean and standard deviation of the Adjusted Rand Index (ARI) between clustering pairs at a user-defined resolution</td>
+</tr>
+<tr>
+<td style="text-align: left;">Info</td>
+<td style="text-align: left;"><strong>test.xlsx</strong></td>
+<td style="text-align: left;">Excel file showing the mean and standard deviation of the ARI between clustering pairs at a user-defined resolution</td>
+</tr>
+<tr>
+<td style="text-align: left;">Info</td>
+<td style="text-align: left;">seu_RNA.txt</td>
+<td style="text-align: left;">Sparse matrix of integrated assay</td>
+</tr>
+<tr>
+<td style="text-align: left;">Info</td>
+<td style="text-align: left;">seu_MetaData.txt</td>
+<td style="text-align: left;">Dataframe showing the Seurat object metadata</td>
+</tr>
+<tr>
+<td style="text-align: left;">Info</td>
+<td style="text-align: left;">meta_info.csv</td>
+<td style="text-align: left;">Text file showing the column names of the Seurat object metadata</td>
+</tr>
+<tr>
+<td style="text-align: left;">Info</td>
+<td style="text-align: left;">sessionInfo.txt</td>
+<td style="text-align: left;">Session information for the R session</td>
+</tr>
+<tr>
+<td style="text-align: left;">Data object</td>
+<td style="text-align: left;">seu_step6.rds</td>
+<td style="text-align: left;">Intermediate Seurat RDS object</td>
+</tr>
+</tbody>
+</table>
+<h4 id="step-7-cluster-annotation_1">Step 7: Cluster annotation</h4>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Cluster annotation method</th>
+<th style="text-align: left;">Output type</th>
+<th style="text-align: left;">Name</th>
+<th style="text-align: left;">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">General</td>
+<td style="text-align: left;">Figure</td>
+<td style="text-align: left;">umap.pdf</td>
+<td style="text-align: left;">UMAP plot of integrated assay at the user-defined clustering resolution used for cluster annotation</td>
+</tr>
+<tr>
+<td style="text-align: left;">General</td>
+<td style="text-align: left;">Figure</td>
+<td style="text-align: left;">umap_splitted.pdf</td>
+<td style="text-align: left;">UMAP plot of integrated assay at the user-defined clustering resolution used for cluster annotation, split by sample</td>
+</tr>
+<tr>
+<td style="text-align: left;">Cluster marker GSEA (Method 1)</td>
+<td style="text-align: left;">Figure</td>
+<td style="text-align: left;">heatmap.pdf</td>
+<td style="text-align: left;">Heatmap showing the expression of the top marker genes across cells, stratified by cluster</td>
+</tr>
+<tr>
+<td style="text-align: left;">Cluster marker GSEA (Method 1)</td>
+<td style="text-align: left;">Figure</td>
+<td style="text-align: left;">plotenrich.pdf</td>
+<td style="text-align: left;">Barplot showing the 20 most enriched terms for a particular cluster and cell type library</td>
+</tr>
+<tr>
+<td style="text-align: left;">Module score (Method 2)</td>
+<td style="text-align: left;">Figure</td>
+<td style="text-align: left;">module_score_gene_set.png</td>
+<td style="text-align: left;">UMAP plot showing the module score across cells for user-defined gene sets</td>
+</tr>
+<tr>
+<td style="text-align: left;">Reference-based annotations (Method 3)</td>
+<td style="text-align: left;">Figure</td>
+<td style="text-align: left;">UMAP_transferred_labels.pdf</td>
+<td style="text-align: left;">UMAP plots showing the cluster annotations from the reference Seurat object projected onto the query Seurat object</td>
+</tr>
+<tr>
+<td style="text-align: left;">Visualize select features</td>
+<td style="text-align: left;">Figure</td>
+<td style="text-align: left;">select_feature_dot_plot.pdf</td>
+<td style="text-align: left;">Dotplot showing the expression of user-defined features at the cluster level</td>
+</tr>
+<tr>
+<td style="text-align: left;">Visualize select features</td>
+<td style="text-align: left;">Figure</td>
+<td style="text-align: left;">select_feature_violin_plot.pdf</td>
+<td style="text-align: left;">Violin plot showing the expression of user-defined features at the cluster level</td>
+</tr>
+<tr>
+<td style="text-align: left;">Visualize select features</td>
+<td style="text-align: left;">Figure</td>
+<td style="text-align: left;">select_feature_feature_plot.pdf</td>
+<td style="text-align: left;">UMAP plots showing the expression of user-defined features at the cell level</td>
+</tr>
+<tr>
+<td style="text-align: left;">General</td>
+<td style="text-align: left;">Info</td>
+<td style="text-align: left;">meta_info_seu_step7.txt</td>
+<td style="text-align: left;">Text file showing the column names of the Seurat object metadata</td>
+</tr>
+<tr>
+<td style="text-align: left;">General</td>
+<td style="text-align: left;">Info</td>
+<td style="text-align: left;">sessionInfo_marker.txt</td>
+<td style="text-align: left;">Session information for the R session</td>
+</tr>
+<tr>
+<td style="text-align: left;">Cluster marker GSEA (Method 1)</td>
+<td style="text-align: left;">Info</td>
+<td style="text-align: left;">cluster_just_genes.xlsx</td>
+<td style="text-align: left;">Excel file showing the marker genes for each cluster</td>
+</tr>
+<tr>
+<td style="text-align: left;">Cluster marker GSEA (Method 1)</td>
+<td style="text-align: left;">Info</td>
+<td style="text-align: left;">cluster_whole.xlsx</td>
+<td style="text-align: left;">Excel file showing the marker genes and corresponding summary statistics for each cluster</td>
+</tr>
+<tr>
+<td style="text-align: left;">Cluster marker GSEA (Method 1)</td>
+<td style="text-align: left;">Info</td>
+<td style="text-align: left;">ClusterMarkers.csv</td>
+<td style="text-align: left;">csv file showing the marker genes and corresponding summary statistics for each cluster</td>
+</tr>
+<tr>
+<td style="text-align: left;">Cluster marker GSEA (Method 1)</td>
+<td style="text-align: left;">Info</td>
+<td style="text-align: left;">top_sel.csv</td>
+<td style="text-align: left;">csv file showing the top n marker genes for each cluster. The user defined n in the execution parameters</td>
+</tr>
+<tr>
+<td style="text-align: left;">Cluster marker GSEA (Method 1)</td>
+<td style="text-align: left;">Info</td>
+<td style="text-align: left;">Er.genes.csv</td>
+<td style="text-align: left;">Enrichment terms and the corresponding statistics for a particular cluster and cell type library</td>
+</tr>
+<tr>
+<td style="text-align: left;">Module score (Method 2)</td>
+<td style="text-align: left;">Info</td>
+<td style="text-align: left;">geneset_by_cluster.csv</td>
+<td style="text-align: left;">Mean module score across clusters for each user-defined gene set</td>
+</tr>
+<tr>
+<td style="text-align: left;">General</td>
+<td style="text-align: left;">Data object</td>
+<td style="text-align: left;">seu_step7.rds</td>
+<td style="text-align: left;">Intermediate Seurat RDS object</td>
+</tr>
+<tr>
+<td style="text-align: left;">Cluster marker GSEA (Method 1)</td>
+<td style="text-align: left;">Data object</td>
+<td style="text-align: left;">ClusterMarkers.rds</td>
+<td style="text-align: left;">RDS object containing the marker genes for each cluster</td>
+</tr>
+</tbody>
+</table>
+<h4 id="step-8-differential-gene-expression-contrasts_1">Step 8: Differential gene expression contrasts</h4>
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="../reference/" class="btn btn-neutral float-left" title="- Execution parameters"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../Dataset1/" class="btn btn-neutral float-right" title="- Standard Analysis: Midbrain dataset">Next <span class="icon icon-circle-arrow-right"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+    
+      <span><a href="../reference/" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="../Dataset1/" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script src="../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "..";</script>
+    <script src="../js/theme_extra.js"></script>
+    <script src="../js/theme.js"></script>
+      <script src="../search/main.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>

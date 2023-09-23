@@ -10,7 +10,7 @@ par_save_metadata='NO'
 ## The cluster resolution you want to use. If you did not perform integration, use par_level_cluster='RNA_snn_res.0.7',for example, if you want to use a resolution of 0.7
 par_select_cluster='RNA_snn_res.0.7'
 ## User-currated cluster labels obtained from the annotation module. Make sure to have the same number of labels as clusters at the desired clustering resolution 
-par_step8_clus_label<-c('DAneurons','DAneurons','other','other','neurons','ependymal','neurons','neurons','neurons','DAneurons','DAneurons','progenitors',)
+par_step8_clus_label= c('DAneurons','DAneurons','other','other','neurons','ependymal','neurons','neurons','neurons','DAneurons','DAneurons','progenitors',)
 
 ############################################################################
 # Sample label parameters

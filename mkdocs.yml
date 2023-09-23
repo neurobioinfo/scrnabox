@@ -1,16 +1,22 @@
-site_name: scrnabox
+site_name: scRNAbox
 site_url: https://neurobioinfo.github.io/
 nav:
     - Home: index.md
     - Installation: installation.md
+    - Overview:
+        - '- Standard Analysis Track' : SCRNA.md
+        - '- Cell Hashtag Analysis Track' : HTO.md
+        - '- Execution parameters' : reference.md 
+        - '- Outputs': outputs.md
+        
     - Tutorial:
-        - '- Standard scRNA' : SCRNA.md
-        - '- Cell hashtags' : HTO.md
+        - '- Standard Analysis: Midbrain dataset' : Dataset1.md
+        - '- Cell Hashtag Analysis: PBMC dataset' : Dataset2.md
         - '- Processed Data' : PROC.md
-        - '- Dataset1' : Dataset1.md
-        - '- Dataset2' : Dataset2.md
+        - '- Library preparation' : library_prep.md
+
     - FAQ : FAQ.md        
-    - Reference : reference.md        
+           
     - About:
         - '- License': 'LICENSE.md'
         - '- Changelog': 'changelog.md'

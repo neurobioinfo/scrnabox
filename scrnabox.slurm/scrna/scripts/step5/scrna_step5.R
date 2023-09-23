@@ -11,7 +11,7 @@ r_lib_path=args[2]
 .libPaths(r_lib_path)
 
 ## load library
-packages<-c('Seurat','ggplot2', 'dplyr', 'foreach', 'doParallel')
+packages<-c('Seurat','ggplot2', 'dplyr', 'foreach', 'doParallel','Matrix')
 lapply(packages, library, character.only = TRUE)
 
 ## load a list of existsing Seurat objects

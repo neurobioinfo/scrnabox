@@ -53,6 +53,8 @@
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../HTO/">- Cell Hashtag Analysis Track</a>
                   </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../config/">- Job configurations</a>
+                  </li>
                   <li class="toctree-l1 current"><a class="reference internal current" href="./">- Execution parameters</a>
     <ul class="current">
     </ul>
@@ -68,7 +70,7 @@
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../PROC/">- Processed Data</a>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../library_prep/">- Library preparation</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../library_prep/">- CellRanger library preparation</a>
                   </li>
               </ul>
               <ul>
@@ -112,11 +114,33 @@
               
                 <h2 id="adjustable-execution-parameters-for-the-scrnabox-pipeline">Adjustable execution parameters for the scRNAbox pipeline</h2>
 <ul>
+<li><a href="#introduction">Introduction</a></li>
 <li><a href="#standard-scrnaseq-analysis-track">Standard scRNAseq Analysis Track</a></li>
 <li><a href="#cell-hashtag-scrnaseq-analysis-track">Cell Hashtag scRNAseq Analysis Track</a></li>
 </ul>
+<hr />
+<h2 id="introduction">Introduction</h2>
+<p>Prior to running each Analytical Step of the scRNAbox pipeline, users are strongly encouraged to modify the execution parameters of the analysis using the adjustable, Step-specific parameters text files. Upon running the pipeline initiation Step (Step 0), adjustable text files for each Analytical Step will be automatically deposited in <code>~/working_directory/job_info/parameters</code>:</p>
+<pre><code>parameters
+├── step1_par.txt
+├── step2_par.txt
+├── step3_par.txt
+├── step4_par.txt
+├── step5_par.txt
+├── step6_par.txt
+├── step7_par.txt
+├── step8_contrast_celltype.txt
+├── step8_contrast_genotype.txt
+└──step8_par.txt
+</code></pre>
+<p>To ensure replicability, a summary report file documents the execution parameters for each iteration of each Analytical Step, which is located in <code>~/working_directory/job_info/summary_report.txt</code>.</p>
+<p><strong>Note:</strong> <br />
+1) Parameters that require a character input (e.g. "Control 1") must be placed in quotations (" " or ' '). <br />
+2) Parameters that require a numerical input must not be placed in quotations (e.g. 0.50). <br />
+3) Parameters that require a "yes" or "no" answer are <strong>not</strong> case-sensitive.</p>
+<hr />
 <h2 id="standard-scrnaseq-analysis-track">Standard scRNAseq Analysis Track</h2>
-<h4 id="step-1-fastq-pre-processing">Step 1: FASTQ pre-processing</h4>
+<h4 id="step-1-fastq-to-gene-expression-matrix">Step 1: FASTQ to gene expression matrix</h4>
 <table>
 <thead>
 <tr>
@@ -141,9 +165,39 @@
 <td style="text-align: left;">30</td>
 <td style="text-align: left;">For clusters whose job managers do not support memory requests, it is possible to request memory in the form of cores. This option will scale up the number of threads requested via the <strong>MRO_THREADS</strong> variable according to how much memory a stage requires when given to the ratio of memory on your nodes.</td>
 </tr>
+<tr>
+<td style="text-align: left;">par_automated_library_prep</td>
+<td style="text-align: left;">No</td>
+<td style="text-align: left;">Whether or not to perform automated library prep. Alternatively, you may set this parameter to "no" and manually prepare the libraries.</td>
+</tr>
+<tr>
+<td style="text-align: left;">par_fastq_directory</td>
+<td style="text-align: left;">NULL</td>
+<td style="text-align: left;">Path to directory containing the FASTQ files. This directory should only contain FASTQ files for the experiment.</td>
+</tr>
+<tr>
+<td style="text-align: left;">par_sample_names</td>
+<td style="text-align: left;">NULL</td>
+<td style="text-align: left;">The sample names used to name the FASTQ files according to CellRanger nomeclature</td>
+</tr>
+<tr>
+<td style="text-align: left;">par_rename_samples</td>
+<td style="text-align: left;">Yes</td>
+<td style="text-align: left;">Whether or not you want to rename your samples. These names will be used to identify cells in the Seurat objects</td>
+</tr>
+<tr>
+<td style="text-align: left;">par_new_sample_names</td>
+<td style="text-align: left;">NULL</td>
+<td style="text-align: left;">New sample names. Make sure they are defined in the same order as 'par_sample_names'</td>
+</tr>
+<tr>
+<td style="text-align: left;">par_paired_end_seq</td>
+<td style="text-align: left;">Yes</td>
+<td style="text-align: left;">Whether or not paired-end sequencing was performed</td>
+</tr>
 </tbody>
 </table>
-<h4 id="step-2-ambient-rna-removal-and-create-seurat-object">Step 2: Ambient RNA removal and create Seurat object</h4>
+<h4 id="step-2-create-seurat-object-and-remove-ambient-rna">Step 2:  Create Seurat object and remove ambient RNA</h4>
 <table>
 <thead>
 <tr>
@@ -375,7 +429,7 @@
 <tr>
 <td style="text-align: left;">par_expected_doublet_rate</td>
 <td style="text-align: left;">NULL</td>
-<td style="text-align: left;">A list of expected doublet rates for each sample, corresponding to the sample names listed in the above parameter</td>
+<td style="text-align: left;">A vector of expected doublet rates for each sample (e.g. for a 5% expected doublet rate, write 0.05). The expected doublet rates for each sample should be listed in the same order as the sample names in the above parameter. Make sure to have as many expected doublet rates listed as you have samples.</td>
 </tr>
 </tbody>
 </table>
@@ -635,10 +689,15 @@
 <td style="text-align: left;">NULL</td>
 <td style="text-align: left;">list of new sample labels corresponding to the old sample labels defined in the parameter above</td>
 </tr>
+<tr>
+<td style="text-align: left;">- - - -</td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+</tr>
 </tbody>
 </table>
 <h2 id="cell-hashtag-scrnaseq-analysis-track">Cell Hashtag scRNAseq Analysis Track</h2>
-<h4 id="step-1-fastq-pre-processing_1">Step 1: FASTQ pre-processing</h4>
+<h4 id="step-1-fastq-to-gene-expression-matrix_1">Step 1: FASTQ to gene expression matrix</h4>
 <table>
 <thead>
 <tr>
@@ -663,9 +722,64 @@
 <td style="text-align: left;">30</td>
 <td style="text-align: left;">For clusters whose job managers do not support memory requests, it is possible to request memory in the form of cores. This option will scale up the number of threads requested via the <strong>MRO_THREADS</strong> variable according to how much memory a stage requires when given to the ratio of memory on your nodes.</td>
 </tr>
+<tr>
+<td style="text-align: left;">par_automated_library_prep</td>
+<td style="text-align: left;">No</td>
+<td style="text-align: left;">Whether or not to perform automated library prep. Alternatively, you may set this parameter to "no" and manually prepare the libraries.</td>
+</tr>
+<tr>
+<td style="text-align: left;">par_fastq_directory</td>
+<td style="text-align: left;">NULL</td>
+<td style="text-align: left;">Path to directory containing the FASTQ files. This directory should only contain FASTQ files for the experiment.</td>
+</tr>
+<tr>
+<td style="text-align: left;">par_RNA_run_names</td>
+<td style="text-align: left;">NULL</td>
+<td style="text-align: left;">The names of the sequencing runs for the RNA assay</td>
+</tr>
+<tr>
+<td style="text-align: left;">par_HTO_run_names</td>
+<td style="text-align: left;">NULL</td>
+<td style="text-align: left;">The names of the sequencing runs for the HTO assay</td>
+</tr>
+<tr>
+<td style="text-align: left;">par_seq_run_names</td>
+<td style="text-align: left;">NULL</td>
+<td style="text-align: left;">The user-selected name for the sequencing run.  These names will be used to identify cells in the Seurat objects</td>
+</tr>
+<tr>
+<td style="text-align: left;">par_paired_end_seq</td>
+<td style="text-align: left;">Yes</td>
+<td style="text-align: left;">Whether or not paired-end sequencing was performed</td>
+</tr>
+<tr>
+<td style="text-align: left;">id</td>
+<td style="text-align: left;">NULL</td>
+<td style="text-align: left;">Barcode ID which will be used to track the feature counts</td>
+</tr>
+<tr>
+<td style="text-align: left;">name</td>
+<td style="text-align: left;">NULL</td>
+<td style="text-align: left;">The user-selected name for the barcode identifier</td>
+</tr>
+<tr>
+<td style="text-align: left;">read</td>
+<td style="text-align: left;">R2</td>
+<td style="text-align: left;">Which RNA sequencing read contains the barcode sequence. This value Will be either R1 or R2.</td>
+</tr>
+<tr>
+<td style="text-align: left;">pattern</td>
+<td style="text-align: left;">NULL</td>
+<td style="text-align: left;">The pattern of the barcode identifiers</td>
+</tr>
+<tr>
+<td style="text-align: left;">sequence</td>
+<td style="text-align: left;">NULL</td>
+<td style="text-align: left;">The nucleotide sequence associated with the barcode identifier</td>
+</tr>
 </tbody>
 </table>
-<h4 id="step-2-ambient-rna-removal-and-create-seurat-object_1">Step 2: Ambient RNA removal and create Seurat object</h4>
+<h4 id="step-2-create-seurat-object-and-remove-ambient-rna_1">Step 2:  Create Seurat object and remove ambient RNA</h4>
 <table>
 <thead>
 <tr>
@@ -1218,7 +1332,7 @@
             </div>
           </div><footer>
     <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
-        <a href="../HTO/" class="btn btn-neutral float-left" title="- Cell Hashtag Analysis Track"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../config/" class="btn btn-neutral float-left" title="- Job configurations"><span class="icon icon-circle-arrow-left"></span> Previous</a>
         <a href="../outputs/" class="btn btn-neutral float-right" title="- Outputs">Next <span class="icon icon-circle-arrow-right"></span></a>
     </div>
 
@@ -1242,7 +1356,7 @@
   <span class="rst-current-version" data-toggle="rst-current-version">
     
     
-      <span><a href="../HTO/" style="color: #fcfcfc">&laquo; Previous</a></span>
+      <span><a href="../config/" style="color: #fcfcfc">&laquo; Previous</a></span>
     
     
       <span><a href="../outputs/" style="color: #fcfcfc">Next &raquo;</a></span>

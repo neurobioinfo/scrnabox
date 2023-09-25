@@ -14,8 +14,8 @@ comments: false
 ## Contents
 - [Introduction](#introduction)
   - [Setup](#setup)
-  - [Step 1: FASTQ pre-processing](#step-1-fastq-pre-processing)
-  - [Step 2: Create Seurat object](#step-2-create-seurat-object)  
+  - [Step 1: FASTQ to gene expression matrix](#step-1-fastq-to-gene-expression-matrix)
+  - [Step 2: Create Seurat object and remove ambient RNA ](#step-2-create-seurat-object-and-remove-ambient-rna)   
   - [Step 3: Quality control and filtering](#step-3-quality-control-and-filtering)
   - [Step 4: Demultiplexing and doublet removal](#step-4-demultiplexing-and-doublet-removal)
   - [Step 5: Integration and linear dimensional reduction](#step-5-integration-and-linear-dimensional-reduction)
@@ -30,9 +30,11 @@ This guide provides an overview of the Analytical Steps that comprise the Cell H
 
 The Analytical Steps involved in the Cell Hashtag Analysis Track of the scRNAbox pipeline are outlined in the figure below.<br />  
 
- <img src="https://github.com/neurobioinfo/scrnabox/assets/110110777/eccddd8e-4ea2-4c1e-9427-8ba40e6418ba" width="550" height="100">
+ <p align="center">
+ <img src="https://github.com/neurobioinfo/scrnabox/assets/110110777/4356d563-4cee-42fd-ac26-502f9c020209" width="550" height="100">
+ </p>
 
-**Note:** This tutorial assumes that `scrnabox.slurm`,`cellranger`, `R`, and the required R packages have already been installed onto the HPC system. If this is not the case, please visit [Installation](installation.md) to do so before proceeding. If the required packages are installed, you can proceed to [Setup](#setup).
+**Note:** This tutorial assumes that `scrnabox.slurm`,`CellRanger`, `R`, and the required R packages have already been installed onto the HPC system. If this is not the case, please visit [Installation](installation.md) to do so before proceeding. If the required packages are installed, you can proceed to [Setup](#setup).
 
  - - - -
 
@@ -77,22 +79,29 @@ MODULECELLRANGER=mugqic/cellranger/5.0.1
 R_VERSION=4.2.1
 R_LIB_PATH=Path/to/R/library
 ```
+**Note:** For more information, please see the [Job cofigurations](config.md) sections of the scRNAbox documentation.
 
 Upon completing the setup procedures, users can run their analysis using the scRNAbox pipeline.
 
  - - - -
 
 ### scRNAbox Analytical Steps
-Specific Analytical Steps are called using the `--steps` flag. The output of each Analytical Step is deposited into its respective folder within the working directory (e.g. `~/working_directory/step1`). Prior to running each Analytical Step, users are strongly encouraged to modify the execution parameters of the analysis using the adjustable, Step-specific parameters text files. The parameters text files are located in `~/working_directory/job_info/`. To ensure replicability, a summary report file documents the execution parameters for each iteration of each Analytical Step, which is located in `~/working_directory/job_info/summary_report.txt`.
+Specific Analytical Steps are called using the `--steps` flag. There are three componets that correspond to each Analytical Step in the scRNAbox pipeline:
 
-For detailed descriptions of each Analytical Step please see our pre-print manuscript. 
+1) **Job configurations**; <br />
+2) **Execution parameters**; <br />
+3) **Outputs**.
+
+Prior to running each Analytical Step, users should modify their **job configurations** using the `scrnabox_config.ini` located in `~/working_directory/job_info/configs`.  Similarly, users should modify the **execution parameters** prior to each Analytical Step using the parameters text files located in `~/working_directory/job_info/parameters`. The **outputs** of each Analytical Step are deposited into its respective folder within the working directory (e.g. `~/working_directory/step1`).
+
+**Note:** For more information, please see the [Job cofigurations](config.md), [Execution parameters](reference.md) and [Outputs](outputs.md) sections of the scRNAbox documentation. For a detailed description of each Analytical Step please see our [pre-print manuscript](). 
 
 - - - -
 
-### Step 1: FASTQ pre-processing
-In this step, feature-barcode expression matrices are generated from FASTQ files using the CellRanger _counts_ pipeline. Prior to running CellRanger, `library.csv` files must be prepared to define the FASTQ files for each sample. ScRNAbox provides an option for automating this process or users may manually prepare the libraries. For more information, please see the the [Library preparation](library_prep.md) tutorial.<br />
+### Step 1: FASTQ to gene expression matrix
+In this step, feature-barcode expression matrices are generated from FASTQ files using the CellRanger _counts_ pipeline. Prior to running CellRanger, `library.csv` and `feature_ref.csv` files must be prepared to define the FASTQ files and sample-specific barcodes for each sequencing run. ScRNAbox provides an option for automating this process or users may manually prepare the libraries. For more information, please see the the [CellRanger library preparation](library_prep.md) tutorial.<br />
 
-The following parameters are adjustable for Step 1:
+The following parameters are adjustable for Step 1 (`~/working_directory/job_info/parameters/step1_par.txt`):
 
 |Parameter|Default|Description|
 |:--|:--|:--|
@@ -111,7 +120,9 @@ The following parameters are adjustable for Step 1:
 |pattern|NULL|The pattern of the barcode identifiers|
 |sequence|NULL|The nucleotide sequence associated with the barcode identifier|
 
-Given that CellRanger runs a user interface, it is recommended to run Step 1 in a 'screen'. To run Step 1, use the following command:
+**Note:** The execution parameters for each analystical step can be adjusted in the Step-specific text files located in `~/working_directory/job_info/parameters/`
+
+Given that CellRanger runs a user interface and is not submitted as a Job, it is recommended to run Step 1 in a **'screen'** which will allow the the task to keep running if the connection is broken. To run Step 1, use the following command:
 ```
 screen -S run_scrnabox
 bash $SCRNABOX_HOME/launch_scrnabox.sh \
@@ -119,17 +130,17 @@ bash $SCRNABOX_HOME/launch_scrnabox.sh \
 --steps 1
 ```
 
-The resulting output files are deposited into `~/working_directory/step1`
+The resulting output files are deposited into `~/working_directory/step1`. The expression matrix, features, and barcode files outputed by CellRanger are located in `~/working_directory/step1/sample/ouput_folder/outs/raw_feature_bc_matrix`.
 
 **Note:** If you do not have access to FASTQ files for your experiment, you may intiate the pipeline at which ever Analytical Step takes your data object as input. In the case where FASTQ files are not available, users do not have to create the `samples_info` folder. For more information see [Processed Data](PROC.md).  
 
 - - - -
 
 
-### Step 2: Ambient RNA removal and create Seurat object 
-In this step, the ambient RNA rate is estimated and the gene expression profiles are corrected for RNA contamination (optional) using SoupX (Young et al. 2020). Then, CellRanger- or SoupX-generated feature-barcode expression matrices are transformed into Seurat objects. Genes expressed in less than a minimum number of cells and cells expressing less than a minimum number of genes can be filtered.<br />
-<br />
-The following parameters are adjustable for Step 2:
+### Step 2: Create Seurat object and remove ambient RNA 
+In this step, the CellRanger outputs generated in Step 1 (expression matrix, features, and barcodes) are used to create a Seurat object for each sequencing run. The ambient RNA quantity is estimated and there is an option to correct gene expression profiles for RNA contamination using SoupX ([Young et al. 2020](https://academic.oup.com/gigascience/article/9/12/giaa151/6049831)). Then, CellRanger (if not removing ambient RNA) or SoupX (if removing ambient RNA) feature-barcode expression matrices are transformed into Seurat objects.
+
+The following parameters are adjustable for Step 2 (`~/working_directory/job_info/parameters/step2_par.txt`):
 
 |Parameter|Default|Description|
 |:--|:--|:--|
@@ -162,7 +173,7 @@ Low quality cells are filtered based on the user-defined thresholds for:
 
 In addition, mitochondrial- and ribosomal-encoded genes can be filtered out, as well as a custom user-defined list of genes. Finally, normalization and scaling is performed on the individual Seurat objects prior to cell-cycle scoring. <br />
 <br />
-The following parameters are adjustable for Step 3:
+The following parameters are adjustable for Step 3 (`~/working_directory/job_info/parameters/step3_par.txt`):
 
 |Parameter|Default|Description|
 |:--|:--|:--|
@@ -203,9 +214,9 @@ The resulting output files are deposited into `~/working_directory/step3`
 - - - -
 
 ### Step 4: Demultiplexing and doublet removal
-Seurat’s implementation (_MULTIseqDemux_) of the tag assignment algorithm outlined in Multi-seq is used to demultiplex pooled samples and identify doublets according to the expression matrices of the sample-specific barcodes (McGinnis et al 2019).
+Seurat’s implementation (_MULTIseqDemux_) of the tag assignment algorithm outlined in Multi-seq is used to demultiplex pooled samples and identify doublets according to the expression matrices of the sample-specific barcodes ([McGinnis et al 2019](https://pubmed.ncbi.nlm.nih.gov/31209384/)).
 
-The following parameters are adjustable for Step 4:
+The following parameters are adjustable for Step 4 (`~/working_directory/job_info/parameters/step4_par.txt`):
 
 |Parameter|Default|Description|
 |:--|:--|:--|
@@ -250,7 +261,7 @@ The resulting output files are deposited into `~/working_directory/step4`
 - - - -
 
 ### Step 5: Integration and linear dimensional reduction
-Individual Seurat objects are integrated to enable the joint analysis across sequencing runs using Seurat's integration algorithm (Stuart et al. 2019); if experiments are limited to a single sequencing run, the integration Step can be bypassed. Normalization, scaling, and linear dimensional reduction is then performed on the resulting Seurat object to inform the optimal parameters for clustering in Step 6.<br />
+Individual Seurat objects are merged and integrated to enable the joint analysis across sample runs using Seurat's integration algorithm ([Stuart et al. 2019](https://pubmed.ncbi.nlm.nih.gov/31178118/)); if experiments are limited to a single sequencing run, the integration Step can be bypassed. However, Step 5 must be run because normalization, scaling, and linear dimensional reduction is then performed on the resulting Seurat object to inform the optimal parameters for clustering in Step 6.<br />
 <br />
 The following parameters are adjustable for Step 5:
 
@@ -279,7 +290,7 @@ bash $SCRNABOX_HOME/launch_scrnabox.sh \
 The resulting output files are deposited into `~/working_directory/step5`
 - - - -
 ### Step 6: Clustering 
-Clustering is performed to define groups of cells with similar expression profiles using the graph-based clustering approach implemented in the Seurat framework (Macosko et al. 2015).<br />
+Clustering is performed to define groups of cells with similar expression profiles using the graph-based clustering approach implemented in the Seurat framework ([Butler et al. 2015](https://www.nature.com/articles/nbt.4096)).<br />
 <br />
 The following parameters are adjustable for Step 6:
 
@@ -307,9 +318,9 @@ The resulting output files are deposited into `~/working_directory/step6`
 ### Step 7: Cluster annotation
 Cell populations, or clusters, are annotated to define cell types by three distinct methods::<br />
 <br />
- **Method 1. Cluster marker gene set enrichment analysis (GSEA)**: Seurat's _FindAllMarkers_ function is used to identify differentially expressed marker genes (DEG) by the Wilcoxon rank-sum test (Macosko et al. 2015). DEGs in the positive direction     (Log2 fold-change > 0.00) are then tested for enrichment across user-defined gene set libraries that define cell types using the EnrichR tool (Chen et al. 2013).<br />
+ **Method 1. Cluster marker gene set enrichment analysis (GSEA)**: Seurat's _FindAllMarkers_ function is used to identify differentially expressed marker genes (DEG) by the Wilcoxon rank-sum test ([Macosko et al. 2015](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4481139/)). DEGs in the positive direction     (Log2 fold-change > 0.00) are then tested for enrichment across user-defined gene set libraries that define cell types using the EnrichR tool ([Chen et al. 2013](https://bmcbioinformatics.biomedcentral.com/articles/10.1186/1471-2105-14-128)).<br />
  <br />
- **Method 2. Module score**: Seurat’s implementation (_AddModuleScore_) of Tirosh et al.’s algorithm is used to comparatively quantify the expression of gene sets across clusters at the single-cell level (Tirosh et al. 2016). Users must          define their desired gene sets in the parameters file of Step 7. Gene sets should be defined in a csv file, where the column names correspond to the arbitrary name of the gene set and the corresponding rows define the genes in the gene set. For example: <br />
+ **Method 2. Module score**: Seurat’s implementation (_AddModuleScore_) of Tirosh et al.’s algorithm is used to comparatively quantify the expression of gene sets across clusters at the single-cell level ([Tirosh et al. 2016](https://pubmed.ncbi.nlm.nih.gov/27124452/). Users must          define their desired gene sets in the parameters file of Step 7. Gene sets should be defined in a csv file, where the column names correspond to the arbitrary name of the gene set and the corresponding rows define the genes in the gene set. For example: <br />
  
 
 |gene_set_1|gene_set_2|gene_set_3|
@@ -328,7 +339,7 @@ Cell populations, or clusters, are annotated to define cell types by three disti
 |IFITM2||
  
 <br /> 
- **Method 3. Reference-based annotation**: Seurat's _FindTransferAnchors_ and _TransferData_ functions are used to leverage cell-type annotations from a reference Seurat object and generate annotation predictions for the query dataset (Macosko et        al. 2015). User's must define the location of their referene Seurat object in the parameters file of Step 7.<br />
+ **Method 3. Reference-based annotation**: Seurat's _FindTransferAnchors_ and _TransferData_ functions are used to leverage cell-type annotations from a reference Seurat object and generate annotation predictions for the query dataset ([Macosko et al. 2015](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4481139/)). User's must define the location of their referene Seurat object in the parameters file of Step 7.<br />
  
  In addition to the three annotation methods, scRNAbox allows users to **visualize the expression of select features** at the cluster or cell level via a user-provided list of gene identifiers in order to further inform the cellular species that make up specific clusters. 
 

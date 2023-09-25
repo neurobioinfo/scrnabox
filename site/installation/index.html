@@ -61,6 +61,8 @@
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../HTO/">- Cell Hashtag Analysis Track</a>
                   </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../config/">- Job configurations</a>
+                  </li>
                   <li class="toctree-l1"><a class="reference internal" href="../reference/">- Execution parameters</a>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../outputs/">- Outputs</a>
@@ -74,7 +76,7 @@
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../PROC/">- Processed Data</a>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../library_prep/">- Library preparation</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../library_prep/">- CellRanger library preparation</a>
                   </li>
               </ul>
               <ul>
@@ -129,7 +131,7 @@
 unzip scrnabox.slurm.zip
 </code></pre>
 <p>For a description of the options for running <code>scrnabox.slurm</code> run the following command:</p>
-<pre><code>bash ~/scrnabox.slurm/launch_scrnabox.sh -h 
+<pre><code>bash /pathway/to/scrnabox.slurm/launch_scrnabox.sh -h 
 </code></pre>
 <p>If the <code>scrnabox.slurm</code> has been installed properly, the above command should return the folllowing:</p>
 <pre><code>        mandatory arguments:
@@ -176,7 +178,7 @@ cd R_library
 R 
 
 # set common R library path
-R_LIB_PATH=&quot;~/R_library&quot;
+R_LIB_PATH=&quot;/pathway/to/R_library&quot;
 .libPaths(R_LIB_PATH)
 
 # load packages

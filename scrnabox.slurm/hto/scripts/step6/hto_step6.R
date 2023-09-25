@@ -52,6 +52,7 @@ Seurat::DefaultAssay(seu_int) <-  par_whatAssay
 ## cluster at each user-defined clustering resolution
 seu_int <- FindNeighbors(seu_int,  dims = 1:par_FindNeighbors_dims, k.param = par_FindNeighbors_k.param, prune.SNN = par_FindNeighbors_prune.SNN)
 seu_int <- Seurat::FindClusters(seu_int, resolution = par_FindClusters_resolution)
+seu_int <- RunUMAP(seu_int, dims = 1:par_RunUMAP_dims)
 
 ## print clustree plot 
 clustree(seu_int@meta.data, prefix = paste0(par_whatAssay,"_snn_res."))

@@ -1,17 +1,49 @@
 ## Adjustable execution parameters for the scRNAbox pipeline
 
+- [Introduction](#introduction)
 - [Standard scRNAseq Analysis Track](#standard-scrnaseq-analysis-track)
 - [Cell Hashtag scRNAseq Analysis Track](#cell-hashtag-scrnaseq-analysis-track)
+- - - -
+
+## Introduction
+Prior to running each Analytical Step of the scRNAbox pipeline, users are strongly encouraged to modify the execution parameters of the analysis using the adjustable, Step-specific parameters text files. Upon running the pipeline initiation Step (Step 0), adjustable text files for each Analytical Step will be automatically deposited in ` ~/working_directory/job_info/parameters`:
+```
+parameters
+├── step1_par.txt
+├── step2_par.txt
+├── step3_par.txt
+├── step4_par.txt
+├── step5_par.txt
+├── step6_par.txt
+├── step7_par.txt
+├── step8_contrast_celltype.txt
+├── step8_contrast_genotype.txt
+└──step8_par.txt
+```
+To ensure replicability, a summary report file documents the execution parameters for each iteration of each Analytical Step, which is located in `~/working_directory/job_info/summary_report.txt`.
+
+**Note:** <br />
+1) Parameters that require a character input (e.g. "Control 1") must be placed in quotations (" " or ' '). <br />
+2) Parameters that require a numerical input must not be placed in quotations (e.g. 0.50). <br />
+3) Parameters that require a "yes" or "no" answer are **not** case-sensitive.
+
+- - - -
 
 ## Standard scRNAseq Analysis Track
-#### Step 1: FASTQ pre-processing
+#### Step 1: FASTQ to gene expression matrix
 |Parameter|Default|Description|
 |:--|:--|:--|
 |REF_DIR_GRCH|NULL|Path to reference genome for FASTQ alignment. 10X Genomics reference genomes are available for download. For more information see their [documentation](https://support.10xgenomics.com/single-cell-gene-expression/software/pipelines/latest/using/tutorial_ct).|
 |R1LENGTH|NULL|Minimum number of bases to retain for R1 sequence of gene expression|
 |MEMPERCORE|30|For clusters whose job managers do not support memory requests, it is possible to request memory in the form of cores. This option will scale up the number of threads requested via the __MRO_THREADS__ variable according to how much memory a stage requires when given to the ratio of memory on your nodes.|
+|par_automated_library_prep|No| Whether or not to perform automated library prep. Alternatively, you may set this parameter to "no" and manually prepare the libraries.|
+|par_fastq_directory|NULL|Path to directory containing the FASTQ files. This directory should only contain FASTQ files for the experiment.|
+|par_sample_names|NULL|The sample names used to name the FASTQ files according to CellRanger nomeclature|
+|par_rename_samples|Yes| Whether or not you want to rename your samples. These names will be used to identify cells in the Seurat objects|
+|par_new_sample_names|NULL| New sample names. Make sure they are defined in the same order as 'par_sample_names'|
+|par_paired_end_seq|Yes| Whether or not paired-end sequencing was performed|
 
-#### Step 2: Ambient RNA removal and create Seurat object
+#### Step 2:  Create Seurat object and remove ambient RNA
 |Parameter|Default|Description|
 |:--|:--|:--|
 |par_save_RNA| No| Whether or not to export an RNA expression matrix|
@@ -61,7 +93,7 @@
 |par_pN|0.25| The number of artificial doublets to generate. DoubletFinderr is largely invariant to this parameter. We suggest keeping 0.25|
 |par_sct|FALSE|Logical representing whether SCTransform was used during original Seurat object pre-processing|
 |par_sample_names|NULL| A list of sample names for each sample in the experiement, corresponding to the expected doublet rates listed in the parameter below. Sample names should be the same as those used to produce the `samples_info` folder during the setup procedures.|
-|par_expected_doublet_rate|NULL| A list of expected doublet rates for each sample, corresponding to the sample names listed in the above parameter|
+|par_expected_doublet_rate|NULL| A vector of expected doublet rates for each sample (e.g. for a 5% expected doublet rate, write 0.05). The expected doublet rates for each sample should be listed in the same order as the sample names in the above parameter. Make sure to have as many expected doublet rates listed as you have samples.
 
 #### Step 5: Integration and linear dimensional reduction
 |Parameter|Default|Description|
@@ -120,16 +152,28 @@
 |par_new_genotype|yes|Whether or not you want to add new sample labels to simplify the contrasts. For example, you may wish to set both control1 and control2 as control.|
 |par_old_sample_label|NULL|list of old sample labels (i.e. those used to create the samples_info folder in the setup procedures)|
 |par_new_sample_label|NULL|list of new sample labels corresponding to the old sample labels defined in the parameter above|
+- - - -
 
 ## Cell Hashtag scRNAseq Analysis Track
-#### Step 1: FASTQ pre-processing
+#### Step 1: FASTQ to gene expression matrix
 |Parameter|Default|Description|
 |:--|:--|:--|
 |REF_DIR_GRCH|NULL|Path to reference genome for FASTQ alignment. 10X Genomics reference genomes are available for download. For more information see their [documentation](https://support.10xgenomics.com/single-cell-gene-expression/software/pipelines/latest/using/tutorial_ct).|
 |R1LENGTH|NULL|Minimum number of bases to retain for R1 sequence of gene expression|
 |MEMPERCORE|30|For clusters whose job managers do not support memory requests, it is possible to request memory in the form of cores. This option will scale up the number of threads requested via the __MRO_THREADS__ variable according to how much memory a stage requires when given to the ratio of memory on your nodes.|
+|par_automated_library_prep|No|Whether or not to perform automated library prep. Alternatively, you may set this parameter to "no" and manually prepare the libraries.|
+|par_fastq_directory|NULL|Path to directory containing the FASTQ files. This directory should only contain FASTQ files for the experiment.|
+|par_RNA_run_names|NULL|The names of the sequencing runs for the RNA assay|
+|par_HTO_run_names|NULL|The names of the sequencing runs for the HTO assay|
+|par_seq_run_names|NULL|The user-selected name for the sequencing run.  These names will be used to identify cells in the Seurat objects|
+|par_paired_end_seq|Yes|Whether or not paired-end sequencing was performed|
+|id|NULL|Barcode ID which will be used to track the feature counts|
+|name|NULL|The user-selected name for the barcode identifier|
+|read|R2|Which RNA sequencing read contains the barcode sequence. This value Will be either R1 or R2.|
+|pattern|NULL|The pattern of the barcode identifiers|
+|sequence|NULL|The nucleotide sequence associated with the barcode identifier|
 
-#### Step 2: Ambient RNA removal and create Seurat object
+#### Step 2:  Create Seurat object and remove ambient RNA
 |Parameter|Default|Description|
 |:--|:--|:--|
 |Save_RNA| No| Whether or not to export an RNA expression matrix|

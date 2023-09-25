@@ -11,7 +11,7 @@ r_lib_path=args[2]
 
 ## load library
 .libPaths(r_lib_path)
-packages<-c('Seurat','ggplot2', 'dplyr','foreach', 'doParallel')
+packages<-c('Seurat','ggplot2', 'dplyr','foreach', 'doParallel', 'Matrix')
 lapply(packages, library, character.only = TRUE)
 
 ## load list of exisiting Seurat objects
@@ -101,8 +101,11 @@ seu_list<-foreach (i_s=1:length(sample_name)) %do% {
     seu_int<-readRDS(paste(output_dir,'/step4/objs4/',sample_name[i_s], sep=""))
     DefaultAssay(seu_int) <- par_DefaultAssay
     if (tolower(par_normalization_and_scaling)=='yes'){
+                ## normalize
                 seu_int <- Seurat::NormalizeData(seu_int,normalization.method = par_normalization.method,scale.factor =par_scale.factor)
+                ## find variable features
                 seu_int<- FindVariableFeatures(seu_int, selection.method = par_selection.method, nfeatures = par_nfeatures)
+                
     }
 }  
 

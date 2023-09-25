@@ -5,14 +5,14 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><link rel="canonical" href="https://neurobioinfo.github.io/library_prep/" />
       <link rel="shortcut icon" href="../img/favicon.ico" />
-    <title>- Library preparation - scRNAbox</title>
+    <title>- CellRanger library preparation - scRNAbox</title>
     <link rel="stylesheet" href="../css/theme.css" />
     <link rel="stylesheet" href="../css/theme_extra.css" />
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
     
       <script>
         // Current page data
-        var mkdocs_page_name = "- Library preparation";
+        var mkdocs_page_name = "- CellRanger library preparation";
         var mkdocs_page_input_path = "library_prep.md";
         var mkdocs_page_url = "/library_prep/";
       </script>
@@ -53,6 +53,8 @@
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../HTO/">- Cell Hashtag Analysis Track</a>
                   </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../config/">- Job configurations</a>
+                  </li>
                   <li class="toctree-l1"><a class="reference internal" href="../reference/">- Execution parameters</a>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../outputs/">- Outputs</a>
@@ -66,7 +68,7 @@
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../PROC/">- Processed Data</a>
                   </li>
-                  <li class="toctree-l1 current"><a class="reference internal current" href="./">- Library preparation</a>
+                  <li class="toctree-l1 current"><a class="reference internal current" href="./">- CellRanger library preparation</a>
     <ul class="current">
     </ul>
                   </li>
@@ -101,7 +103,7 @@
   <ul class="wy-breadcrumbs">
     <li><a href=".." class="icon icon-home" aria-label="Docs"></a> &raquo;</li>
           <li>Tutorial &raquo;</li>
-      <li class="breadcrumb-item active">- Library preparation</li>
+      <li class="breadcrumb-item active">- CellRanger library preparation</li>
     <li class="wy-breadcrumbs-aside">
     </li>
   </ul>
@@ -110,40 +112,75 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
             <div class="section" itemprop="articleBody">
               
-                <p>Finally, in preparation for Step 1 (FASTQ pre-processing with CellRanger) users must create <code>library.csv</code> and <code>feature_ref.csv</code> files for each of their sequencing runs.<br /></p>
+                <h2 id="cellranger-library-preparation">CellRanger Library Preparation</h2>
+<h2 id="contents">Contents</h2>
+<ul>
+<li><a href="#introduction">Introduction</a></li>
+<li><a href="#standard-analysis-track">Standard Analysis Track</a><ul>
+<li><a href="#librarycsv">library.csv</a></li>
+</ul>
+</li>
+<li><a href="#cell-hashtag-analysis-track">Cell Hashtag Analysis Track</a><ul>
+<li><a href="#librarycsv">library.csv</a></li>
+<li><a href="#feature-ref-csv">feature_ref.csv</a></li>
+</ul>
+</li>
+</ul>
+<hr />
+<h2 id="introduction">Introduction</h2>
+<p>Step 1 (FASTQ to gene expression matrix) of the scRNAbox pipeline leverages the CellRanger <em>counts</em> pipeline to generate gene expression matrices from FASTQ files. In order to run the CellRanger <em>counts</em> pipeline, libraries must be generated to define the information of the FASTQ files. For the <a href="">Standard Analysis Track</a>, a <code>library.csv</code> file must be generated for each sample. For the <a href="">Cell Hashtag Analysis Track</a>, a <code>library.csv</code> and <code>feature_ref.csv</code> file must be generated for each sequencing run. Athough scRNAbox provides an option to automate the library preparation process, it is important that users understand the information that is required for these files. </p>
+<p>In this tutorial we demonstrate how users can manually prepare the <code>library.csv</code> and <code>feature_ref.csv</code> files. The information presented in this tutorial can also be used to inform the parameters that must be defined by the user for automated library preparation.</p>
+<hr />
+<h2 id="standard-analysis-track">Standard Analysis Track</h2>
 <h4 id="librarycsv">library.csv</h4>
 <p>The <code>library.csv</code> file defines the necessary information of the FASTQ files for the experiment, including the gene expression and antibody assays. The structure of the <code>library.csv</code> file should be: <br /></p>
 <pre><code>fastqs,sample,library_type
-~/fastqs/,RUN1GEX,Gene Expression
-~/fastqs/,RUN1HTO,Antibody Capture
+path/to/fastqs/directory/,SampleName,Gene Expression
 </code></pre>
 <ul>
 <li>The <code>fastqs</code> column defines the path to the directory that contains the FASTQ files for the experiment. <br /> </li>
-<li>The <code>sample</code> column defines the sample name of the corresponding FASTQ file. Please note that FASTQ files must be named according to standard CellRanger nomenclature. For example, "CTRL1_S1_L001_R1_001.fastq". For more information please visit CellRanger's <a href="https://support.10xgenomics.com/single-cell-gene-expression/software/pipelines/latest/using/fastq-input">documentation</a>. <br /></li>
-<li>The <code>library_type</code> column defines the assay type. For the Cell Hashtag Analysis track, each sequencing run should have a "Gene Expression" and "Antibody Capture" assay. For more information, please visit CellRanger's <a href="" title="https://support.10xgenomics.com/single-cell-gene-expression/software/pipelines/latest/using/feature-bc-analysis">documentation</a> <br /></li>
+<li>The <code>sample</code> column defines the sample name of the corresponding FASTQ file. Please note that FASTQ files must be named according to standard CellRanger nomenclature (e.g. CTRL1_S1_L001_R1_001.fastq). For more information, please visit CellRanger's <a href="https://support.10xgenomics.com/single-cell-gene-expression/software/pipelines/latest/using/fastq-input">documentation</a>. <br /></li>
+<li>The <code>library_type</code> column defines the assay type. For the Standard Analysis Track, the <code>library_type</code> will be "Gene Expression". <br /></li>
 </ul>
-<p>For example, if the experiment comprises three sequencing runs the following steps should be taken: <br /></p>
+<h4 id="example-manual-library-preparation">Example: manual library preparation</h4>
+<p>For the Standard Analysis Track, if the experiment comprises four samples (two case and two controls), the following steps should be taken for manual library preparation: <br /></p>
 <p>1) Navigate to the working directory and create a <code>samples_info</code> folder: <br /></p>
 <pre><code>cd ~/working_directory
 mkdir samples_info
 </code></pre>
-<p>2) Navigate to the <code>samples_info</code> folder and create a folder for each sequencing run: <br /></p>
+<p>2) Navigate to the <code>samples_info</code> folder and create a folder for each sample run: <br /></p>
 <pre><code>cd samples_info
-mkdir run1
-mkdir run2
-mkdir run3
+mkdir case1
+mkdir case2
+mkdir control1
+mkdir control2
 </code></pre>
-<p>3) Navigate to the folder for each sequencing and create the <code>library.csv</code> file. <br /></p>
-<p>After performing steps 1-3 above, the structure of the samples_info folder for an experiment with three sequencing runs should be:</p>
-<pre><code>├── working_directory
-    ├── samples_info
-        ├── run1
-            ├── library.csv
-        ├── run2
-            ├── library.csv
-        ├── run3
-            ├── library.csv
+<p>3) Navigate to the folder for each sample and create the <code>library.csv</code> file. <br /></p>
+<p>After performing steps 1-3 above, the structure of the samples_info folder (<code>~working_directory/samples_info</code>) for an experiment with four samples should be:</p>
+<pre><code>working_directory
+└── samples_info
+    ├── case1
+    │   └──library.csv
+    ├── case2
+    │   └── library.csv
+    ├── control1
+    │   └── library.csv
+    └── control2
+        └── library.csv
 </code></pre>
+<hr />
+<h2 id="cell-hashtag-analysis-track">Cell Hashtag Analysis Track</h2>
+<h4 id="librarycsv_1">library.csv</h4>
+<p>The <code>library.csv</code> file defines the necessary information of the FASTQ files for the experiment, including the gene expression and antibody assays. The structure of the <code>library.csv</code> file should be: <br /></p>
+<pre><code>fastqs,sample,library_type
+path/to/fastqs/directory/,SampleNameGEX,Gene Expression
+path/to/fastqs/directory/,SampleNameHTO,Antibody Capture
+</code></pre>
+<ul>
+<li>The <code>fastqs</code> column defines the path to the directory that contains the FASTQ files for the experiment. <br /> </li>
+<li>The <code>sample</code> column defines the sample name of the corresponding FASTQ file. Please note that FASTQ files must be named according to standard CellRanger nomenclature (e.g. CTRL1_S1_L001_R1_001.fastq). For more information please visit CellRanger's <a href="https://support.10xgenomics.com/single-cell-gene-expression/software/pipelines/latest/using/fastq-input">documentation</a>. <br /></li>
+<li>The <code>library_type</code> column defines the assay type. For the Cell Hashtag Analysis track, each sequencing run should have a "Gene Expression" and "Antibody Capture" assay. For more information, please visit CellRanger's <a href="" title="https://support.10xgenomics.com/single-cell-gene-expression/software/pipelines/latest/using/feature-bc-analysis">documentation</a> <br /></li>
+</ul>
 <h4 id="feature_refcsv">feature_ref.csv</h4>
 <p>The <code>feature_ref.csv</code> file defines the necessary information for processing the sample-specific barcodes that will eventually be used to demultiplex the pooled samples. For example, if there are four samples pooled together with four unique barcode identifiers, the structure of the <code>feature_ref.csv</code> file should be:</p>
 <pre><code>id,name,read,pattern,sequence,feature_type
@@ -161,18 +198,36 @@ Hash4,B0254_TotalSeqB,R2,5PNNNNNNNNNN(BC),AGTAAGTTCAGCGTA,Antibody Capture
 <li>The <code>feature_type</code> column defines the type of feature used for sample identification. Please ensure that the feature_type in the <code>feature_ref.csv</code> file matches a library_type in the <code>library.csv</code> file.  <br /> </li>
 </ul>
 <p>For more information regarding the preparation of the <code>feature_ref.csv</code>, please see CellRanger's <a href="https://support.10xgenomics.com/single-cell-gene-expression/software/pipelines/latest/using/feature-bc-analysis">documentation</a>.</p>
-<p><code>feature_ref.csv</code> files can be prepared the same way as the <code>library.csv</code> files. After producing the <code>feature_ref.csv</code> for each sequncing run, the structure of the samples_info folder for an experiment with three sequencing runs should be:</p>
-<pre><code>├── working_directory
-    ├── samples_info
-        ├── run1
-            ├── library.csv
-            ├── feature_ref.csv
-        ├── run2
-            ├── library.csv
-            ├── feature_ref.csv
-        ├── run3
-            ├── library.csv
-            ├── feature_ref.csv
+<h4 id="example-manual-library-preparation_1">Example: manual library preparation</h4>
+<p>For the Cell Hashtag Analysis Track, if the experiment comprises four sequencing, the following steps should be taken for manual library preparation: <br /></p>
+<p>1) Navigate to the working directory and create a <code>samples_info</code> folder: <br /></p>
+<pre><code>cd ~/working_directory
+mkdir samples_info
+</code></pre>
+<p>2) Navigate to the <code>samples_info</code> folder and create a folder for each sequencing run: <br /></p>
+<pre><code>cd samples_info
+mkdir run1
+mkdir run2
+mkdir run3
+mkdir run4
+</code></pre>
+<p>3) Navigate to the folder for each sequencing and create the <code>library.csv</code> file. <br /></p>
+<p>4) Navigate to the folder for each sequencing and create the <code>feature_ref.csv</code> file. <br /></p>
+<p>After performing steps 1-4 above, the structure of the samples_info folder (<code>~working_directory/samples_info</code>) for an experiment with four sequencing runs should be:</p>
+<pre><code>working_directory
+├── samples_info
+    ├── run1
+    │    ├── library.csv
+    │    └── feature_ref.csv
+    ├── run2
+    │    ├── library.csv
+    │    └── feature_ref.csv
+    ├── run3
+    │    ├── library.csv
+    │    └── feature_ref.csv   
+    └── run4
+        ├── library.csv
+        └── feature_ref.csv   
 </code></pre>
               
             </div>

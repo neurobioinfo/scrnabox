@@ -17,7 +17,7 @@ unzip scrnabox.slurm.zip
 
 For a description of the options for running `scrnabox.slurm` run the following command:
 ```
-bash ~/scrnabox.slurm/launch_scrnabox.sh -h 
+bash /pathway/to/scrnabox.slurm/launch_scrnabox.sh -h 
 ```
 
 If the `scrnabox.slurm` has been installed properly, the above command should return the folllowing:
@@ -74,7 +74,7 @@ cd R_library
 R 
 
 # set common R library path
-R_LIB_PATH="~/R_library"
+R_LIB_PATH="/pathway/to/R_library"
 .libPaths(R_LIB_PATH)
 
 # load packages

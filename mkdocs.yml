@@ -6,6 +6,7 @@ nav:
     - Overview:
         - '- Standard Analysis Track' : SCRNA.md
         - '- Cell Hashtag Analysis Track' : HTO.md
+        - '- Job configurations' : config.md
         - '- Execution parameters' : reference.md 
         - '- Outputs': outputs.md
         
@@ -13,7 +14,7 @@ nav:
         - '- Standard Analysis: Midbrain dataset' : Dataset1.md
         - '- Cell Hashtag Analysis: PBMC dataset' : Dataset2.md
         - '- Processed Data' : PROC.md
-        - '- Library preparation' : library_prep.md
+        - '- CellRanger library preparation' : library_prep.md
 
     - FAQ : FAQ.md        
            

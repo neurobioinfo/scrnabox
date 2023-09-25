@@ -53,6 +53,8 @@
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../HTO/">- Cell Hashtag Analysis Track</a>
                   </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../config/">- Job configurations</a>
+                  </li>
                   <li class="toctree-l1"><a class="reference internal" href="../reference/">- Execution parameters</a>
                   </li>
                   <li class="toctree-l1 current"><a class="reference internal current" href="./">- Outputs</a>
@@ -68,7 +70,7 @@
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../PROC/">- Processed Data</a>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../library_prep/">- Library preparation</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../library_prep/">- CellRanger library preparation</a>
                   </li>
               </ul>
               <ul>
@@ -112,13 +114,29 @@
               
                 <h2 id="outputs-of-each-analytical-step-in-the-scrnabox-pipeline">Outputs of each Analytical Step in the scRNAbox pipeline</h2>
 <ul>
+<li><a href="#introduction">Introduction</a></li>
 <li><a href="#standard-scrnaseq-analysis-track">Standard scRNAseq Analysis Track</a></li>
 <li><a href="#cell-hashtag-scrnaseq-analysis-track">Cell Hashtag scRNAseq Analysis Track</a></li>
 </ul>
+<hr />
+<h2 id="introduction">Introduction</h2>
+<p>Each Analytical Step of the scRNAbox pipeline produces outputs corresponding to the analysis. The outputs of each Analytical Step are deposited into a Step-specific folder which contains three sub folders:</p>
+<pre><code>step1
+├── figs1
+├── info1
+└── objs1
+</code></pre>
+<ul>
+<li>The <code>figs/</code> folder contains figures;</li>
+<li>The <code>info/</code> folder contains text files and tables;</li>
+<li>The <code>objs/</code> folder contains intermediate Seurat RDS objects.</li>
+</ul>
+<p><strong>Note:</strong> If users re-run an Analytical Step the outputs from the previous run will automatically be overwritten. If you do not want to lose the outputs from a previous run, it is important to copy the materials to a separate directory.  </p>
+<hr />
 <h2 id="standard-scrnaseq-analysis-track">Standard scRNAseq Analysis Track</h2>
-<h4 id="step-1-fastq-pre-processing">Step 1: FASTQ pre-processing</h4>
+<h4 id="step-1-fastq-to-gene-expression-matrix">Step 1: FASTQ to gene expression matrix</h4>
 <p>All of the outputs of the CellRanger <em>counts</em> pipeline are produced. For more information on the outputs, please visit the CellRanger <a href="https://support.10xgenomics.com/single-cell-gene-expression/software/pipelines/latest/using/count">documentation</a>.</p>
-<h4 id="step-2-ambient-rna-removal-and-create-seurat-object">Step 2: Ambient RNA removal and create Seurat object</h4>
+<h4 id="step-2-create-seurat-object-and-remove-ambient-rna">Step 2: Create Seurat object and remove ambient RNA</h4>
 <table>
 <thead>
 <tr>
@@ -521,10 +539,11 @@
 </tbody>
 </table>
 <h4 id="step-8-differential-gene-expression-contrasts">Step 8: Differential gene expression contrasts</h4>
+<hr />
 <h2 id="cell-hashtag-scrnaseq-analysis-track">Cell Hashtag scRNAseq Analysis Track</h2>
-<h4 id="step-1-fastq-pre-processing_1">Step 1: FASTQ pre-processing</h4>
+<h4 id="step-1-fastq-to-gene-expression-matrix_1">Step 1: FASTQ to gene expression matrix</h4>
 <p>All of the outputs of the CellRanger <em>counts</em> pipeline are produced. For more information on the outputs, please visit the CellRanger <a href="https://support.10xgenomics.com/single-cell-gene-expression/software/pipelines/latest/using/count">documentation</a>.</p>
-<h4 id="step-2-ambient-rna-removal-and-create-seurat-object_1">Step 2: Ambient RNA removal and create Seurat object</h4>
+<h4 id="step-2-create-seurat-object-and-remove-ambient-rna_1">Step 2: Create Seurat object and remove ambient RNA</h4>
 <table>
 <thead>
 <tr>

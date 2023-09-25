@@ -20,8 +20,8 @@ comments: false
     - [R library preparation and R package installation](#r-library-preparation-and-r-package-installation)
 - [scRNAbox: Standard Analysis Track](#scrnabox-standard-analysis-track)
     - [Step 0: Pipeline initiation](#step-0-pipeline-initiation)
-    - [Step 1: FASTQ pre-processing](#step-1-fastq-pre-processing)  
-    - [Step 2: Ambient RNA removal and create Seurat object](#step-2-ambient-rna-removal-and-create-seurat-object)
+    - [Step 1: FASTQ to gene expression matrix](#step-1-fastq-to-gene-expression-matrix)  
+    - [Step 2: Create Seurat object and remove ambient RNA ](#step-2-create-seurat-object-and-remove-ambient-rna)  
     - [Step 3: Quality control and filtering](#step-3-quality-control-and-filtering)
     - [Step 4: Doublet detection](#step-4-doublet-detection) 
     - [Step 5: Integration and linear dimensional reduction](#step-5-integration-and-linear-dimensional-reduction)
@@ -127,6 +127,7 @@ fasterq-dump SRR12621872
 ```
 If the FASTQ files for all 11 samples have been downloaded properly, the `data_download` folder should contain the following:
 ```
+data_download
 ├── SRR12621862
 │   └── SRR12621862.sra
 ├── SRR12621862_1.fastq
@@ -341,8 +342,22 @@ library(fossil)
 library(openxlsx)
 library(stringr)
 library(ggpubr)
+library(SoupX)
+library(MatrixGenerics)
+library(BiocGenerics)
+library(S4Vectors)
+library(IRanges)
+library(GenomeInfoDb)
+library(GenomicRanges)
+library(Biobase)
+library(SummarizedExperiment)
+library(SingleCellExperiment)
+library(DropletUtils)  
+library(stringr)
 devtools::install_github(“neurobioinfo/scrnabox/scrnaboxR”)
 ```
+**Saeid, is there a way to automatically load these packages when scrnaboxR is installed?**
+
  - - - -
 
 ## scRNAbox: Standard Analysis Track
@@ -371,10 +386,10 @@ R_LIB_PATH=~/R
 ```
  - - - -
 
-### Step 1: FASTQ pre-processing
-In this Step, we will run the CellRanger _counts_ pipeline to generate feature-barcode expression matrices from the FASTQ files. While it is possible to manually prepare the `library.csv` files for each of the 11 samples in the experiment prior to running Step 1, for this analysis we are going to opt for automated library preparation. For more information regarding the manual prepartion of `library.csv`, files please see the Standard scRNAseq [documentation](SCRNA.md) under the **Setup** section. <br /> 
+### Step 1: FASTQ to gene expression matrix
+In this Step, we will run the CellRanger _counts_ pipeline to generate feature-barcode expression matrices from the FASTQ files. While it is possible to manually prepare the `library.csv` files for each of the 11 samples in the experiment prior to running Step 1, for this analysis we are going to opt for automated library preparation. For more information regarding the manual prepartion of `library.csv` files, please see the the [CellRanger library preparation](library_prep.md) tutorial. <br /> 
 <br /> 
-For our analysis of the midbrain dataset we set the following execution parameters for Step 1:
+For our analysis of the midbrain dataset we set the following execution parameters for Step 1 (`~/pipeline/job_info/parameters/step1_par.txt`):
 
 |Parameter|Value|
 |:--|:--|
@@ -388,9 +403,9 @@ For our analysis of the midbrain dataset we set the following execution paramete
 |R1LENGTH|NULL|
 |MEMPERCORE|30|
 
-**Note:** The parameters file for each Analytical Step is located in `~/pipeline/job_info/parameters`. For a comprehensive description of the execution parameters for each Analytical Step see the [Reference](reference.md) section of the scRNAbox documentation. 
+**Note:** The parameters file for each Analytical Step is located in `~/pipeline/job_info/parameters`. For a comprehensive description of the execution parameters for each Analytical Step see the [Execution parameters](reference.md) section of the scRNAbox documentation. 
 
-We can run Step 1 using the following code. Because CellRanger runs a user interface, it is advisable to run Step 1 in a screen.
+Given that CellRanger runs a user interface and is not submitted as a Job, it is recommended to run Step 1 in a **'screen'** which will allow the the task to keep running if the connection is broken. To run Step 1, use the following command:
 ```
 export SCRNABOX_HOME=~/scrnabox/scrnabox.slurm
 export SCRNABOX_PWD=~/pipeline
@@ -400,14 +415,14 @@ bash $SCRNABOX_HOME/launch_scrnabox.sh \
 -d ${SCRNABOX_PWD} \
 --steps 1
 ```
-The outputs of the CellRanger _counts_ pipeline, including the raw and filtered feature-barcode expression matrices, are deposited into `~/pipeline/step1`.
+The outputs of the CellRanger _counts_ pipeline are deposited into `~/pipeline/step1`. The expression matrix, features, and barcode files outputed by CellRanger are located in `~/pipeline/step1/run/ouput_folder/outs/raw_feature_bc_matrix`.
 
  - - - -
 
-### Step 2: Ambient RNA removal and create Seurat object
+### Step 2: Create Seurat object and remove ambient RNA 
 In this Step, we are going to use the CellRanger-generated feature-barcode matrices to produce unique Seurat objects for each of the 11 samples. Ambient RNA detection and removal is optional for this Step; however, because [Smajic et al.](https://academic.oup.com/brain/article/145/3/964/6469020) did not perform this analytical procedure we will skip it. We will retain genes that were detected in at least three cells and cells that expressed at least 1000 genes. <br /> 
 <br /> 
-For our analysis of the midbrain dataset we set the following execution parameters for Step 2:
+For our analysis of the midbrain dataset we set the following execution parameters for Step 2 (`~/pipeline/job_info/parameters/step2_par.txt`):
 
 |Parameter|Value|
 |:--|:--|
@@ -445,7 +460,7 @@ step2
     └── Parkinson1.rds
 ```
 
-**Note:** For a comprehensive description of the outputs for each Analytical Step, please see the [Outputs]() section of the scRNAbox documentation.
+**Note:** For a comprehensive description of the outputs for each Analytical Step, please see the [Outputs](outputs.md) section of the scRNAbox documentation.
 
 <p align="center">
 <img src="https://github.com/neurobioinfo/scrnabox/assets/110110777/2127d7ea-f7be-43dd-9ae0-2421376e2727" width="350" height="100"> <br /> 
@@ -458,7 +473,7 @@ step2
 ### Step 3: Quality control and filtering
 In this Step, we are going to perform quality control (QC) procedures and filter out low quality cells. We are going to filter out cells with <1500 unique molecules, >10% mitochondrial-encoded genes, and >10% ribosomal genes. In addition, we are going to remove mitochondrial-encoded and ribosomal genes and will perform cell cycle scoring. Prior to performing cell cycle scoring, we must normalize and scale the counts matrix. 
 
-For our analysis of the midbrain dataset we set the following execution parameters for Step 3:
+For our analysis of the midbrain dataset we set the following execution parameters for Step 3 (`~/pipeline/job_info/parameters/step2_par.txt`):
 
 |Parameter|Value|
 |:--|:--|
@@ -550,7 +565,7 @@ In this Step, we are going to identify doublets (erroneous libraries produced by
 
 The expected doublet rates are approximations obtained from the 10X Genomics Next GEM Single Cell 3' v3.1 [documentation](https://kb.10xgenomics.com/hc/en-us/articles/360059124751-Why-is-the-multiplet-rate-different-for-the-Next-GEM-Single-Cell-3-LT-v3-1-assay-compared-to-other-single-cell-applications-), which was used by [Smajic et al.](https://academic.oup.com/brain/article/145/3/964/6469020) for library preparation. 
 
-For our analysis of the midbrain dataset we set the following execution parameters for Step 4:
+For our analysis of the midbrain dataset we set the following execution parameters for Step 4 (`~/pipeline/job_info/parameters/step4_par.txt`):
 
 |Parameter|Value|
 |:--|:--|
@@ -646,7 +661,7 @@ step5
 </p>
 
 
-**Figure 4. Figures produced by Step 5 of the Standard Analysis Track.** **A)** Principal component analysis (PCA) visualizing the first two principal components (PC) of the integrated assay. **B)** Uniform Manifold Approximation and Projections (UMAP) plot of the integrated assay, taking the first ten PCs as input. **C)** Elbow plot to visualize the percentage of variance explained by each PC. **D)** Jackstraw plot to visualize the distribution of p-values for each PC.
+**Figure 4. Figures produced by Step 5 of the Standard Analysis Track.** **A)** Principal component analysis (PCA) visualizing the first two principal components (PC) of the integrated assay. **B)** Uniform Manifold Approximation and Projections (UMAP) plot of the integrated assay, taking the first ten PCs as input. **C)** Jackstraw plot to visualize the distribution of p-values for each PC. **D)** Elbow plot to visualize the percentage of variance explained by each PC.
 
  - - - -
 
@@ -715,7 +730,7 @@ step6
 </p>
 
 
-**Figure 5. Figures produced by Step 6 of the Standard Analysis Track.** **A)** ClustTree plot to visualize inter-cluster dynamics at varying cluster resolutions. **B)** Mean (top panel) and standard deviation (sd; middle panel) of the Adjusted RNA Index (ARI) between clustering pairs at each user-defined clustering resolution. The bottom panel shows the number of clusters at each user-defined clustering resolution. **C)** Uniform Manifold Approximation and Projections (UMAP) plot at a clustering resolution of 0.9. 
+**Figure 5. Figures produced by Step 6 of the Standard Analysis Track.** **A)** ClustTree plot to visualize inter-cluster dynamics at varying cluster resolutions. **B)** Mean (top panel) and standard deviation (sd; middle panel) of the Adjusted RNA Index (ARI) between clustering pairs at each user-defined clustering resolution. The bottom panel shows the number of clusters at each user-defined clustering resolution. **C)** Uniform Manifold Approximation and Projections (UMAP) plot at a clustering resolution of 1.5. 
 
  - - - -
 
@@ -726,7 +741,9 @@ In this Step, we are going to annotate the clusters identified in Step 6 to defi
 - **Method 2:** Module score
 - **Method 2:** Reference-based annotation
 
-For comprehensive description of each cluster annotation Method, please see the [Standard scRNAseq Analysis Track](SCRNA.md) section of the scRNAbox documentation or our pre-print manuscript. In addition to these three Methods, we can **visualize the expression of select features** to further inform the cellular species in the dataset.
+In addition to these three Methods, we can **visualize the expression of select features** to further inform the cellular species in the dataset.
+
+For comprehensive description of each cluster annotation Method, please see the [Standard scRNAseq Analysis Track](SCRNA.md) section of the scRNAbox documentation or our pre-print manuscript. 
 
 - - - -
 #### Method 1: Cluster marker GSEA
@@ -917,7 +934,7 @@ ggsave(file = paste(output_dir,'/step7/figs7','/intermediate_cluster_annotation.
 #### Visualizing the expression of select features
 Now that we have broadly defined the cellular species that comprise our clusters, we are going to explore the expression of the marker genes used by [Smajic et al.](https://academic.oup.com/brain/article/145/3/964/6469020) to define their clusters:
 
-|Cell tyep|Gene|
+|Cell type|Gene|
 |:--|:--|
 |Oligodendrocytes|_MOBP_|
 |OPC|_VCAN_|

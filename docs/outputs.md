@@ -1,13 +1,28 @@
 ## Outputs of each Analytical Step in the scRNAbox pipeline
-
+- [Introduction](#introduction)
 - [Standard scRNAseq Analysis Track](#standard-scrnaseq-analysis-track)
 - [Cell Hashtag scRNAseq Analysis Track](#cell-hashtag-scrnaseq-analysis-track)
+- - - -
 
+## Introduction
+Each Analytical Step of the scRNAbox pipeline produces outputs corresponding to the analysis. The outputs of each Analytical Step are deposited into a Step-specific folder which contains three sub folders:
+```
+step1
+├── figs1
+├── info1
+└── objs1
+```
+ - The `figs/` folder contains figures;
+ - The `info/` folder contains text files and tables;
+ - The `objs/` folder contains intermediate Seurat RDS objects.
+
+ **Note:** If users re-run an Analytical Step the outputs from the previous run will automatically be overwritten. If you do not want to lose the outputs from a previous run, it is important to copy the materials to a separate directory.  
+- - - -
 ## Standard scRNAseq Analysis Track
-#### Step 1: FASTQ pre-processing
+#### Step 1: FASTQ to gene expression matrix
 All of the outputs of the CellRanger _counts_ pipeline are produced. For more information on the outputs, please visit the CellRanger [documentation](https://support.10xgenomics.com/single-cell-gene-expression/software/pipelines/latest/using/count).
 
-#### Step 2: Ambient RNA removal and create Seurat object
+#### Step 2: Create Seurat object and remove ambient RNA
 |Output type |Name|Description|
 |:--|:--|:--|
 |Figure|vioplot_sample_name.png | Sample-specific violin plot showing the distribution of cells according to QC metrics|
@@ -98,12 +113,12 @@ Cluster annotation method|Output type |Name|Description|
 
 #### Step 8: Differential gene expression contrasts
 
-
+- - - -
 ## Cell Hashtag scRNAseq Analysis Track
-#### Step 1: FASTQ pre-processing
+#### Step 1: FASTQ to gene expression matrix
 All of the outputs of the CellRanger _counts_ pipeline are produced. For more information on the outputs, please visit the CellRanger [documentation](https://support.10xgenomics.com/single-cell-gene-expression/software/pipelines/latest/using/count).
 
-#### Step 2: Ambient RNA removal and create Seurat object
+#### Step 2: Create Seurat object and remove ambient RNA
 |Output type |Name|Description|
 |:--|:--|:--|
 |Figure|vioplot_sample_name.png | Sample-specific violin plot showing the distribution of cells according to QC metrics|

@@ -1,25 +1,15 @@
 ############################################################################
 # If you want to save an RNA expression matrix and metadata dataframe set the following to "yes"
 ############################################################################
-par_save_RNA='NO'
-par_save_metadata='NO'
+par_save_RNA="yes"
+par_save_metadata="yes"
+
 
 ############################################################################
-# Cluster parameters
+# Add metadata parameters
 ############################################################################
-## The cluster resolution you want to use. If you did not perform integration, use par_level_cluster='RNA_snn_res.0.7',for example, if you want to use a resolution of 0.7
-par_select_cluster='RNA_snn_res.0.7'
-## User-currated cluster labels obtained from the annotation module. Make sure to have the same number of labels as clusters at the desired clustering resolution 
-par_step8_clus_label= c('DAneurons','DAneurons','other','other','neurons','ependymal','neurons','neurons','neurons','DAneurons','DAneurons','progenitors',)
-
-############################################################################
-# Sample label parameters
-############################################################################
-## If you want to add new sample labels set the below parameter to "yes"
-par_new_genotype='yes'
-## if you set the above parameter to "yes", uncomment the two line below and list the old and the corresponding new labels for the samples
-par_old_sample_label=c("CTRL1","CTRL2","PD1","PD2")
-par_new_sample_label=c("Control","Control","PD","PD")
+## Enter the location to a csv file describing new metadata that should be added to the Seurat object to facilitate DEG analysis. At least one column should contain "orig.ident"
+par_metadata = "/home/fiorini9/scratch/scrna_pipeline/standard_v1.38/pipeline/metadata.csv"
 
 
 

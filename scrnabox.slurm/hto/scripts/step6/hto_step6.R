@@ -1,6 +1,7 @@
 #!/usr/bin/env Rscript
 
 ####################
+# v1.38
 # step6 -- clustering
 ####################
 
@@ -12,14 +13,14 @@ pipeline_home=args[3]
 
 ## load library
 .libPaths(r_lib_path)
-packages<-c('Seurat','ggplot2', 'dplyr','cowplot','clustree')
+packages<-c('Seurat','ggplot2', 'dplyr','cowplot','clustree','Matrix')
 lapply(packages, library, character.only = TRUE)
 
 ## load parameters
 source(paste(output_dir,'/job_info/parameters/step6_par.txt',sep=""))
 
 ## determine the default assay depending on whether users performed integration or not
-if (tolower(par_skip_step5)=='yes') {
+if (tolower(par_skip_integration)=='yes') {
     sample_name<-list.files(path = paste(output_dir, "/step5/objs5",sep=""),pattern = "*.rds")
     if(length(sample_name)<1) {
     print("You do not have any object from step 5")
@@ -56,7 +57,7 @@ seu_int <- RunUMAP(seu_int, dims = 1:par_RunUMAP_dims)
 
 ## print clustree plot 
 clustree(seu_int@meta.data, prefix = paste0(par_whatAssay,"_snn_res."))
-ggsave(paste(output_dir,"/step6/figs6/clustree_int.png", sep=""))
+ggsave(paste(output_dir,"/step6/figs6/clustree_int.png", sep=""), dpi = 300, height = 9, width = 5, unit = 'in')
 
 ## print UMAPs at different clustering resolutions
 for (i in par_FindClusters_resolution){

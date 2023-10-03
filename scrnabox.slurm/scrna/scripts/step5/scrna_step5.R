@@ -1,6 +1,7 @@
 #!/usr/bin/env Rscript
 
 ##########################################
+# v1.38
 # step5 -- integration and linear dimensional reduction
 ##########################################
 
@@ -36,27 +37,30 @@ registerDoParallel(cl)
 ## create empty list to be populated by existing Seurat objects
 seu_list<-list()
 
+################################################################################################################################################
+## if users want to integrate Seurat objects
+################################################################################################################################################
 
-###### if users want to integrate Seurat objects 
 if (tolower(par_skip_integration)=='no') {
 ## load exisiting Seurat objects, find variable features, and scale
 seu_list<-foreach (i_s=1:length(sample_name)) %do% {  
     seu<-readRDS(paste(output_dir,'/step4/objs4/',sample_name[i_s], sep=""))
     DefaultAssay(seu) <- par_DefaultAssay
+    seu<- NormalizeData(seu,normalization.method = par_normalization.method, scale.factor =par_scale.factor) ##new code
     seu<- FindVariableFeatures(seu, selection.method = par_selection.method, nfeatures = par_nfeatures)
     seu<- ScaleData(seu, verbose = FALSE)
 }  
 
+## select inetgration features
+features <- Seurat::SelectIntegrationFeatures(object.list = seu_list, nfeatures = par_nfeatures)
+
 ## find integration anchors
-seu_anchors <- Seurat::FindIntegrationAnchors(object.list = seu_list,dims = 1:par_FindIntegrationAnchors_dim)
+seu_anchors <- Seurat::FindIntegrationAnchors(object.list = seu_list, dims = 1:par_FindIntegrationAnchors_dim, anchor.features = features)
 
 ## integrate Seurat objects
 seu_int <- Seurat::IntegrateData(anchorset = seu_anchors,dims = 1:par_FindIntegrationAnchors_dim)
 
 ## set default assay to integrated
-Seurat::DefaultAssay(seu_int) <- "integrated"
-
-## set default assay to "integrated"
 Seurat::DefaultAssay(seu_int) <- "integrated"
 
 ## scale integrated Seurat object
@@ -67,20 +71,20 @@ seu_int <- RunPCA(seu_int, npcs = par_RunPCA_npcs, verbose = FALSE)
 seu_int <- RunUMAP(seu_int, dims = 1:par_RunUMAP_dims, n.neighbors =par_RunUMAP_n.neighbors)
 
 ## print PCA
-DimPlot(seu_int, reduction = "pca")
+DimPlot(seu_int, reduction = "pca", group.by="orig.ident", raster = FALSE )
 ggsave(paste(output_dir,'/step5/figs5',"/DimPlot_pca.png", sep=""))
 
 ## print elbow plot
-ElbowPlot(seu_int, ndims = par_RunPCA_npcs)   #Added ndims
+ElbowPlot(seu_int, ndims = par_RunPCA_npcs)  
 ggsave(paste(output_dir,'/step5/figs5',"/elbow.png", sep=""))
 
 ## print UMAP
-DimPlot(seu_int, reduction = "umap")
+DimPlot(seu_int, reduction = "umap", group.by="orig.ident", raster = FALSE )
 ggsave(paste(output_dir,'/step5/figs5',"/DimPlot_umap.png", sep=""))
 
 ## print Jack straw plot
 if (tolower(par_compute_jackstraw)=='yes') {
-seu_int <- JackStraw(seu_int, num.replicate = 100,dims = par_RunPCA_npcs) #added this figure
+seu_int <- JackStraw(seu_int, num.replicate = 100,dims = par_RunPCA_npcs)
 seu_int <- ScoreJackStraw(seu_int, dims = 1:par_RunPCA_npcs)
 JackStrawPlot(seu_int, dims = 1:par_RunPCA_npcs)
 ggsave(paste(output_dir,'/step5/figs5',"/Jackstraw_plot.png", sep=""))
@@ -94,44 +98,45 @@ write.csv(colnames(seu_int[[]]), paste(output_dir,'/step5/info5',"/meta_info_seu
 }
 
 
-###### if users only have one Seurat object and do not want to integrate Seurat objects
+################################################################################################################################################
+## if users do not want to integrate Seurat objects (i.e. only have one Seurat object)
+################################################################################################################################################
+
 if (tolower(par_skip_integration)=='yes') {
 ## load exisiting Seurat objects, find variable features, and scale
 seu_list<-foreach (i_s=1:length(sample_name)) %do% {  
     seu_int<-readRDS(paste(output_dir,'/step4/objs4/',sample_name[i_s], sep=""))
     DefaultAssay(seu_int) <- par_DefaultAssay
+    seu_int<- NormalizeData(seu_int,normalization.method = par_normalization.method, scale.factor =par_scale.factor) ##new code
     seu_int<- FindVariableFeatures(seu_int, selection.method = par_selection.method, nfeatures = par_nfeatures)
     seu_int<- ScaleData(seu_int, verbose = FALSE)
 }  
-
-## scale  Seurat object
-seu_int <- ScaleData(seu_int, verbose = FALSE)
 
 ## run PCA and UMAP on  Seurat object
 seu_int <- RunPCA(seu_int, npcs = par_RunPCA_npcs, verbose = FALSE)
 seu_int <- RunUMAP(seu_int, dims = 1:par_RunUMAP_dims, n.neighbors =par_RunUMAP_n.neighbors)
 
 ## print PCA
-DimPlot(seu_int, reduction = "pca")
+DimPlot(seu_int, reduction = "pca", group.by="orig.ident", raster = FALSE )
 ggsave(paste(output_dir,'/step5/figs5',"/DimPlot_pca.png", sep=""))
 
 ## print elbow plot
-ElbowPlot(seu_int, ndims = par_RunPCA_npcs)   #Added ndims
+ElbowPlot(seu_int, ndims = par_RunPCA_npcs)   
 ggsave(paste(output_dir,'/step5/figs5',"/elbow.png", sep=""))
 
 ## print UMAP
-DimPlot(seu_int, reduction = "umap")
+DimPlot(seu_int, reduction = "umap", group.by="orig.ident", raster = FALSE )
 ggsave(paste(output_dir,'/step5/figs5',"/DimPlot_umap.png", sep=""))
 
 ## print Jack straw plot (optional)
 if (tolower(par_compute_jackstraw)=='yes') {
-seu_int <- JackStraw(seu_int, num.replicate = 100,dims = par_RunPCA_npcs) #added this figure
+seu_int <- JackStraw(seu_int, num.replicate = 100,dims = par_RunPCA_npcs) 
 seu_int <- ScoreJackStraw(seu_int, dims = 1:par_RunPCA_npcs)
 JackStrawPlot(seu_int, dims = 1:par_RunPCA_npcs)
 ggsave(paste(output_dir,'/step5/figs5',"/Jackstraw_plot.png", sep=""))
 }
 
-## save integrated Seurat object as RDS
+## save Seurat object as RDS
 saveRDS(seu_int, paste(output_dir,'/step5/objs5',"/seu_step5.rds", sep=""))
 
 ## save metadata info

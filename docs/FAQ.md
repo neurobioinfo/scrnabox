@@ -54,6 +54,8 @@ adjust the filtering parameters, this means that none of the cells in the users 
 #### how to edit text files in the terminal
 
 
+### I have Seurat object but I want to start at Step 2?
+
 
 
 

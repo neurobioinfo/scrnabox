@@ -1,6 +1,7 @@
 #!/usr/bin/env Rscript
 
 ####################
+# v1.38
 # step5 -- integration and linear dimensional reduction 
 ####################
 
@@ -37,20 +38,26 @@ registerDoParallel(cl)
 ## create empty list to be populated by existing Seurat objects
 seu_list<-list()
 
-###### if users want to integrate Seurat objects 
+################################################################################################################################################
+## if users want to integrate Seurat objects
+################################################################################################################################################
 if (tolower(par_skip_integration)=='no') {
 ## normalize exisiting Seurat objects
 seu_list<-foreach (i_s=1:length(sample_name)) %do% {  
     seu<-readRDS(paste(output_dir,'/step4/objs4/',sample_name[i_s], sep=""))
     DefaultAssay(seu) <- par_DefaultAssay
-    if (tolower(par_normalization_and_scaling)=='yes'){
-                seu <- Seurat::NormalizeData(seu,normalization.method = par_normalization.method,scale.factor =par_scale.factor)
-                seu<- FindVariableFeatures(seu, selection.method = par_selection.method, nfeatures = par_nfeatures)
-    }
+    seu <- Seurat::NormalizeData(seu,normalization.method = par_normalization.method,scale.factor =par_scale.factor)
+    seu<- FindVariableFeatures(seu, selection.method = par_selection.method, nfeatures = par_nfeatures)
+    seu<- ScaleData(seu, verbose = FALSE)
 }  
 
-## integrate existing Seurat objects
-seu_anchors <- Seurat::FindIntegrationAnchors(object.list = seu_list,dims = 1:par_FindIntegrationAnchors_dim)
+## select inetgration features
+features <- Seurat::SelectIntegrationFeatures(object.list = seu_list, nfeatures = par_nfeatures)
+
+## find integration anchors
+seu_anchors <- Seurat::FindIntegrationAnchors(object.list = seu_list, dims = 1:par_FindIntegrationAnchors_dim, anchor.features = features)
+
+## integrate Seurat objects
 seu_int <- Seurat::IntegrateData(anchorset = seu_anchors,dims = 1:par_FindIntegrationAnchors_dim)
 
 ## set default assay to integrated
@@ -59,12 +66,12 @@ Seurat::DefaultAssay(seu_int) <- "integrated"
 ## scale integrated assay
 seu_int <- ScaleData(seu_int, verbose = FALSE)
 
-## perform dimensional reduction on integrated assay
+## run PCA and UMAP on integrated Seurat object
 seu_int <- RunPCA(seu_int, npcs = par_RunPCA_npcs, verbose = FALSE)
 seu_int <- RunUMAP(seu_int, dims = 1:par_RunUMAP_dims, n.neighbors =par_RunUMAP_n.neighbors)
 
 ## print PCA
-DimPlot(seu_int, reduction = "pca")
+DimPlot(seu_int, reduction = "pca", group.by="MULTI_ID_Lables", raster = FALSE )
 ggsave(paste(output_dir,'/step5/figs5',"/DimPlot_pca.png", sep=""))
 
 ## print elbow plot
@@ -72,7 +79,7 @@ ElbowPlot(seu_int)
 ggsave(paste(output_dir,'/step5/figs5',"/elbow.png", sep=""))
 
 ## print UMAP
-DimPlot(seu_int, reduction = "umap")
+DimPlot(seu_int, reduction = "umap", group.by="MULTI_ID_Lables", raster = FALSE)
 ggsave(paste(output_dir,'/step5/figs5',"/DimPlot_umap.png", sep=""))
 
 ## print Jack straw plot (optional)
@@ -83,7 +90,7 @@ JackStrawPlot(seu, dims = 1:par_RunPCA_npcs)
 ggsave(paste(output_dir,'/step5/figs5',"/Jackstraw_plot.png", sep=""))
 }
 
-## save integrated Seurat object
+## save integrated Seurat object as RDS
 saveRDS(seu_int, paste(output_dir,'/step5/objs5',"/seu_step5.rds", sep=""))
 
 ## save metadata information
@@ -94,30 +101,25 @@ write.csv(table(seu_int$MULTI_ID), paste(output_dir,'/step5/info5',"/MULTI_IDcou
 }
 
 
-###### if users only have one Seurat object and do not want to integrate Seurat objects
+################################################################################################################################################
+## if users do not want to integrate Seurat objects (i.e. only have one Seurat object)
+################################################################################################################################################
 if (tolower(par_skip_integration)=='yes') {
 ## normalize exisiting Seurat object
 seu_list<-foreach (i_s=1:length(sample_name)) %do% {  
     seu_int<-readRDS(paste(output_dir,'/step4/objs4/',sample_name[i_s], sep=""))
     DefaultAssay(seu_int) <- par_DefaultAssay
-    if (tolower(par_normalization_and_scaling)=='yes'){
-                ## normalize
-                seu_int <- Seurat::NormalizeData(seu_int,normalization.method = par_normalization.method,scale.factor =par_scale.factor)
-                ## find variable features
-                seu_int<- FindVariableFeatures(seu_int, selection.method = par_selection.method, nfeatures = par_nfeatures)
-                
-    }
+    seu_int <- Seurat::NormalizeData(seu_int,normalization.method = par_normalization.method,scale.factor =par_scale.factor)
+    seu_int<- FindVariableFeatures(seu_int, selection.method = par_selection.method, nfeatures = par_nfeatures)
+    seu_int<- ScaleData(seu_int, verbose = FALSE)              
 }  
 
-## scale Seurat object
-seu_int <- ScaleData(seu_int, verbose = FALSE)
-
-## perform dimensional reduction
+## run PCA and UMAP on  Seurat object
 seu_int <- RunPCA(seu_int, npcs = par_RunPCA_npcs, verbose = FALSE)
 seu_int <- RunUMAP(seu_int, dims = 1:par_RunUMAP_dims, n.neighbors =par_RunUMAP_n.neighbors)
 
 ## print PCA
-DimPlot(seu_int, reduction = "pca")
+DimPlot(seu_int, reduction = "pca", group.by="MULTI_ID_Lables", raster = FALSE )
 ggsave(paste(output_dir,'/step5/figs5',"/DimPlot_pca.png", sep=""))
 
 ## print elbow plot
@@ -125,7 +127,7 @@ ElbowPlot(seu_int)
 ggsave(paste(output_dir,'/step5/figs5',"/elbowPlot.png", sep=""))
 
 ## print UMAP
-DimPlot(seu_int, reduction = "umap")
+DimPlot(seu_int, reduction = "umap", group.by="MULTI_ID_Lables", raster = FALSE )
 ggsave(paste(output_dir,'/step5/figs5',"/DimPlot_umap.png", sep=""))
 
 ## print Jack straw plot (optional)
@@ -136,10 +138,10 @@ JackStrawPlot(seu_int, dims = 1:par_RunPCA_npcs)
 ggsave(paste(output_dir,'/step5/figs5',"/Jackstraw_plot.png", sep=""))
 }
 
-## save RDS object
+## save Seurat object as RDS
 saveRDS(seu_int, paste(output_dir,'/step5/objs5',"/seu_step5.rds", sep=""))
 
-## save metadata information
+## save metadata info
 write.csv(colnames(seu_int[[]]), paste(output_dir,'/step5/info5',"/meta_info_seu_step5.csv", sep=""))
 
 ## save HTO counts
@@ -159,6 +161,7 @@ if (tolower(par_save_metadata)=='yes') {
 
 ## save session information
 writeLines(capture.output(sessionInfo()), paste(output_dir,'/step5/info5/sessionInfo.txt', sep=""))
+
 if(file.exists("Rplots.pdf")){
     file.remove("Rplots.pdf")
 }

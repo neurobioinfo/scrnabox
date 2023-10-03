@@ -1,1 +1,0 @@
-DAneurons,DAneurons,other,other,neurons,ependymal,neurons,neurons,neurons,DAneurons,DAneurons,progenitors,Glia,other,progenitors,progenitors,neuroblast,other,neurons,other,other,progenitors,other,DAneurons,neurons,DAneurons,progenitors,neurons,progenitors

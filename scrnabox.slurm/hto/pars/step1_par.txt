@@ -5,40 +5,54 @@
 ## Do you want to perform automated library prep?
 par_automated_library_prep = "yes"
 
-###### library.csv parameters
-## Path to the directory containing the FASTQ files for the RNA and Antibody assays.
-## This folder should only contain the FASTQ files for the experiment. 
+####################################
+###### library.csv parameters ######
+####################################
+## Path to the directory containing the FASTQ files for the RNA and Antibody assays. This folder should only contain the FASTQ files for the experiment. 
 par_fastq_directory = "/home/fiorini9/scratch/scrna_pipeline/stoeckius_markdown/raw_data/fastqs"
+
 ## list the sequencing run name(s) used in the FASTQ nomenclature for the RNA assay
 par_RNA_run_names = c("run1GEX")
+
 ## list the sequencing run name(s) used in the FASTQ nomenclature for the Antibody assay
 par_HTO_run_names = c("run1HTO")
+
 ## Define the name(s) of your sequencing run(s). This can be whatever you would like, but make sure you list the names of the sequencing runs in the same order as the names of the RNA and HTO assays are listed.
 par_seq_run_names = c("run1")
+
 ## If your sequencing is paired-end, set the following to TRUE. Otherwise set it as FALSE.
 par_paired_end_seq = TRUE
 
-###### feature_ref.csv parameters
+########################################
+###### feature_ref.csv parameters ######
+########################################
 ## please note that if you used different sample-specific barcodes for each sequencing run, you should manually prepare the feature_ref.csv files
+
 ## list the IDs of the sample-slecific barcodes
-id=c('Hash1', 'Hash2', 'Hash3', 'Hash4', 'Hash5', 'Hash6', 'Hash7', 'Hash8')
+id=c("Hash1", "Hash2", "Hash3", "Hash4", "Hash5", "Hash6", "Hash7", "Hash8")
+
 ## list the names of the sample-specific barcodes
-name =c('A_TotalSeqA', 'B_TotalSeqA', 'C_TotalSeqA', 'D_TotalSeqA', 'E_TotalSeqA', 'F_TotalSeqA', 'G_TotalSeqA', 'H_TotalSeqA')
+name =c("A_TotalSeqA", "B_TotalSeqA", "C_TotalSeqA", "D_TotalSeqA", "E_TotalSeqA", "F_TotalSeqA", "G_TotalSeqA", "H_TotalSeqA")
+
 ## which read is the sample-specific barcode on? The majority of cases will be R2.
 read = "R2"
+
 ## define the pattern of the sample-specific barcodes.
 pattern = "5P(BC)"
+
 ## list the base-pair sequences for each of the sample-specific barcodes 
-sequence = c('AGGACCATCCAA','ACATGTTACCGT', 'AGCTTACTATCC', 'TCGATAATGCGA', 'GAGGCTGAGCTA', 'GTGTGACGTATT', 'ACTGTCTAACGG','TATCACATCGGT')
+sequence = c("AGGACCATCCAA","ACATGTTACCGT", "AGCTTACTATCC", "TCGATAATGCGA", "GAGGCTGAGCTA", "GTGTGACGTATT", "ACTGTCTAACGG","TATCACATCGGT")
 
 
 ############################################################################
-# CellRanger counts pipeline parameters.
+# CellRanger counts pipeline parameters
 ############################################################################
 ## path to reference genome
-REF_DIR_GRCH='/cvmfs/soft.mugqic/CentOS6/genomes/species/Homo_sapiens.GRCh38/genome/10xGenomics/refdata-cellranger-GRCh38-3.0.0'
+REF_DIR_GRCH="/cvmfs/soft.mugqic/CentOS6/genomes/species/Homo_sapiens.GRCh38/genome/10xGenomics/refdata-cellranger-GRCh38-3.0.0"
+
 ## Minimum number of bases to retain for R1 sequence of gene expression assay. If you want to use this parameter uncomment the line below and define your R1LENGTH.
-# R1LENGTH=20
+#R1LENGTH=20
+
 ## For clusters whose job managers do not support memory requests, it is possible to request memory in the form of cores. This option will scale up the number of threads requested via the MRO_THREADS variable according to how much memory a stage requires when given to the ratio of memory on your nodes.
 MEMPERCORE=30 
 

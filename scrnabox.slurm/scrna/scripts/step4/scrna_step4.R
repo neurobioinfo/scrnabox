@@ -1,6 +1,7 @@
 #!/usr/bin/env Rscript
 
 ##########################################
+# v1.28
 # step4: Doublet detection
 ##########################################
 
@@ -11,7 +12,7 @@ r_lib_path=args[2]
 .libPaths(r_lib_path)
 
 ## load library
-packages<-c('Seurat','ggplot2', 'dplyr', 'foreach', 'doParallel','DoubletFinder', 'Matrix')
+packages<-c('Seurat','ggplot2', 'dplyr', 'foreach', 'doParallel','DoubletFinder', 'Matrix', 'ggpubr', 'data.table')
 lapply(packages, library, character.only = TRUE)
 
 
@@ -51,6 +52,9 @@ if (tolower(par_dropDN)=='yes') {
         sample_select
         seu[["Sample_ID"]] <- sample_select
         
+        ## RunUMAP
+        seu <- RunUMAP(seu, dims = 1:par_RunUMAP_dims, n.neighbors =par_RunUMAP_n.neighbors)
+
         ## parameter sweep 
         sweep.res.list_pbmc <- paramSweep_v3(seu, PCs = 1:par_PCs, sct = par_sct)
         sweep.stats_pbmc <- summarizeSweep(sweep.res.list_pbmc, GT = FALSE)
@@ -77,8 +81,49 @@ if (tolower(par_dropDN)=='yes') {
         
         ## print UMAP with doublet/singlet classification
         DimPlot(seu, reduction = 'umap', group.by = DF.classifications)
-        ggsave(paste(output_dir,'/step4/figs4/',sample_nameb[i_s],"DF.classifications.png",sep=""))
+        ggsave(paste(output_dir,'/step4/figs4/',sample_nameb[i_s],"_DF.classifications.png",sep=""))
         
+        ##print doublet detection summary plot
+        #meta df
+        meta_df <- data.frame(seu@meta.data)
+        #string detect column
+        ## pANN
+        df_pANN <- meta_df[,colnames(meta_df) %like% c("pANN")]
+        ## classification
+        df_class <- meta_df[,colnames(meta_df) %like% c("DF.class")]
+        ## bind
+        df_bind <- cbind(df_pANN, df_class)
+        df_bind <- data.frame(df_bind)
+        df_bind$df_pANN <- as.numeric(df_bind$df_pANN )
+
+        ## plot pANN violin plot
+        pANN <- ggplot(df_bind, aes(x = df_class, y = df_pANN, fill = df_class)) + 
+        geom_violin() + 
+        geom_jitter(size=0.001) +
+        theme_classic() + 
+        xlab("Identity") + 
+        ylab("pANN") +
+        theme(axis.text = element_text(size = 12))
+
+        ## plot number of doublets and singlets
+        count<- ggplot(df_bind, aes(x = df_class, fill = df_class)) + 
+        geom_bar() +
+        theme_classic() + 
+        xlab("Identity") + 
+        ylab("Number of droplets") +
+        geom_text(stat='count', aes(label=after_stat(count)), vjust=-1) + 
+        theme(axis.text = element_text(size = 12))
+
+        ##print plot
+        ggarrange(pANN,count, ncol = 2, common.legend = T, legend = "bottom" )
+        ggsave(paste(output_dir,'/step4/figs4/',sample_nameb[i_s],"_doublet_summary.png",sep=""))
+
+        ## print txt file with number of doublets detected
+        doublet_df <- nrow(subset(df_bind, df_class == "Doublet"))
+        doublet_df <- data.frame(doublet_df)
+        colnames(doublet_df) <- "Number of predicted doublets"
+        write.csv(doublet_df, file= paste(output_dir,'/step4/info4/n_predicted_doublets_',sample_nameb[i_s],".txt", sep=""))
+
         ## remove doublets
         aa<-as.character(DF.classifications_u)[!as.character(DF.classifications_u) %in% "Doublet"]
         Idents(seu) <- DF.classifications
@@ -111,6 +156,9 @@ if (tolower(par_dropDN)=='no') {
         sample_select <- sub(".rds.*", "", sample_name[i_s]) 
         seu[["Sample_ID"]] <- sample_select
         
+        ## RunUMAP
+        seu <- RunUMAP(seu, dims = 1:par_RunUMAP_dims, n.neighbors =par_RunUMAP_n.neighbors)
+
         ## parameter sweep 
         sweep.res.list_pbmc <- paramSweep_v3(seu, PCs = 1:par_PCs, sct = par_sct)
         sweep.stats_pbmc <- summarizeSweep(sweep.res.list_pbmc, GT = FALSE)
@@ -136,8 +184,49 @@ if (tolower(par_dropDN)=='no') {
         DF.classifications_u=eval(parse(text = paste('unique(seu$',DF.classifications,')', sep='')))
         
         ## print UMAP with doublet/singlet classification       
-        DimPlot(seu, reduction = 'umap', group.by = DF.classifications) + 
-        ggsave(paste(output_dir,'/step4/figs4/',sample_nameb[i_s],"DF.classifications.png",sep=""))
+        DimPlot(seu, reduction = 'umap', group.by = DF.classifications) 
+        ggsave(paste(output_dir,'/step4/figs4/',sample_nameb[i_s],"_DF.classifications.png",sep=""))
+
+        ##print doublet detection summary plot
+        #meta df
+        meta_df <- data.frame(seu@meta.data)
+        #string detect column
+        ## pANN
+        df_pANN <- meta_df[,colnames(meta_df) %like% c("pANN")]
+        ## classification
+        df_class <- meta_df[,colnames(meta_df) %like% c("DF.class")]
+        ## bind
+        df_bind <- cbind(df_pANN, df_class)
+        df_bind <- data.frame(df_bind)
+        df_bind$df_pANN <- as.numeric(df_bind$df_pANN )
+
+        ## plot pANN violin plot
+        pANN <- ggplot(df_bind, aes(x = df_class, y = df_pANN, fill = df_class)) + 
+        geom_violin() + 
+        geom_jitter(size=0.001) +
+        theme_classic() + 
+        xlab("Identity") + 
+        ylab("pANN") +
+        theme(axis.text = element_text(size = 12))
+
+        ## plot number of doublets and singlets
+        count<- ggplot(df_bind, aes(x = df_class, fill = df_class)) + 
+        geom_bar() +
+        theme_classic() + 
+        xlab("Identity") + 
+        ylab("Number of droplets") +
+        geom_text(stat='count', aes(label=after_stat(count)), vjust=-1) + 
+        theme(axis.text = element_text(size = 12))
+
+        ##print plot
+        ggarrange(pANN,count, ncol = 2, common.legend = T, legend = "bottom" )
+        ggsave(paste(output_dir,'/step4/figs4/',sample_nameb[i_s],"_doublet_summary.png",sep=""))
+
+        ## print txt file with number of doublets detected
+        doublet_df <- nrow(subset(df_bind, df_class == "Doublet"))
+        doublet_df <- data.frame(doublet_df)
+        colnames(doublet_df) <- "Number of predicted doublets"
+        write.csv(doublet_df, file= paste(output_dir,'/step4/info4/n_predicted_doublets_',sample_nameb[i_s],".txt", sep=""))
         
         ## do not remove doublets
         aa<-as.character(DF.classifications_u)

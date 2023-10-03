@@ -1,22 +1,14 @@
 ############################################################################
-# If you want to save an RNA expression matrix and metadata dataframe set the following to "yes"
+# If you want to save an RNA expression matrix and metadata data frame set the following to "yes"
 ############################################################################
-par_save_RNA='NO'
-par_save_metadata='NO'
+par_save_RNA="yes"
+par_save_metadata="yes"
+
 
 ############################################################################
-# Cluster parameters
+# Add metadata parameters
 ############################################################################
-## The cluster resolution you want to use. If you did not perform integration, use par_level_cluster='RNA_snn_res.0.7',for example, if you want to use a resolution of 0.7
-par_select_cluster='RNA_snn_res.0.7'
-## User-currated cluster labels obtained from the annotation module. Make sure to have the same number of labels as clusters at the desired clustering resolution
-par_step8_clus_label=c('DAneurons','DAneurons','other','other','neurons','ependymal','neurons','neurons','neurons','DAneurons','DAneurons')
+## enter the location to a csv file describing new metadata that should be added to the Seurat object to facilitate DEG analysis. At least one column should contain "MULTI_ID_Lables"
+par_metadata = "/home/fiorini9/scratch/scrna_pipeline/standard_v1.38/pipeline/metadata.csv"
 
-############################################################################
-# Sample label parameters
-############################################################################
-## If you want to add new sample labels set the below parameter to "yes"
-par_new_genotype='no'
-## if you set the above parameter to "yes", uncomment the two line below and list the old and the corresponding new labels
-#par_old_antibody_label=c('B0251-TotalSeqB','B0252-TotalSeqB','B0253-TotalSeqB','B0254-TotalSeqB','B0255-TotalSeqB','B0256-TotalSeqB','Doublet','Negative')
-#par_new_antibody_label=c('AIW002','SNCA-A53T','GBA-KO','Parkin-KO','PINK1-KO','SNCA-KO','Doublet','Negative')
+

@@ -1,10 +1,4 @@
-cont_name cell control versus
-design1 DAneurons AIW002 SNCA-A53T,GBA-KO,Parkin-KO,PINK1-KO,SNCA-KO
-design2 DAneurons AIW002 SNCA-A53T
-design3 DAneurons AIW002 GBA-KO
-design4 DAneurons AIW002 Parkin-KO
-design5 DAneurons AIW002 PINK1-KO
-design6 DAneurons AIW002 SNCA-KO
-design7 DAneurons AIW002 SNCA-A53T,GBA-KO,Parkin-KO,PINK1-KO
-design8 DAneurons AIW002 SNCA-A53T,Parkin-KO,PINK1-KO
-design9 DAneurons AIW002 Parkin-KO,PINK1-KO
+contrast_name meta_data_celltype cell_type meta_data_variable group1 group2
+design1 clustering_1 Oligodendrocytes orig.ident Control1 Parkinson1
+design2 clustering_2 Microglia DiseaseStatus HC PD
+

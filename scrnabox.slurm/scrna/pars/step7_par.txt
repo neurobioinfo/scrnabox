@@ -1,47 +1,77 @@
 ############################################################################
 # If you want to save an RNA expression matrix and metadata dataframe set the following to "yes"
 ############################################################################
-par_save_RNA="NO"
-par_save_metadata="NO"
+par_save_RNA="yes"
+par_save_metadata="yes"
+
 
 ############################################################################
 # General parameters for cluster annotation 
 ############################################################################
-## The cluster resolution that you want to use. If you skipped integration, use par_level_cluster='RNA_snn_res.0.7', if you want to proceed with a clustering resolution of 0.7
-par_level_cluster='integrated_snn_res.0.7'
+## The cluster resolution that you want to use. If you skipped integration, use par_level_cluster="RNA_snn_res.0.7", for example, if you want to proceed with a clustering resolution of 0.7
+par_level_cluster="integrated_snn_res.1.4"
+
 
 ############################################################################
-# Marker gene set enrichment analysis parameters
+# Find markers parameters
 ############################################################################
 ## Number of top markers based on avg_log2FC
 par_top_sel=5
+
+
+############################################################################
+# EnrichR gene set enrichment analysis (GSEA) parameters
+############################################################################
 ## Character vector of EnrichR databases to search for enrichment
-par_db = c('Descartes_Cell_Types_and_Tissue_2021','CellMarker_Augmented_2021','Azimuth_Cell_Types_2021')
+par_db = c("Descartes_Cell_Types_and_Tissue_2021","CellMarker_Augmented_2021","Azimuth_Cell_Types_2021")
+
 
 ######################################################################
 #Module score analysis parameters
 ######################################################################
-## Whether or not to conduct module score analysis. If you do not want to perform this computation set the following to "no".
-par_compute_module_score="yes"
 ## Define the path of genes sets for module score
-par_module_score='/lustre03/project/6070393/COMMON/Dark_Genome/samamiri/pipeline/scrnabox011.slurm/hto/pars/list_genes.csv'
+par_module_score="/home/fiorini9/scratch/scrna_pipeline/smajic_markdown/smajic_module.csv"
+
 
 ######################################################################
 #Visualize select markers analysis parameters
 ######################################################################
-## Whether or not to visualize select features. If you do not want to, set the following to "no".
-par_visualize_select_features="yes"
-## List of select features
-par_select_features= c("C1QB", "CD163", "RNASET2", "C1QC","SLC11A1", "CD74")
+## List of features to visualize
+par_select_features_list= c("MOBP", "VCAN", "AQP4","FOXJ1", "CD74", "CLDN5", "GFRB", "SLC17A6", "GAD2", "GRIK1", "TH", "CADPS2")
+
+## If you want to define multiple lists of features to visualize, you can do so with a csv file. The header should contain the list names and all features belonging to the same list should be in the same column. Uncomment the below parameter and enter the location of the csv file
+#par_select_features_csv ="/home/fiorini9/scratch/scrna_pipeline/smajic_markdown/smajic_module.csv"
+
 
 #####################################################################
 #Reference-based annotation parameters
 ######################################################################
 ## Seurat object to use as the reference
-par_reference='/lustre03/project/6070393/COMMON/Dark_Genome/scRNA.neuro.datasets/seuobjs/jerber52_ref.rds'
+par_reference="/lustre03/project/6070393/COMMON/datashare/MacoskoSeuratObjects/PD_all_ann.Rds"
+
+## Define an arbitrary name for the reference object. This will be used to name the metadata slot.
+par_reference_name = "kammath"
+
 ## Name of a metadata column in the reference Seurat object that contains celltype annotations
-par_level_celltype='celltype'
-## Which dimensions to use to find transfer anchors bewteen query and reference dataset
+par_level_celltype="Cell_Type"
+
+## Which dimensions to use to find transfer anchors between query and reference dataset
 par_FindTransferAnchors_dim=10
+
 ## This will increase your RAM usage so set this number mindfully
-par_futureglobalsmaxSize= 50000 * 1024^2
+par_futureglobalsmaxSize= 60000 * 1024^2
+
+
+#####################################################################
+#Annotate parameters
+## annotations from each iteration will be added to the Step 7 Seurat object
+######################################################################
+## The clustering resolution to annotate
+par_annotate_resolution = "integrated_snn_res.1.4"
+
+## the name of the metadata slot under wich the cluster labels will be stored. 
+par_name_metadata = "clustering_2"
+
+## A list of cluster labels. Make sure you have as many labels as clusters at the defined clustering resolution
+par_annotate_labels = c("Oligodendrocytes", "Oligodendrocytes", "Excitatory_Neurons", "Oligodendrocytes", "Oligodendrocytes", "Oligodendrocytes", "Oligodendrocytes", "Oligodendrocytes", "OPC", "Endothelial_cells", "Microglia", "Oligodendrocytes", "Astrocytes", "Excitatory_Neurons", "Astrocytes","Astrocytes")
+

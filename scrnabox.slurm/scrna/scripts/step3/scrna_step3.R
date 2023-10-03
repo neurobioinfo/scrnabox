@@ -1,6 +1,7 @@
 #!/usr/bin/env Rscript
 
 ##########################################
+# v1.38
 # step3: Quality control and filtering
 ##########################################
 
@@ -8,18 +9,6 @@
 args = commandArgs(trailingOnly=TRUE)
 output_dir=args[1]
 r_lib_path=args[2]
-# NFRNAL NA
-# NFRNAU<- NA
-# NCRNAL<- NA
-# NCRNAU<- NA
-# PMTL<- NA
-# PMTU<- NA
-# GENEUMIL<- NA
-# GENEUMIU<- NA
-#PRIBOL=as.numeric(args[11]) ######## NEEDS SAEIDS ATTENTION: Saeid, can you please modify the underlying code to make the two commented lines possible? This is to set the thresholds for percent ribosomal genes (it is the same aa mitochondria but for ribosome). For now I am setting them manually to NA
-#PRIBOU=as.numeric(args[12])
-# PRIBOL <- 0
-# PRIBOU<- 100
 
 ## load library
 .libPaths(r_lib_path)
@@ -44,29 +33,12 @@ if (exists("par_seurat_object")) {
     }
 }
 
+## create a list of available seurat objects in the 
 for (i in 1:length(sample_name)) {
   if (!grepl(".rds",tolower(sample_name[i]), fixed = TRUE)){
      print(c(sample_name[i],"is not R rds"))
   }
 } 
-
-
-
-## Set QC parameters if defined by the user
-
-
-## print QC parameters
-# print(output_dir)
-# print(NFRNAL)
-# print(NFRNAU)
-# print(NCRNAL)
-# print(NCRNAU)
-# print(PMTL)
-# print(PMTU)
-# print(GENEUMIL)
-# print(GENEUMIU)
-# print(PRIBOL)
-# print(PRIBOU)
 
 ## set seed for replicability
 set.seed(1234)
@@ -77,7 +49,6 @@ cl <- makeCluster(numCores-1)
 registerDoParallel(cl) 
 
 ###### QC and filtering if users have a preporcessed Seurat object
-
 foreach (i=1:length(sample_name)) %do% {    
     set.seed(1234)
     if (exists("par_seurat_object")) { 
@@ -86,12 +57,16 @@ foreach (i=1:length(sample_name)) %do% {
         seu<-readRDS(paste(output_dir,'/step2/objs2/',sample_name[i], sep=""))
     }
     print(sample_name[i])
-    ## calculate percentage of mitochondrial transcripts
+    
+    ## calculate percent MT and Ribo if users are starting from Step 3 as they may not have this claculated in their Seurat object.
+    if (exists("par_seurat_object")) { 
+    ## calculate percent MT 
     seu[["percent.mt"]] <- Seurat::PercentageFeatureSet(seu, pattern = "^MT-")
-    ## calculate percentage of ribosomal transcripts
+    ## calculate percent ribo  
     seu[["percent.ribo"]] <- Seurat::PercentageFeatureSet(seu, pattern = "^RP[SL]")    #NEW CODE
-    # seu$log10GenesPerUMI <- log10(seu$nFeature_RNA) / log10(seu$nCount_RNA)
-    ######
+    }
+
+    ## fiter according to user-defined thresholds.
     if (exists("par_nFeature_RNA_L")) {
       cat("nFeature_RNA Lower: \n")
       print(par_nFeature_RNA_L)
@@ -122,16 +97,6 @@ foreach (i=1:length(sample_name)) %do% {
         print(par_mitochondria_percent_U)                
         seu <- subset(seu, subset = percent.mt < par_mitochondria_percent_U) 
     }
-    # if (exists("par_log10GenesPerUMI_L")) {
-        # cat("Log10GenesPerUMI Lower: \n")
-        # print(par_log10GenesPerUMI_L)                        
-        # seu <- subset(seu, subset = log10GenesPerUMI > par_log10GenesPerUMI_L) 
-    # }
-    # if (exists("par_log10GenesPerUMI_U")) {
-        # cat("Log10GenesPerUMI Upper: \n")
-        # print(par_log10GenesPerUMI_U)                                
-        # seu <- subset(seu, subset = log10GenesPerUMI < par_log10GenesPerUMI_U) 
-    # }
     if (exists("par_ribosomal_percent_L")) {
         cat("Ribosomal_percent Lower: \n")
         print(par_ribosomal_percent_L)                        
@@ -142,7 +107,8 @@ foreach (i=1:length(sample_name)) %do% {
         print(par_ribosomal_percent_U)                                
         seu <- subset(seu, subset = percent.ribo < par_ribosomal_percent_U) 
     }
-   ## optional: filter out mitochondrial genes
+
+    ## optional: filter out mitochondrial genes
     if (tolower(par_remove_mitochondrial_genes)=='yes') {
     MT_genes <- grep( "^MT-", rownames(seu), value = T)
     counts <- GetAssayData(seu, assay = "RNA")
@@ -165,45 +131,46 @@ foreach (i=1:length(sample_name)) %do% {
     seu[["RNA"]] <- subset(seu[["RNA"]], features = rownames(counts))    
     }
 
-    ## Normalize and scale individual Seurat object prior to cell-cycle scoring
-     seu <- Seurat::NormalizeData(seu,normalization.method = par_normalization.method,scale.factor =par_scale.factor)
-            ## Find variable features and print figure
-            seu<- FindVariableFeatures(seu, selection.method = par_selection.method, nfeatures = par_nfeatures)
-            topsel <- head(Seurat::VariableFeatures(seu), par_top)
-            write.csv(topsel, file = paste(output_dir,'/step3/info3/most_variable_genes_',sample_nameb[i],'.txt', sep=""), quote = TRUE, sep = ",")
-            vf_plot <- Seurat::VariableFeaturePlot(seu)
-            Seurat::LabelPoints(plot = vf_plot,points = topsel, repel = TRUE)
-            ggsave(paste(output_dir,'/step3/figs3/VariableFeaturePlot',sample_nameb[i],".png",sep=""))
-            ## scale data
-            seu<- ScaleData(seu, verbose = FALSE)
-        
-            ## perform linear dimensional reduction on individual Seurat objects
-            seu <- RunPCA(seu, npcs = par_npcs_pca, verbose = FALSE)
+    ## normalize after filtering
+    seu <- Seurat::NormalizeData(seu,normalization.method = par_normalization.method,scale.factor =par_scale.factor)
+    
+    ## find variable features after filtering
+    seu<- FindVariableFeatures(seu, selection.method = par_selection.method, nfeatures = par_nfeatures)
+    topsel <- head(Seurat::VariableFeatures(seu), par_top)
+    write.csv(topsel, file = paste(output_dir,'/step3/info3/most_variable_genes_',sample_nameb[i],'.txt', sep=""), quote = TRUE, sep = ",")
+    
+    ## print variable features plot
+    vf_plot <- Seurat::VariableFeaturePlot(seu)
+    Seurat::LabelPoints(plot = vf_plot,points = topsel, repel = TRUE)
+    ggsave(paste(output_dir,'/step3/figs3/VariableFeaturePlot',sample_nameb[i],".png",sep=""))
+
+    ##Do not regress out cc genes
+    if (tolower(par_regress_cell_cycle_genes)=='no') {
+    seu<- ScaleData(seu, verbose = FALSE)
+    }
+
+    ## Regress out cc genes
+    if (tolower(par_regress_cell_cycle_genes)=='yes') {
+    seu<- ScaleData(seu, vars.to.regress = c("S.Score", "G2M.Score"), verbose = FALSE)
+    }
+
+    ## perform linear dimensional reduction
+    seu <- RunPCA(seu, npcs = par_npcs_pca, verbose = FALSE)
             ## print PCA 
-            DimPlot(seu, reduction = "pca")
+            DimPlot(seu, reduction = "pca", raster = FALSE)
             ggsave(paste(output_dir,'/step3/figs3/',"dimplot_pca",sample_nameb[i],".png",sep=""))
             ## print elbow plot
             ElbowPlot(seu, ndims = par_npcs_pca)
             ggsave(paste(output_dir,'/step3/figs3/',"elbowplot",sample_nameb[i],".png",sep=""))
-            ## print heatmap
-            #Seurat::DimHeatmap(seu, dims = 1:par_dims, cells = par_cells, balanced = TRUE)            ## Saeid this does not produce a figure for some reason. I could not figure out whye. If we really want this figure then we can return and look into it.
-            #ggsave(paste(output_dir,'/step3/figs3/',"dimheatplot.",sample_nameb[i],".png",sep=""))
-            ## print UMAP
-            seu <- RunUMAP(seu, dims = 1:par_dims_umap, n.neighbors =par_n.neighbors)
-            Seurat::DimPlot(seu, reduction = "umap")
-            ggsave(paste(output_dir,'/step3/figs3/',"dimplot_umap",sample_nameb[i],".png",sep=""))
-        
-    ## perform cell cycle scoring on individual Seurat objects
-    seu <- CellCycleScoring(object = seu, g2m.features = cc.genes$g2m.genes, s.features = cc.genes$s.genes)
-    ## print violin plot for cell cycle score
-    Seurat::VlnPlot(seu, features = c("S.Score", "G2M.Score"), group.by = "orig.ident",
-    ncol = 4, pt.size = 0.1)
-    ggsave(paste(output_dir,'/step3/figs3/cellcycle_',sample_nameb[i],".png", sep=""))
-
+    
     ## save each individual Seurat object as RDS
     saveRDS(seu, paste(output_dir,'/step3/objs3/',sample_nameb[i],".rds", sep=""))
-    Seurat::VlnPlot(seu, group.by= "orig.ident", features = c("nFeature_RNA","nCount_RNA","percent.mt","percent.ribo"), pt.size = 0.1,ncol = 4) + NoLegend() #new code
-    ggsave(paste(output_dir,'/step3/figs3/QC_vioplot_',sample_nameb[i],".png", sep=""))
+    
+    ## print QC violin plot
+    Seurat::VlnPlot(seu, group.by= "orig.ident", features = c("nFeature_RNA","nCount_RNA","percent.mt","percent.ribo","S.Score", "G2M.Score"), pt.size = 0.001,ncol = 3, raster = FALSE) + NoLegend() #new code
+    ggsave(paste(output_dir,'/step3/figs3/filtered_QC_vioplot_',sample_nameb[i],".png", sep=""))
+    
+    ## write meta infor available in the Seurat metdata
     write.csv(colnames(seu[[]]), file= paste(output_dir,'/step3/info3/meta_info_',sample_nameb[i],".txt", sep=""))
     
     ## save RNA expression matrix for each individual Seurat object
@@ -225,7 +192,7 @@ foreach (i=1:length(sample_name)) %do% {
     print(summary(seu$percent.mt))
     cat("Summary of pt_ribo: \n") 
     print(summary(seu$percent.ribo)) 
-    cat("The number of GEM/barcodes: \n")
+    cat("The number of features/genes and number of GEM/barcodes: \n")
     print(dim(seu))
     sink()
 

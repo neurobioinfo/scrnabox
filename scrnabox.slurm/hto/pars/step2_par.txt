@@ -1,28 +1,31 @@
 ############################################################################
-# If you want to save an RNA expression matrix and metadata dataframe set the following to "yes"
+# If you want to save an RNA expression matrix and metadata data frame set the following to "yes"
 ############################################################################
-par_save_RNA="NO"
-par_save_metadata="NO"
+par_save_RNA="yes"
+par_save_metadata="yes"
+
 
 ############################################################################
 # Ambient RNA removal
 ############################################################################
-## If you want to remove the ambient RNA, change the default to "yes". 
-par_ambient_rna="yes"
+##If you want to remove ambient RNA from the expression matrix, keep the default as “yes”. If you do not want values changed to remove ambient RNA, change to “no”.
+par_ambient_RNA="yes"
+
 
 ############################################################################
-# Exisiting feature-barcode matrices
+# Normalization and scaling parameters for individual Seurat object
+## Note: normalization and scaling must be performed prior to cell cycle scoring
 ############################################################################
-## If you already have feature-barcode matrices and want to initiate scRNAbox at step 2, without running step 1 (cell ranger),
-## uncomment the line below and add the path to the directory containing the feature-barcode matrices. 
-#par_count_matrices='/lustre03/project/6070393/COMMON/Dark_Genome/samamiri/test_scrnabox/tutorial_scrna/download/course_data/count_matrices'
+## Normalization method
+par_normalization.method="LogNormalize"
 
-############################################################################
-# Filtering parameters
-############################################################################
-## Only retain the genes that are present in at least a specified number of cells.
-par_min.cells_L=0
-## Only retain the cells that express at least a specified number of genes.
-par_min.features_L=0
+## Scale factor
+par_scale.factor=10000
+
+## Method for choosing the top variable features. vst, mean.var.plot (mvp), dispersion (disp). 
+par_selection.method="vst"
+
+## Number of features to select as top variable features
+par_nfeatures= 2500
 
 

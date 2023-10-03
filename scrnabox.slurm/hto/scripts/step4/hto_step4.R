@@ -1,6 +1,7 @@
 #!/usr/bin/env Rscript
 
 ####################
+# v1.38
 # step4 -- demultiplexing and doublet detection
 ####################
 
@@ -58,10 +59,10 @@ foreach (i_s=1:length(sample_name)) %do% {
     if (tolower(par_dimensionality_reduction)=='yes'){
         seu <- RunPCA(seu, npcs = par_npcs_pca, verbose = FALSE)
         DimPlot(seu, reduction = "pca")
-        ggsave(paste(output_dir,'/step4/figs4/',"HTO_dimplot_pca_",sample_nameb[i_s],".png",sep=""))
+        ggsave(paste(output_dir,'/step4/figs4/',sample_nameb[i_s],"_HTO_dimplot_pca_",".png",sep=""))
         seu <- RunUMAP(seu, dims = 1:par_dims_umap, n.neighbors =par_n.neighbors)
         Seurat::DimPlot(seu, reduction = "umap")
-        ggsave(paste(output_dir,'/step4/figs4/',"HTO_dimplot_umap_",sample_nameb[i_s],".png",sep=""))
+        ggsave(paste(output_dir,'/step4/figs4/',sample_nameb[i_s],"_HTO_dimplot_umap_", ".png",sep=""))
     }
     
     ## doublet detection and demultiplexing with MULTIseqDemux
@@ -73,20 +74,20 @@ foreach (i_s=1:length(sample_name)) %do% {
 
     ## print ridge plot
     RidgePlot(seu, assay = "HTO", features = rownames(seu[["HTO"]]), group.by = "MULTI_ID", ncol =par_RidgePlot_ncol) 
-    ggsave(paste(output_dir,'/step4/figs4/',sample_nameb[i_s],"_RidgeplotHTOMSD.png",sep=""))
+    ggsave(paste(output_dir,'/step4/figs4/',sample_nameb[i_s],"_Ridgeplot_HTO_MSD.png",sep=""),dpi = 300, height = 9, width = 9, unit = 'in' )
     
     ## print violin plot for ncount_RNA
     Idents(seu) <- "HTO_classification.global"
     VlnPlot(seu, features = "nCount_RNA", pt.size = 0.01, log = TRUE, group.by = "MULTI_ID")
-    ggsave(paste(output_dir,'/step4/figs4/seu',i_s,"_nCounts_demult_groupsMSD.png",sep=""))
+    ggsave(paste(output_dir,'/step4/figs4/',sample_nameb[i_s],"_nCounts_RNA_MSD.png",sep=""))
     
     ## print heatmap
     DoHeatmap(seu, features = rownames(seu[["HTO"]]), group.by = "MULTI_ID")
-    ggsave(paste(output_dir,'/step4/figs4/seu',i_s,"_HeatmapHTOIDMSD.png",sep=""))
+    ggsave(paste(output_dir,'/step4/figs4/',sample_nameb[i_s],"_Heatmap_HTO_MSD.png",sep=""))
     
     ## print dotplot
-    DotPlot(seu, features = rownames(seu[["HTO"]]), group.by = "MULTI_ID")  # sug by MF
-    ggsave(paste(output_dir,'/step4/figs4/seu',i_s,"_DotPlotHTOIDMSD.png",sep=""))
+    DotPlot(seu, features = rownames(seu[["HTO"]]), group.by = "MULTI_ID") + theme(axis.text.x = element_text(angle=45, hjust=1, vjust=1))
+    ggsave(paste(output_dir,'/step4/figs4/',sample_nameb[i_s],"_DotPlot_HTO_MSD.png",sep=""))
     
     ## rename identies with new antibody label
     multi.names <- unique(seu@meta.data$MULTI_ID)
@@ -113,20 +114,22 @@ foreach (i_s=1:length(sample_name)) %do% {
     ## save rna expression matrix
     if (tolower(par_save_RNA)=='yes') {
        mat <- GetAssayData(object = seu, assay = "RNA", slot = "data")
-      writeMM(mat,file= paste(output_dir,'/step4/info4/seu',i_s,"_RNA.txt", sep=""))
+      writeMM(mat,file= paste(output_dir,'/step4/info4/',sample_nameb[i_s],"_RNA.txt", sep=""))
     }
 
     ## save metadata dataframe
     if (tolower(par_save_metadata)=='yes') {
-      write.csv(seu[[]], file = paste(output_dir,'/step4/info4/seu_MetaData',i_s,'.txt', sep=""), quote = TRUE, sep = ",")
+      write.csv(seu[[]], file = paste(output_dir,'/step4/info4/',sample_nameb[i_s],'_MetaData.txt', sep=""), quote = TRUE, sep = ",")
     }
-    write.csv(colnames(seu[[]]), file= paste(output_dir,'/step4/info4/meta_info',sample_nameb[i_s],".txt", sep=""))
+
+    ## save available meta info
+    write.csv(colnames(seu[[]]), file= paste(output_dir,'/step4/info4/',sample_nameb[i_s],'_meta_info_',".txt", sep=""))
     
     ## save RDS seurat object
     saveRDS(seu, paste(output_dir,'/step4/objs4/seu',i_s,".rds", sep=""))
 
     ## HTO counts after doublet removal 
-    write.csv(table(seu$MULTI_ID), paste(output_dir,'/step4/info4/seu',i_s,"filtered_MULTIseqDemuxHTOcounts.csv",sep=""))
+    write.csv(table(seu$MULTI_ID), paste(output_dir,'/step4/info4/',sample_nameb[i_s],"filtered_MULTIseqDemuxHTOcounts.csv",sep=""))
 }
 
 ## save session information

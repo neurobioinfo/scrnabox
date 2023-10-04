@@ -3,115 +3,115 @@ R_LIB_PATH="/home/fiorini9/scratch/scrnabox_final/4.2"
 .libPaths(R_LIB_PATH)
 
 # load packages
-install.packages('caTools') 
+install.packages('caTools') #in
 library(caTools) 
 
-install.packages('gplots')
+install.packages('gplots') #in
 library(gplots) 
 
-install.packages('ROCR')
+install.packages('ROCR') #in
 library(ROCR) 
 
-install.packages('Seurat') 
+install.packages('Seurat') #already in
 library(Seurat) 
 
-install.packages('ggplot2') 
+install.packages('ggplot2') #already in
 library(ggplot2) 
 
-install.packages('dplyr') 
+install.packages('dplyr') #already in
 library(dplyr) 
 
-install.packages('foreach') 
+install.packages('foreach') #already in 
 library(foreach) 
 
-install.packages('doParallel') 
+install.packages('doParallel') #already in 
 library(doParallel) 
 
-install.packages('Matrix') 
+install.packages('Matrix') #already in 
 library(Matrix) 
 
-install.packages('remotes') 
+install.packages('remotes') #dont need
 library(remotes) 
 
-remotes::install_github('chris-mcginnis-ucsf/DoubletFinder') 
+remotes::install_github('chris-mcginnis-ucsf/DoubletFinder')  #already in 
 library(DoubletFinder) 
 
-install.packages('cowplot') 
+install.packages('cowplot') #already in 
 library(cowplot) 
 
 install.packages('clustree') 
-library(clustree) 
+library(clustree) #already in 
 
-install.packages('xlsx') 
+install.packages('xlsx') #already in 
 library(xlsx) 
 
-install.packages('enrichR') 
+install.packages('enrichR') #already in 
 library(enrichR) 
 
-install.packages('stringi') 
+install.packages('stringi') #already in 
 library(stringi) 
 
-if (!requireNamespace("BiocManager", quietly = TRUE)) 
+if (!requireNamespace("BiocManager", quietly = TRUE)) #already in 
     install.packages("BiocManager")
 
 BiocManager::install("limma") ## might be able to remove this
 library(limma) 
 
-install.packages('tidyverse') 
+install.packages('tidyverse') #in 
 library(tidyverse) 
 
-BiocManager::install("edgeR", force = TRUE)  ## might be able to remove this
+BiocManager::install("edgeR", force = TRUE)  ## might be able to remove this #in 
 library(edgeR) 
 
-install.packages('vctrs') 
+install.packages('vctrs') #added
 library(vctrs) 
 
-install.packages('fossil') 
+install.packages('fossil') #added
 library(fossil) 
 
-install.packages('openxlsx') 
+install.packages('openxlsx') #added
 library(openxlsx) 
 
-install.packages('stringr') 
+install.packages('stringr') #added
 library(stringr) 
 
-install.packages('ggpubr') 
+install.packages('ggpubr') #added
 library(ggpubr) 
 
-install.packages('devtools') 
+install.packages('devtools') #already in 
 library(devtools) 
 
-library(data.table)
+library(data.table) #added
 
-install.packages('SoupX') 
+install.packages('SoupX') #added
 library(SoupX) 
 
-BiocManager::install("MatrixGenerics") 
+BiocManager::install("MatrixGenerics") #in
 library(MatrixGenerics) 
 
-BiocManager::install("BiocGenerics") 
+BiocManager::install("BiocGenerics") #in
 library(BiocGenerics) 
 
-BiocManager::install("S4Vectors") 
+BiocManager::install("S4Vectors") #in
 library(S4Vectors) 
 
-BiocManager::install("IRanges") 
+BiocManager::install("IRanges") #in
 library(IRanges) 
 
-BiocManager::install("GenomeInfoDb") 
+BiocManager::install("GenomeInfoDb") #in
 library(GenomeInfoDb) 
 
-BiocManager::install("GenomicRanges") 
+BiocManager::install("GenomicRanges") #in
 library(GenomicRanges) 
 
-BiocManager::install("Biobase") 
+BiocManager::install("Biobase") #added
 library(Biobase) 
 
-BiocManager::install("SummarizedExperiment") 
+BiocManager::install("SummarizedExperiment") #added
 library(SummarizedExperiment) 
 
-BiocManager::install("SingleCellExperiment") 
+BiocManager::install("SingleCellExperiment") #added
 library(SingleCellExperiment) 
 
-BiocManager::install("DropletUtils") 
+BiocManager::install("DropletUtils") #added
 library(DropletUtils)  

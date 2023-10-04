@@ -1,5 +1,18 @@
 ############################################################################
-# If you want to save an RNA expression matrix and metadata data frame set the following to "yes"
+# Choose which differential gene expression (DGE) methods you want to use for this submission
+############################################################################
+## Add metadata to facilitate DGE contrasts
+par_run_add_metadata="no"
+
+## Perform DGE contrasts between samples across all cells
+par_run_sample_sample_wilcoxon="yes"
+
+## Perform DGE contrasts between samples, stratified by cell type
+par_run_sample_cell_wilcoxon="yes"
+
+
+############################################################################
+# If you want to save an RNA expression matrix and metadata dataframe set the following to "yes"
 ############################################################################
 par_save_RNA="yes"
 par_save_metadata="yes"
@@ -8,7 +21,7 @@ par_save_metadata="yes"
 ############################################################################
 # Add metadata parameters
 ############################################################################
-## enter the location to a csv file describing new metadata that should be added to the Seurat object to facilitate DEG analysis. At least one column should contain "MULTI_ID_Lables"
+## enter the location to a csv file describing new metadata that should be added to the Seurat object to facilitate DEG analysis. At least one column should contain "orig.ident"
 par_metadata = "/home/fiorini9/scratch/scrna_pipeline/standard_v1.38/pipeline/metadata.csv"
 
 

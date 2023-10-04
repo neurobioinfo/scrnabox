@@ -3,7 +3,7 @@
 # Path of R library ----------------------------------------------------------
 ## Create if it does not exist
 if (!dir.exists("~/scratch/R/x86_64-pc-linux-gnu-library/4.2")){
-  dir.create("~/scratch/R/x86_64-pc-linux-gnu-library2/4.2", recursive = TRUE)
+  dir.create("~/scratch/R/x86_64-pc-linux-gnu-library/4.2", recursive = TRUE)
 }
 
 ## Specify the path 
@@ -18,9 +18,24 @@ devtools::install_github("tidyverse/ggplot2")
 devtools::install_github("tidyverse/dplyr")
 devtools::install_github("tidyverse/tidyverse")
 devtools::install_github('chris-mcginnis-ucsf/DoubletFinder')
+
+install.packages('tidyverse')
+install.packages('caTools')
+install.packages('gplots') 
+install.packages('ROCR')
+install.packages('vctrs')
+install.packages('fossil')
+install.packages('openxlsx')   
+install.packages('stringr') 
+install.packages('ggpubr')
+install.packages('data.table')
+install.packages('SoupX') 
+install.packages('ggrepel') 
+ 
 ### packages needed for scrnabox pipeline
-pkgs <- c('Seurat', 'foreach', 'doParallel', 'Matrix','cowplot','xlsx','clustree','enrichR','stringi','limma', 'edgeR', 'org.Hs.eg.db')
-pkgs <- c('SoupX','MatrixGenerics','BiocGenerics','S4Vectors','IRanges','GenomeInfoDb','GenomicRanges')
+pkgs <- c('Seurat', 'foreach', 'doParallel', 'Matrix','cowplot','xlsx','clustree','enrichR','stringi','limma', 'edgeR', 
+'org.Hs.eg.db', 'SoupX','MatrixGenerics','BiocGenerics','S4Vectors','IRanges','GenomeInfoDb','GenomicRanges', 'Biobase', 
+'SummarizedExperiment', 'SingleCellExperiment', 'DropletUtils')
 
 ## install Bioconductor 
 if (!require("BiocManager", quietly = TRUE)) {

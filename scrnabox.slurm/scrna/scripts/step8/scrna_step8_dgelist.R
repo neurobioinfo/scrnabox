@@ -1,7 +1,7 @@
 #!/usr/bin/env Rscript
 
 ####################
-# step8 -- dgelist
+# step8 -- DGE contrast
 ####################
 
 ## load parameters
@@ -11,87 +11,233 @@ r_lib_path=args[2]
 
 ## load library
 .libPaths(r_lib_path)
-packages<-c('Seurat','ggplot2', 'dplyr','stringi','limma','tidyverse','edgeR')
+packages<-c('Seurat','ggplot2', 'dplyr','stringi','tidyverse','Matrix', 'ggrepel')
 lapply(packages, library, character.only = TRUE)
-
-## load existing Seurat objects
-sample_name<-list.files(path = paste(output_dir, "/step6/objs6",sep=""),pattern = "*.rds")
-seu.int.c<-readRDS(paste(output_dir,'/step6/objs6/',sample_name, sep=''))
 
 ## load parameters
 source(paste(output_dir,'/job_info/parameters/step8_par.txt',sep=""))
 
-## reset sample labels (optional)
-if (tolower(par_new_genotype)=='yes') {
-    old.names<-par_old_sample_label
-    new.names<-par_new_sample_label
-    Idents(seu.int.c)  <- "Sample_ID"
-    for (i in 1:length(old.names)){
-        newIdent <- new.names[i]
-        names(newIdent) <- old.names[i]
-        seu.int.c <- RenameIdents(object = seu.int.c, newIdent)
-    }
-    seu.int.c[["New_Sample_ID"]] <- Idents(seu.int.c)
+############################################################################
+## add metadata
+############################################################################
+
+if (tolower(par_run_add_metadata)=='yes') {
+## load step7 seurat object
+sample_name<-list.files(path = paste(output_dir, "/step7/objs7",sep=""),pattern = "*.rds")
+seu_int<-readRDS(paste(output_dir,'/step7/objs7/',sample_name, sep=''))
+
+## load meatadata
+meta_data <- read.delim(par_metadata, header = T, sep = ",") 
+new_meta <- colnames(meta_data)
+
+## create existing metdata dataframe
+metadata_df <- data.frame(seu_int@meta.data)
+
+## merge existing metdata and new metdata
+merge_metadata_df <- merge(metadata_df,meta_data, by = "orig.ident" )
+df<- merge_metadata_df[,new_meta]
+nrow(metadata_df) == nrow(df)
+
+## remove orig.ident column
+df <- subset(df, select = -c(orig.ident))
+nrow(metadata_df) == nrow(df)
+
+## set colnames into a list
+colnames <- colnames(df)
+nrow(df)
+
+## add metadata
+for (i in 1:ncol(df)){
+seu_int <- AddMetaData(seu_int, metadata = df[,i], col.name = colnames[i])
 }
 
-## rename old sample labels metadata column name if users do not want to change labels -- this is necessary for DGE contrats
-if (tolower(par_new_genotype)=='no') {
-    Idents(seu.int.c)  <- "Sample_ID"
-    seu.int.c[["New_Sample_ID"]] <- Idents(seu.int.c)
-}
-
-## set cluster annotations obtained from cluster anntation modules (step 7)
-cluster.ids<-par_step8_clus_label
-
-## set cluster resolution and rename cluster identities
-seu.int.c <- SetIdent(seu.int.c, value = par_select_cluster)
-names(cluster.ids) <- levels(seu.int.c)    
-seu.int.c <- RenameIdents(seu.int.c, cluster.ids) 
-seu.int.c$cell.types.pool <- Idents(seu.int.c) 
-
-## print UMAP with final cluster annotation
-dir.create(paste(output_dir,'/step8/figs8',sep=''))
-DimPlot(seu.int.c, reduction = "umap", label = TRUE, pt.size = 0.5) + NoLegend()
-ggsave(file = paste(output_dir,'/step8/figs8','/final_cluster_annotation.pdf', sep=''))
-
-## identify cluster-specific marker genes
-de_genes <- Seurat::FindAllMarkers(seu.int.c,  min.pct = 0.25,only.pos = TRUE)
-DefaultAssay(seu.int.c) <- "RNA"
-counts <- Seurat::GetAssayData(seu.int.c, slot = "counts")
-counts <- counts[rowSums(counts) != 0,]
-
-## compute differentially expressed genes (DEG)
-dge <- edgeR::DGEList(counts = counts)
-dge <- edgeR::calcNormFactors(dge)  
-
-## set cell type
-seu.int.c$ct<-seu.int.c$cell.types.pool
-
-## set sample ID
-seu.int.c$d1<-seu.int.c$New_Sample_ID
-
-## save Seurat and DEG RDS objects
-saveRDS(seu.int.c, paste(output_dir,'/step8/objs8',"/seu_step8.rds", sep=""))
-saveRDS(de_genes, paste(output_dir,'/step8/info8',"/de_genes.rds", sep=""))
-saveRDS(dge, paste(output_dir,'/step8/info8',"/dge.rds", sep=""))
-
-## save DEG info
-write.csv(colnames(seu.int.c[[]]), file= paste(output_dir,'/step8/info8/meta_info_seu_step8.txt', sep=""))
-write.csv(head(de_genes),          file= paste(output_dir,'/step8/info8/meta_info_de_genes.txt', sep=""))
-write.csv(summary(dge),            file= paste(output_dir,'/step8/info8/meta_info_dge.txt', sep=""))
+## print RDS object
+saveRDS(seu_int, paste(output_dir,'/step8/objs8',"/seu_step8.rds", sep=""))
 
 ## save rna expression matrix
 if (tolower(par_save_RNA)=='yes') {
-    mat <- GetAssayData(object = seu.int.c, assay = "RNA", slot = "data")
+    mat <- GetAssayData(object = seu_int, assay = "RNA", slot = "data")
     #  write.csv(mat, paste(output_dir,'/step2/info2/',sample_name[i],"_RNA.csv", sep=""))
     writeMM(mat,file= paste(output_dir,'/step8/info8/seu',"_RNA.txt", sep=""))
 }
 
 ## save metadata dataframe
 if (tolower(par_save_metadata)=='yes') {
-    write.csv(seu.int.c[[]], file = paste(output_dir,'/step8/info8/seu_MetaData.txt', sep=""), quote = TRUE, sep = ",")
+    write.csv(seu_int[[]], file = paste(output_dir,'/step8/info8/seu_MetaData.txt', sep=""), quote = TRUE, sep = ",")
 }
 
 ## write session info
-writeLines(capture.output(sessionInfo()), paste(output_dir,'/step8/info8/sessionInfo_dgelist.txt', sep=""))
-file.remove("Rplots.pdf")
+writeLines(capture.output(sessionInfo()), paste(output_dir,'/step8/info8/sessionInfo_add_metadata.txt', sep=""))
+
+if(file.exists("Rplots.pdf")){
+    file.remove("Rplots.pdf")
+}
+}
+
+
+############################################################################
+## sample-sample contrast (wilcoxon)
+############################################################################
+
+if (tolower(par_run_sample_sample_wilcoxon)=='yes') {
+
+################### import the right Seurat object ###################
+## load name of existing Seurat objects
+sample_name<-list.files(path = paste(output_dir, "/step7/objs7",sep=""),pattern = "*.rds")
+
+if(file.exists(paste(output_dir,'/step8/objs8/','seu_step8.rds', sep = ""))){
+    seu_int<-readRDS(paste(output_dir,'/step8/objs8/','seu_step8.rds', sep=''))
+}else{
+    seu_int<-readRDS(paste(output_dir,'/step7/objs7/',sample_name, sep=''))
+}
+################### ############################## ###################
+
+## add info directory
+OUT_DIR_info <- paste(output_dir,"/step8/info8",sep='') 
+OUT_dir_info_sample <- paste(OUT_DIR_info,"/sample_sample_contrasts/",sep='') 
+dir.create(OUT_dir_info_sample)
+
+## add figs directory
+OUT_DIR_figs <- paste(output_dir,"/step8/figs8",sep='') 
+dir.create(OUT_DIR_figs)
+OUT_DIR_figs_sample <- paste(OUT_DIR_figs,"/sample_sample_contrasts/",sep='') 
+dir.create(OUT_DIR_figs_sample)
+
+## set default assay to RNA
+DefaultAssay(seu_int) <- "RNA"
+
+### sample-sample dge wilcoxon analysis ####
+dd<-read.csv(paste(output_dir,'/job_info/parameters/step8_contrast_genotype.txt',sep='/'), sep="")
+
+for(i in 1:nrow(dd)){  
+Idents(seu_int) <- dd[i,2]    
+DGE <- FindMarkers(seu_int, ident.1 = dd[i,3], ident.2 = dd[i,4],  logfc.threshold = 0)
+#write dge
+write.csv(DGE, file = paste(OUT_dir_info_sample, dd[i,1],'_DEG.csv', sep=""), quote = FALSE, sep = ",")
+
+# volcano plot
+DGE_frame <- data.frame(DGE)
+DGE_frame$gene <- rownames(DGE_frame) 
+DGE_frame$col <- "grey66"
+DGE_frame$col[DGE_frame$avg_log2FC >= 0.25 & DGE_frame$p_val < 0.05] <- "indianred3"
+DGE_frame$col[DGE_frame$avg_log2FC <= -0.25 & DGE_frame$p_val < 0.05] <- "dodgerblue"
+#plot
+ggplot(DGE_frame, aes(x = avg_log2FC, y =-log10(p_val), col = col)) + 
+theme_classic() + 
+geom_hline(yintercept = -log10(0.05), linetype="dashed", colour = "grey") +
+geom_vline(xintercept = 0.25, linetype="dashed", colour = "grey") +
+geom_vline(xintercept = -0.25, linetype="dashed", colour = "grey") +
+geom_point() +  
+scale_colour_identity() +
+xlab('Log2(FC)') +
+ylab('-Log10(p-value)') 
+ggsave(file = paste(OUT_DIR_figs_sample,dd[i,1],'_volcano_plot.pdf', sep=''))
+}
+###################
+
+## print RDS object
+saveRDS(seu_int, paste(output_dir,'/step8/objs8',"/seu_step8.rds", sep=""))
+
+## save rna expression matrix
+if (tolower(par_save_RNA)=='yes') {
+    mat <- GetAssayData(object = seu_int, assay = "RNA", slot = "data")
+    #  write.csv(mat, paste(output_dir,'/step2/info2/',sample_name[i],"_RNA.csv", sep=""))
+    writeMM(mat,file= paste(output_dir,'/step8/info8/seu',"_RNA.txt", sep=""))
+}
+
+## save metadata dataframe
+if (tolower(par_save_metadata)=='yes') {
+    write.csv(seu_int[[]], file = paste(output_dir,'/step8/info8/seu_MetaData.txt', sep=""), quote = TRUE, sep = ",")
+}
+
+## write session info
+writeLines(capture.output(sessionInfo()), paste(output_dir,'/step8/info8/sessionInfo_sample_sample_cont.txt', sep=""))
+if(file.exists("Rplots.pdf")){
+    file.remove("Rplots.pdf")
+}
+}
+
+############################################################################
+## sample-cell contrast (wilcoxon)
+############################################################################
+
+if (tolower(par_run_sample_cell_wilcoxon)=='yes') {
+
+################### import the right Seurat object ###################
+## load name of existing Seurat objects
+sample_name<-list.files(path = paste(output_dir, "/step7/objs7",sep=""),pattern = "*.rds")
+
+if(file.exists(paste(output_dir,'/step8/objs8/','seu_step8.rds', sep = ""))){
+    seu_int<-readRDS(paste(output_dir,'/step8/objs8/','seu_step8.rds', sep=''))
+}else{
+    seu_int<-readRDS(paste(output_dir,'/step7/objs7/',sample_name, sep=''))
+}
+################### ############################## ###################
+
+## add info directory
+OUT_DIR_info <- paste(output_dir,"/step8/info8",sep='') 
+OUT_dir_info_sample <- paste(OUT_DIR_info,"/sample_cell_contrasts/",sep='') 
+dir.create(OUT_dir_info_sample)
+
+## add figs directory
+OUT_DIR_figs <- paste(output_dir,"/step8/figs8",sep='')
+dir.create(OUT_DIR_figs)
+OUT_DIR_figs_sample <- paste(OUT_DIR_figs,"/sample_cell_contrasts/",sep='') 
+dir.create(OUT_DIR_figs_sample)
+
+## set default assay to RNA
+DefaultAssay(seu_int) <- "RNA"
+
+################### sample-cell dge analysis ###################
+dd<-read.csv(paste(output_dir,'/job_info/parameters/step8_contrast_celltype.txt',sep='/'), sep="")
+
+for(i in 1:nrow(dd)){
+Idents(seu_int) <- dd[i,2]    
+celltype.sub.seu <- subset(seu_int, idents = dd[i,3])
+Idents(celltype.sub.seu) <- dd[i,4]    
+DGE <- FindMarkers(celltype.sub.seu, ident.1 = dd[i,5], ident.2 = dd[i,6],  logfc.threshold = 0)
+write.csv(DGE, file = paste(OUT_dir_info_sample,"/", dd[i,1],'_DEG.csv', sep=""), quote = FALSE, sep = ",")
+
+# volcano plot
+DGE_frame <- data.frame(DGE)
+DGE_frame$gene <- rownames(DGE_frame) 
+DGE_frame$col <- "grey66"
+DGE_frame$col[DGE_frame$avg_log2FC >= 0.25 & DGE_frame$p_val < 0.05] <- "indianred3"
+DGE_frame$col[DGE_frame$avg_log2FC <= -0.25 & DGE_frame$p_val < 0.05] <- "dodgerblue"
+#plot
+ggplot(DGE_frame, aes(x = avg_log2FC, y =-log10(p_val), col = col)) + 
+theme_classic() + 
+geom_hline(yintercept = -log10(0.05), linetype="dashed", colour = "grey") +
+geom_vline(xintercept = 0.25, linetype="dashed", colour = "grey") +
+geom_vline(xintercept = -0.25, linetype="dashed", colour = "grey") +
+geom_point() +  
+scale_colour_identity() +
+xlab('Log2(FC)') +
+ylab('-Log10(p-value)')
+ggsave(file = paste(OUT_DIR_figs_sample,dd[i,1],'_volcano_plot.pdf', sep=''))
+
+}
+################### ########################## ###################
+
+## print RDS object
+saveRDS(seu_int, paste(output_dir,'/step8/objs8',"/seu_step8.rds", sep=""))
+
+## save rna expression matrix
+if (tolower(par_save_RNA)=='yes') {
+    mat <- GetAssayData(object = seu_int, assay = "RNA", slot = "data")
+    #  write.csv(mat, paste(output_dir,'/step2/info2/',sample_name[i],"_RNA.csv", sep=""))
+    writeMM(mat,file= paste(output_dir,'/step8/info8/seu',"_RNA.txt", sep=""))
+}
+
+## save metadata dataframe
+if (tolower(par_save_metadata)=='yes') {
+    write.csv(seu_int[[]], file = paste(output_dir,'/step8/info8/seu_MetaData.txt', sep=""), quote = TRUE, sep = ",")
+}
+
+## write session info
+writeLines(capture.output(sessionInfo()), paste(output_dir,'/step8/info8/sessionInfo_sample_cell_cont.txt', sep=""))
+if(file.exists("Rplots.pdf")){
+    file.remove("Rplots.pdf")
+}
+}
+

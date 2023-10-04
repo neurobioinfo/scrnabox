@@ -1,4 +1,26 @@
 ############################################################################
+# Choose which cluster annotation methods you want to use for this submission
+############################################################################
+## Identify cluster specific markers
+par_run_find_marker = "no"
+
+## Run enrichR GSEA on cluster-specific markers. You can only run this if par_run_find_marker = "yes". Additionally, this step can only be run if your HPC allows internet access.
+par_run_enrichR = "no"
+
+## Perform module score computation
+par_run_module_score = "no"
+
+## Perform reference based-annotation
+par_run_reference = "yes"
+
+## Visualize select markers
+par_run_visualize_markers = "yes"
+
+## Add cluster annotations to the Seurat object metadata and visualize annotated clusters
+par_run_annotate = "yes"
+
+
+############################################################################
 # If you want to save an RNA expression matrix and metadata dataframe set the following to "yes"
 ############################################################################
 par_save_RNA="yes"
@@ -40,7 +62,7 @@ par_module_score="/home/fiorini9/scratch/scrna_pipeline/smajic_markdown/smajic_m
 par_select_features_list= c("MOBP", "VCAN", "AQP4","FOXJ1", "CD74", "CLDN5", "GFRB", "SLC17A6", "GAD2", "GRIK1", "TH", "CADPS2")
 
 ## If you want to define multiple lists of features to visualize, you can do so with a csv file. The header should contain the list names and all features belonging to the same list should be in the same column. Uncomment the below parameter and enter the location of the csv file
-#par_select_features_csv ="/home/fiorini9/scratch/scrna_pipeline/smajic_markdown/smajic_module.csv"
+par_select_features_csv ="/home/fiorini9/scratch/scrna_pipeline/smajic_markdown/smajic_module.csv"
 
 
 #####################################################################
@@ -70,7 +92,7 @@ par_futureglobalsmaxSize= 60000 * 1024^2
 par_annotate_resolution = "integrated_snn_res.1.4"
 
 ## the name of the metadata slot under wich the cluster labels will be stored. 
-par_name_metadata = "clustering_2"
+par_name_metadata = "clustering_3"
 
 ## A list of cluster labels. Make sure you have as many labels as clusters at the defined clustering resolution
 par_annotate_labels = c("Oligodendrocytes", "Oligodendrocytes", "Excitatory_Neurons", "Oligodendrocytes", "Oligodendrocytes", "Oligodendrocytes", "Oligodendrocytes", "Oligodendrocytes", "OPC", "Endothelial_cells", "Microglia", "Oligodendrocytes", "Astrocytes", "Excitatory_Neurons", "Astrocytes","Astrocytes")

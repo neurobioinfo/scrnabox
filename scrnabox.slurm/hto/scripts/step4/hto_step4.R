@@ -129,7 +129,7 @@ foreach (i_s=1:length(sample_name)) %do% {
     saveRDS(seu, paste(output_dir,'/step4/objs4/seu',i_s,".rds", sep=""))
 
     ## HTO counts after doublet removal 
-    write.csv(table(seu$MULTI_ID), paste(output_dir,'/step4/info4/',sample_nameb[i_s],"filtered_MULTIseqDemuxHTOcounts.csv",sep=""))
+    write.csv(table(seu$MULTI_ID), paste(output_dir,'/step4/info4/',sample_nameb[i_s],"_filtered_MULTIseqDemuxHTOcounts.csv",sep=""))
 }
 
 ## save session information

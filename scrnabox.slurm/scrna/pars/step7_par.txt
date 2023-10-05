@@ -21,7 +21,7 @@ par_run_annotate = "yes"
 
 
 ############################################################################
-# If you want to save an RNA expression matrix and metadata dataframe set the following to "yes"
+# If you want to save an RNA expression matrix and metadata data frame set the following to "yes"
 ############################################################################
 par_save_RNA="yes"
 par_save_metadata="yes"
@@ -72,7 +72,7 @@ par_select_features_csv ="/home/fiorini9/scratch/scrna_pipeline/smajic_markdown/
 par_reference="/lustre03/project/6070393/COMMON/datashare/MacoskoSeuratObjects/PD_all_ann.Rds"
 
 ## Define an arbitrary name for the reference object. This will be used to name the metadata slot.
-par_reference_name = "kammath"
+par_reference_name = "Kammath"
 
 ## Name of a metadata column in the reference Seurat object that contains celltype annotations
 par_level_celltype="Cell_Type"
@@ -91,9 +91,9 @@ par_futureglobalsmaxSize= 60000 * 1024^2
 ## The clustering resolution to annotate
 par_annotate_resolution = "integrated_snn_res.1.4"
 
-## the name of the metadata slot under wich the cluster labels will be stored. 
-par_name_metadata = "clustering_3"
+## the name of the metadata slot under which the cluster labels will be stored. 
+par_name_metadata = "clustering_label_1"
 
-## A list of cluster labels. Make sure you have as many labels as clusters at the defined clustering resolution
-par_annotate_labels = c("Oligodendrocytes", "Oligodendrocytes", "Excitatory_Neurons", "Oligodendrocytes", "Oligodendrocytes", "Oligodendrocytes", "Oligodendrocytes", "Oligodendrocytes", "OPC", "Endothelial_cells", "Microglia", "Oligodendrocytes", "Astrocytes", "Excitatory_Neurons", "Astrocytes","Astrocytes")
+## A list of cluster labels. Make sure you have as many labels as clusters at the defined clustering resolution. Please refrain from using "_" when naming cell types.
+par_annotate_labels = c("Oligodendrocytes", "Oligodendrocytes", "ExcitatoryNeurons", "Oligodendrocytes", "Oligodendrocytes", "Oligodendrocytes", "Oligodendrocytes", "Oligodendrocytes", "OPC", "Endothelialcells", "Microglia", "Oligodendrocytes", "Astrocytes", "ExcitatoryNeurons", "Astrocytes","Astrocytes")
 

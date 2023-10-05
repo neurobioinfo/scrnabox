@@ -1,6 +1,6 @@
 ############################################################################
 # If you wan to automate the libraries preparation process,
-# set par_automated_library_prep to "yes" and adress the remaining parameters.
+# set par_automated_library_prep to "yes" and address the remaining parameters.
 ############################################################################
 ## Do you want to perform automated library prep?
 par_automated_library_prep="yes"

@@ -1,0 +1,9 @@
+id,name,read,pattern,sequence,feature_type
+Hash1,A_TotalSeqA,R2,5P(BC),AGGACCATCCAA,Antibody Capture
+Hash2,B_TotalSeqA,R2,5P(BC),ACATGTTACCGT,Antibody Capture
+Hash3,C_TotalSeqA,R2,5P(BC),AGCTTACTATCC,Antibody Capture
+Hash4,D_TotalSeqA,R2,5P(BC),TCGATAATGCGA,Antibody Capture
+Hash5,E_TotalSeqA,R2,5P(BC),GAGGCTGAGCTA,Antibody Capture
+Hash6,F_TotalSeqA,R2,5P(BC),GTGTGACGTATT,Antibody Capture
+Hash7,G_TotalSeqA,R2,5P(BC),ACTGTCTAACGG,Antibody Capture
+Hash8,H_TotalSeqA,R2,5P(BC),TATCACATCGGT,Antibody Capture

@@ -1,5 +1,5 @@
 ############################################################################
-# If you want to save an RNA expression matrix and metadata dataframe set the following to "yes"
+# If you want to save an RNA expression matrix and metadata data frame set the following to "yes"
 ############################################################################
 par_save_RNA="yes"
 par_save_metadata="yes"
@@ -18,12 +18,12 @@ par_scale.factor=10000
 par_selection.method="vst"
 
 ## Number of features to select as top variable features
-par_nfeatures = 2500
+par_nfeatures= 2500
 
 ##  Which dimensions to use as input features for RunUMAP
 par_dims_umap=3
 
-## This determines the number of neighboring points used in local approximations of manifold structure.
+## This determines the number of neighbouring points used in local approximations of manifold structure.
 par_n.neighbors=65
 
 
@@ -58,7 +58,7 @@ par_maxiter=5
 ## Number of columns if multiple plots are displayed for RidgePlot
 par_RidgePlot_ncol=3
 
-## If you wish to rename the antibody labels, list the old antibody labels in "old_antibody_label" and list the new corresponding antibody labels in "new_antibody_label". Old antibody labels can be identified in the "_old_antibody_label_MULTIseqDemuxHTOcounts" file produced by running step 4 msd
+## If you wish to rename the antibody labels, list the old antibody labels in "old_antibody_label" and list the new corresponding antibody labels in "new_antibody_label". Old antibody labels can be identified in the "_old_antibody_label_MULTIseqDemuxHTOcounts" file produced by running Step 4 msd
 
 par_old_antibody_label=c("A-TotalSeqA", "B-TotalSeqA", "C-TotalSeqA", "D-TotalSeqA", "E-TotalSeqA", "F-TotalSeqA", "G-TotalSeqA", "H-TotalSeqA", "Doublet")
 

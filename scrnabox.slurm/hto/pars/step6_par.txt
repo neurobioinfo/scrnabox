@@ -6,7 +6,8 @@ par_save_metadata="yes"
 
 
 ############################################################################
-# If you skipped integration in step 5, set the following to "yes"
+# If you skipped integration in step 5, set the following to "yes". 
+# If you performed integration in Step 5, keep the default as "no".
 ############################################################################
 par_skip_integration="yes"
 
@@ -14,7 +15,7 @@ par_skip_integration="yes"
 ############################################################################
 # Clustering parameters
 ############################################################################
-## Dimensions of reduction to use as input. Can be informed by the elbow and jackstraw plots produced in Dstep 5. 
+## Dimensions of reduction to use as input. Can be informed by the elbow and jackstraw plots produced in Step 5. 
 par_FindNeighbors_dims=30
 
 ## Dimensions of reduction to use as input. Can be informed by the elbow and jackstraw plots produced in Step 5. 

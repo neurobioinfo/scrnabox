@@ -6,7 +6,7 @@
 
 
 
-VERSION=0.1.38;
+VERSION=0.1.4;
 DATE0=2023-09-21
 echo -e "scrnabox pipeline version $VERSION, dev"
 # updated on $DATE0"

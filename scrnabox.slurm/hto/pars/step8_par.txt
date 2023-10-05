@@ -5,11 +5,13 @@
 par_run_add_metadata="no"
 
 ## Perform DGE contrasts between samples across all cells
-par_run_sample_sample_wilcoxon="yes"
+par_run_sample_sample_wilcoxon="no"
 
 ## Perform DGE contrasts between samples, stratified by cell type
-par_run_sample_cell_wilcoxon="yes"
+par_run_sample_cell_wilcoxon="no"
 
+## perform pseudo-bulk analysis
+par_run_pseudo_bulk="yes"
 
 ############################################################################
 # If you want to save an RNA expression matrix and metadata dataframe set the following to "yes"
@@ -22,6 +24,6 @@ par_save_metadata="yes"
 # Add metadata parameters
 ############################################################################
 ## enter the location to a csv file describing new metadata that should be added to the Seurat object to facilitate DEG analysis. At least one column should contain "orig.ident"
-par_metadata = "/home/fiorini9/scratch/scrna_pipeline/standard_v1.38/pipeline/metadata.csv"
+par_metadata = "/path/to/metadata.csv"
 
 

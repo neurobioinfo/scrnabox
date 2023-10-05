@@ -6,7 +6,8 @@ par_save_metadata="yes"
 
 
 ############################################################################
-# If you skipped integration in step 5, set the following to "yes"
+# If you skipped integration in step 5, set the following to "yes". 
+# If you performed integration, keep the default as no.
 ############################################################################
 par_skip_integration="no"
 

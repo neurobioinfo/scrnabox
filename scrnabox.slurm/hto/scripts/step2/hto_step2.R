@@ -151,7 +151,7 @@ if (tolower(par_ambient_RNA)=="yes") {
       ggsave(paste(output_dir,'/step2/figs2/zoomed_in_vioplot_',sample_name[i],".png", sep=""))
         
         ## print summary information
-        write.csv(colnames(seu[[]]), file= paste(output_dir,'/step2/info2/meta_info_seu',i,".txt", sep=""))
+        write.csv(colnames(seu[[]]), file= paste(output_dir,'/step2/info2/meta_info_',i,".txt", sep=""))
         sink(paste(output_dir,'/step2/info2/summary_seu',i,".txt", sep=""))
         cat("Summary of nCount_RNA: \n")
         print(summary(seu$nCount_RNA))
@@ -172,7 +172,7 @@ if (tolower(par_ambient_RNA)=="yes") {
 
         ## save metadata dataframe  
         if (tolower(par_save_metadata)=='yes') {
-          write.csv(seu[[]], file = paste(output_dir,'/step2/info2/seu_MetaData',i,'.txt', sep=""), quote = TRUE, sep = ",")
+          write.csv(seu[[]], file = paste(output_dir,'/step2/info2/MetaData_',i,'.txt', sep=""), quote = TRUE, sep = ",")
           }
         }
     } 
@@ -293,7 +293,7 @@ if (tolower(par_ambient_RNA)=="no") {
       ggsave(paste(output_dir,'/step2/figs2/zoomed_in_vioplot_',sample_name[i],".png", sep=""))
           
           ## print summary information
-          write.csv(colnames(seu[[]]), file= paste(output_dir,'/step2/info2/meta_info_seu',i,".txt", sep=""))
+          write.csv(colnames(seu[[]]), file= paste(output_dir,'/step2/info2/meta_info_',i,".txt", sep=""))
           sink(paste(output_dir,'/step2/info2/summary_seu',i,".txt", sep=""))
           cat("Summary of nCount_RNA: \n")
           print(summary(seu$nCount_RNA))
@@ -313,7 +313,7 @@ if (tolower(par_ambient_RNA)=="no") {
 
           ## save metadata dataframe  
           if (tolower(par_save_metadata)=='yes') {
-            write.csv(seu[[]], file = paste(output_dir,'/step2/info2/seu_MetaData',i,'.txt', sep=""), quote = TRUE, sep = ",")
+            write.csv(seu[[]], file = paste(output_dir,'/step2/info2/MetaData_',i,'.txt', sep=""), quote = TRUE, sep = ",")
             }
           }
 }

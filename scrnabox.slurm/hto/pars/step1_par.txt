@@ -1,9 +1,10 @@
 ############################################################################
 # If you wan to automate the libraries preparation process,
-# set par_automated_library_prep to "yes" and adress the remaining parameters.
+# set par_automated_library_prep to "yes" and address the remaining parameters.
 ############################################################################
 ## Do you want to perform automated library prep?
 par_automated_library_prep = "yes"
+
 
 ####################################
 ###### library.csv parameters ######
@@ -22,6 +23,7 @@ par_seq_run_names = c("run1")
 
 ## If your sequencing is paired-end, set the following to TRUE. Otherwise set it as FALSE.
 par_paired_end_seq = TRUE
+
 
 ########################################
 ###### feature_ref.csv parameters ######

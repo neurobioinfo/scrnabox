@@ -1,5 +1,5 @@
 ############################################################################
-# If you want to save an RNA expression matrix and metadata dataframe set the following to "yes"
+# If you want to save an RNA expression matrix and metadata data frame set the following to "yes"
 ############################################################################
 par_save_RNA="yes"
 par_save_metadata="yes"

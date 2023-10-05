@@ -140,7 +140,7 @@ foreach (i=1:length(sample_name)) %do% {
     ## print variable features plot
     vf_plot <- Seurat::VariableFeaturePlot(seu)
     Seurat::LabelPoints(plot = vf_plot,points = topsel, repel = TRUE)
-    ggsave(paste(output_dir,'/step3/figs3/VariableFeaturePlot',sample_nameb[i],".png",sep=""))
+    ggsave(paste(output_dir,'/step3/figs3/VariableFeaturePlot_',sample_nameb[i],".png",sep=""))
 
     ##Do not regress out cc genes
     if (tolower(par_regress_cell_cycle_genes)=='no') {
@@ -156,10 +156,10 @@ foreach (i=1:length(sample_name)) %do% {
     seu <- RunPCA(seu, npcs = par_npcs_pca, verbose = FALSE)
             ## print PCA 
             DimPlot(seu, reduction = "pca", raster = FALSE)
-            ggsave(paste(output_dir,'/step3/figs3/',"dimplot_pca",sample_nameb[i],".png",sep=""))
+            ggsave(paste(output_dir,'/step3/figs3/',"dimplot_pca_",sample_nameb[i],".png",sep=""))
             ## print elbow plot
             ElbowPlot(seu, ndims = par_npcs_pca)
-            ggsave(paste(output_dir,'/step3/figs3/',"elbowplot",sample_nameb[i],".png",sep=""))
+            ggsave(paste(output_dir,'/step3/figs3/',"elbowplot_",sample_nameb[i],".png",sep=""))
     
     ## save each individual Seurat object as RDS
     saveRDS(seu, paste(output_dir,'/step3/objs3/',sample_nameb[i],".rds", sep=""))
@@ -178,7 +178,7 @@ foreach (i=1:length(sample_name)) %do% {
     }
     ## save metadata dataframe for each individual Seurat object
     if (tolower(par_save_metadata)=='yes') {
-      write.csv(seu[[]], file = paste(output_dir,'/step3/info3/MetaData',sample_nameb[i],'.txt', sep=""), quote = TRUE, sep = ",")
+      write.csv(seu[[]], file = paste(output_dir,'/step3/info3/MetaData_',sample_nameb[i],'.txt', sep=""), quote = TRUE, sep = ",")
     }
     ## save summary information for each individual Seurat object
     sink(paste(output_dir,'/step3/info3/summary_',sample_nameb[i],".txt", sep=""))

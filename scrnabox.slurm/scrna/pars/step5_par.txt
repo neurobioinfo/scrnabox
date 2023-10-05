@@ -1,5 +1,5 @@
 ############################################################################
-# If you want to save an RNA expression matrix and metadata dataframe set the following to "yes"
+# If you want to save an RNA expression matrix and metadata data frame set the following to "yes"
 ############################################################################
 par_save_RNA="yes"
 par_save_metadata="yes"
@@ -34,7 +34,7 @@ par_selection.method="vst"
 ## Number of features to select as top variable features for integration
 par_nfeatures= 2500
 
-## Which dimensions to use from the CCA to specify the neighbor search space
+## Which dimensions to use from the CCA to specify the neighbour search space
 par_FindIntegrationAnchors_dim=25 
 
 
@@ -48,7 +48,7 @@ par_RunPCA_npcs = 30
 ## Which dimensions to use as input features for RunUMAP
 par_RunUMAP_dims=25
 
-## The number of neighboring points used in local approximations of manifold structure.
+## The number of neighbouring points used in local approximations of manifold structure.
 par_RunUMAP_n.neighbors=65
 
 ## Whether or not to perform JackStraw computation. This computation takes a long time.

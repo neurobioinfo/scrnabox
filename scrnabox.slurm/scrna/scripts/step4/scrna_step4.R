@@ -141,7 +141,7 @@ if (tolower(par_dropDN)=='yes') {
 
         ## save metadata dataframe
         if (tolower(par_save_metadata)=='yes') {
-        write.csv(seu[[]], file = paste(output_dir,'/step4/info4/seu_MetaData',sample_nameb[i_s],'.txt', sep=""), quote = TRUE, sep = ",")
+        write.csv(seu[[]], file = paste(output_dir,'/step4/info4/MetaData_',sample_nameb[i_s],'.txt', sep=""), quote = TRUE, sep = ",")
         }
     }
 }
@@ -246,7 +246,7 @@ if (tolower(par_dropDN)=='no') {
 
         ## save metadata dataframe
         if (tolower(par_save_metadata)=='yes') {
-            write.csv(seu[[]], file = paste(output_dir,'/step4/info4/seu_MetaData',sample_nameb[i_s],'.txt', sep=""), quote = TRUE, sep = ",")
+            write.csv(seu[[]], file = paste(output_dir,'/step4/info4/MetaData_',sample_nameb[i_s],'.txt', sep=""), quote = TRUE, sep = ",")
         }
         }
 }

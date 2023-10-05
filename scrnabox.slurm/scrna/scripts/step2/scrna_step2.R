@@ -150,7 +150,7 @@ if (tolower(par_ambient_RNA)=="yes") {
         cat("The number of features/genes and number of GEM/barcodes: \n")
         print(dim(seu))
         sink()
-        write.csv(colnames(seu[[]]), file= paste(output_dir,'/step2/info2/meta_info',sample_name[i],".txt", sep=""))
+        write.csv(colnames(seu[[]]), file= paste(output_dir,'/step2/info2/meta_info_',sample_name[i],".txt", sep=""))
       
       ## save RNA exprression matrix
       if (tolower(par_save_RNA)=='yes') {
@@ -160,7 +160,7 @@ if (tolower(par_ambient_RNA)=="yes") {
 
       ## save metadata dataframe
       if (tolower(par_save_metadata)=='yes') {
-          write.csv(seu[[]], file = paste(output_dir,'/step2/info2/MetaData',sample_name[i],'.txt', sep=""), quote = TRUE, sep = ",")
+          write.csv(seu[[]], file = paste(output_dir,'/step2/info2/MetaData_',sample_name[i],'.txt', sep=""), quote = TRUE, sep = ",")
           }
       }
 }
@@ -294,7 +294,7 @@ list<-dir(path = paste(output_dir, "/step1",sep=""),full.names = TRUE)
         cat("The number of features/genes and number of GEM/barcodes: \n")
         print(dim(seu))
         sink()
-        write.csv(colnames(seu[[]]), file= paste(output_dir,'/step2/info2/meta_info',sample_name[i],".txt", sep=""))
+        write.csv(colnames(seu[[]]), file= paste(output_dir,'/step2/info2/meta_info_',sample_name[i],".txt", sep=""))
 
       ## save RNA expression matrix
       if (tolower(par_save_RNA)=='yes') {
@@ -304,7 +304,7 @@ list<-dir(path = paste(output_dir, "/step1",sep=""),full.names = TRUE)
       
       ## save metadata dataframe
       if (tolower(par_save_metadata)=='yes') {
-        write.csv(seu[[]], file = paste(output_dir,'/step2/info2/MetaData',sample_name[i],'.txt', sep=""), quote = TRUE, sep = ",")
+        write.csv(seu[[]], file = paste(output_dir,'/step2/info2/MetaData_',sample_name[i],'.txt', sep=""), quote = TRUE, sep = ",")
         }
       }
 }

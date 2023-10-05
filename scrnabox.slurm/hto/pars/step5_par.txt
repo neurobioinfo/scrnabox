@@ -1,5 +1,5 @@
 ############################################################################
-# If you want to save an RNA expression matrix and metadata dataframe set the following to "yes"
+# If you want to save an RNA expression matrix and metadata data frame set the following to "yes"
 ############################################################################
 par_save_RNA="yes"
 par_save_metadata="yes"
@@ -41,7 +41,7 @@ par_nfeatures = 2500
 # Parameters for linear dimensional reduction
 # even if you opt to skip integration, adjust the following parameters 
 ############################################################################
-## The number of neighboring points used in local approximations of manifold structure
+## The number of neighbouring points used in local approximations of manifold structure
 par_RunUMAP_n.neighbors=65
 
 ## Total Number of PCs to compute and store for RunPCA

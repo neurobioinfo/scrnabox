@@ -1,5 +1,5 @@
 ############################################################################
-# If you want to save an RNA expression matrix and metadata dataframe set the following to "yes"
+# If you want to save an RNA expression matrix and metadata data frame set the following to "yes"
 ############################################################################
 par_save_RNA="yes"
 par_save_metadata="yes"
@@ -10,7 +10,7 @@ par_save_metadata="yes"
 # Make sure that no other files/objects are present in the directory besides Seurat RDS objects. 
 # Uncomment the line to activate the parameter
 ############################################################################
-#par_seurat_object="/home/fiorini9/scratch/scrna_pipeline/HTO_v1.1/processed"
+#par_seurat_object="/path/to/seurat/object"
 
 
 ############################################################################

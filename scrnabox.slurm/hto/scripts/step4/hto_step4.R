@@ -126,7 +126,7 @@ foreach (i_s=1:length(sample_name)) %do% {
     write.csv(colnames(seu[[]]), file= paste(output_dir,'/step4/info4/',sample_nameb[i_s],'_meta_info_',".txt", sep=""))
     
     ## save RDS seurat object
-    saveRDS(seu, paste(output_dir,'/step4/objs4/seu',i_s,".rds", sep=""))
+    saveRDS(seu, paste(output_dir,'/step4/objs4/',sample_nameb[i_s],".rds", sep=""))
 
     ## HTO counts after doublet removal 
     write.csv(table(seu$MULTI_ID), paste(output_dir,'/step4/info4/',sample_nameb[i_s],"_filtered_MULTIseqDemuxHTOcounts.csv",sep=""))

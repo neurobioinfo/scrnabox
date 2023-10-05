@@ -35,7 +35,7 @@ install.packages('ggrepel')
 ### packages needed for scrnabox pipeline
 pkgs <- c('Seurat', 'foreach', 'doParallel', 'Matrix','cowplot','xlsx','clustree','enrichR','stringi','limma', 'edgeR', 
 'org.Hs.eg.db', 'SoupX','MatrixGenerics','BiocGenerics','S4Vectors','IRanges','GenomeInfoDb','GenomicRanges', 'Biobase', 
-'SummarizedExperiment', 'SingleCellExperiment', 'DropletUtils')
+'SummarizedExperiment', 'SingleCellExperiment', 'DropletUtils', 'EnhancedVolcano')
 
 ## install Bioconductor 
 if (!require("BiocManager", quietly = TRUE)) {

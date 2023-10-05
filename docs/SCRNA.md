@@ -407,7 +407,7 @@ scrnaboxR::annotation(PWD,cluster_marker,db)
 
  - - - -
 ### Step 8: Differential gene expression contrasts
-This step performs differential gene expression (DGE) analyses according to user-defined contrasts. Contrast can be performed between samples (e.g. case vs control; **sample-sample contrasts**) or between samples, stratified by cell type (e.g. case vs control for excitatory neurons only; **sample-cell contrasts**). In addition psuedo-bulk DGE analysis can be performed. 
+This step performs differential gene expression (DGE) analyses according to user-defined contrasts. Contrast can be performed between samples (e.g. case vs control; **sample-sample contrasts**) or between samples, stratified by cell type (e.g. case vs control for excitatory neurons only; **sample-cell contrasts**). In addition, **psuedo-bulk analysis** can be performed. 
  
 The following parameters are adjustable for Step 8:
 

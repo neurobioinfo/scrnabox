@@ -24,7 +24,7 @@ par_nfeatures= 2500
 ############################################################################
 # Parameters for linear dimensional reduction
 ############################################################################
-## If you want to perform linear dimensional reduction on HTO assay set the following to "yes"
+## If you want to perform linear dimensional reduction on HTO assay set the following to "yes". Otherwise, set it to "no".
 par_dimensionality_reduction="yes"
 
 ## Total Number of PCs to compute and store for RunPCA

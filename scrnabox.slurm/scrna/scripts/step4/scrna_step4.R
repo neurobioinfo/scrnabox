@@ -81,7 +81,7 @@ if (tolower(par_dropDN)=='yes') {
         
         ## print UMAP with doublet/singlet classification
         DimPlot(seu, reduction = 'umap', group.by = DF.classifications)
-        ggsave(paste(output_dir,'/step4/figs4/',sample_nameb[i_s],"_DF.classifications.png",sep=""))
+        ggsave(paste(output_dir,'/step4/figs4/',sample_nameb[i_s],"_DF.classifications.pdf",sep=""))
         
         ##print doublet detection summary plot
         #meta df
@@ -116,7 +116,7 @@ if (tolower(par_dropDN)=='yes') {
 
         ##print plot
         ggarrange(pANN,count, ncol = 2, common.legend = T, legend = "bottom" )
-        ggsave(paste(output_dir,'/step4/figs4/',sample_nameb[i_s],"_doublet_summary.png",sep=""))
+        ggsave(paste(output_dir,'/step4/figs4/',sample_nameb[i_s],"_doublet_summary.pdf",sep=""))
 
         ## print txt file with number of doublets detected
         doublet_df <- nrow(subset(df_bind, df_class == "Doublet"))
@@ -185,7 +185,7 @@ if (tolower(par_dropDN)=='no') {
         
         ## print UMAP with doublet/singlet classification       
         DimPlot(seu, reduction = 'umap', group.by = DF.classifications) 
-        ggsave(paste(output_dir,'/step4/figs4/',sample_nameb[i_s],"_DF.classifications.png",sep=""))
+        ggsave(paste(output_dir,'/step4/figs4/',sample_nameb[i_s],"_DF.classifications.pdf",sep=""))
 
         ##print doublet detection summary plot
         #meta df
@@ -220,7 +220,7 @@ if (tolower(par_dropDN)=='no') {
 
         ##print plot
         ggarrange(pANN,count, ncol = 2, common.legend = T, legend = "bottom" )
-        ggsave(paste(output_dir,'/step4/figs4/',sample_nameb[i_s],"_doublet_summary.png",sep=""))
+        ggsave(paste(output_dir,'/step4/figs4/',sample_nameb[i_s],"_doublet_summary.pdf",sep=""))
 
         ## print txt file with number of doublets detected
         doublet_df <- nrow(subset(df_bind, df_class == "Doublet"))

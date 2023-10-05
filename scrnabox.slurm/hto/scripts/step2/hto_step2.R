@@ -111,11 +111,11 @@ if (tolower(par_ambient_RNA)=="yes") {
       ## PCA cell cycle score
       seu <- RunPCA(seu, features = c(cc.genes$g2m.genes, cc.genes$s.genes),raster = FALSE)
       DimPlot(seu, group.by = "Phase", pt.size =2, raster =FALSE)
-      ggsave(paste(output_dir,'/step2/figs2/cell_cyle_dim_plot_',sample_name[i],".png", sep=""))
+      ggsave(paste(output_dir,'/step2/figs2/cell_cyle_dim_plot_',sample_name[i],".pdf", sep=""))
       
       ## print violin plot for QC metrics
       Seurat::VlnPlot(seu, group.by= "orig.ident", features = c("nFeature_RNA","nCount_RNA","percent.mt","percent.ribo","S.Score", "G2M.Score"), pt.size = 0.01,ncol = 3,raster = FALSE) + NoLegend()
-      ggsave(paste(output_dir,'/step2/figs2/vioplot_',sample_name[i],".png", sep=""))
+      ggsave(paste(output_dir,'/step2/figs2/vioplot_',sample_name[i],".pdf", sep=""))
 
       ## zoomed in violinplot
       ## nefeature
@@ -148,7 +148,7 @@ if (tolower(par_ambient_RNA)=="yes") {
             
       ## merge all plots 
       ggarrange(n_feature, n_count,mito,ribo, s_score, G2M_score,  ncol = 3, nrow = 2)
-      ggsave(paste(output_dir,'/step2/figs2/zoomed_in_vioplot_',sample_name[i],".png", sep=""))
+      ggsave(paste(output_dir,'/step2/figs2/zoomed_in_vioplot_',sample_name[i],".pdf", sep=""))
         
         ## print summary information
         write.csv(colnames(seu[[]]), file= paste(output_dir,'/step2/info2/meta_info_',i,".txt", sep=""))
@@ -253,11 +253,11 @@ if (tolower(par_ambient_RNA)=="no") {
       ## visualize cell cycle score PCA
       seu <- RunPCA(seu, features = c(cc.genes$g2m.genes, cc.genes$s.genes),raster = FALSE)
       DimPlot(seu, group.by = "Phase", pt.size =2, raster =FALSE)
-      ggsave(paste(output_dir,'/step2/figs2/cell_cyle_dim_plot_',sample_name[i],".png", sep=""))
+      ggsave(paste(output_dir,'/step2/figs2/cell_cyle_dim_plot_',sample_name[i],".pdf", sep=""))
 
       ## print violin plot for QC metrics
       Seurat::VlnPlot(seu, group.by= "orig.ident", features = c("nFeature_RNA","nCount_RNA","percent.mt","percent.ribo","S.Score", "G2M.Score"), pt.size = 0.01,ncol = 3,raster = FALSE) + NoLegend()
-      ggsave(paste(output_dir,'/step2/figs2/vioplot_',sample_name[i],".png", sep=""))
+      ggsave(paste(output_dir,'/step2/figs2/vioplot_',sample_name[i],".pdf", sep=""))
 
       ## zoomed in violinplot
       ## nefeature
@@ -290,7 +290,7 @@ if (tolower(par_ambient_RNA)=="no") {
             
       ## merge all plots 
       ggarrange(n_feature, n_count,mito,ribo, s_score, G2M_score,  ncol = 3, nrow = 2)
-      ggsave(paste(output_dir,'/step2/figs2/zoomed_in_vioplot_',sample_name[i],".png", sep=""))
+      ggsave(paste(output_dir,'/step2/figs2/zoomed_in_vioplot_',sample_name[i],".pdf", sep=""))
           
           ## print summary information
           write.csv(colnames(seu[[]]), file= paste(output_dir,'/step2/info2/meta_info_',i,".txt", sep=""))

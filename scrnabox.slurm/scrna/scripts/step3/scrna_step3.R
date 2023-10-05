@@ -142,7 +142,7 @@ foreach (i=1:length(sample_name)) %do% {
     ## print variable features plot
     vf_plot <- Seurat::VariableFeaturePlot(seu)
     Seurat::LabelPoints(plot = vf_plot,points = topsel, repel = TRUE)
-    ggsave(paste(output_dir,'/step3/figs3/VariableFeaturePlot_',sample_nameb[i],".png",sep=""))
+    ggsave(paste(output_dir,'/step3/figs3/VariableFeaturePlot_',sample_nameb[i],".pdf",sep=""))
 
     ##Do not regress out cc genes
     if (tolower(par_regress_cell_cycle_genes)=='no') {
@@ -158,17 +158,17 @@ foreach (i=1:length(sample_name)) %do% {
     seu <- RunPCA(seu, npcs = par_npcs_pca, verbose = FALSE)
             ## print PCA 
             DimPlot(seu, reduction = "pca", raster = FALSE)
-            ggsave(paste(output_dir,'/step3/figs3/',"dimplot_pca_",sample_nameb[i],".png",sep=""))
+            ggsave(paste(output_dir,'/step3/figs3/',"dimplot_pca_",sample_nameb[i],".pdf",sep=""))
             ## print elbow plot
             ElbowPlot(seu, ndims = par_npcs_pca)
-            ggsave(paste(output_dir,'/step3/figs3/',"elbowplot_",sample_nameb[i],".png",sep=""))
+            ggsave(paste(output_dir,'/step3/figs3/',"elbowplot_",sample_nameb[i],".pdf",sep=""))
     
     ## save each individual Seurat object as RDS
     saveRDS(seu, paste(output_dir,'/step3/objs3/',sample_nameb[i],".rds", sep=""))
     
     ## print QC violin plot
     Seurat::VlnPlot(seu, group.by= "orig.ident", features = c("nFeature_RNA","nCount_RNA","percent.mt","percent.ribo","S.Score", "G2M.Score"), pt.size = 0.001,ncol = 3, raster = FALSE) + NoLegend() #new code
-    ggsave(paste(output_dir,'/step3/figs3/filtered_QC_vioplot_',sample_nameb[i],".png", sep=""))
+    ggsave(paste(output_dir,'/step3/figs3/filtered_QC_vioplot_',sample_nameb[i],".pdf", sep=""))
     
     ## write meta infor available in the Seurat metdata
     write.csv(colnames(seu[[]]), file= paste(output_dir,'/step3/info3/meta_info_',sample_nameb[i],".txt", sep=""))

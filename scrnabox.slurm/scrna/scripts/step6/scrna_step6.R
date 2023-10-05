@@ -56,12 +56,12 @@ seu_int <- RunUMAP(seu_int, dims = 1:par_RunUMAP_dims)
 
 ## print clustree plot 
 clustree(seu_int@meta.data, prefix = paste0(par_whatAssay,"_snn_res."))
-ggsave(paste(output_dir,"/step6/figs6/clustree_int.png", sep=""), dpi = 300, height = 9, width = 5, unit = 'in')
+ggsave(paste(output_dir,"/step6/figs6/clustree_int.pdf", sep=""), dpi = 300, height = 9, width = 5, unit = 'in')
 
 ## print UMAPs at different resolutions
 for (i in par_FindClusters_resolution){
     Seurat::DimPlot(seu_int, group.by = paste(par_whatAssay,"_snn_res.",i,sep=''))
-    ggsave(paste(output_dir,'/step6/figs6/',par_whatAssay,"_snn_res.",i,".png",sep=""))
+    ggsave(paste(output_dir,'/step6/figs6/',par_whatAssay,"_snn_res.",i,".pdf",sep=""))
 }
 
 ## save Seurat object as RDS 

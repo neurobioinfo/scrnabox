@@ -72,22 +72,22 @@ seu_int <- RunUMAP(seu_int, dims = 1:par_RunUMAP_dims, n.neighbors =par_RunUMAP_
 
 ## print PCA
 DimPlot(seu_int, reduction = "pca", group.by="MULTI_ID_Lables", raster = FALSE )
-ggsave(paste(output_dir,'/step5/figs5',"/DimPlot_pca.png", sep=""))
+ggsave(paste(output_dir,'/step5/figs5',"/DimPlot_pca.pdf", sep=""))
 
 ## print elbow plot
 ElbowPlot(seu_int)
-ggsave(paste(output_dir,'/step5/figs5',"/elbow.png", sep=""))
+ggsave(paste(output_dir,'/step5/figs5',"/elbow.pdf", sep=""))
 
 ## print UMAP
 DimPlot(seu_int, reduction = "umap", group.by="MULTI_ID_Lables", raster = FALSE)
-ggsave(paste(output_dir,'/step5/figs5',"/DimPlot_umap.png", sep=""))
+ggsave(paste(output_dir,'/step5/figs5',"/DimPlot_umap.pdf", sep=""))
 
 ## print Jack straw plot (optional)
 if (tolower(par_compute_jackstraw)=='yes') {
 seu <- JackStraw(seu, num.replicate = 100,dims = par_RunPCA_npcs) #added this figure
 seu <- ScoreJackStraw(seu, dims = 1:par_RunPCA_npcs)
 JackStrawPlot(seu, dims = 1:par_RunPCA_npcs)
-ggsave(paste(output_dir,'/step5/figs5',"/Jackstraw_plot.png", sep=""))
+ggsave(paste(output_dir,'/step5/figs5',"/Jackstraw_plot.pdf", sep=""))
 }
 
 ## save integrated Seurat object as RDS
@@ -120,22 +120,22 @@ seu_int <- RunUMAP(seu_int, dims = 1:par_RunUMAP_dims, n.neighbors =par_RunUMAP_
 
 ## print PCA
 DimPlot(seu_int, reduction = "pca", group.by="MULTI_ID_Lables", raster = FALSE )
-ggsave(paste(output_dir,'/step5/figs5',"/DimPlot_pca.png", sep=""))
+ggsave(paste(output_dir,'/step5/figs5',"/DimPlot_pca.pdf", sep=""))
 
 ## print elbow plot
 ElbowPlot(seu_int)
-ggsave(paste(output_dir,'/step5/figs5',"/elbowPlot.png", sep=""))
+ggsave(paste(output_dir,'/step5/figs5',"/elbowPlot.pdf", sep=""))
 
 ## print UMAP
 DimPlot(seu_int, reduction = "umap", group.by="MULTI_ID_Lables", raster = FALSE )
-ggsave(paste(output_dir,'/step5/figs5',"/DimPlot_umap.png", sep=""))
+ggsave(paste(output_dir,'/step5/figs5',"/DimPlot_umap.pdf", sep=""))
 
 ## print Jack straw plot (optional)
 if (tolower(par_compute_jackstraw)=='yes') {
 seu_int <- JackStraw(seu_int, num.replicate = 100,dims = par_RunPCA_npcs) #added this figure
 seu_int <- ScoreJackStraw(seu_int, dims = 1:par_RunPCA_npcs)
 JackStrawPlot(seu_int, dims = 1:par_RunPCA_npcs)
-ggsave(paste(output_dir,'/step5/figs5',"/Jackstraw_plot.png", sep=""))
+ggsave(paste(output_dir,'/step5/figs5',"/Jackstraw_plot.pdf", sep=""))
 }
 
 ## save Seurat object as RDS

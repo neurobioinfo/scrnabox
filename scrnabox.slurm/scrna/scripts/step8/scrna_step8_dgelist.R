@@ -132,7 +132,7 @@ write.csv(DGE, file = paste(OUT_dir_sample,"/",dd[i,1],"/", dd[i,1],'_DEG.csv', 
     #subtitleLabSize = 20,
     #legendIconSize = 10,
     )
-ggsave(file = paste(OUT_dir_sample,"/",dd[i,1],"/", dd[i,1],'_volcano_plot.png', sep=""))
+ggsave(file = paste(OUT_dir_sample,"/",dd[i,1],"/", dd[i,1],'_volcano_plot.pdf', sep=""))
 
 }
 ###################
@@ -217,7 +217,7 @@ write.csv(DGE, file = paste(OUT_dir_sample,"/",dd[i,1],"/", dd[i,1],'_DEG.csv', 
     #subtitleLabSize = 20,
     #legendIconSize = 10,
     )
-ggsave(file = paste(OUT_dir_sample,"/",dd[i,1],"/", dd[i,1],'_volcano_plot.png', sep=""))
+ggsave(file = paste(OUT_dir_sample,"/",dd[i,1],"/", dd[i,1],'_volcano_plot.pdf', sep=""))
 
 
 }
@@ -425,7 +425,7 @@ for (i in celltypes.res){
     #subtitleLabSize = 20,
     #legendIconSize = 10,
     ) 
-    ggsave(file = paste(sudo_dir,"/",cont_name,"/figs","/DGE_",celltype,contrast,".png", sep = ""))
+    ggsave(file = paste(sudo_dir,"/",cont_name,"/figs","/DGE_",celltype,contrast,".pdf", sep = ""))
   }
 }
 

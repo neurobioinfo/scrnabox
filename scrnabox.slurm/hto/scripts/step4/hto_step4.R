@@ -59,10 +59,10 @@ foreach (i_s=1:length(sample_name)) %do% {
     if (tolower(par_dimensionality_reduction)=='yes'){
         seu <- RunPCA(seu, npcs = par_npcs_pca, verbose = FALSE)
         DimPlot(seu, reduction = "pca")
-        ggsave(paste(output_dir,'/step4/figs4/',sample_nameb[i_s],"_HTO_dimplot_pca_",".png",sep=""))
+        ggsave(paste(output_dir,'/step4/figs4/',sample_nameb[i_s],"_HTO_dimplot_pca_",".pdf",sep=""))
         seu <- RunUMAP(seu, dims = 1:par_dims_umap, n.neighbors =par_n.neighbors)
         Seurat::DimPlot(seu, reduction = "umap")
-        ggsave(paste(output_dir,'/step4/figs4/',sample_nameb[i_s],"_HTO_dimplot_umap_", ".png",sep=""))
+        ggsave(paste(output_dir,'/step4/figs4/',sample_nameb[i_s],"_HTO_dimplot_umap_", ".pdf",sep=""))
     }
     
     ## doublet detection and demultiplexing with MULTIseqDemux
@@ -74,20 +74,20 @@ foreach (i_s=1:length(sample_name)) %do% {
 
     ## print ridge plot
     RidgePlot(seu, assay = "HTO", features = rownames(seu[["HTO"]]), group.by = "MULTI_ID", ncol =par_RidgePlot_ncol) 
-    ggsave(paste(output_dir,'/step4/figs4/',sample_nameb[i_s],"_Ridgeplot_HTO_MSD.png",sep=""),dpi = 300, height = 9, width = 9, unit = 'in' )
+    ggsave(paste(output_dir,'/step4/figs4/',sample_nameb[i_s],"_Ridgeplot_HTO_MSD.pdf",sep=""),dpi = 300, height = 9, width = 9, unit = 'in' )
     
     ## print violin plot for ncount_RNA
     Idents(seu) <- "HTO_classification.global"
     VlnPlot(seu, features = "nCount_RNA", pt.size = 0.01, log = TRUE, group.by = "MULTI_ID")
-    ggsave(paste(output_dir,'/step4/figs4/',sample_nameb[i_s],"_nCounts_RNA_MSD.png",sep=""))
+    ggsave(paste(output_dir,'/step4/figs4/',sample_nameb[i_s],"_nCounts_RNA_MSD.pdf",sep=""))
     
     ## print heatmap
     DoHeatmap(seu, features = rownames(seu[["HTO"]]), group.by = "MULTI_ID")
-    ggsave(paste(output_dir,'/step4/figs4/',sample_nameb[i_s],"_Heatmap_HTO_MSD.png",sep=""))
+    ggsave(paste(output_dir,'/step4/figs4/',sample_nameb[i_s],"_Heatmap_HTO_MSD.pdf",sep=""))
     
     ## print dotplot
     DotPlot(seu, features = rownames(seu[["HTO"]]), group.by = "MULTI_ID") + theme(axis.text.x = element_text(angle=45, hjust=1, vjust=1))
-    ggsave(paste(output_dir,'/step4/figs4/',sample_nameb[i_s],"_DotPlot_HTO_MSD.png",sep=""))
+    ggsave(paste(output_dir,'/step4/figs4/',sample_nameb[i_s],"_DotPlot_HTO_MSD.pdf",sep=""))
     
     ## rename identies with new antibody label
     multi.names <- unique(seu@meta.data$MULTI_ID)

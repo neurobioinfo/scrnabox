@@ -193,21 +193,6 @@ R_LIB_PATH=Path/to/R/library
 </thead>
 <tbody>
 <tr>
-<td style="text-align: left;">REF_DIR_GRCH</td>
-<td style="text-align: left;">NULL</td>
-<td style="text-align: left;">Path to reference genome for FASTQ alignment. 10X Genomics reference genomes are available for download. For more information see their <a href="https://support.10xgenomics.com/single-cell-gene-expression/software/pipelines/latest/using/tutorial_ct">documentation</a>.</td>
-</tr>
-<tr>
-<td style="text-align: left;">R1LENGTH</td>
-<td style="text-align: left;">NULL</td>
-<td style="text-align: left;">Minimum number of bases to retain for R1 sequence of gene expression</td>
-</tr>
-<tr>
-<td style="text-align: left;">MEMPERCORE</td>
-<td style="text-align: left;">30</td>
-<td style="text-align: left;">For clusters whose job managers do not support memory requests, it is possible to request memory in the form of cores. This option will scale up the number of threads requested via the <strong>MRO_THREADS</strong> variable according to how much memory a stage requires when given to the ratio of memory on your nodes.</td>
-</tr>
-<tr>
 <td style="text-align: left;">par_automated_library_prep</td>
 <td style="text-align: left;">No</td>
 <td style="text-align: left;">Whether or not to perform automated library prep. Alternatively, you may set this parameter to "no" and manually prepare the libraries.</td>
@@ -236,6 +221,21 @@ R_LIB_PATH=Path/to/R/library
 <td style="text-align: left;">par_paired_end_seq</td>
 <td style="text-align: left;">Yes</td>
 <td style="text-align: left;">Whether or not paired-end sequencing was performed</td>
+</tr>
+<tr>
+<td style="text-align: left;">REF_DIR_GRCH</td>
+<td style="text-align: left;">NULL</td>
+<td style="text-align: left;">Path to reference genome for FASTQ alignment. 10X Genomics reference genomes are available for download. For more information see the 10X Genomics <a href="https://support.10xgenomics.com/single-cell-gene-expression/software/pipelines/latest/using/tutorial_ct">documentation</a>.</td>
+</tr>
+<tr>
+<td style="text-align: left;">R1LENGTH</td>
+<td style="text-align: left;">NULL</td>
+<td style="text-align: left;">Minimum number of bases to retain for R1 sequence of gene expression</td>
+</tr>
+<tr>
+<td style="text-align: left;">MEMPERCORE</td>
+<td style="text-align: left;">30</td>
+<td style="text-align: left;">For clusters whose job managers do not support memory requests, it is possible to request memory in the form of cores. This option will scale up the number of threads requested via the <strong>MRO_THREADS</strong> variable according to how much memory a stage requires when given to the ratio of memory on your nodes.</td>
 </tr>
 </tbody>
 </table>
@@ -287,9 +287,24 @@ bash $SCRNABOX_HOME/launch_scrnabox.sh \
 <td style="text-align: left;">Only retain genes expressed in a minimum number of cells</td>
 </tr>
 <tr>
-<td style="text-align: left;">par_min.features_L</td>
-<td style="text-align: left;">0</td>
-<td style="text-align: left;">Only retain cells expressing a minimum number of genes</td>
+<td style="text-align: left;">par_normalization.method</td>
+<td style="text-align: left;">LogNormalize</td>
+<td style="text-align: left;">Method to use for normalization</td>
+</tr>
+<tr>
+<td style="text-align: left;">par_scale.factor</td>
+<td style="text-align: left;">10000</td>
+<td style="text-align: left;">Scale factor for scaling the data</td>
+</tr>
+<tr>
+<td style="text-align: left;">par_selection.method</td>
+<td style="text-align: left;">vst</td>
+<td style="text-align: left;">Method for choosing the top variable features</td>
+</tr>
+<tr>
+<td style="text-align: left;">par_nfeatures</td>
+<td style="text-align: left;">2500</td>
+<td style="text-align: left;">Number of features to select as top variable features</td>
 </tr>
 </tbody>
 </table>
@@ -298,7 +313,7 @@ bash $SCRNABOX_HOME/launch_scrnabox.sh \
 -d ${SCRNABOX_PWD} \
 --steps 2
 </code></pre>
-<p>The resulting output files are deposited into <code>~/working_directory/step2</code></p>
+<p>The resulting output files are deposited into <code>~/working_directory/step2</code>. For a description of the outputs see <a href="../outputs/">here</a>.</p>
 <hr />
 <h3 id="step-3-quality-control-and-filtering">Step 3: Quality control and filtering</h3>
 <p>Low quality cells are filtered based on the user-defined thresholds for:</p>
@@ -308,7 +323,7 @@ bash $SCRNABOX_HOME/launch_scrnabox.sh \
 <li>the percentage of mitochondrial-encoded transcripts; </li>
 <li>the percentage of ribosomal-encoded transcripts.</li>
 </ul>
-<p>In addition, mitochondrial- and ribosomal-encoded genes can be filtered out, as well as a custom user-defined list of genes. Finally, normalization and scaling is performed on the individual Seurat objects prior to cell-cycle scoring. <br />
+<p>In addition, mitochondrial- and ribosomal-encoded genes can be filtered out, as well as a custom user-defined list of genes. Cell cycle genes can be regressed. Finally, normalization and scaling is performed on the individual Seurat objects prior to cell-cycle scoring. <br />
 <br />
 The following parameters are adjustable for Step 3 (<code>~/working_directory/job_info/parameters/step3_par.txt</code>):</p>
 <table>
@@ -391,6 +406,11 @@ The following parameters are adjustable for Step 3 (<code>~/working_directory/jo
 <td style="text-align: left;">If users want to remove specific genes from their data, they may define a list of gene identifiers</td>
 </tr>
 <tr>
+<td style="text-align: left;">par_regress_cell_cycle_genes</td>
+<td style="text-align: left;">Yes</td>
+<td style="text-align: left;">Whether or not to regress cell cycle genes</td>
+</tr>
+<tr>
 <td style="text-align: left;">par_normalization.method</td>
 <td style="text-align: left;">LogNormalize</td>
 <td style="text-align: left;">Method to use for normalization</td>
@@ -420,26 +440,6 @@ The following parameters are adjustable for Step 3 (<code>~/working_directory/jo
 <td style="text-align: left;">30</td>
 <td style="text-align: left;">Total Number of principal components to compute and store for principal component analysis (PCA)</td>
 </tr>
-<tr>
-<td style="text-align: left;">par_cells</td>
-<td style="text-align: left;">500</td>
-<td style="text-align: left;">Number of cells to include in Seurat's <em>dimheatmap</em> function</td>
-</tr>
-<tr>
-<td style="text-align: left;">par_dims</td>
-<td style="text-align: left;">12</td>
-<td style="text-align: left;">Number of dimensions to include in Seurat's <em>dimheatmap</em> function</td>
-</tr>
-<tr>
-<td style="text-align: left;">par_dims_umap</td>
-<td style="text-align: left;">10</td>
-<td style="text-align: left;">Number of dimensions to use as input features for uniform manifold approximation and projection (UMAP)</td>
-</tr>
-<tr>
-<td style="text-align: left;">par_n.neighbors</td>
-<td style="text-align: left;">65</td>
-<td style="text-align: left;">Number of neighboring points to use in local approximations of manifold structure</td>
-</tr>
 </tbody>
 </table>
 <p>To run Step 3, use the following command:</p>
@@ -447,7 +447,7 @@ The following parameters are adjustable for Step 3 (<code>~/working_directory/jo
 -d ${SCRNABOX_PWD} \
 --steps 3 
 </code></pre>
-<p>The resulting output files are deposited into <code>~/working_directory/step3</code></p>
+<p>The resulting output files are deposited into <code>~/working_directory/step3</code>. For a description of the outputs see <a href="../outputs/">here</a>.</p>
 <hr />
 <h3 id="step-4-doublet-removal">Step 4: Doublet removal</h3>
 <p>Doublets are identified and removed from downstream analysis (optional) using the DoubletFinder tool (<a href="https://www.cell.com/cell-systems/pdfExtended/S2405-4712(19)30073-0">McGinnis et al. 2019</a>).  <br />
@@ -471,6 +471,16 @@ The following parameters are adjustable for Step 4 (<code>~/working_directory/jo
 <td style="text-align: left;">par_save_metadata</td>
 <td style="text-align: left;">No</td>
 <td style="text-align: left;">Whether or not to export a metadata dataframe</td>
+</tr>
+<tr>
+<td style="text-align: left;">par_RunUMAP_dims</td>
+<td style="text-align: left;">10</td>
+<td style="text-align: left;">Number of dimensions to use as input features for uniform manifold approximation and projection (UMAP)</td>
+</tr>
+<tr>
+<td style="text-align: left;">par_RunUMAP_n.neighbors</td>
+<td style="text-align: left;">65</td>
+<td style="text-align: left;">Number of neighboring points used in local approximations of manifold structure</td>
 </tr>
 <tr>
 <td style="text-align: left;">par_dropDN</td>
@@ -510,7 +520,7 @@ The following parameters are adjustable for Step 4 (<code>~/working_directory/jo
 -d ${SCRNABOX_PWD} \
 --steps 4 
 </code></pre>
-<p>The resulting output files are deposited into <code>~/working_directory/step4</code></p>
+<p>The resulting output files are deposited into <code>~/working_directory/step4</code>. For a description of the outputs see <a href="../outputs/">here</a>.</p>
 <hr />
 <h3 id="step-5-integration-and-linear-dimensional-reduction">Step 5: Integration and linear dimensional reduction</h3>
 <p>Individual Seurat objects are merged and integrated to enable the joint analysis across samples using Seurat's integration algorithm (<a href="https://pubmed.ncbi.nlm.nih.gov/31178118/">Stuart et al. 2019</a>); if experiments are limited to a single sequencing run, the integration Step can be bypassed. However, step5 must be run because normalization, scaling, and linear dimensional reduction is then performed on the resulting Seurat object to inform the optimal parameters for clustering in Step 6. <br />
@@ -541,11 +551,6 @@ The following parameters are adjustable for Step 5:</p>
 <td style="text-align: left;">Whether or not to skip integration. This is applicable for experiments that comprises of only one sequencing run.</td>
 </tr>
 <tr>
-<td style="text-align: left;">par_FindIntegrationAnchors_dim</td>
-<td style="text-align: left;">25</td>
-<td style="text-align: left;">Which dimensions to use from the canonical correlation analysis (CCA) to specify the neighbor search space</td>
-</tr>
-<tr>
 <td style="text-align: left;">par_DefaultAssay</td>
 <td style="text-align: left;">RNA</td>
 <td style="text-align: left;">The assay to perform normalization, scaling, and linear dimensiona reduction on. For most use cases this will be RNA.</td>
@@ -554,6 +559,11 @@ The following parameters are adjustable for Step 5:</p>
 <td style="text-align: left;">par_normalization.method</td>
 <td style="text-align: left;">LogNormalize</td>
 <td style="text-align: left;">Method to use for normalization</td>
+</tr>
+<tr>
+<td style="text-align: left;">par_scale.factor</td>
+<td style="text-align: left;">10000</td>
+<td style="text-align: left;">Scale factor for scaling the data</td>
 </tr>
 <tr>
 <td style="text-align: left;">par_selection.method</td>
@@ -566,9 +576,9 @@ The following parameters are adjustable for Step 5:</p>
 <td style="text-align: left;">Number of features to select as top variable features</td>
 </tr>
 <tr>
-<td style="text-align: left;">par_RunUMAP_n.neighbors</td>
-<td style="text-align: left;">65</td>
-<td style="text-align: left;">Number of neighboring points used in local approximations of manifold structure</td>
+<td style="text-align: left;">par_FindIntegrationAnchors_dim</td>
+<td style="text-align: left;">25</td>
+<td style="text-align: left;">Which dimensions to use from the canonical correlation analysis (CCA) to specify the neighbor search space</td>
 </tr>
 <tr>
 <td style="text-align: left;">par_RunPCA_npcs</td>
@@ -579,6 +589,11 @@ The following parameters are adjustable for Step 5:</p>
 <td style="text-align: left;">par_RunUMAP_dims</td>
 <td style="text-align: left;">10</td>
 <td style="text-align: left;">Number of dimensions to use as input features for uniform manifold approximation and projection (UMAP)</td>
+</tr>
+<tr>
+<td style="text-align: left;">par_RunUMAP_n.neighbors</td>
+<td style="text-align: left;">65</td>
+<td style="text-align: left;">Number of neighboring points used in local approximations of manifold structure</td>
 </tr>
 <tr>
 <td style="text-align: left;">par_compute_jackstraw</td>
@@ -592,7 +607,7 @@ The following parameters are adjustable for Step 5:</p>
 -d ${SCRNABOX_PWD} \
 --steps 5 
 </code></pre>
-<p>The resulting output files are deposited into <code>~/working_directory/step5</code></p>
+<p>The resulting output files are deposited into <code>~/working_directory/step5</code>. For a description of the outputs see <a href="../outputs/">here</a>.</p>
 <hr />
 <h3 id="step-6-clustering">Step 6: Clustering</h3>
 <p>Clustering is performed to define groups of cells with similar expression profiles using the graph-based clustering approach implemented in the Seurat framework (<a href="https://www.nature.com/articles/nbt.4096">Butler et al. 2015</a>).<br />
@@ -618,7 +633,7 @@ The following parameters are adjustable for Step 6:</p>
 <td style="text-align: left;">Whether or not to export a metadata dataframe</td>
 </tr>
 <tr>
-<td style="text-align: left;">par_skip_step5</td>
+<td style="text-align: left;">par_skip_integration</td>
 <td style="text-align: left;">No</td>
 <td style="text-align: left;">Whether or not the user skipped integration in Step 5</td>
 </tr>
@@ -626,11 +641,6 @@ The following parameters are adjustable for Step 6:</p>
 <td style="text-align: left;">par_FindNeighbors_dims</td>
 <td style="text-align: left;">30</td>
 <td style="text-align: left;">Number of dimensions from linear dimensional reduction used as input to identify neighbours. Can be informed by the elbow and Jackstraw plots produced in Step 5</td>
-</tr>
-<tr>
-<td style="text-align: left;">par_RunUMAP_dims</td>
-<td style="text-align: left;">30</td>
-<td style="text-align: left;">Number of dimensions from linear dimensional reduction used as input to compute UMAP. Can be informed by the elbow and Jackstraw plots produced in Step 5</td>
 </tr>
 <tr>
 <td style="text-align: left;">par_FindNeighbors_k.param</td>
@@ -644,7 +654,7 @@ The following parameters are adjustable for Step 6:</p>
 </tr>
 <tr>
 <td style="text-align: left;">par_FindClusters_resolution</td>
-<td style="text-align: left;">0.1 to 0.9, in intervals of 0.1</td>
+<td style="text-align: left;">0, 0.05, 0.2, 0.6, 0.8, 1.0, 1.2, 1.4, 1.6, 1.8, 2.0</td>
 <td style="text-align: left;">Value of the clustering resolution parameter. You may provide multiple resolution values</td>
 </tr>
 <tr>
@@ -664,12 +674,12 @@ The following parameters are adjustable for Step 6:</p>
 -d ${SCRNABOX_PWD} \
 --steps 6 
 </code></pre>
-<p>The resulting output files are deposited into <code>~/working_directory/step6</code></p>
+<p>The resulting output files are deposited into <code>~/working_directory/step6</code>. For a description of the outputs see <a href="../outputs/">here</a>.</p>
 <hr />
 <h3 id="step-7-cluster-annotation">Step 7: Cluster annotation</h3>
-<p>Cell populations, or clusters, are annotated to define cell types by three distinct methods:<br />
+<p>ScRNAbox provides three Methods to assist in cluster annotation or identification of cell types:<br />
 <br />
- <strong>Method 1. Cluster marker gene set enrichment analysis (GSEA)</strong>: Seurat's <em>FindAllMarkers</em> function is used to identify differentially expressed marker genes (DEG) by the Wilcoxon rank-sum test (<a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4481139/">Macosko et al. 2015</a>). DEGs in the positive direction     (Log2 fold-change &gt; 0.00) are then tested for enrichment across user-defined gene set libraries that define cell types using the EnrichR tool (<a href="https://bmcbioinformatics.biomedcentral.com/articles/10.1186/1471-2105-14-128">Chen et al. 2013</a>).<br />
+ <strong>Method 1. Cluster marker gene set enrichment analysis (GSEA)</strong>: Seurat's <em>FindAllMarkers</em> function is used to identify differentially expressed marker genes (DEG) by the Wilcoxon rank-sum test (<a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4481139/">Macosko et al. 2015</a>). DEGs in the positive direction     (Log2 fold-change &gt; 0.00) are then tested for enrichment across user-defined gene set libraries that define cell types using the EnrichR tool (<a href="https://bmcbioinformatics.biomedcentral.com/articles/10.1186/1471-2105-14-128">Chen et al. 2013</a>). To find marker genes use <code>par_run_find_marker = "yes"</code> and to perform GSEA use <code>par_run_enrichR = "yes"</code> in the execution parameters of Step 7. <br />
  <br />
  <strong>Method 2. Module score</strong>: Seurat’s implementation (<em>AddModuleScore</em>) of Tirosh et al.’s algorithm is used to comparatively quantify the expression of gene sets across clusters at the single-cell level (<a href="https://pubmed.ncbi.nlm.nih.gov/27124452/">Tirosh et al. 2016</a>. Users must          define their desired gene sets in the parameters file of Step 7. Gene sets should be defined in a csv file, where the column names correspond to the arbitrary name of the gene set and the corresponding rows define the genes in the gene set. For example: <br /></p>
 <table>
@@ -743,129 +753,260 @@ The following parameters are adjustable for Step 6:</p>
 </tr>
 </tbody>
 </table>
-<p><br /> 
- <strong>Method 3. Reference-based annotation</strong>: Seurat's <em>FindTransferAnchors</em> and <em>TransferData</em> functions are used to leverage cell-type annotations from a reference Seurat object and generate annotation predictions for the query dataset (<a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4481139/">Macosko et al. 2015</a>). User's must define the location of their referene Seurat object in the parameters file of Step 7.<br /></p>
-<p>In addition to the three annotation methods, scRNAbox allows users to <strong>visualize the expression of select features</strong> at the cluster or cell level via a user-provided list of gene identifiers in order to further inform the cellular species that make up specific clusters. </p>
-<p>The following parameters are adjustable for Step 7:</p>
+<p>To compute module score use <code>par_run_module_score = "yes"</code> in the execution parameters of Step 7.</p>
+<p><strong>Method 3. Reference-based annotation</strong>: Seurat's <em>FindTransferAnchors</em> and <em>TransferData</em> functions are used to leverage cell-type annotations from a reference Seurat object and generate annotation predictions for the query dataset (<a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4481139/">Macosko et al. 2015</a>). User's must define the location of their referene Seurat object in the parameters file of Step 7. To perform reference-based annotation use <code>par_run_reference = "yes"</code> in the execution parameters of Step 7.
+<br /></p>
+<hr />
+<p>In addition to the three Methods described above, users can <strong>Visualize the expression of select features</strong> and <strong>Annotate</strong> their Seurat object.</p>
+<p><strong>Visualize the expression of select features:</strong> The expression of known markger genes can be visualized at the cluster or cell level via a user-provided list of gene identifiers in order to further inform the cell types that make up specific clusters. If users want to explore the expression of multiple gene lists they can do so using a csv file, where the column names correspond to the arbitrary name of the gene list and the corresponding rows define the genes in the list. For example:</p>
 <table>
 <thead>
 <tr>
-<th style="text-align: left;">Parameter</th>
-<th style="text-align: left;">Default</th>
-<th style="text-align: left;">Description (the cluster annotation method associated with the parameter is shown)</th>
+<th style="text-align: left;">list_1</th>
+<th style="text-align: left;">list_2</th>
+<th style="text-align: left;">list_3</th>
 </tr>
 </thead>
 <tbody>
 <tr>
+<td style="text-align: left;">CLDN5</td>
+<td style="text-align: left;">IFITM3</td>
+<td style="text-align: left;">TM4SF1</td>
+</tr>
+<tr>
+<td style="text-align: left;">ANGPT2</td>
+<td style="text-align: left;">EGFL7</td>
+<td style="text-align: left;">IGFBP</td>
+</tr>
+<tr>
+<td style="text-align: left;">FLT1</td>
+<td style="text-align: left;">A2M</td>
+<td style="text-align: left;">GIMAP7</td>
+</tr>
+<tr>
+<td style="text-align: left;">DEPP1</td>
+<td style="text-align: left;">SOD2</td>
+<td style="text-align: left;">EMP2</td>
+</tr>
+<tr>
+<td style="text-align: left;">TMSB10</td>
+<td style="text-align: left;">PODXL</td>
+<td style="text-align: left;">B2M</td>
+</tr>
+<tr>
+<td style="text-align: left;">HLA-E</td>
+<td style="text-align: left;">VWF</td>
+<td style="text-align: left;">BST2</td>
+</tr>
+<tr>
+<td style="text-align: left;">SLCO4A1</td>
+<td style="text-align: left;">PECAM1</td>
+<td style="text-align: left;">BSG</td>
+</tr>
+<tr>
+<td style="text-align: left;">TGM2</td>
+<td style="text-align: left;">SLC2A3</td>
+<td style="text-align: left;">PARP14</td>
+</tr>
+<tr>
+<td style="text-align: left;">IFI27</td>
+<td style="text-align: left;">TSC22D1</td>
+<td style="text-align: left;">NFKBIA</td>
+</tr>
+<tr>
+<td style="text-align: left;">MT2A</td>
+<td style="text-align: left;">HLA-B</td>
+<td style="text-align: left;">ID3</td>
+</tr>
+<tr>
+<td style="text-align: left;">EPAS1</td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+</tr>
+<tr>
+<td style="text-align: left;">IFITM2</td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+</tr>
+</tbody>
+</table>
+<p>To visualize the expression of select features use <code>par_run_visualize_markers = "yes"</code> in the execution parameters of Step 7.</p>
+<p><strong>Annotate:</strong> Users can annotate their Seurat object and visualize their annotations by defining the clustering resolution that they wish to annotate and supplying a list of annotations corresponding to each cluster at the givenn resolution. The Annotation step can be performed multiple times as the previous annotations will not be removed from the Seurat object. To annotate you Seurat object use <code>par_run_annotate = "yes"</code> in the execution parameters of Step 7.</p>
+<p>The following parameters are adjustable for Step 7:</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Annotation Method</th>
+<th style="text-align: left;">Parameter</th>
+<th style="text-align: left;">Default</th>
+<th style="text-align: left;">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>Method 1</strong></td>
+<td style="text-align: left;">par_run_find_marker</td>
+<td style="text-align: left;">Yes</td>
+<td style="text-align: left;">Whether or not to find marker genes for each cluster</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Method 1</strong></td>
+<td style="text-align: left;">par_run_enrichR</td>
+<td style="text-align: left;">Yes</td>
+<td style="text-align: left;">Whether or not to run gene set enrichment analysis (GSEA) on the marker genes for each cluster using the EnrichR tools. Note that the HPC must have access to the internet to run GSEA.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Method 2</strong></td>
+<td style="text-align: left;">par_run_module_score</td>
+<td style="text-align: left;">Yes</td>
+<td style="text-align: left;">Whether or not to compute module score</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Method 3</strong></td>
+<td style="text-align: left;">par_run_reference</td>
+<td style="text-align: left;">Yes</td>
+<td style="text-align: left;">Whether or not to perform reference-based annotation</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Visualize features</strong></td>
+<td style="text-align: left;">par_run_visualize_markers</td>
+<td style="text-align: left;">Yes</td>
+<td style="text-align: left;">Whether or not to Visualize select features</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Annotate</strong></td>
+<td style="text-align: left;">par_run_annotate</td>
+<td style="text-align: left;">Yes</td>
+<td style="text-align: left;">Whether or not to Annotate</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>General</strong></td>
 <td style="text-align: left;">par_save_RNA</td>
 <td style="text-align: left;">No</td>
 <td style="text-align: left;">Whether or not to export an RNA expression matrix</td>
 </tr>
 <tr>
+<td style="text-align: left;"><strong>General</strong></td>
 <td style="text-align: left;">par_save_metadata</td>
 <td style="text-align: left;">No</td>
 <td style="text-align: left;">Whether or not to export a metadata dataframe</td>
 </tr>
 <tr>
+<td style="text-align: left;"><strong>General</strong></td>
 <td style="text-align: left;">par_level_cluster</td>
 <td style="text-align: left;">integrated_snn_res.0.7</td>
 <td style="text-align: left;">The cluster resolution that you want to use for downstream analyses. If you skipped integration in Step 5, use par_level_cluster='RNA_snn_res.0.7', if you want to proceed with a clustering resolution of 0.7</td>
 </tr>
 <tr>
+<td style="text-align: left;"><strong>Method 1</strong></td>
 <td style="text-align: left;">par_top_sel</td>
 <td style="text-align: left;">5</td>
-<td style="text-align: left;"><strong>Method 1:</strong> Number of top markers to identify based on avg_log2FC</td>
+<td style="text-align: left;">Number of top markers to identify based on avg_log2FC</td>
 </tr>
 <tr>
+<td style="text-align: left;"><strong>Method 1</strong></td>
 <td style="text-align: left;">par_db</td>
 <td style="text-align: left;">Descartes_Cell_Types_and_Tissue_2021,<br /> CellMarker_Augmented_2021,<br />Azimuth_Cell_Types_2021</td>
-<td style="text-align: left;"><strong>Method 1:</strong> Character vector of EnrichR databases that define cell types. The top marker genes for each cluster will be tested for enrichment across these databases.</td>
+<td style="text-align: left;">Character vector of EnrichR databases that define cell types. The top marker genes for each cluster will be tested for enrichment across these databases.</td>
 </tr>
 <tr>
-<td style="text-align: left;">par_compute_module_score</td>
-<td style="text-align: left;">Yes</td>
-<td style="text-align: left;"><strong>Method 2:</strong> Whether or not to perform the module score computation</td>
-</tr>
-<tr>
-<td style="text-align: left;">par_compute_module_score</td>
-<td style="text-align: left;">Yes</td>
-<td style="text-align: left;"><strong>Method 2:</strong> Whether or not to perform the module score computation</td>
-</tr>
-<tr>
+<td style="text-align: left;"><strong>Method 2</strong></td>
 <td style="text-align: left;">par_module_score</td>
 <td style="text-align: left;">NULL</td>
-<td style="text-align: left;"><strong>Method 2:</strong> Path defining the location of the directory that contains the csv file of the gene sets used to compute the module score</td>
+<td style="text-align: left;">Path defining the location of the directory that contains the csv file of the gene sets used to compute the module score</td>
 </tr>
 <tr>
+<td style="text-align: left;"><strong>Method 3</strong></td>
 <td style="text-align: left;">par_reference</td>
 <td style="text-align: left;">NULL</td>
-<td style="text-align: left;"><strong>Method 3:</strong> Path defining the location of the reference Seurat object</td>
+<td style="text-align: left;">Path defining the location of the reference Seurat object</td>
 </tr>
 <tr>
+<td style="text-align: left;"><strong>Method 3</strong></td>
+<td style="text-align: left;">par_reference_name</td>
+<td style="text-align: left;">Reference</td>
+<td style="text-align: left;">An arbitrary name for the reference object. This will be used to name the metadata slot.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Method 3</strong></td>
 <td style="text-align: left;">par_level_celltype</td>
 <td style="text-align: left;">NULL</td>
-<td style="text-align: left;"><strong>Method 3:</strong> The name of the metadata column in the reference Seurat object that defines cell types</td>
+<td style="text-align: left;">The name of the metadata column in the reference Seurat object that defines cell types</td>
 </tr>
 <tr>
+<td style="text-align: left;"><strong>Method 3</strong></td>
 <td style="text-align: left;">par_FindTransferAnchors_dim</td>
 <td style="text-align: left;">10</td>
-<td style="text-align: left;"><strong>Method 3:</strong> Number of dimensions from linear dimensional reduction used to find transfer anchors between the reference and query Seurat objects</td>
+<td style="text-align: left;">Number of dimensions from linear dimensional reduction used to find transfer anchors between the reference and query Seurat objects</td>
 </tr>
 <tr>
+<td style="text-align: left;"><strong>Method 3</strong></td>
 <td style="text-align: left;">par_futureglobalsmaxSize</td>
 <td style="text-align: left;">50000 * 1024^2</td>
-<td style="text-align: left;"><strong>Method 3:</strong> This will increase your RAM usage so set this number mindfully</td>
+<td style="text-align: left;">This will increase your RAM usage so set this number mindfully</td>
 </tr>
 <tr>
-<td style="text-align: left;">par_visualize_select_features</td>
-<td style="text-align: left;">No</td>
-<td style="text-align: left;"><strong>Visualize select features:</strong> Whether or not to visualize select features</td>
-</tr>
-<tr>
-<td style="text-align: left;">par_select_features</td>
+<td style="text-align: left;"><strong>Visualize features</strong></td>
+<td style="text-align: left;">par_select_features_list</td>
 <td style="text-align: left;">NULL</td>
-<td style="text-align: left;"><strong>Visualize select features:</strong> list of gene identifiers to visualize the expression of select features</td>
+<td style="text-align: left;">A list of features to visualize</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Visualize features</strong></td>
+<td style="text-align: left;">par_select_features_csv</td>
+<td style="text-align: left;">NULL</td>
+<td style="text-align: left;">If you want to define multiple lists of features to visualize, you can do so with a csv file. The header should contain the list names and all features belonging to the same list should be in the same column.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Annotate</strong></td>
+<td style="text-align: left;">par_annotate_resolution</td>
+<td style="text-align: left;">NULL</td>
+<td style="text-align: left;">Which clustering resolution you want to annotate</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Annotate</strong></td>
+<td style="text-align: left;">par_name_metadata</td>
+<td style="text-align: left;">clustering_label_1</td>
+<td style="text-align: left;">The name of the metadata slot that will contain the annotations</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Annotate</strong></td>
+<td style="text-align: left;">par_annotate_labels</td>
+<td style="text-align: left;">NULL</td>
+<td style="text-align: left;">A list of cluster labels. There must as many labels as clusters at the defined clustering resolution. Please refrain from using "_" when annotating.</td>
 </tr>
 </tbody>
 </table>
-<p>To identify cluster marker genes (<strong>Method 1</strong>), compute the module score for user-defined gene sets (<strong>Method 2</strong>), and <strong>visualize select features</strong>, use the following command:</p>
+<p>To run Step 7, use the following command:</p>
 <pre><code>bash $SCRNABOX_HOME/launch_scrnabox.sh \
 -d ${SCRNABOX_PWD} \
 --steps 7 \
 --marker T
 </code></pre>
-<p>Then, to test the top cluster marker genes for enrichment across gene set libraries that define cell types (<strong>Method 1</strong>), use the following command:</p>
-<pre><code>bash $SCRNABOX_HOME/launch_scrnabox.sh \
--d ${SCRNABOX_PWD} \
---steps 7 \
---enrich T
-</code></pre>
-<p><strong>Note:</strong> In order to test the cluster marker genes for enrichment across EnrichR libraries, the HPC must have access to the internet. If your HPC cannot access the internet, it is possible to run the enrichment step on your local machine directly in R. To do so, begin by downloading the Step 6 Seurat RDS object (<code>~/working_directory/step6/objs6/seu_step6.rds</code>)  and cluster marker RDS object (<code>~/working_directory/step7/info7/marker/ClusterMarkers.rds</code>) to your computer using the following commands:</p>
-<pre><code>scp username@beluga.computecanada.ca:~/working_directory/step7/info7/marker/ClusterMarkers.rds  ~/Desktop/working_directory
-scp username@beluga.computecanada.ca:~/working_directory/step6/objs6/seu_step6.rds  ~/Desktop/working_directory
+<p>The resulting output files are deposited into <code>~/working_directory/step7</code>. For a description of the outputs see <a href="../outputs/">here</a>. </p>
+<hr />
+<h4 id="marker-gsea-without-access-to-the-internet">Marker GSEA without access to the internet</h4>
+<p>In order to test the cluster marker genes for enrichment across EnrichR libraries (<code>par_run_enrichR = "yes"</code>), the HPC must have access to the internet. If your HPC cannot access the internet, it is possible to run the enrichment step on your local machine directly in R. To do so, begin by downloading the <code>ClusterMarkers.csv</code> file obtained from running <code>par_run_find_marker = "yes"</code> to your computer using the following commands:</p>
+<pre><code>scp username@beluga.computecanada.ca:~/working_directory/step7/info7/marker/ClusterMarkers.csv ~/Desktop/working_directory
+scp username@beluga.computecanada.ca:~/working_directory/step6/objs6/ClusterMarkers.csv  ~/Desktop/working_directory
 
 </code></pre>
 <p>Then run the follwing code in R:</p>
-<pre><code>SCRNABOX_PWD &lt;- &quot;~/Desktop/working_directory&quot;
-dir.create(&quot;SCRNABOX_PWD/step7/annot&quot;)
-level_cluster='integrated_snn_res.0.7'
-ClusterMarkers='SCRNABOX_PWD/step7/info7/ClusterMarkers.rds'
-PWD='SCRNABOX_PWD/step7/annot/'
-PSUE='SCRNABOX_PWD/step6/objs6/seu_step6.rds'
-top_sel=5
-db &lt;- c('Descartes_Cell_Types_and_Tissue_2021','CellMarker_Augmented_2021','Azimuth_Cell_Types_2021')
-scrnaboxR::annotation(level_cluster,ClusterMarkers,PWD,PSUE,top_sel,db)
+<pre><code>install.packages(&quot;devtools&quot;, dependencies = TRUE)
+library(devtools)
+devtools::install_github(&quot;neurobioinfo/scrnabox/scrnaboxR&quot;)
+library(scrnaboxR)
+
+PWD=&quot;~/Desktop/working_directory&quot;
+cluster_marker=&quot;PWD/ClusterMarkers.csv&quot;
+db=c(&quot;Descartes_Cell_Types_and_Tissue_2021&quot;,&quot;CellMarker_Augmented_2021&quot;,&quot;Azimuth_Cell_Types_2021&quot;)
+
+scrnaboxR::annotation(PWD,cluster_marker,db)
+
 </code></pre>
-<p>To perform reference-based annotation (<strong>Method 3</strong>), run the following command: </p>
-<pre><code>bash $SCRNABOX_HOME/launch_scrnabox.sh \
--d ${SCRNABOX_PWD} \
---steps 7 \
---fta T
-</code></pre>
-<p>The resulting output files are deposited into <code>~/working_directory/step7</code>.</p>
 <hr />
 <h3 id="step-8-differential-gene-expression-contrasts">Step 8: Differential gene expression contrasts</h3>
-<p>This step performs differential gene expression (DGE) analyses according to user-defined contrasts. Contrast can be performed between samples (e.g. case vs control; <strong>sample-sample contrasts</strong>) or between samples, stratified by cell type (e.g. case vs control for excitatory neurons only; <strong>sample-cell contrasts</strong>).</p>
+<p>This step performs differential gene expression (DGE) analyses according to user-defined contrasts. Contrast can be performed between samples (e.g. case vs control; <strong>sample-sample contrasts</strong>) or between samples, stratified by cell type (e.g. case vs control for excitatory neurons only; <strong>sample-cell contrasts</strong>). In addition psuedo-bulk DGE analysis can be performed. </p>
 <p>The following parameters are adjustable for Step 8:</p>
 <table>
 <thead>
@@ -877,6 +1018,26 @@ scrnaboxR::annotation(level_cluster,ClusterMarkers,PWD,PSUE,top_sel,db)
 </thead>
 <tbody>
 <tr>
+<td style="text-align: left;">par_run_add_metadata</td>
+<td style="text-align: left;">Yes</td>
+<td style="text-align: left;">Whether or not to add metadata to the Seurat object to facilitate differential gene expression contrasts.</td>
+</tr>
+<tr>
+<td style="text-align: left;">par_run_sample_sample_wilcoxon</td>
+<td style="text-align: left;">Yes</td>
+<td style="text-align: left;">Whether or to perform DGE contrasts between samples across all cells using the Wilcoxon method.</td>
+</tr>
+<tr>
+<td style="text-align: left;">par_run_sample_cell_wilcoxon</td>
+<td style="text-align: left;">Yes</td>
+<td style="text-align: left;">Whether or to perform DGE contrasts between samples stratified by cell type using the Wilcoxon method.</td>
+</tr>
+<tr>
+<td style="text-align: left;">par_run_pseudo_bulk</td>
+<td style="text-align: left;">Yes</td>
+<td style="text-align: left;">Whether or not to perform pseudo-bulk analysis</td>
+</tr>
+<tr>
 <td style="text-align: left;">par_save_RNA</td>
 <td style="text-align: left;">No</td>
 <td style="text-align: left;">Whether or not to export an RNA expression matrix</td>
@@ -887,77 +1048,66 @@ scrnaboxR::annotation(level_cluster,ClusterMarkers,PWD,PSUE,top_sel,db)
 <td style="text-align: left;">Whether or not to export a metadata dataframe</td>
 </tr>
 <tr>
-<td style="text-align: left;">par_level_cluster</td>
-<td style="text-align: left;">integrated_snn_res.0.7</td>
-<td style="text-align: left;">The cluster resolution that you used in the cluster annotation module. If you skipped integration in Step 5, use par_level_cluster='RNA_snn_res.0.7', if you want to proceed with a clustering resolution of 0.7</td>
-</tr>
-<tr>
-<td style="text-align: left;">par_step8_clus_label</td>
+<td style="text-align: left;">par_metadata</td>
 <td style="text-align: left;">NULL</td>
-<td style="text-align: left;">List of user-currated cluster labels obtained from the annotation module. Make sure to have the same number of labels as clusters at the desired clustering resolution.</td>
-</tr>
-<tr>
-<td style="text-align: left;">par_new_genotype</td>
-<td style="text-align: left;">yes</td>
-<td style="text-align: left;">Whether or not you want to add new sample labels to simplify the contrasts. For example, you may wish to set both control1 and control2 as control.</td>
-</tr>
-<tr>
-<td style="text-align: left;">par_old_sample_label</td>
-<td style="text-align: left;">NULL</td>
-<td style="text-align: left;">list of old sample labels (i.e. those used to create the samples_info folder in the setup procedures)</td>
-</tr>
-<tr>
-<td style="text-align: left;">par_new_sample_label</td>
-<td style="text-align: left;">NULL</td>
-<td style="text-align: left;">list of new sample labels corresponding to the old sample labels defined in the parameter above</td>
+<td style="text-align: left;">Path to a csv file defining new metadata that should be added to the Seurat object to facilitate DEG analysis. At least one column should contain "<strong>orig.ident</strong>".</td>
 </tr>
 </tbody>
 </table>
-<p>The first step of the DGE contrasts module is to create a  DGEListobject. This step may require alot of RAM, we suggest 3*size(seu_int_clu.rds). Users can adjust the RAM in the <code>scrnabox_config.ini</code> file located in <code>~/working_directory/job_info/configs</code>. To create a DGEListobject, run the following command:</p>
+<p>In addition to the execution parameters, users should fill in the contrast matrices to define their contrasts. <br /></p>
+<hr />
+<h3 id="sample-sample-contrast-matrix">Sample-sample contrast matrix</h3>
+<p>To perform sample-sample contrasts, users must fill in the <code>step8_contrast_genotype.txt</code> file located in <code>~/working_directory/job_info/parameters</code>. The sample-sample contrasts matrix contains the following columns:</p>
+<ol>
+<li><strong>contast_name:</strong> An abritrary name for the contrast</li>
+<li><strong>meta_data_variable:</strong> The metadata slot containing the Sample IDs defined in group1 and group2 </li>
+<li><strong>group1:</strong> A list of sample IDs to be contrasted against the sample IDs listed in group2</li>
+<li><strong>group2:</strong>A list of sample IDs to be contrasted against the sample IDs listed in group1</li>
+</ol>
+<p>Multiple contrasts can be defined in the same file. In addition, multiple samples can be listed under group1 and group 2. For example: </p>
+<pre><code>contrast_name meta_data_variable group1 group2
+design1 orig.ident Control1,Control2,Control3 Case1,Case2,Case3
+design2 orig.ident Control1 Case1,Case2,Case3
+design3 DiseaseStatus HC Case
+</code></pre>
+<hr />
+<h3 id="sample-cell-contrast-matrix">Sample-cell contrast matrix</h3>
+<p>To perform sample-cell contrasts, users must fill in the <code>step8_contrast_celltype.txt</code> file located in <code>~/working_directory/job_info/parameters</code>. The sample-cell contrasts matrix contains the following columns:</p>
+<ol>
+<li><strong>contast_name:</strong> An abritrary name for the contrast</li>
+<li><strong>meta_data_celltype:</strong> The metadata slot containing the cell type annotations</li>
+<li><strong>cell_type:</strong> The cell type used for differential gene expression</li>
+<li><strong>meta_data_variable:</strong> The metadata slot containing the Sample IDs defined in group1 and group2 </li>
+<li><strong>group1:</strong> A list of sample IDs to be contrasted against the sample IDs listed in group2</li>
+<li><strong>group2:</strong>A list of sample IDs to be contrasted against the sample IDs listed in group1</li>
+</ol>
+<p>Multiple contrasts can be defined in the same file. In addition, multiple samples can be listed under group1 and group 2. For example: </p>
+<pre><code>contrast_name meta_data_celltype cell_type meta_data_variable group1 group2
+design1 clustering_1 Oligodendrocytes orig.ident Control1,Control2,Control3 Case1,Case2,Case3
+design1 clustering_1 Oligodendrocytes orig.ident Control1 Case1,Case2,Case3
+design2 clustering_2 Microglia DiseaseStatus HC PD
+</code></pre>
+<hr />
+<h3 id="pseudo-bulk-contrast-matrix">Pseudo-bulk contrast matrix</h3>
+<p>To perform pseudo-bulk contrasts, users must fill in the <code>step8_contrast_pseudo_bulk.txt</code> file located in <code>~/working_directory/job_info/parameters</code>. The default pseudo-bulk contrasts matrix contains the following columns:</p>
+<ol>
+<li><strong>ContrastName:</strong> An abritrary name for the contrast</li>
+<li><strong>CellType:</strong> The metadata slot containing the cell type annotations. Pseudo-bulk DGE analysis will be performed on all cell types defined.</li>
+<li><strong>MainContrast:</strong> The metadata slot defining the main variables for the contrast (e.g. Case or Control)</li>
+<li><strong>SampleID:</strong> The metadata slot containing the sample IDs.</li>
+</ol>
+<p>Only one contrast can can be defined in the same file. Pseudo-bulk analysis will not work without &gt;1 Sample for each group defined in the MainContrast. For example: </p>
+<pre><code>ContrastName CellType MainContrast SampleID
+Pseudo_design1 clustering_1 DiseaseStatus orig.ident
+</code></pre>
+<hr />
+<p>To run Step 8, use the following command:</p>
 <pre><code>bash $SCRNABOX_HOME/launch_scrnabox.sh \
 -d ${SCRNABOX_PWD} \
 --steps 8 \
 --dgelist T
 </code></pre>
-<p>The next step is to perform DGE contrasts. As mentioned, users can perform <strong>sample-sample contrasts</strong> or <strong>sample-cell contrasts</strong>.</p>
-<p>To perform <strong>sample-sample contrasts</strong>, users must first modify the <code>step8_contrast_genotype.txt</code> contrast matrix located in <code>~/working_directory/job_info/parameters</code>. The contrast matrix comprises three columns that define the arbitrary name of the contrast (cont_name), the control sample (control), and the case sample (versus). For example:</p>
-<pre><code>cont_name control versus
-design1 control case1,case2,case3,case4,case5
-design2 control case1
-design3 control case2
-design4 control case3
-design5 control case4
-design6 control case5
-design7 control case1,case2,case3,case4
-design8 control case1,case2,case3
-design9 control case1,case2
-</code></pre>
-<p>To perform <strong>sample-sample contrasts</strong>, run the following command:</p>
-<pre><code>bash $SCRNABOX_HOME/launch_scrnabox.sh \
--d ${SCRNABOX_PWD} \
---steps 8 \
---genotype T
-</code></pre>
-<p>To perform <strong>sample-cell contrasts</strong>, users must first modify the <code>step8_contrast_celltype.txt</code> contrast matrix located in <code>~/working_directory/job_info/parameters</code>. The contrast matrix comprises four columns that define the arbitrary name of the contrast (cont_name), the cell type (cell), the control sample (control), and the case sample (versus). For example:</p>
-<pre><code>cont_name cell control versus
-design1 excitatory_neuron control case1,case2,case3,case4,case5
-design2 excitatory_neuron control case1
-design3 excitatory_neuron control case2
-design4 excitatory_neuron control case3
-design5 excitatory_neuron control case4
-design6 excitatory_neuron control case5
-design7 excitatory_neuron control case1,case2,case3,case4
-design8 excitatory_neuron control case1,case2,case3
-design9 excitatory_neuron control case1,case2
-</code></pre>
-<p>To perform <strong>sample-cell contrasts</strong>, run the following command:</p>
-<pre><code>bash $SCRNABOX_HOME/launch_scrnabox.sh \
--d ${SCRNABOX_PWD} \
---steps 8 \
---celltype T
-</code></pre>
-<p>The resulting output files are deposited into <code>~/working_directory/step8</code>.</p>
-<p><strong>Note:</strong> If you have a large number of contrasts to run, it may be more efficient to split them up and submit batch jobs instead.</p>
+<p>The resulting output files are deposited into <code>~/working_directory/step8</code>. For a description of the outputs see <a href="../outputs/">here</a>. </p>
               
             </div>
           </div><footer>

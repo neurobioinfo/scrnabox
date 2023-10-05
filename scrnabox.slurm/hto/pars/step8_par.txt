@@ -23,7 +23,7 @@ par_save_metadata="yes"
 ############################################################################
 # Add metadata parameters
 ############################################################################
-## enter the location to a csv file describing new metadata that should be added to the Seurat object to facilitate DEG analysis. At least one column should contain "orig.ident"
+## enter the location to a csv file describing new metadata that should be added to the Seurat object to facilitate DEG analysis. At least one column should contain "MULTI_ID_Lables"
 par_metadata = "/path/to/metadata.csv"
 
 

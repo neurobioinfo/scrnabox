@@ -20,12 +20,6 @@ par_selection.method="vst"
 ## Number of features to select as top variable features
 par_nfeatures= 2500
 
-##  Which dimensions to use as input features for RunUMAP
-par_dims_umap=3
-
-## This determines the number of neighbouring points used in local approximations of manifold structure.
-par_n.neighbors=65
-
 
 ############################################################################
 # Parameters for linear dimensional reduction
@@ -35,6 +29,12 @@ par_dimensionality_reduction="yes"
 
 ## Total Number of PCs to compute and store for RunPCA
 par_npcs_pca = 30
+
+##  Which dimensions to use as input features for RunUMAP
+par_dims_umap=3
+
+## This determines the number of neighbouring points used in local approximations of manifold structure.
+par_n.neighbors=65
 
 
 ############################################################################

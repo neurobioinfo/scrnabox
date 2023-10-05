@@ -128,7 +128,7 @@ calculate_clusters<- function(seu_int, par_FindClusters_resolution, test_plot, O
     theme(axis.text.x = element_text(angle = 45, hjust = 1)) +
     ylab("Number of clusters")
   ggarrange(test_plot, cluster_plot, ncol = 1, nrow = 2, heights = c(1.25,1))
-  ggsave(file = paste(OUT_DIR, "/ARI.png", sep=''))
+  ggsave(file = paste(OUT_DIR, "/ARI.pdf", sep=''))
 }  
 
 ## produce final plot

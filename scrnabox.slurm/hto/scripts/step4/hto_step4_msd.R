@@ -46,5 +46,5 @@ foreach (i_s=1:length(sample_name)) %do% {
     seu<-readRDS(paste(output_dir,'/step3/objs3/',sample_name[i_s], sep=""))
     DefaultAssay(seu) <- "HTO"
     seu <- MULTIseqDemux(seu, assay = "HTO", quantile = par_quantile, autoThresh = par_autoThresh, maxiter = par_maxiter) 
-    write.csv(table(seu$MULTI_ID), paste(output_dir,'/step4/info4/',sample_name[i_s],"_old_antibody_label_MULTIseqDemuxHTOcounts.csv",sep=""))
+    write.csv(unique(seu$MULTI_ID), paste(output_dir,'/step4/info4/',sample_name[i_s],"_old_antibody_label_MULTIseqDemuxHTOcounts.csv",sep=""))
 }

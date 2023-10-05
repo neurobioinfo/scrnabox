@@ -62,7 +62,7 @@ calculate_module_scores <- function(seu_int, gene_lists, OUT_DIR) {
     try( 
       FeaturePlot(seu_int,
                   features = paste0("module_scores_",i), label = TRUE, repel = TRUE, cols = c("white", "blue")), silent = TRUE)
-    ggsave(file = paste(OUT_DIR, "/figs7/module_score/module_score_",i, ".png", sep='')) #change this step 7 output directory
+    ggsave(file = paste(OUT_DIR, "/figs7/module_score/module_score_",i, ".pdf", sep='')) #change this step 7 output directory
     
     # add cluster annotation to cell-wise expression
     df1$cluster <- seu_int[[par_level_cluster]]

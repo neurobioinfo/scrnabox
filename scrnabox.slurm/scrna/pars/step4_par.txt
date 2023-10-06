@@ -9,10 +9,10 @@ par_save_metadata="yes"
 # Parameters for UMAP dimensional reduction
 ############################################################################
 ## Number of dimensions to use as input into UMAP
-par_RunUMAP_dims = 25
+par_RunUMAP_dims= 25
 
 ## Number of neighbouring points to use in local approximation of manifold structure
-par_RunUMAP_n.neighbors = 65
+par_RunUMAP_n.neighbors= 65
 
 
 ############################################################################

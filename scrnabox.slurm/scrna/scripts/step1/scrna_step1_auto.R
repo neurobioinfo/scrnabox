@@ -17,12 +17,12 @@ source(paste(output_dir,'/job_info/parameters/step1_par.txt',sep=""))
 
 ## automated library prep and do not rename samples
 if (tolower(par_automated_library_prep)=='yes' & (tolower(par_rename_samples)=='no')) {
-    dir.create(paste(output_dir, "/samples_info", sep = ""))
+    dir.create(paste(output_dir, "/samples_info", sep = ""),showWarnings = FALSE)
     new_dir <- paste(output_dir, "/samples_info/", sep = "")
 
 for(i in par_sample_names) {
     #create directory
-    dir.create(paste(new_dir,i, sep = ""))
+    dir.create(paste(new_dir,i, sep = ""),showWarnings = FALSE)
     
     #write the csv file 
     fastqs <- par_fastq_directory
@@ -35,7 +35,7 @@ for(i in par_sample_names) {
 
 ## automated library prep and rename samples
 if (tolower(par_automated_library_prep)=='yes' & (tolower(par_rename_samples)=='yes')) {
-    dir.create(paste(output_dir, "/samples_info", sep = ""))
+    dir.create(paste(output_dir, "/samples_info", sep = ""),showWarnings = FALSE)
     new_dir <- paste(output_dir, "/samples_info/", sep = "")
 for(i in par_sample_names) {
     #parse new sample names
@@ -45,7 +45,7 @@ for(i in par_sample_names) {
     new_i <- names_frame$new_names[old_names == i]    
     
     # create directory
-    dir.create(paste(new_dir,new_i, sep = ""))
+    dir.create(paste(new_dir,new_i, sep = ""),showWarnings = FALSE)
     
     #write the csv file 
     fastqs <- par_fastq_directory

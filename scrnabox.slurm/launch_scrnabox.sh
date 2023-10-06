@@ -6,8 +6,8 @@
 
 
 
-VERSION=0.1.4;
-DATE0=2023-09-21
+VERSION=0.1.41;
+DATE0=2023-10-06
 echo -e "scrnabox pipeline version $VERSION, dev"
 # updated on $DATE0"
 
@@ -202,47 +202,47 @@ if [[ ${MODE0[@]} == 0 ]]; then
         touch $JOB_OUTPUT_DIR/summary_report.txt
         if [[  ${SCRNA_METHOD0} =~ SCRNA ]] ; then
           cp $PIPELINE_HOME/scrna/configs/scrnabox_config.ini $OUTPUT_DIR/job_info/configs/ 
-          cp $PIPELINE_HOME/scrna/pars/step1_par.txt $OUTPUT_DIR/job_info/parameters/ 
-          cp $PIPELINE_HOME/scrna/pars/step2_par.txt $OUTPUT_DIR/job_info/parameters/
-          cp $PIPELINE_HOME/scrna/pars/step3_par.txt $OUTPUT_DIR/job_info/parameters/  
-          cp $PIPELINE_HOME/scrna/pars/step4_par.txt $OUTPUT_DIR/job_info/parameters/ 
-          cp $PIPELINE_HOME/scrna/pars/step5_par.txt $OUTPUT_DIR/job_info/parameters/ 
-          cp $PIPELINE_HOME/scrna/pars/step6_par.txt $OUTPUT_DIR/job_info/parameters/ 
-          cp $PIPELINE_HOME/scrna/pars/step7_par.txt $OUTPUT_DIR/job_info/parameters/ 
-          cp $PIPELINE_HOME/scrna/pars/step8_par.txt $OUTPUT_DIR/job_info/parameters/   
-          cp $PIPELINE_HOME/scrna/pars/step8_contrast_genotype.txt $OUTPUT_DIR/job_info/parameters/ 
-          cp $PIPELINE_HOME/scrna/pars/step8_contrast_celltype.txt $OUTPUT_DIR/job_info/parameters/ 
-          # cp $PIPELINE_HOME/scrna/pars/step8_clus_label.txt $OUTPUT_DIR/job_info/parameters/ 
-          cp $PIPELINE_HOME/scrna/pars/stepint_par.txt $OUTPUT_DIR/job_info/parameters/ 
+          cp $PIPELINE_HOME/scrna/pars/* $OUTPUT_DIR/job_info/parameters/ 
+          # cp $PIPELINE_HOME/scrna/pars/step2_par.txt $OUTPUT_DIR/job_info/parameters/
+          # cp $PIPELINE_HOME/scrna/pars/step3_par.txt $OUTPUT_DIR/job_info/parameters/  
+          # cp $PIPELINE_HOME/scrna/pars/step4_par.txt $OUTPUT_DIR/job_info/parameters/ 
+          # cp $PIPELINE_HOME/scrna/pars/step5_par.txt $OUTPUT_DIR/job_info/parameters/ 
+          # cp $PIPELINE_HOME/scrna/pars/step6_par.txt $OUTPUT_DIR/job_info/parameters/ 
+          # cp $PIPELINE_HOME/scrna/pars/step7_par.txt $OUTPUT_DIR/job_info/parameters/ 
+          # cp $PIPELINE_HOME/scrna/pars/step8_par.txt $OUTPUT_DIR/job_info/parameters/   
+          # cp $PIPELINE_HOME/scrna/pars/step8_contrast_genotype.txt $OUTPUT_DIR/job_info/parameters/ 
+          # cp $PIPELINE_HOME/scrna/pars/step8_contrast_celltype.txt $OUTPUT_DIR/job_info/parameters/ 
+          # # cp $PIPELINE_HOME/scrna/pars/step8_clus_label.txt $OUTPUT_DIR/job_info/parameters/ 
+          # cp $PIPELINE_HOME/scrna/pars/stepint_par.txt $OUTPUT_DIR/job_info/parameters/ 
         elif [[  ${SCRNA_METHOD0} =~ HTO ]] ; then
           cp $PIPELINE_HOME/hto/configs/scrnabox_config.ini $OUTPUT_DIR/job_info/configs/ 
-          cp $PIPELINE_HOME/hto/pars/step1_par.txt $OUTPUT_DIR/job_info/parameters/ 
-          cp $PIPELINE_HOME/hto/pars/step2_par.txt $OUTPUT_DIR/job_info/parameters/
-          cp $PIPELINE_HOME/hto/pars/step3_par.txt $OUTPUT_DIR/job_info/parameters/  
-          cp $PIPELINE_HOME/hto/pars/step4_par.txt $OUTPUT_DIR/job_info/parameters/ 
-          # cp $PIPELINE_HOME/hto/pars/step4_antibody_label.txt $OUTPUT_DIR/job_info/parameters/ 
-          cp $PIPELINE_HOME/hto/pars/step5_par.txt $OUTPUT_DIR/job_info/parameters/ 
-          cp $PIPELINE_HOME/hto/pars/step6_par.txt $OUTPUT_DIR/job_info/parameters/ 
-          cp $PIPELINE_HOME/hto/pars/step7_par.txt $OUTPUT_DIR/job_info/parameters/ 
-          cp $PIPELINE_HOME/hto/pars/step8_par.txt $OUTPUT_DIR/job_info/parameters/   
-          cp $PIPELINE_HOME/hto/pars/step8_contrast_genotype.txt $OUTPUT_DIR/job_info/parameters/ 
-          cp $PIPELINE_HOME/hto/pars/step8_contrast_celltype.txt $OUTPUT_DIR/job_info/parameters/ 
+          cp $PIPELINE_HOME/hto/pars/* $OUTPUT_DIR/job_info/parameters/ 
+          # cp $PIPELINE_HOME/hto/pars/step2_par.txt $OUTPUT_DIR/job_info/parameters/
+          # cp $PIPELINE_HOME/hto/pars/step3_par.txt $OUTPUT_DIR/job_info/parameters/  
+          # cp $PIPELINE_HOME/hto/pars/step4_par.txt $OUTPUT_DIR/job_info/parameters/ 
+          # # cp $PIPELINE_HOME/hto/pars/step4_antibody_label.txt $OUTPUT_DIR/job_info/parameters/ 
+          # cp $PIPELINE_HOME/hto/pars/step5_par.txt $OUTPUT_DIR/job_info/parameters/ 
+          # cp $PIPELINE_HOME/hto/pars/step6_par.txt $OUTPUT_DIR/job_info/parameters/ 
+          # cp $PIPELINE_HOME/hto/pars/step7_par.txt $OUTPUT_DIR/job_info/parameters/ 
+          # cp $PIPELINE_HOME/hto/pars/step8_par.txt $OUTPUT_DIR/job_info/parameters/   
+          # cp $PIPELINE_HOME/hto/pars/step8_contrast_genotype.txt $OUTPUT_DIR/job_info/parameters/ 
+          # cp $PIPELINE_HOME/hto/pars/step8_contrast_celltype.txt $OUTPUT_DIR/job_info/parameters/ 
           # cp $PIPELINE_HOME/hto/pars/step8_clus_label.txt $OUTPUT_DIR/job_info/parameters/ 
-          cp $PIPELINE_HOME/hto/pars/stepint_par.txt $OUTPUT_DIR/job_info/parameters/ 
+          # cp $PIPELINE_HOME/hto/pars/stepint_par.txt $OUTPUT_DIR/job_info/parameters/ 
         elif [[ -z  ${SCRNA_METHOD0}  ]]; then
           cp $PIPELINE_HOME/scrna/configs/scrnabox_config.ini $OUTPUT_DIR/job_info/configs/ 
-          cp $PIPELINE_HOME/scrna/pars/step1_par.txt $OUTPUT_DIR/job_info/parameters/ 
-          cp $PIPELINE_HOME/scrna/pars/step2_par.txt $OUTPUT_DIR/job_info/parameters/
-          cp $PIPELINE_HOME/scrna/pars/step3_par.txt $OUTPUT_DIR/job_info/parameters/  
-          cp $PIPELINE_HOME/scrna/pars/step4_par.txt $OUTPUT_DIR/job_info/parameters/ 
-          cp $PIPELINE_HOME/scrna/pars/step5_par.txt $OUTPUT_DIR/job_info/parameters/ 
-          cp $PIPELINE_HOME/scrna/pars/step6_par.txt $OUTPUT_DIR/job_info/parameters/ 
-          cp $PIPELINE_HOME/scrna/pars/step7_par.txt $OUTPUT_DIR/job_info/parameters/ 
-          cp $PIPELINE_HOME/scrna/pars/step8_par.txt $OUTPUT_DIR/job_info/parameters/   
-          cp $PIPELINE_HOME/scrna/pars/step8_contrast_genotype.txt $OUTPUT_DIR/job_info/parameters/ 
-          cp $PIPELINE_HOME/scrna/pars/step8_contrast_celltype.txt $OUTPUT_DIR/job_info/parameters/ 
-          # cp $PIPELINE_HOME/scrna/pars/step8_clus_label.txt $OUTPUT_DIR/job_info/parameters/ 
-          cp $PIPELINE_HOME/scrna/pars/stepint_par.txt $OUTPUT_DIR/job_info/parameters/ 
+          cp $PIPELINE_HOME/scrna/pars/* $OUTPUT_DIR/job_info/parameters/ 
+          # cp $PIPELINE_HOME/scrna/pars/step2_par.txt $OUTPUT_DIR/job_info/parameters/
+          # cp $PIPELINE_HOME/scrna/pars/step3_par.txt $OUTPUT_DIR/job_info/parameters/  
+          # cp $PIPELINE_HOME/scrna/pars/step4_par.txt $OUTPUT_DIR/job_info/parameters/ 
+          # cp $PIPELINE_HOME/scrna/pars/step5_par.txt $OUTPUT_DIR/job_info/parameters/ 
+          # cp $PIPELINE_HOME/scrna/pars/step6_par.txt $OUTPUT_DIR/job_info/parameters/ 
+          # cp $PIPELINE_HOME/scrna/pars/step7_par.txt $OUTPUT_DIR/job_info/parameters/ 
+          # cp $PIPELINE_HOME/scrna/pars/step8_par.txt $OUTPUT_DIR/job_info/parameters/   
+          # cp $PIPELINE_HOME/scrna/pars/step8_contrast_genotype.txt $OUTPUT_DIR/job_info/parameters/ 
+          # cp $PIPELINE_HOME/scrna/pars/step8_contrast_celltype.txt $OUTPUT_DIR/job_info/parameters/ 
+          # # cp $PIPELINE_HOME/scrna/pars/step8_clus_label.txt $OUTPUT_DIR/job_info/parameters/ 
+          # cp $PIPELINE_HOME/scrna/pars/stepint_par.txt $OUTPUT_DIR/job_info/parameters/ 
               echo "NOTE: You didn't specify the method, so the pipeline selected"
           else
                echo "Error: the pipeline is not developed for ${SCRNA_METHOD0}"
@@ -263,33 +263,33 @@ if [[ ${MODE0[@]} == 0 ]]; then
         touch $JOB_OUTPUT_DIR/summary_report.txt
         if [[  ${SCRNA_METHOD0} =~ SCRNA ]] ; then
           cp $PIPELINE_HOME/scrna/configs/scrnabox_config.ini $OUTPUT_DIR/job_info/configs/
-          cp $PIPELINE_HOME/scrna/pars/step1_par.txt $OUTPUT_DIR/job_info/parameters/ 
-          cp $PIPELINE_HOME/scrna/pars/step2_par.txt $OUTPUT_DIR/job_info/parameters/
-          cp $PIPELINE_HOME/scrna/pars/step3_par.txt $OUTPUT_DIR/job_info/parameters/  
-          cp $PIPELINE_HOME/scrna/pars/step4_par.txt $OUTPUT_DIR/job_info/parameters/ 
-          cp $PIPELINE_HOME/scrna/pars/step5_par.txt $OUTPUT_DIR/job_info/parameters/ 
-          cp $PIPELINE_HOME/scrna/pars/step6_par.txt $OUTPUT_DIR/job_info/parameters/ 
-          cp $PIPELINE_HOME/scrna/pars/step7_par.txt $OUTPUT_DIR/job_info/parameters/ 
-          cp $PIPELINE_HOME/scrna/pars/step8_par.txt $OUTPUT_DIR/job_info/parameters/   
-          cp $PIPELINE_HOME/scrna/pars/step8_contrast_genotype.txt $OUTPUT_DIR/job_info/parameters/ 
-          cp $PIPELINE_HOME/scrna/pars/step8_contrast_celltype.txt $OUTPUT_DIR/job_info/parameters/ 
-          # cp $PIPELINE_HOME/scrna/pars/step8_clus_label.txt $OUTPUT_DIR/job_info/parameters/ 
-          cp $PIPELINE_HOME/scrna/pars/stepint_par.txt $OUTPUT_DIR/job_info/parameters/ 
+          cp $PIPELINE_HOME/scrna/pars/* $OUTPUT_DIR/job_info/parameters/ 
+          # cp $PIPELINE_HOME/scrna/pars/step2_par.txt $OUTPUT_DIR/job_info/parameters/
+          # cp $PIPELINE_HOME/scrna/pars/step3_par.txt $OUTPUT_DIR/job_info/parameters/  
+          # cp $PIPELINE_HOME/scrna/pars/step4_par.txt $OUTPUT_DIR/job_info/parameters/ 
+          # cp $PIPELINE_HOME/scrna/pars/step5_par.txt $OUTPUT_DIR/job_info/parameters/ 
+          # cp $PIPELINE_HOME/scrna/pars/step6_par.txt $OUTPUT_DIR/job_info/parameters/ 
+          # cp $PIPELINE_HOME/scrna/pars/step7_par.txt $OUTPUT_DIR/job_info/parameters/ 
+          # cp $PIPELINE_HOME/scrna/pars/step8_par.txt $OUTPUT_DIR/job_info/parameters/   
+          # cp $PIPELINE_HOME/scrna/pars/step8_contrast_genotype.txt $OUTPUT_DIR/job_info/parameters/ 
+          # cp $PIPELINE_HOME/scrna/pars/step8_contrast_celltype.txt $OUTPUT_DIR/job_info/parameters/ 
+          # # cp $PIPELINE_HOME/scrna/pars/step8_clus_label.txt $OUTPUT_DIR/job_info/parameters/ 
+          # cp $PIPELINE_HOME/scrna/pars/stepint_par.txt $OUTPUT_DIR/job_info/parameters/ 
         elif [[  ${SCRNA_METHOD0} =~ HTO ]] ; then
           cp $PIPELINE_HOME/hto/configs/scrnabox_config.ini $OUTPUT_DIR/job_info/configs/
-          cp $PIPELINE_HOME/hto/pars/step1_par.txt $OUTPUT_DIR/job_info/parameters/ 
-          cp $PIPELINE_HOME/hto/pars/step2_par.txt $OUTPUT_DIR/job_info/parameters/
-          cp $PIPELINE_HOME/hto/pars/step3_par.txt $OUTPUT_DIR/job_info/parameters/  
-          cp $PIPELINE_HOME/hto/pars/step4_par.txt $OUTPUT_DIR/job_info/parameters/ 
-          # cp $PIPELINE_HOME/hto/pars/step4_antibody_label.txt $OUTPUT_DIR/job_info/parameters/ 
-          cp $PIPELINE_HOME/hto/pars/step5_par.txt $OUTPUT_DIR/job_info/parameters/ 
-          cp $PIPELINE_HOME/hto/pars/step6_par.txt $OUTPUT_DIR/job_info/parameters/ 
-          cp $PIPELINE_HOME/hto/pars/step7_par.txt $OUTPUT_DIR/job_info/parameters/ 
-          cp $PIPELINE_HOME/hto/pars/step8_par.txt $OUTPUT_DIR/job_info/parameters/   
-          cp $PIPELINE_HOME/hto/pars/step8_contrast_genotype.txt $OUTPUT_DIR/job_info/parameters/ 
-          cp $PIPELINE_HOME/hto/pars/step8_contrast_celltype.txt $OUTPUT_DIR/job_info/parameters/ 
-          # cp $PIPELINE_HOME/hto/pars/step8_clus_label.txt $OUTPUT_DIR/job_info/parameters/ 
-          cp $PIPELINE_HOME/hto/pars/stepint_par.txt $OUTPUT_DIR/job_info/parameters/ 
+          cp $PIPELINE_HOME/hto/pars/* $OUTPUT_DIR/job_info/parameters/ 
+          # cp $PIPELINE_HOME/hto/pars/step2_par.txt $OUTPUT_DIR/job_info/parameters/
+          # cp $PIPELINE_HOME/hto/pars/step3_par.txt $OUTPUT_DIR/job_info/parameters/  
+          # cp $PIPELINE_HOME/hto/pars/step4_par.txt $OUTPUT_DIR/job_info/parameters/ 
+          # # cp $PIPELINE_HOME/hto/pars/step4_antibody_label.txt $OUTPUT_DIR/job_info/parameters/ 
+          # cp $PIPELINE_HOME/hto/pars/step5_par.txt $OUTPUT_DIR/job_info/parameters/ 
+          # cp $PIPELINE_HOME/hto/pars/step6_par.txt $OUTPUT_DIR/job_info/parameters/ 
+          # cp $PIPELINE_HOME/hto/pars/step7_par.txt $OUTPUT_DIR/job_info/parameters/ 
+          # cp $PIPELINE_HOME/hto/pars/step8_par.txt $OUTPUT_DIR/job_info/parameters/   
+          # cp $PIPELINE_HOME/hto/pars/step8_contrast_genotype.txt $OUTPUT_DIR/job_info/parameters/ 
+          # cp $PIPELINE_HOME/hto/pars/step8_contrast_celltype.txt $OUTPUT_DIR/job_info/parameters/ 
+          # # cp $PIPELINE_HOME/hto/pars/step8_clus_label.txt $OUTPUT_DIR/job_info/parameters/ 
+          # cp $PIPELINE_HOME/hto/pars/stepint_par.txt $OUTPUT_DIR/job_info/parameters/ 
           else
                echo "Error: the pipeline is not developed for ${SCRNA_METHOD}"
                exit 42

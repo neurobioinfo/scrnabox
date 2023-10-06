@@ -107,7 +107,7 @@ Every release is documented on the [GitHub Releases page](https://github.com/neu
 This project is licensed under the MIT License - see the [LICENSE.md](https://github.com/neurobioinfo/scrnabox/blob/main/LICENSE) file for details.
 
 #### Acknowledgement
-The scRNAbox pipeline is part of the Dark Genome project. It is written by [Saeid Amiri](https://github.com/saeidamiri1) with associate of Rhalena Thomas, Sali Farhan, and Michael Fiorini at  Neuro Bioinformatics Core. Copyright belongs tp MNI BIOINFO CORE (https://github.com/neurobioinfo). 
+The scRNAbox pipeline is a component of the Dark Genome project and has been developed by [Saeid Amiri](https://github.com/saeidamiri1), Michael Fiorini,  Rhalena Thomas, and Sali Farhan at  Neuro Bioinformatics Core. Copyright belongs tp MNI BIOINFO CORE (https://github.com/neurobioinfo). 
 
 **[⬆ back to top](#contents)**
 

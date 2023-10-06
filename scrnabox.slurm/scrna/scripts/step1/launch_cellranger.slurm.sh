@@ -52,7 +52,15 @@ done
 ############
 # SET DEFAULT AND OTHER VARIABLES
 ############
-source $OUTPUT_DIR/job_info/parameters/step1_par.txt
+
+if [ -f $OUTPUT_DIR/job_info/.tmp/step1_par.txt ]; then
+    rm $OUTPUT_DIR/job_info/.tmp/step1_par.txt
+fi
+
+grep "REF_DIR_GRCH=" $OUTPUT_DIR/job_info/parameters/step1_par.txt | sed 's/\"//g' | sed "s/\'//g" > $OUTPUT_DIR/job_info/.tmp/step1_par.txt
+grep "R1LENGTH=" $OUTPUT_DIR/job_info/parameters/step1_par.txt >> $OUTPUT_DIR/job_info/.tmp/step1_par.txt
+grep "MEMPERCORE="  $OUTPUT_DIR/job_info/parameters/step1_par.txt>> $OUTPUT_DIR/job_info/.tmp/step1_par.txt
+source $OUTPUT_DIR/job_info/.tmp/step1_par.txt
 LIBRARY=${LIBRARY:-./library.csv}
 EXPECT_CELLS=${EXPECT_CELLS:-6000}
 SLURM_TEMPLATE=${SLURM_TEMPLATE:-./slurm.template}

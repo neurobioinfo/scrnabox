@@ -9,67 +9,127 @@ tags: scRNA
 categories: 
 comments: false
 ---
-## ScRNA  pipline  
+## scRNAbox with processed data
 ## Contents
 
 - [Introduction](#introduction)
-  - [From step 2](#from-step-2)
-  - [From step 3](#from-step-3)  
-  - [From step 4](#from-step-4)
-  - [From Step 5: integration](#from-step-5-integration)
-  - [From Step 6: Clustering](#from-step-6-clustering)   
+  - [From Step 2: Create Seurat object and remove ambient RNA](#from-step-2-create-seurat-object-and-remove-ambient-rna)  
+  - [From Step 3: Quality control and filtering](#from-step-3quality-control-and-filtering)
+  - [From Step 4: Demultiplexing and doublet removal](#from-step-4-demultiplexing-and-doublet-removal)
+  - [From Step 5: Integration and linear dimensional reduction](#from-step-5-integration-and-linear-dimensional-reduction)  
+  - [From Step 6: Clustering](#from-step-6-clustering)
+  - [From Step 7: Cluster annotation](#from-step-7-cluster-annotation) 
+  - [From Step 8: Differential gene expression contrasts](#from-step-8-differential-gene-expression-contrasts)    
+
+ - - - -
 
 ## Introduction 
-This guide provides a concise introduction to analyzing data using the Scrnabox pipeline. The `scrnabox.slurm` pipeline is primarily designed to initiate Step 1, which involves running cellranger on fastq data. However, it can also be utilized with processed data, where some of the steps have already been completed. The following section explains how to use the pipeline for analyzing processed data. To begin, you need to set up the pipeline for analysis and determine the starting step based on your requirements.
+This guide demonstrates how to initiate the scRNAbox pipeline at different Analytical Steps using processed data. The procedures are the same for both the [Standard](SCRNA.md) and [Cell Hashtag](HTO.md) Analysis Tracks.
+ - - - -
+### From Step 2: Create Seurat object and remove ambient RNA
 
-### From Step 2
-If the cellranger is already run the raw data, copy the results under `${SCRNABOX_PWD}/step1`, then follow the step2 to analyze data 
+**I have to return to this.**
+
+ - - - -
+
+### From Step 3: Quality control and filtering
+If you have a Seurat object(s) and want to initiate the pipeline at Step 3, create a `/step3/objs3` folder in the working directory, copy the Seurat object(s) to this folder, and run Step 3.
+
 ```
+export SCRNABOX_PWD=/path/to/working/directory
+cd ${SCRNABOX_PWD}
+mkdir step3
+cd step3
+mkdir objs3
+cp /path/to/Seurat/object ${SCRNABOX_PWD}/step3/objs3
+
 bash $SCRNABOX_HOME/launch_scrnabox.sh \
 -d ${SCRNABOX_PWD} \
---steps 2
+--steps 3
 ```
+- - - -
 
-### From step 3
-If the seurat objects are available and you want to run `QC and filter cell`; save the seurate objects under  `${SCRNABOX_PWD}/step2/objs` and run the following codes, 
+
+### From Step 4: Demultiplexing and doublet removal
+If you have a Seurat object(s) and want to initiate the pipeline at Step 4, create a `/step4/objs4` folder in the working directory, copy the Seurat object(s) to this folder, and run Step 4.
+
 ```
+export SCRNABOX_PWD=/path/to/working/directory
+cd ${SCRNABOX_PWD}
+mkdir step4
+cd step4
+mkdir objs4
+cp /path/to/Seurat/object ${SCRNABOX_PWD}/step4/objs4
+
 bash $SCRNABOX_HOME/launch_scrnabox.sh \
 -d ${SCRNABOX_PWD} \
---steps 3 \
---nFeature_RNA_L 1000 \
---nCount_RNA_U 65000 \
---mitochondria_percent_U 25
+--steps 4
 ```
+- - - -
+### From Step 5: Integration and linear dimensional reduction
+If you have a Seurat object(s) and want to initiate the pipeline at Step 5, create a `/step5/objs5` folder in the working directory, copy the Seurat object(s) to this folder, and run Step 5.
 
-### From step 4
-If the QC and filtering is already done, you can save under  `${SCRNABOX_PWD}/step3/objs` and run the following codes to get the hashtag labels by running the following code 
 ```
+export SCRNABOX_PWD=/path/to/working/directory
+cd ${SCRNABOX_PWD}
+mkdir step5
+cd step5
+mkdir objs5
+cp /path/to/Seurat/object ${SCRNABOX_PWD}/step5/objs5
+
 bash $SCRNABOX_HOME/launch_scrnabox.sh \
 -d ${SCRNABOX_PWD} \
---steps 4 \
---msd T 
+--steps 5
 ```
-
-Add the old label and its new corresponding label in '${SCRNABOX_PWD}/job_output/parameters/step4_par.txt'. Run the following to run the demuplixing  
-```
-bash $SCRNABOX_HOME/launch_scrnabox.sh \
--d ${SCRNABOX_PWD} \
---steps 4 
-```
-
-### From Step 5: Integration 
-If you want to integrate the surate objects, just save them in  `${SCRNABOX_PWD}/step4/objs` and follow Srep 5
-```
-bash $SCRNABOX_HOME/launch_scrnabox.sh \
--d ${SCRNABOX_PWD} \
---steps 5 
-```
+- - - -
 
 ### From Step 6: Clustering 
-In this step, you need to have just one seurat object which should be save in  `${SCRNABOX_PWD}/step5/objs`
+If you have a Seurat object and want to initiate the pipeline at Step 6, create a `/step6/objs6` folder in the working directory, copy the Seurat object to this folder, and run Step 6.
 
 ```
+export SCRNABOX_PWD=/path/to/working/directory
+cd ${SCRNABOX_PWD}
+mkdir step6
+cd step6
+mkdir objs6
+cp /path/to/Seurat/object ${SCRNABOX_PWD}/step6/objs6
+
 bash $SCRNABOX_HOME/launch_scrnabox.sh \
 -d ${SCRNABOX_PWD} \
---steps 6 
+--steps 6
 ```
+- - - -
+
+### From Step 7: Cluster annotation
+If you have a Seurat object and want to initiate the pipeline at Step 7, create a `/step7/objs7` folder in the working directory, copy the Seurat object to this folder, and run Step 7.
+
+```
+export SCRNABOX_PWD=/path/to/working/directory
+cd ${SCRNABOX_PWD}
+mkdir step7
+cd step7
+mkdir objs7
+cp /path/to/Seurat/object ${SCRNABOX_PWD}/step7/objs7
+
+bash $SCRNABOX_HOME/launch_scrnabox.sh \
+-d ${SCRNABOX_PWD} \
+--steps 7
+```
+- - - -
+
+### From Step 8:  Differential gene expression contrasts
+If you have a Seurat object and want to initiate the pipeline at Step 8, create a `/step8/objs8` folder in the working directory, copy the Seurat object to this folder, and run Step 8.
+
+```
+export SCRNABOX_PWD=/path/to/working/directory
+cd ${SCRNABOX_PWD}
+mkdir step8
+cd step8
+mkdir objs8
+cp /path/to/Seurat/object ${SCRNABOX_PWD}/step8/objs8
+
+bash $SCRNABOX_HOME/launch_scrnabox.sh \
+-d ${SCRNABOX_PWD} \
+--steps 8
+```
+- - - -

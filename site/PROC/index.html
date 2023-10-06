@@ -112,57 +112,109 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
             <div class="section" itemprop="articleBody">
               
-                <h2 id="scrna-pipline">ScRNA  pipline</h2>
+                <h2 id="scrnabox-with-processed-data">scRNAbox with processed data</h2>
 <h2 id="contents">Contents</h2>
 <ul>
 <li><a href="#introduction">Introduction</a></li>
-<li><a href="#from-step-2">From step 2</a></li>
-<li><a href="#from-step-3">From step 3</a>  </li>
-<li><a href="#from-step-4">From step 4</a></li>
-<li><a href="#from-step-5-integration">From Step 5: integration</a></li>
-<li><a href="#from-step-6-clustering">From Step 6: Clustering</a>   </li>
+<li><a href="#from-step-2-create-seurat-object-and-remove-ambient-rna">From Step 2: Create Seurat object and remove ambient RNA</a>  </li>
+<li><a href="#from-step-3quality-control-and-filtering">From Step 3: Quality control and filtering</a></li>
+<li><a href="#from-step-4-demultiplexing-and-doublet-removal">From Step 4: Demultiplexing and doublet removal</a></li>
+<li><a href="#from-step-5-integration-and-linear-dimensional-reduction">From Step 5: Integration and linear dimensional reduction</a>  </li>
+<li><a href="#from-step-6-clustering">From Step 6: Clustering</a></li>
+<li><a href="#from-step-7-cluster-annotation">From Step 7: Cluster annotation</a> </li>
+<li><a href="#from-step-8-differential-gene-expression-contrasts">From Step 8: Differential gene expression contrasts</a>    </li>
 </ul>
+<hr />
 <h2 id="introduction">Introduction</h2>
-<p>This guide provides a concise introduction to analyzing data using the Scrnabox pipeline. The <code>scrnabox.slurm</code> pipeline is primarily designed to initiate Step 1, which involves running cellranger on fastq data. However, it can also be utilized with processed data, where some of the steps have already been completed. The following section explains how to use the pipeline for analyzing processed data. To begin, you need to set up the pipeline for analysis and determine the starting step based on your requirements.</p>
-<h3 id="from-step-2">From Step 2</h3>
-<p>If the cellranger is already run the raw data, copy the results under <code>${SCRNABOX_PWD}/step1</code>, then follow the step2 to analyze data </p>
-<pre><code>bash $SCRNABOX_HOME/launch_scrnabox.sh \
+<p>This guide demonstrates how to initiate the scRNAbox pipeline at different Analytical Steps using processed data. The procedures are the same for both the <a href="../SCRNA/">Standard</a> and <a href="../HTO/">Cell Hashtag</a> Analysis Tracks.</p>
+<hr />
+<h3 id="from-step-2-create-seurat-object-and-remove-ambient-rna">From Step 2: Create Seurat object and remove ambient RNA</h3>
+<p><strong>I have to return to this.</strong></p>
+<hr />
+<h3 id="from-step-3-quality-control-and-filtering">From Step 3: Quality control and filtering</h3>
+<p>If you have a Seurat object(s) and want to initiate the pipeline at Step 3, create a <code>/step3/objs3</code> folder in the working directory, copy the Seurat object(s) to this folder, and run Step 3.</p>
+<pre><code>export SCRNABOX_PWD=/path/to/working/directory
+cd ${SCRNABOX_PWD}
+mkdir step3
+cd step3
+mkdir objs3
+cp /path/to/Seurat/object ${SCRNABOX_PWD}/step3/objs3
+
+bash $SCRNABOX_HOME/launch_scrnabox.sh \
 -d ${SCRNABOX_PWD} \
---steps 2
+--steps 3
 </code></pre>
-<h3 id="from-step-3">From step 3</h3>
-<p>If the seurat objects are available and you want to run <code>QC and filter cell</code>; save the seurate objects under  <code>${SCRNABOX_PWD}/step2/objs</code> and run the following codes, </p>
-<pre><code>bash $SCRNABOX_HOME/launch_scrnabox.sh \
+<hr />
+<h3 id="from-step-4-demultiplexing-and-doublet-removal">From Step 4: Demultiplexing and doublet removal</h3>
+<p>If you have a Seurat object(s) and want to initiate the pipeline at Step 4, create a <code>/step4/objs4</code> folder in the working directory, copy the Seurat object(s) to this folder, and run Step 4.</p>
+<pre><code>export SCRNABOX_PWD=/path/to/working/directory
+cd ${SCRNABOX_PWD}
+mkdir step4
+cd step4
+mkdir objs4
+cp /path/to/Seurat/object ${SCRNABOX_PWD}/step4/objs4
+
+bash $SCRNABOX_HOME/launch_scrnabox.sh \
 -d ${SCRNABOX_PWD} \
---steps 3 \
---nFeature_RNA_L 1000 \
---nCount_RNA_U 65000 \
---mitochondria_percent_U 25
+--steps 4
 </code></pre>
-<h3 id="from-step-4">From step 4</h3>
-<p>If the QC and filtering is already done, you can save under  <code>${SCRNABOX_PWD}/step3/objs</code> and run the following codes to get the hashtag labels by running the following code </p>
-<pre><code>bash $SCRNABOX_HOME/launch_scrnabox.sh \
+<hr />
+<h3 id="from-step-5-integration-and-linear-dimensional-reduction">From Step 5: Integration and linear dimensional reduction</h3>
+<p>If you have a Seurat object(s) and want to initiate the pipeline at Step 5, create a <code>/step5/objs5</code> folder in the working directory, copy the Seurat object(s) to this folder, and run Step 5.</p>
+<pre><code>export SCRNABOX_PWD=/path/to/working/directory
+cd ${SCRNABOX_PWD}
+mkdir step5
+cd step5
+mkdir objs5
+cp /path/to/Seurat/object ${SCRNABOX_PWD}/step5/objs5
+
+bash $SCRNABOX_HOME/launch_scrnabox.sh \
 -d ${SCRNABOX_PWD} \
---steps 4 \
---msd T 
+--steps 5
 </code></pre>
-<p>Add the old label and its new corresponding label in '${SCRNABOX_PWD}/job_output/parameters/step4_par.txt'. Run the following to run the demuplixing  </p>
-<pre><code>bash $SCRNABOX_HOME/launch_scrnabox.sh \
--d ${SCRNABOX_PWD} \
---steps 4 
-</code></pre>
-<h3 id="from-step-5-integration">From Step 5: Integration</h3>
-<p>If you want to integrate the surate objects, just save them in  <code>${SCRNABOX_PWD}/step4/objs</code> and follow Srep 5</p>
-<pre><code>bash $SCRNABOX_HOME/launch_scrnabox.sh \
--d ${SCRNABOX_PWD} \
---steps 5 
-</code></pre>
+<hr />
 <h3 id="from-step-6-clustering">From Step 6: Clustering</h3>
-<p>In this step, you need to have just one seurat object which should be save in  <code>${SCRNABOX_PWD}/step5/objs</code></p>
-<pre><code>bash $SCRNABOX_HOME/launch_scrnabox.sh \
+<p>If you have a Seurat object and want to initiate the pipeline at Step 6, create a <code>/step6/objs6</code> folder in the working directory, copy the Seurat object to this folder, and run Step 6.</p>
+<pre><code>export SCRNABOX_PWD=/path/to/working/directory
+cd ${SCRNABOX_PWD}
+mkdir step6
+cd step6
+mkdir objs6
+cp /path/to/Seurat/object ${SCRNABOX_PWD}/step6/objs6
+
+bash $SCRNABOX_HOME/launch_scrnabox.sh \
 -d ${SCRNABOX_PWD} \
---steps 6 
+--steps 6
 </code></pre>
+<hr />
+<h3 id="from-step-7-cluster-annotation">From Step 7: Cluster annotation</h3>
+<p>If you have a Seurat object and want to initiate the pipeline at Step 7, create a <code>/step7/objs7</code> folder in the working directory, copy the Seurat object to this folder, and run Step 7.</p>
+<pre><code>export SCRNABOX_PWD=/path/to/working/directory
+cd ${SCRNABOX_PWD}
+mkdir step7
+cd step7
+mkdir objs7
+cp /path/to/Seurat/object ${SCRNABOX_PWD}/step7/objs7
+
+bash $SCRNABOX_HOME/launch_scrnabox.sh \
+-d ${SCRNABOX_PWD} \
+--steps 7
+</code></pre>
+<hr />
+<h3 id="from-step-8-differential-gene-expression-contrasts">From Step 8:  Differential gene expression contrasts</h3>
+<p>If you have a Seurat object and want to initiate the pipeline at Step 8, create a <code>/step8/objs8</code> folder in the working directory, copy the Seurat object to this folder, and run Step 8.</p>
+<pre><code>export SCRNABOX_PWD=/path/to/working/directory
+cd ${SCRNABOX_PWD}
+mkdir step8
+cd step8
+mkdir objs8
+cp /path/to/Seurat/object ${SCRNABOX_PWD}/step8/objs8
+
+bash $SCRNABOX_HOME/launch_scrnabox.sh \
+-d ${SCRNABOX_PWD} \
+--steps 8
+</code></pre>
+<hr />
               
             </div>
           </div><footer>

@@ -44,8 +44,12 @@ if (tolower(par_ambient_RNA)=="yes") {
   ## ambient RNA removal using SoupX
   foreach (i=1:length(sample_name)) %do% { 
       sc = load10X(paste0(list[i],"/ouput_folder","/outs"))
+              pdf(paste(output_dir,'/step2/figs2/ambient_RNA_estimation_',sample_name[i],".pdf", sep=""))
       sc = autoEstCont(sc) 
+              dev.off()
       out = adjustCounts(sc)
+              plotMarkerDistribution(sc) ### NEW CODE
+              ggsave(paste(output_dir,'/step2/figs2/ambient_RNA_markers_',sample_name[i],".pdf", sep="")) #### NEW CODE
       dir.create(file.path(output_dir, 'step2_ambient'), showWarnings = FALSE)
       dir0 <- paste0(output_dir, '/step2_ambient/',sample_name[i])
       if (file.exists(dir0)) {
@@ -187,9 +191,12 @@ list<-dir(path = paste(output_dir, "/step1",sep=""),full.names = TRUE)
   ## ambient RNA removal using SoupX
   foreach (i=1:length(sample_name)) %do% { 
       sc = load10X(paste0(list[i],"/ouput_folder","/outs"))
+            pdf(paste(output_dir,'/step2/figs2/ambient_RNA_estimation_',sample_name[i],".pdf", sep=""))
       sc = autoEstCont(sc) 
+            dev.off()
       out = adjustCounts(sc)
-
+            plotMarkerDistribution(sc) ### NEW CODE
+            ggsave(paste(output_dir,'/step2/figs2/ambient_RNA_markers_',sample_name[i],".pdf", sep="")) #### NEW CODE
       ## save ambient RNA-corrected feature barcode matrices
       saveRDS(sc, paste(output_dir,'/step2/info2/',sample_name[i],'_ambient_rna_summary.rds', sep=''))
 

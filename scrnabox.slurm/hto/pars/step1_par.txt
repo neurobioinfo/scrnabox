@@ -29,10 +29,10 @@ par_paired_end_seq= TRUE
 ## please note that if you used different sample-specific barcodes for each sequencing run, you should manually prepare the feature_ref.csv files
 
 ## list the IDs of the sample-slecific barcodes
-id=c("Hash1", "Hash2", "Hash3", "Hash4", "Hash5", "Hash6", "Hash7", "Hash8")
+id= c("Hash1", "Hash2", "Hash3", "Hash4", "Hash5", "Hash6", "Hash7", "Hash8")
 
 ## list the names of the sample-specific barcodes
-name=c("A_TotalSeqA", "B_TotalSeqA", "C_TotalSeqA", "D_TotalSeqA", "E_TotalSeqA", "F_TotalSeqA", "G_TotalSeqA", "H_TotalSeqA")
+name= c("A_TotalSeqA", "B_TotalSeqA", "C_TotalSeqA", "D_TotalSeqA", "E_TotalSeqA", "F_TotalSeqA", "G_TotalSeqA", "H_TotalSeqA")
 
 ## which read is the sample-specific barcode on? The majority of cases will be R2.
 read= "R2"

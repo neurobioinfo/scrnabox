@@ -1,28 +1,28 @@
 ############################################################################
 # If you want to save an RNA expression matrix and metadata dataframe set the following to "yes"
 ############################################################################
-par_save_RNA="yes"
-par_save_metadata="yes"
+par_save_RNA= "yes"
+par_save_metadata= "yes"
 
 
 ############################################################################
 # If you skipped integration in step 5, set the following to "yes". 
 # If you performed integration, keep the default as no.
 ############################################################################
-par_skip_integration="no"
+par_skip_integration= "no"
 
 
 ############################################################################
 # Clustering parameters
 ############################################################################
 ## Dimensions of reduction to use as input to find neighbours. Can be informed by the elbow and jackstraw plots produced in Step 5. 
-par_FindNeighbors_dims=25
+par_FindNeighbors_dims= 25
 
 ## Dimensions of reduction to use as input for UMAP. Can be informed by the elbow and jackstraw plots produced in Step 5. 
-par_RunUMAP_dims=25
+par_RunUMAP_dims= 25
 
 ## Defines k for the k-nearest neighbour algorithm
-par_FindNeighbors_k.param=60
+par_FindNeighbors_k.param= 60
 
 ## Sets the cutoff for acceptable Jaccard index when computing the neighbourhood overlap for the SNN construction
 par_FindNeighbors_prune.SNN= 1/15

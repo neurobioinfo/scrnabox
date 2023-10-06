@@ -246,7 +246,7 @@ seu_int <- MapQuery(anchorset = transfer.anchors, reference = reference0, query 
 p1 <- DimPlot(reference0, reduction = "umap", group.by = par_level_celltype, label = TRUE, label.size = 3,repel = TRUE, raster=FALSE) + NoLegend() + ggtitle("Reference annotations")
 p2 <- DimPlot(seu_int, reduction = "umap", group.by = "predicted.id", label = TRUE, label.size = 3, repel = TRUE) + NoLegend() + ggtitle("Query transferred labels")
 p1 + p2
-ggsave(file = paste(OUT_dir_figs_reference,par_reference_name,'_UMAP_transferred_labels.pdf', sep=''))
+ggsave(file = paste(OUT_dir_figs_reference,par_reference_name,'_UMAP_transferred_labels.pdf', sep=''), dpi = 300, height = 7, width = 14, unit = 'in')
 
 ## print summary table
 df <- data.frame(seu_int@meta.data)

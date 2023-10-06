@@ -1,8 +1,8 @@
 ############################################################################
 # If you want to save an RNA expression matrix and metadata data frame set the following to "yes"
 ############################################################################
-par_save_RNA="yes"
-par_save_metadata="yes"
+par_save_RNA= "yes"
+par_save_metadata= "yes"
 
 
 ############################################################################
@@ -10,7 +10,7 @@ par_save_metadata="yes"
 # Make sure that no other files/objects are present in the directory besides Seurat RDS objects. 
 # Uncomment the line to activate the parameter
 ############################################################################
-#par_seurat_object="/path/to/seurat/object"
+#par_seurat_object= "/path/to/seurat/object"
 
 
 ############################################################################
@@ -19,22 +19,22 @@ par_save_metadata="yes"
 # L = lower bound threshold
 # R = upper bound threshold
 ############################################################################
-par_nFeature_RNA_L=50
-par_nFeature_RNA_U=6000
-par_nCount_RNA_L=200
-par_nCount_RNA_U=20000
-par_mitochondria_percent_L=0
-par_mitochondria_percent_U=50
-par_ribosomal_percent_L=0
-par_ribosomal_percent_U=100
+par_nFeature_RNA_L= 50
+par_nFeature_RNA_U= 6000
+par_nCount_RNA_L= 200
+par_nCount_RNA_U= 20000
+par_mitochondria_percent_L= 0
+par_mitochondria_percent_U= 50
+par_ribosomal_percent_L= 0
+par_ribosomal_percent_U= 100
 
 
 ############################################################################
 # Parameters to remove mitochondrial and ribosomal genes
 ############################################################################
 ## If you want to filter out mitochondrial and ribosomal genes set the following parameters to "yes". If you do not want to remove them keep the default as "no",
-par_remove_mitochondrial_genes = "no"
-par_remove_ribosomal_genes = "no"
+par_remove_mitochondrial_genes= "no"
+par_remove_ribosomal_genes= "no"
 
 ## If you have specific genes that you want to remove, enter a vector of genes that you wish to remove. Uncomment the line to activate the parameter.
 #par_remove_genes= c("MT-ATP6", "MT-ATP8", "MT-CO1",  "MT-CO2",  "MT-CO3",  "MT-CYB",  "MT-ND1", "RPL10", "RPL10A", "RPL10L", "RPL11")
@@ -45,26 +45,26 @@ par_remove_ribosomal_genes = "no"
 ############################################################################
 ## If you want to regress cell cycle genes, set the following parameters to "yes". If you do not want to regress them keep, the default as "no".
 ## Note: if you are using your own Seurat object (i.e. not from Step 2), you can only regress cell cycle genes if your Seurat object has the cell cycle score computed.
-par_regress_cell_cycle_genes = "yes"
+par_regress_cell_cycle_genes= "yes"
 
 
 ############################################################################
 # Parameters for normalization and scaling after quality control 
 ############################################################################
 ## Normalization method
-par_normalization.method="LogNormalize"
+par_normalization.method= "LogNormalize"
 
 ## Scale factor
-par_scale.factor=10000
+par_scale.factor= 10000
 
 ## Method for choosing the top variable features. vst, mean.var.plot (mvp), dispersion (disp). 
-par_selection.method="vst"
+par_selection.method= "vst"
 
 ## Number of features to select as top variable features
 par_nfeatures= 2500
 
 ## Number of most variable features to be reported in csv file
-par_top=10 
+par_top= 10 
 
 ## Total Number of PCs to compute and store for RunPCA
 par_npcs_pca= 30

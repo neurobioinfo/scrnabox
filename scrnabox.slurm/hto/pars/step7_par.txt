@@ -62,7 +62,7 @@ par_module_score="/path/to/gene_sets.csv"
 par_select_features_list= c("MOBP", "VCAN", "AQP4","FOXJ1", "CD74", "CLDN5", "GFRB", "SLC17A6", "GAD2", "GRIK1", "TH", "CADPS2")
 
 ## If you want to define multiple lists of features to visualize, you can do so with a csv file. The header should contain the list names and all features belonging to the same list should be in the same column. Uncomment the below parameter and enter the location of the csv file
-par_select_features_csv ="/path/to/visualize_features.csv"
+#par_select_features_csv ="/path/to/visualize_features.csv"
 
 
 #####################################################################

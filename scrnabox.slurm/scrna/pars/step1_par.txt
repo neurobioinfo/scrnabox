@@ -3,7 +3,7 @@
 # set par_automated_library_prep to "yes" and adress the remaining parameters.
 ############################################################################
 ## Do you want to perform automated library prep?
-par_automated_library_prep="yes"
+par_automated_library_prep= "yes"
 
 ## Path to the directory containing the FASTQ files for the experiment. This folder should only contain the FASTQ files for the experiment. 
 par_fastq_directory= "/home/fiorini9/scratch/scrna_pipeline/smajic_markdown/fastqs"

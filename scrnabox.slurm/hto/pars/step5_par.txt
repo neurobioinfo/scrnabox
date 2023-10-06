@@ -8,7 +8,13 @@ par_save_metadata= "yes"
 ############################################################################
 # If you only have one Seurat object and want to skip integration set the following to "yes"
 ############################################################################
-par_skip_integration= "yes"
+par_one_seurat= "no"
+
+############################################################################
+# If you have multiple Seurat objects, choose whether you want to integrate or merge the objects
+############################################################################
+par_integrate_seurat= "yes"
+par_merge_seurat= "no"
 
 
 ############################################################################

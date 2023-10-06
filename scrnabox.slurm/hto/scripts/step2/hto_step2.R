@@ -48,8 +48,12 @@ if (tolower(par_ambient_RNA)=="yes") {
     ## ambient RNA removal using SoupX
     foreach (i=1:length(sample_name)) %do% { 
         sc = load10X(paste0(list[i],"/ouput_folder","/outs"), includeFeatures = c("Gene Expression"),verbose = TRUE) #load in Gene Expression features only. Do not load in Antibody capture
+                pdf(paste(output_dir,'/step2/figs2/ambient_RNA_estimation_',sample_name[i],".pdf", sep=""))
         sc = autoEstCont(sc) 
+                dev.off()
         out = adjustCounts(sc)
+                plotMarkerDistribution(sc) ### NEW CODE
+                ggsave(paste(output_dir,'/step2/figs2/ambient_RNA_markers_',sample_name[i],".pdf", sep="")) #### NEW CODE
         dir.create(file.path(output_dir, 'step2_ambient'), showWarnings = FALSE)
         dir0 <- paste0(output_dir, '/step2_ambient/',sample_name[i])
         if (file.exists(dir0)) {
@@ -197,9 +201,12 @@ if (tolower(par_ambient_RNA)=="no") {
     ## ambient RNA removal using SoupX
     foreach (i=1:length(sample_name)) %do% { 
         sc = load10X(paste0(list[i],"/ouput_folder","/outs"), includeFeatures = c("Gene Expression"),verbose = TRUE) #load in Gene Expression features only. Do not load in Antibody capture
+                pdf(paste(output_dir,'/step2/figs2/ambient_RNA_estimation_',sample_name[i],".pdf", sep=""))
         sc = autoEstCont(sc) 
+                dev.off()
         out = adjustCounts(sc)
-  
+                plotMarkerDistribution(sc) ### NEW CODE
+                ggsave(paste(output_dir,'/step2/figs2/ambient_RNA_markers_',sample_name[i],".pdf", sep="")) #### NEW CODE
     ## save ambient RNA-corrected gene expression matrix
         saveRDS(sc, paste(output_dir,'/step2/info2/',sample_name[i],'_ambient_rna_summary.rds', sep=''))
 

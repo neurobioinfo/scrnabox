@@ -33,8 +33,8 @@ par_ribosomal_percent_U=100
 # Parameters to filter out genes
 ############################################################################
 ## If you want to filter out mitochondrial and ribosomal genes set the following parameters to "yes". If you do not want to remove them keep the default as "no",
-par_remove_mitochondrial_genes = "no"
-par_remove_ribosomal_genes = "no"
+par_remove_mitochondrial_genes= "no"
+par_remove_ribosomal_genes= "no"
 
 ## If you have specific genes that you want to remove, enter a vector of genes that you wish to remove. Uncomment the line to activate the parameter.
 #par_remove_genes= c("MT-ATP6", "MT-ATP8", "MT-CO1",  "MT-CO2",  "MT-CO3",  "MT-CYB",  "MT-ND1", "RPL10", "RPL10A", "RPL10L", "RPL11")
@@ -44,7 +44,7 @@ par_remove_ribosomal_genes = "no"
 # Regress cell cycle genes 
 ############################################################################
 ## If you want to regress cell cycle genes, set the following parameters to "yes". If you do not want to regress them keep, the default as "no". Note: if you are using your own Seurat object (i.e. not from Step 2), you can only regress cell cycle genes if your Seurat object has the cell cycle score computed.
-par_regress_cell_cycle_genes = "yes"
+par_regress_cell_cycle_genes= "yes"
 
 
 ############################################################################
@@ -54,7 +54,7 @@ par_regress_cell_cycle_genes = "yes"
 par_normalization.method="LogNormalize"
 
 ## Scale factor
-par_scale.factor=10000
+par_scale.factor= 10000
 
 ## Method for choosing the top variable features. vst, mean.var.plot (mvp), dispersion (disp). 
 par_selection.method="vst"
@@ -63,7 +63,7 @@ par_selection.method="vst"
 par_nfeatures= 2500
 
 ## Number of most variable features to be reported in csv file
-par_top=10 
+par_top= 10 
 
 ## Total Number of PCs to compute and store for RunPCA
 par_npcs_pca= 30

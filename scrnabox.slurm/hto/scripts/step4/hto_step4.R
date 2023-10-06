@@ -59,10 +59,10 @@ foreach (i_s=1:length(sample_name)) %do% {
     if (tolower(par_dimensionality_reduction)=='yes'){
         seu <- RunPCA(seu, npcs = par_npcs_pca, verbose = FALSE)
         DimPlot(seu, reduction = "pca")
-        ggsave(paste(output_dir,'/step4/figs4/',sample_nameb[i_s],"_HTO_dimplot_pca_",".pdf",sep=""))
+        ggsave(paste(output_dir,'/step4/figs4/',sample_nameb[i_s],"_HTO_dimplot_pca",".pdf",sep=""))
         seu <- RunUMAP(seu, dims = 1:par_dims_umap, n.neighbors =par_n.neighbors)
         Seurat::DimPlot(seu, reduction = "umap")
-        ggsave(paste(output_dir,'/step4/figs4/',sample_nameb[i_s],"_HTO_dimplot_umap_", ".pdf",sep=""))
+        ggsave(paste(output_dir,'/step4/figs4/',sample_nameb[i_s],"_HTO_dimplot_umap", ".pdf",sep=""))
     }
     
     ## doublet detection and demultiplexing with MULTIseqDemux

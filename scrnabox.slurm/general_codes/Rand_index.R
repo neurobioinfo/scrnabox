@@ -97,6 +97,9 @@ calculate_rand_index <- function(seu_object, par_FindClusters_resolution, OUT_DI
   list3_df <- data.frame(list3)
   list3_df
   ## write excel file
+  if(file.exists(paste(OUT_DIR, "/clustering_ARI.xlsx", sep=''))){
+    file.remove(paste(OUT_DIR, "/clustering_ARI.xlsx", sep=''))
+  }
   write.xlsx(list3_df, paste(OUT_DIR, "/clustering_ARI.xlsx", sep='')) 
   plots <- ggarrange(mean_plot, sd_plot, ncol = 1, nrow = 2, align = "hv")
   plots

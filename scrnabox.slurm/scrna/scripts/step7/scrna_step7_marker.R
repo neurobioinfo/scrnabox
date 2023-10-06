@@ -256,6 +256,11 @@ df <- df[, (colnames(df) %in% keep_list)]
 df_summary <- table(df[,1], df[,2])
 df_summary <- data.frame(df_summary)
 colnames(df_summary) <- c("cluster", "cell_type", "number_of_cells")
+    
+if(file.exists(paste(output_dir,'/step7/info7/reference_based_annotation/',par_reference_name, '_prediction_summary.xlsx', sep=""))){
+file.remove(paste(output_dir,'/step7/info7/reference_based_annotation/',par_reference_name, '_prediction_summary.xlsx', sep=""))
+}
+    
 write.xlsx(df_summary, file=paste(output_dir,'/step7/info7/reference_based_annotation/',par_reference_name, '_prediction_summary.xlsx', sep=""),row.names=FALSE)
 
 ## save RNA expression matrix

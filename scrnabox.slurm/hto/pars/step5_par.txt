@@ -1,21 +1,21 @@
 ############################################################################
 # If you want to save an RNA expression matrix and metadata data frame set the following to "yes"
 ############################################################################
-par_save_RNA="yes"
-par_save_metadata="yes"
+par_save_RNA= "yes"
+par_save_metadata= "yes"
 
 
 ############################################################################
 # If you only have one Seurat object and want to skip integration set the following to "yes"
 ############################################################################
-par_skip_integration="yes"
+par_skip_integration= "yes"
 
 
 ############################################################################
 # Parameters for integration
 ############################################################################
 ## Which dimensions to use from the CCA to specify the neighbour search space
-par_FindIntegrationAnchors_dim=25 
+par_FindIntegrationAnchors_dim= 25 
 
 
 ############################################################################
@@ -23,32 +23,32 @@ par_FindIntegrationAnchors_dim=25
 # even if you opt to skip integration, adjust the following parameters 
 ############################################################################
 ## Assay to perform normalization and scaling. For most use cases this will be RNA
-par_DefaultAssay="RNA"
+par_DefaultAssay= "RNA"
 
 ## Normalization method
-par_normalization.method="LogNormalize"
+par_normalization.method= "LogNormalize"
 
 ## Scale factor for normalization
-par_scale.factor=10000
+par_scale.factor= 10000
 
 ## Method for detecting top variable features. vst, mean.var.plot (mvp), dispersion (disp)
-par_selection.method="vst"
+par_selection.method= "vst"
 
 ## Number of features to select as top variable features
-par_nfeatures = 2500
+par_nfeatures= 2500
 
 ############################################################################
 # Parameters for linear dimensional reduction
 # even if you opt to skip integration, adjust the following parameters 
 ############################################################################
 ## The number of neighbouring points used in local approximations of manifold structure
-par_RunUMAP_n.neighbors=65
+par_RunUMAP_n.neighbors= 65
 
 ## Total Number of PCs to compute and store for RunPCA
-par_RunPCA_npcs = 30
+par_RunPCA_npcs= 30
 
 ##  Which dimensions to use as input features for RunUMAP
-par_RunUMAP_dims=30
+par_RunUMAP_dims= 30
 
 ## whether or not to perform JackStraw computation. This computation takes a long time.
-par_compute_jackstraw = "no"
+par_compute_jackstraw= "no"

@@ -2,28 +2,28 @@
 # Choose which differential gene expression (DGE) methods you want to use for this submission
 ############################################################################
 ## Add metadata to facilitate DGE contrasts
-par_run_add_metadata="no"
+par_run_add_metadata= "no"
 
 ## Perform DGE contrasts between samples across all cells
-par_run_sample_sample_wilcoxon="no"
+par_run_sample_sample_wilcoxon= "no"
 
 ## Perform DGE contrasts between samples, stratified by cell type
-par_run_sample_cell_wilcoxon="no"
+par_run_sample_cell_wilcoxon= "no"
 
 ## perform pseudo-bulk analysis
-par_run_pseudo_bulk="yes"
+par_run_pseudo_bulk= "yes"
 
 ############################################################################
 # If you want to save an RNA expression matrix and metadata dataframe set the following to "yes"
 ############################################################################
-par_save_RNA="yes"
-par_save_metadata="yes"
+par_save_RNA= "yes"
+par_save_metadata= "yes"
 
 
 ############################################################################
 # Add metadata parameters
 ############################################################################
 ## enter the location to a csv file describing new metadata that should be added to the Seurat object to facilitate DEG analysis. At least one column should contain "MULTI_ID_Lables"
-par_metadata = "/path/to/metadata.csv"
+par_metadata= "/path/to/metadata.csv"
 
 

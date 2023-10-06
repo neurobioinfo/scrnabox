@@ -56,11 +56,8 @@ top5 <- ClusterMarkers %>% group_by(cluster) %>% top_n(n=par_top_sel, wt = avg_l
 write.csv(top5,"top_sel.csv")
 
 ## print cluster information
-if(file.exists(paste(output_dir,'/step7/info7/', "cluster_whole.xlsx",sep=''))){
-    file.remove(paste(output_dir,'/step7/info7/', "cluster_whole.xlsx",sep=''))
-}
-if(file.exists(paste(output_dir,'/step7/info7/', "cluster_just_genes.xlsx",sep=''))){
-    file.remove(paste(output_dir,'/step7/info7/', "cluster_just_genes.xlsx",sep=''))
+if(file.exists(paste(output_dir,'/step7/info7/marker/', "cluster_whole.xlsx",sep=''))){
+    file.remove(paste(output_dir,'/step7/info7/marker/', "cluster_whole.xlsx",sep=''))
 }
 for (i in  sort(unlist(unique(seu_int[[par_level_cluster]])))) {
   N1.c0 <- ClusterMarkers %>% filter(cluster == i & avg_log2FC > 0)

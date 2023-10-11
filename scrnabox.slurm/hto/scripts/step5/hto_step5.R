@@ -12,7 +12,7 @@ r_lib_path=args[2]
 
 ## load library
 .libPaths(r_lib_path)
-packages<-c('Seurat','ggplot2', 'dplyr','foreach', 'doParallel', 'Matrix')
+packages<-c('Seurat','ggplot2', 'dplyr','foreach', 'doParallel', 'Matrix', 'scCustomize')
 lapply(packages, library, character.only = TRUE)
 
 ## load list of exisiting Seurat objects
@@ -162,13 +162,14 @@ seu_list<-foreach (i_s=1:length(sample_name)) %do% {
 }  
 
 ## merge Seurat objects
-length_list <- length(seu_list)
+sample_name_2 <- gsub("\\..*","",sample_name)
 
-vars <- seu_list[2:length_list]
-
-seu_int <- merge(seu_list[1], dput(as.character(vars)), add.cell.ids = dput(as.character(seu_list)), project = "merge",
-                         merge.data = TRUE)
-
+seu_int <- Merge_Seurat_List(
+  list_seurat = seu_list,
+  add.cell.ids = dput(as.character(sample_name_2)),
+  merge.data = TRUE,
+  project = "MergeSeurat"
+)
 
 ## set default assay to integrated
 Seurat::DefaultAssay(seu_int) <- "RNA"
@@ -188,7 +189,7 @@ DimPlot(seu_int, reduction = "pca", group.by="MULTI_ID_Lables", raster = FALSE )
 ggsave(paste(output_dir,'/step5/figs5',"/merge_DimPlot_pca.pdf", sep=""))
 
 ## print elbow plot
-ElbowPlot(seu_int)
+ElbowPlot(seu_int, ndims = par_RunPCA_npcs)
 ggsave(paste(output_dir,'/step5/figs5',"/merge_elbow.pdf", sep=""))
 
 ## print UMAP
@@ -222,7 +223,7 @@ if (tolower(par_save_RNA)=='yes') {
 
 ## save metadata dataframe
 if (tolower(par_save_metadata)=='yes') {
-    write.csv(seu_int[[]], file = paste(output_dir,'/step5/info5/seu_int_MetaData.txt', sep=""), quote = TRUE, sep = ",")
+    write.csv(seu_int[[]], file = paste(output_dir,'/step5/info5/seu_merge_MetaData.txt', sep=""), quote = TRUE, sep = ",")
 }
 
 ## save session information

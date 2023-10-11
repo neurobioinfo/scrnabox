@@ -31,7 +31,8 @@ install.packages('ggpubr')
 install.packages('data.table')
 install.packages('SoupX') 
 install.packages('ggrepel') 
- 
+install.packages('scCustomize')
+
 ### packages needed for scrnabox pipeline
 pkgs <- c('Seurat', 'foreach', 'doParallel', 'Matrix','cowplot','xlsx','clustree','enrichR','stringi','limma', 'edgeR', 
 'org.Hs.eg.db', 'SoupX','MatrixGenerics','BiocGenerics','S4Vectors','IRanges','GenomeInfoDb','GenomicRanges', 'Biobase', 

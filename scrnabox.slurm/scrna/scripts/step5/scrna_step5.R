@@ -12,7 +12,7 @@ r_lib_path=args[2]
 .libPaths(r_lib_path)
 
 ## load library
-packages<-c('Seurat','ggplot2', 'dplyr', 'foreach', 'doParallel','Matrix')
+packages<-c('Seurat','ggplot2', 'dplyr', 'foreach', 'doParallel','Matrix','scCustomize')
 lapply(packages, library, character.only = TRUE)
 
 ## load a list of existsing Seurat objects
@@ -71,7 +71,7 @@ seu_int <- RunPCA(seu_int, npcs = par_RunPCA_npcs, verbose = FALSE)
 seu_int <- RunUMAP(seu_int, dims = 1:par_RunUMAP_dims, n.neighbors =par_RunUMAP_n.neighbors)
 
 ## print PCA
-DimPlot(seu_int, reduction = "pca", group.by="orig.ident", raster = FALSE )
+DimPlot(seu_int, reduction = "pca", group.by="Sample_ID", raster = FALSE )
 ggsave(paste(output_dir,'/step5/figs5',"/integrated_DimPlot_pca.pdf", sep=""))
 
 ## print elbow plot
@@ -79,7 +79,7 @@ ElbowPlot(seu_int, ndims = par_RunPCA_npcs)
 ggsave(paste(output_dir,'/step5/figs5',"/integrated_elbow.pdf", sep=""))
 
 ## print UMAP
-DimPlot(seu_int, reduction = "umap", group.by="orig.ident", raster = FALSE )
+DimPlot(seu_int, reduction = "umap", group.by="Sample_ID", raster = FALSE )
 ggsave(paste(output_dir,'/step5/figs5',"/integrated_DimPlot_umap.pdf", sep=""))
 
 ## print Jack straw plot
@@ -156,13 +156,14 @@ seu_list<-foreach (i_s=1:length(sample_name)) %do% {
 }  
 
 ## merge Seurat objects
-length_list <- length(seu_list)
+sample_name_2 <- gsub("\\..*","",sample_name)
 
-vars <- seu_list[2:length_list]
-
-seu_int <- merge(seu_list[1], dput(as.character(vars)), add.cell.ids = dput(as.character(seu_list)), project = "merge",
-                         merge.data = TRUE)
-
+seu_int <- Merge_Seurat_List(
+  list_seurat = seu_list,
+  add.cell.ids = dput(as.character(sample_name_2)),
+  merge.data = TRUE,
+  project = "MergeSeurat"
+)
 
 ## set default assay to integrated
 Seurat::DefaultAssay(seu_int) <- "RNA"
@@ -178,15 +179,15 @@ seu_int <- RunPCA(seu_int, npcs = par_RunPCA_npcs, verbose = FALSE)
 seu_int <- RunUMAP(seu_int, dims = 1:par_RunUMAP_dims, n.neighbors =par_RunUMAP_n.neighbors)
 
 ## print PCA
-DimPlot(seu_int, reduction = "pca", group.by="orig.ident", raster = FALSE )
+DimPlot(seu_int, reduction = "pca", group.by="Sample_ID", raster = FALSE )
 ggsave(paste(output_dir,'/step5/figs5',"/merge_DimPlot_pca.pdf", sep=""))
 
 ## print elbow plot
-ElbowPlot(seu_int)
+ElbowPlot(seu_int, ndims = par_RunPCA_npcs)
 ggsave(paste(output_dir,'/step5/figs5',"/merge_elbow.pdf", sep=""))
 
 ## print UMAP
-DimPlot(seu_int, reduction = "umap", group.by="orig.ident", raster = FALSE)
+DimPlot(seu_int, reduction = "umap", group.by="Sample_ID", raster = FALSE)
 ggsave(paste(output_dir,'/step5/figs5',"/merge_DimPlot_umap.pdf", sep=""))
 
 ## print Jack straw plot (optional)
@@ -216,7 +217,7 @@ if (tolower(par_save_RNA)=='yes') {
 
 ## save metadata dataframe
 if (tolower(par_save_metadata)=='yes') {
-    write.csv(seu_int[[]], file = paste(output_dir,'/step5/info5/seu_int_MetaData.txt', sep=""), quote = TRUE, sep = ",")
+    write.csv(seu_int[[]], file = paste(output_dir,'/step5/info5/seu_merge_MetaData.txt', sep=""), quote = TRUE, sep = ",")
 }
 
 ## save session info

@@ -420,7 +420,7 @@ DimPlot(seu_int, reduction = "umap", label = TRUE, pt.size = 0.5, raster = FALSE
 ggsave(file = paste(OUT_dir_figs_annotate,par_name_metadata,'_cluster_annotation.pdf', sep=''))
 
 ## print UMAP splitted
-DimPlot(seu_int, reduction = "umap", split.by = "orig.ident", label = TRUE, pt.size = 0.5, raster = FALSE) + NoLegend()
+DimPlot(seu_int, reduction = "umap", split.by = "Sample_ID", label = TRUE, pt.size = 0.5, raster = FALSE) + NoLegend()
 ggsave(file = paste(OUT_dir_figs_annotate,par_name_metadata,'_split_cluster_annotation.pdf', sep=''), dpi = 300, height = 5, width = 10, unit = 'in')
 
 ## save metadata information

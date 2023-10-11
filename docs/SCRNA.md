@@ -3,7 +3,7 @@ layout: post
 title: Steps of scRNA pipeline to run Non-hashtag data
 description: A short introduction to scRNA pipeline to run Non-hashtag data
 date: 2023-06-16
-author: Saeid Amiri
+author: Michael Fiorini
 published: true
 tags: scRNA 
 categories: 
@@ -125,6 +125,7 @@ bash $SCRNABOX_HOME/launch_scrnabox.sh \
 
 The resulting output files are deposited into `~/working_directory/step1`. The expression matrix, features, and barcode files outputed by CellRanger are located in `~/working_directory/step1/sample/ouput_folder/outs/raw_feature_bc_matrix`.
 
+**Note:** If CellRanger was successfull it will display _Pipestance completed successfully!_ If this message is not displayed, you must re-run the Step 1. If CellRanger fails a second time, please contact the developers.
 
 **Note:** If you do not have access to FASTQ files for your experiment, you may intiate the pipeline at which ever Analytical Step takes your data object as input. In the case where FASTQ files are not available, users do not have to create the `samples_info` folder. For more information see [Processed Data](PROC.md).  
 - - - -

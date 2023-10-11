@@ -71,23 +71,6 @@ foreach (i_s=1:length(sample_name)) %do% {
     
     ## rename droplet identities
     Idents(seu) <- "MULTI_ID"
-
-    ## print ridge plot
-    RidgePlot(seu, assay = "HTO", features = rownames(seu[["HTO"]]), group.by = "MULTI_ID", ncol =par_RidgePlot_ncol) 
-    ggsave(paste(output_dir,'/step4/figs4/',sample_nameb[i_s],"_Ridgeplot_HTO_MSD.pdf",sep=""),dpi = 300, height = 9, width = 9, unit = 'in' )
-    
-    ## print violin plot for ncount_RNA
-    Idents(seu) <- "HTO_classification.global"
-    VlnPlot(seu, features = "nCount_RNA", pt.size = 0.01, log = TRUE, group.by = "MULTI_ID")
-    ggsave(paste(output_dir,'/step4/figs4/',sample_nameb[i_s],"_nCounts_RNA_MSD.pdf",sep=""))
-    
-    ## print heatmap
-    DoHeatmap(seu, features = rownames(seu[["HTO"]]), group.by = "MULTI_ID")
-    ggsave(paste(output_dir,'/step4/figs4/',sample_nameb[i_s],"_Heatmap_HTO_MSD.pdf",sep=""))
-    
-    ## print dotplot
-    DotPlot(seu, features = rownames(seu[["HTO"]]), group.by = "MULTI_ID") + theme(axis.text.x = element_text(angle=45, hjust=1, vjust=1))
-    ggsave(paste(output_dir,'/step4/figs4/',sample_nameb[i_s],"_DotPlot_HTO_MSD.pdf",sep=""))
     
     ## rename identies with new antibody label
     multi.names <- unique(seu@meta.data$MULTI_ID)
@@ -100,6 +83,24 @@ foreach (i_s=1:length(sample_name)) %do% {
     }
     seu[["MULTI_ID_Lables"]] <- Idents(seu)
     seu[['MULTI_classification']] <- NULL
+
+        ## print ridge plot
+    RidgePlot(seu, assay = "HTO", features = rownames(seu[["HTO"]]), group.by = "MULTI_ID_Lables", ncol =par_RidgePlot_ncol) 
+    ggsave(paste(output_dir,'/step4/figs4/',sample_nameb[i_s],"_Ridgeplot_HTO_MSD.pdf",sep=""),dpi = 300, height = 9, width = 9, unit = 'in' )
+    
+    ## print violin plot for ncount_RNA
+    Idents(seu) <- "HTO_classification.global"
+    VlnPlot(seu, features = "nCount_RNA", pt.size = 0.01, log = TRUE, group.by = "MULTI_ID_Lables")
+    ggsave(paste(output_dir,'/step4/figs4/',sample_nameb[i_s],"_nCounts_RNA_MSD.pdf",sep=""))
+    
+    ## print heatmap
+    DoHeatmap(seu, features = rownames(seu[["HTO"]]), group.by = "MULTI_ID_Lables")
+    ggsave(paste(output_dir,'/step4/figs4/',sample_nameb[i_s],"_Heatmap_HTO_MSD.pdf",sep=""))
+    
+    ## print dotplot
+    DotPlot(seu, features = rownames(seu[["HTO"]]), group.by = "MULTI_ID_Lables") + theme(axis.text.x = element_text(angle=45, hjust=1, vjust=1))
+    ggsave(paste(output_dir,'/step4/figs4/',sample_nameb[i_s],"_DotPlot_HTO_MSD.pdf",sep=""))
+    
     
     ## eliminate doublet droplets from downstream analyses
     if (tolower(par_dropDN)=='yes') {

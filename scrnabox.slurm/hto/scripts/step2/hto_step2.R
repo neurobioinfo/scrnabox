@@ -54,14 +54,14 @@ if (tolower(par_ambient_RNA)=="yes") {
         out = adjustCounts(sc)
                 plotMarkerDistribution(sc) ### NEW CODE
                 ggsave(paste(output_dir,'/step2/figs2/ambient_RNA_markers_',sample_name[i],".pdf", sep="")) #### NEW CODE
-        dir.create(file.path(output_dir, 'step2_ambient'), showWarnings = FALSE)
-        dir0 <- paste0(output_dir, '/step2_ambient/',sample_name[i])
+        dir.create(paste(output_dir, '/step2/step2_ambient', sep = ""))
+        dir0 <- paste0(output_dir, '/step2/step2_ambient/',sample_name[i])
         if (file.exists(dir0)) {
           unlink(dir0,recursive = TRUE)
         }
 
         ## save ambient RNA-corrected gene expression matrix
-        DropletUtils:::write10xCounts(paste0(output_dir, '/step2_ambient/',sample_name[i]), out)
+        DropletUtils:::write10xCounts(paste0(output_dir, '/step2/step2_ambient/',sample_name[i]), out)
         saveRDS(sc, paste(output_dir,'/step2/info2/',sample_name[i],'_ambient_rna_summary.rds', sep=''))
 
       ##print txt file file with estimated ambient RNA
@@ -69,7 +69,7 @@ if (tolower(par_ambient_RNA)=="yes") {
       write.csv(est_amb, file = paste(output_dir,'/step2/info2/estimated_ambient_RNA_',sample_name[i],'.txt', sep=""), quote = TRUE, sep = ",")
 
         ## create Seurat object with feature-barcode matrices correct for ambient RNA expression and filter according to user-defined parameters
-        datadirs <- file.path(paste0(output_dir, '/step2_ambient/',sample_name[i]))
+        datadirs <- file.path(paste0(output_dir, '/step2/step2_ambient/',sample_name[i]))
         sparse_matrix <- Seurat::Read10X(data.dir = datadirs)
         seurat_object <- Seurat::CreateSeuratObject(counts = sparse_matrix)
         datadirs <- file.path(list[i],   "ouput_folder","outs","filtered_feature_bc_matrix")
@@ -123,32 +123,26 @@ if (tolower(par_ambient_RNA)=="yes") {
 
       ## zoomed in violinplot
       ## nefeature
-      n_feature <- Seurat::VlnPlot(seu, group.by= "orig.ident", features = "nFeature_RNA", pt.size = 0.001,ncol = 3,raster = FALSE) + NoLegend() + scale_y_continuous(limits = function(x){
-      c(min(x), (mean(x)))
-      })
+      n_feature <- Seurat::VlnPlot(seu, group.by= "orig.ident", features = "nFeature_RNA", pt.size = 0.001,raster = FALSE) + NoLegend() + scale_y_continuous(limits = function(x){
+      c(min(x), (mean(x))) }) 
       ## ncount
-      n_count <- Seurat::VlnPlot(seu, group.by= "orig.ident", features = "nCount_RNA", pt.size = 0.01,ncol = 3,raster = FALSE) + NoLegend() + scale_y_continuous(limits = function(x){
-            c(min(x), (mean(x)))
-            })
+      n_count <- Seurat::VlnPlot(seu, group.by= "orig.ident", features = "nCount_RNA", pt.size = 0.01,raster = FALSE) + NoLegend() + scale_y_continuous(limits = function(x){
+            c(min(x), (mean(x)))}) 
       ## percent mt
-      mito <- Seurat::VlnPlot(seu, group.by= "orig.ident", features = "percent.mt", pt.size = 0.01,ncol = 3,raster = FALSE) + NoLegend() + scale_y_continuous(limits = function(x){
-            c(min(x), (mean(x)))
-            })
+      mito <- Seurat::VlnPlot(seu, group.by= "orig.ident", features = "percent.mt", pt.size = 0.01,raster = FALSE) + NoLegend() + scale_y_continuous(limits = function(x){
+            c(min(x), (mean(x)))}) 
             
       ## percent ribo
-      ribo <- Seurat::VlnPlot(seu, group.by= "orig.ident", features = "percent.ribo", pt.size = 0.01,ncol = 3,raster = FALSE) + NoLegend() + scale_y_continuous(limits = function(x){
-            c(min(x), (mean(x)))
-            })
+      ribo <- Seurat::VlnPlot(seu, group.by= "orig.ident", features = "percent.ribo", pt.size = 0.01,raster = FALSE) + NoLegend() + scale_y_continuous(limits = function(x){
+            c(min(x), (mean(x)))}) 
 
       ## S.Score
-      s_score <- Seurat::VlnPlot(seu, group.by= "orig.ident", features = "S.Score", pt.size = 0.01,ncol = 3,raster = FALSE) + NoLegend() + scale_y_continuous(limits = function(x){
-            c(min(x), (mean(x)))
-            })
+      s_score <- Seurat::VlnPlot(seu, group.by= "orig.ident", features = "S.Score", pt.size = 0.01,raster = FALSE) + NoLegend() + scale_y_continuous(limits = function(x){
+            c(min(x), (mean(x)))}) 
       
       ## G2M.Score
-      G2M_score <- Seurat::VlnPlot(seu, group.by= "orig.ident", features = "G2M.Score", pt.size = 0.01,ncol = 3,raster = FALSE) + NoLegend() + scale_y_continuous(limits = function(x){
-            c(min(x), (mean(x)))
-            })
+      G2M_score <- Seurat::VlnPlot(seu, group.by= "orig.ident", features = "G2M.Score", pt.size = 0.01, raster = FALSE) + NoLegend() + scale_y_continuous(limits = function(x){
+            c(min(x), (mean(x)))}) 
             
       ## merge all plots 
       ggarrange(n_feature, n_count,mito,ribo, s_score, G2M_score,  ncol = 3, nrow = 2)
@@ -268,32 +262,26 @@ if (tolower(par_ambient_RNA)=="no") {
 
       ## zoomed in violinplot
       ## nefeature
-      n_feature <- Seurat::VlnPlot(seu, group.by= "orig.ident", features = "nFeature_RNA", pt.size = 0.001,ncol = 3,raster = FALSE) + NoLegend() + scale_y_continuous(limits = function(x){
-      c(min(x), (mean(x)))
-      })
+      n_feature <- Seurat::VlnPlot(seu, group.by= "orig.ident", features = "nFeature_RNA", pt.size = 0.001,raster = FALSE) + NoLegend() + scale_y_continuous(limits = function(x){
+      c(min(x), (mean(x))) }) 
       ## ncount
-      n_count <- Seurat::VlnPlot(seu, group.by= "orig.ident", features = "nCount_RNA", pt.size = 0.01,ncol = 3,raster = FALSE) + NoLegend() + scale_y_continuous(limits = function(x){
-            c(min(x), (mean(x)))
-            })
+      n_count <- Seurat::VlnPlot(seu, group.by= "orig.ident", features = "nCount_RNA", pt.size = 0.01,raster = FALSE) + NoLegend() + scale_y_continuous(limits = function(x){
+            c(min(x), (mean(x)))}) 
       ## percent mt
-      mito <- Seurat::VlnPlot(seu, group.by= "orig.ident", features = "percent.mt", pt.size = 0.01,ncol = 3,raster = FALSE) + NoLegend() + scale_y_continuous(limits = function(x){
-            c(min(x), (mean(x)))
-            })
+      mito <- Seurat::VlnPlot(seu, group.by= "orig.ident", features = "percent.mt", pt.size = 0.01,raster = FALSE) + NoLegend() + scale_y_continuous(limits = function(x){
+            c(min(x), (mean(x)))}) 
             
       ## percent ribo
-      ribo <- Seurat::VlnPlot(seu, group.by= "orig.ident", features = "percent.ribo", pt.size = 0.01,ncol = 3,raster = FALSE) + NoLegend() + scale_y_continuous(limits = function(x){
-            c(min(x), (mean(x)))
-            })
+      ribo <- Seurat::VlnPlot(seu, group.by= "orig.ident", features = "percent.ribo", pt.size = 0.01,raster = FALSE) + NoLegend() + scale_y_continuous(limits = function(x){
+            c(min(x), (mean(x)))}) 
 
       ## S.Score
-      s_score <- Seurat::VlnPlot(seu, group.by= "orig.ident", features = "S.Score", pt.size = 0.01,ncol = 3,raster = FALSE) + NoLegend() + scale_y_continuous(limits = function(x){
-            c(min(x), (mean(x)))
-            })
+      s_score <- Seurat::VlnPlot(seu, group.by= "orig.ident", features = "S.Score", pt.size = 0.01,raster = FALSE) + NoLegend() + scale_y_continuous(limits = function(x){
+            c(min(x), (mean(x)))}) 
       
       ## G2M.Score
-      G2M_score <- Seurat::VlnPlot(seu, group.by= "orig.ident", features = "G2M.Score", pt.size = 0.01,ncol = 3,raster = FALSE) + NoLegend() + scale_y_continuous(limits = function(x){
-            c(min(x), (mean(x)))
-            })
+      G2M_score <- Seurat::VlnPlot(seu, group.by= "orig.ident", features = "G2M.Score", pt.size = 0.01, raster = FALSE) + NoLegend() + scale_y_continuous(limits = function(x){
+            c(min(x), (mean(x)))}) 
             
       ## merge all plots 
       ggarrange(n_feature, n_count,mito,ribo, s_score, G2M_score,  ncol = 3, nrow = 2)

@@ -34,12 +34,8 @@ new_meta <- colnames(meta_data)
 metadata_df <- data.frame(seu_int@meta.data)
 
 ## merge existing metdata and new metdata
-merge_metadata_df <- merge(metadata_df,meta_data, by = "orig.ident" )
+merge_metadata_df <- merge(metadata_df,meta_data, by = par_merge_meta )
 df<- merge_metadata_df[,new_meta]
-nrow(metadata_df) == nrow(df)
-
-## remove orig.ident column
-df <- subset(df, select = -c(orig.ident))
 nrow(metadata_df) == nrow(df)
 
 ## set colnames into a list

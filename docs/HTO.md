@@ -3,7 +3,7 @@ layout: post
 title:  A Guide to Analyzing HTO with the Scrnabox Pipeline
 description: A short introduction to  Hashtag oligonucleotide analyzing using scrnabox pipeline
 date: 2023-06-16
-author: Saeid Amiri
+author: Michael Fiorini
 published: true
 tags: scRNA HTO
 categories: 

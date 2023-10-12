@@ -1,11 +1,11 @@
 #!/usr/bin/env Rscript
 
 ####################
-# step7 -- visualize features
+# step7 -- visualize expression of known marker genes
 ####################
 
 ## set sample ID metadata column -- this is standard and does not require parameter modification
-par_level_genotype <- "Sample_ID"
+#par_level_genotype <- "Sample_ID"
 
 ## load parameters
 args = commandArgs(trailingOnly=TRUE)
@@ -13,17 +13,61 @@ output_dir=args[1]
 r_lib_path=args[2]
 pipeline_home=args[3]
 
+
 ## load library
 .libPaths(r_lib_path)
-packages<-c('Seurat','ggplot2', 'dplyr', 'xlsx')
+packages<-c('Seurat','ggplot2', 'dplyr', 'xlsx', 'Matrix')
 lapply(packages, library, character.only = TRUE)
+
+## load parameters
+source(paste(output_dir,'/job_info/parameters/step7_par.txt',sep=""))
+
+###############################################################################
+# step7 -- module score
+###############################################################################
+
+if (tolower(par_run_module_score)=='yes') {
 
 ## load existing Seurat objects
 sample_name<-list.files(path = paste(output_dir, "/step6/objs6",sep=""),pattern = "*.rds")
 seu_int<-readRDS(paste(output_dir,'/step6/objs6/',sample_name, sep=''))
 
-## load parameters
-source(paste(output_dir,'/job_info/parameters/step7_par.txt',sep=""))
+## set cell identity to the clustering resolution defined by the user
+Idents(seu_int) <- par_level_cluster
+
+## create directories for module score
+## figures 
+OUT_DIR_figs <- paste(output_dir,"/step7/figs7",sep='') 
+OUT_dir_figs_module_score <- paste(OUT_DIR_figs,"/module_score/",sep='') 
+dir.create(OUT_dir_figs_module_score)
+## info
+OUT_DIR_info <- paste(output_dir,"/step7/info7",sep='') 
+OUT_dir_info_module_score <- paste(OUT_DIR_info,"/module_score/",sep='') 
+dir.create(OUT_dir_info_module_score)
+
+## set output directory
+PWD=OUT_dir_info_module_score
+setwd(PWD)
+
+## compute module score
+source(paste(pipeline_home,'/general_codes/module_score.R',sep=''))
+
+## save session info
+writeLines(capture.output(sessionInfo()), paste(output_dir,'/step7/info7/sessionInfo_module_score.txt', sep=""))
+if(file.exists("Rplots.pdf")){
+    file.remove("Rplots.pdf")
+}
+}
+
+###############################################################################
+# step7 -- visualize marker
+###############################################################################
+
+if (tolower(par_run_visualize_markers)=='yes') {
+
+## load existing Seurat objects
+sample_name<-list.files(path = paste(output_dir, "/step6/objs6",sep=""),pattern = "*.rds")
+seu_int<-readRDS(paste(output_dir,'/step6/objs6/',sample_name, sep=''))
 
 ## set cell identity to the clustering resolution defined by the user
 Idents(seu_int) <- par_level_cluster
@@ -38,9 +82,9 @@ dir.create(OUT_dir_figs_visualize_features)
 PWD=OUT_dir_figs_visualize_features
 setwd(PWD)
 
-############################################################################################################
+###################
 ## visulize select features with a list in the parameters
-############################################################################################################
+###################
 if (exists("par_select_features_list")) {
 #define the features
 select_features <- par_select_features_list
@@ -58,6 +102,9 @@ dot_plt <- DotPlot(seu_int, features = select_features, group.by = par_level_clu
 ggsave(file = paste(OUT_dir_figs_visualize_features ,'list_dot_plot.pdf', sep=''))
 }
 
+###################
+## visulize select features with a csv
+###################
 
 if (exists("par_select_features_csv")) {
 gene_sets <- read.delim(par_select_features_csv, header = T, sep = ",", na.strings=c("","NA")) 
@@ -95,4 +142,5 @@ for (i in 1:length(gene_lists)) {
 writeLines(capture.output(sessionInfo()), paste(output_dir,'/step7/info7/sessionInfo_viualize_features.txt', sep=""))
 if(file.exists("Rplots.pdf")){
     file.remove("Rplots.pdf")
+}
 }

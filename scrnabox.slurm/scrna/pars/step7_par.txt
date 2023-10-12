@@ -1,26 +1,4 @@
 ############################################################################
-# Choose which cluster annotation methods you want to use for this submission
-############################################################################
-## Identify cluster specific markers
-par_run_find_marker= "no"
-
-## Run enrichR GSEA on cluster-specific markers. You can only run this if par_run_find_marker = "yes". Additionally, this step can only be run if your HPC allows internet access.
-par_run_enrichR= "no"
-
-## Perform module score computation
-par_run_module_score= "no"
-
-## Perform reference based-annotation
-par_run_reference= "yes"
-
-## Visualize select markers
-par_run_visualize_markers= "yes"
-
-## Add cluster annotations to the Seurat object metadata and visualize annotated clusters
-par_run_annotate= "yes"
-
-
-############################################################################
 # If you want to save an RNA expression matrix and metadata data frame set the following to "yes"
 ############################################################################
 par_save_RNA= "yes"
@@ -35,46 +13,50 @@ par_level_cluster= "integrated_snn_res.1.4"
 
 
 ############################################################################
-# Find markers parameters
+# Method 1: Marker GSEA
 ############################################################################
+## Identify cluster specific markers
+par_run_find_marker= "no"
+
+## Run EnrichR GSEA on cluster-specific markers. This step should follow the identification of cluster-specific markers.  Additionally, this step can only be run if your HPC allows internet access.
+par_run_enrichR= "no"
+
 ## Number of top markers based on avg_log2FC
 par_top_sel= 5
 
-
-############################################################################
-# EnrichR gene set enrichment analysis (GSEA) parameters
-############################################################################
 ## Character vector of EnrichR databases to search for enrichment
 par_db= c("Descartes_Cell_Types_and_Tissue_2021","CellMarker_Augmented_2021","Azimuth_Cell_Types_2021")
 
 
 ######################################################################
-#Module score analysis parameters
+# Method 2: Visualize the expression of known marker genes
 ######################################################################
-## Define the path of genes sets for module score
-par_module_score= "/home/fiorini9/scratch/scrna_pipeline/smajic_markdown/smajic_module.csv"
+## Perform module score computation
+par_run_module_score= "no"
 
+## Visualize markers (dot plot, violin plot, feature plot)
+par_run_visualize_markers= "yes"
 
-######################################################################
-#Visualize select markers analysis parameters
-######################################################################
-## List of features to visualize
+## Define the path to a csv file containing the genes sets for module score
+par_module_score= "/path/to/gene_sets.csv"
+
+## List of markers that you want to visualize (dot plot, violin plot, feature plot)
 par_select_features_list= c("MOBP", "VCAN", "AQP4","FOXJ1", "CD74", "CLDN5", "GFRB", "SLC17A6", "GAD2", "GRIK1", "TH", "CADPS2")
 
-## If you want to define multiple lists of features to visualize, you can do so with a csv file. The header should contain the list names and all features belonging to the same list should be in the same column. Uncomment the below parameter and enter the location of the csv file
-par_select_features_csv= "/home/fiorini9/scratch/scrna_pipeline/smajic_markdown/smajic_module.csv"
+## If you want to define multiple lists of markers to visualize, you can do so with a csv file. The header should contain the list names and all features belonging to the same list should be in the same column. Uncomment the below parameter and enter the location of the csv file. This can be the same csv file used for module score. 
+#par_select_features_csv= "/path/to/visualize_features.csv"
 
 
 #####################################################################
-#Reference-based annotation parameters
+# Method 3: Reference-based annotation parameters
 ######################################################################
-## Seurat object to use as the reference
-par_reference= "/lustre03/project/6070393/COMMON/datashare/MacoskoSeuratObjects/PD_all_ann.Rds"
+## Seurat RDS object to use as the reference
+par_reference= "/path/to/reference_seurat_object.rds"
 
 ## Define an arbitrary name for the reference object. This will be used to name the metadata slot.
-par_reference_name= "Kammath"
+par_reference_name= "reference"
 
-## Name of a metadata column in the reference Seurat object that contains celltype annotations
+## Name of a metadata column in the reference Seurat object that contains cell type annotations
 par_level_celltype= "Cell_Type"
 
 ## Which dimensions to use to find transfer anchors between query and reference dataset
@@ -85,15 +67,15 @@ par_futureglobalsmaxSize= 60000 * 1024^2
 
 
 #####################################################################
-#Annotate parameters
-## annotations from each iteration will be added to the Step 7 Seurat object
+# Annotate parameters
+# Annotations from each iteration will be added to the Step 7 Seurat object
 ######################################################################
 ## The clustering resolution to annotate
 par_annotate_resolution= "integrated_snn_res.1.4"
 
 ## the name of the metadata slot under which the cluster labels will be stored. 
-par_name_metadata= "clustering_label_1"
+par_name_metadata= "clustering_1"
 
-## A list of cluster labels. Make sure you have as many labels as clusters at the defined clustering resolution. Please refrain from using "_" when naming cell types.
-par_annotate_labels= c("Oligodendrocytes", "Oligodendrocytes", "ExcitatoryNeurons", "Oligodendrocytes", "Oligodendrocytes", "Oligodendrocytes", "Oligodendrocytes", "Oligodendrocytes", "OPC", "Endothelialcells", "Microglia", "Oligodendrocytes", "Astrocytes", "ExcitatoryNeurons", "Astrocytes","Astrocytes")
+## A list of cluster labels. Make sure you have as many labels as clusters at the defined clustering resolution. Please do not use "_" when naming cell types. 
+par_annotate_labels= c("Annot1", "Annot2", "Annot3")
 

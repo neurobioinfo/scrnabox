@@ -5,7 +5,7 @@
 ###############################################################################
 
 ## set sample ID metadata column -- this is standard and does not require parameter modification
-par_level_genotype <- "Sample_ID"
+#par_level_genotype <- "Sample_ID"
 
 ## load parameters
 args = commandArgs(trailingOnly=TRUE)

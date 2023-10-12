@@ -1,19 +1,4 @@
 ############################################################################
-# Choose which differential gene expression (DGE) methods you want to use for this submission
-############################################################################
-## Add metadata to facilitate DGE contrasts
-par_run_add_metadata= "no"
-
-## Perform DGE contrasts between samples across all cells
-par_run_sample_sample_wilcoxon= "no"
-
-## Perform DGE contrasts between samples, stratified by cell type
-par_run_sample_cell_wilcoxon= "no"
-
-## perform pseudo-bulk analysis
-par_run_pseudo_bulk= "yes"
-
-############################################################################
 # If you want to save an RNA expression matrix and metadata data frame set the following to "yes"
 ############################################################################
 par_save_RNA= "yes"
@@ -30,5 +15,19 @@ par_merge_meta= "Sample_ID"
 par_metadata= "/home/fiorini9/scratch/scrna_pipeline/standard_v1.38/pipeline/metadata.csv"
 
 
+############################################################################
+# Run DGE parameters
+# Choose which differential gene expression (DGE) methods you want to use for this submission
+############################################################################
+## Perform Wilcoxon DGE with all cells
+par_run_wilcoxon_all_cells= "no"
 
+## Perform Wilcoxon DGE with cell type groups
+par_run_wilcoxon_celltype_groups= "no"
+
+## Perform Pseudo-Bulk DGE with all cells
+par_run_pseudo_bulk_all_cells= "yes"
+
+## Perform Pseudo-Bulk DGE with cell type groups
+par_run_pseudo_bulk_celltype_groups= "yes"
 

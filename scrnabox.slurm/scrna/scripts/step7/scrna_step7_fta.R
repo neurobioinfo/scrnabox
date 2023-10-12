@@ -1,18 +1,25 @@
 #!/usr/bin/env Rscript
 
-####################
-# step7 -- reference-based annotation
-####################
+###############################################################################
+# step7 -- reference based annotation
+###############################################################################
+
+## set sample ID metadata column -- this is standard and does not require parameter modification
+par_level_genotype <- "Sample_ID"
 
 ## load parameters
 args = commandArgs(trailingOnly=TRUE)
 output_dir=args[1]
 r_lib_path=args[2]
-.libPaths(r_lib_path)
+pipeline_home=args[3]
 
-## load libraries
-packages<-c('Seurat','ggplot2', 'dplyr','Matrix','xlsx')
+## load library
+.libPaths(r_lib_path)
+packages<-c('Seurat','ggplot2', 'dplyr', 'xlsx', 'Matrix')
 lapply(packages, library, character.only = TRUE)
+
+## load parameters
+source(paste(output_dir,'/job_info/parameters/step7_par.txt',sep=""))
 
 ################### import the right Seurat object ###################
 ## load name of existing Seurat objects
@@ -24,9 +31,6 @@ if(file.exists(paste(output_dir,'/step7/objs7/','seu_step7.rds', sep = ""))){
     seu_int<-readRDS(paste(output_dir,'/step6/objs6/',sample_name, sep=''))
 }
 ################### ############################## ###################
-
-## load parameters
-source(paste(output_dir,'/job_info/parameters/step7_par.txt',sep=""))
 
 ## set output directory
 PWD=paste(output_dir,'/step7/objs7/', sep='')
@@ -85,7 +89,7 @@ seu_int <- MapQuery(anchorset = transfer.anchors, reference = reference0, query 
 p1 <- DimPlot(reference0, reduction = "umap", group.by = par_level_celltype, label = TRUE, label.size = 3,repel = TRUE, raster=FALSE) + NoLegend() + ggtitle("Reference annotations")
 p2 <- DimPlot(seu_int, reduction = "umap", group.by = "predicted.id", label = TRUE, label.size = 3, repel = TRUE) + NoLegend() + ggtitle("Query transferred labels")
 p1 + p2
-ggsave(file = paste(OUT_dir_figs_reference,par_reference_name,'_UMAP_transferred_labels.pdf', sep=''))
+ggsave(file = paste(OUT_dir_figs_reference,par_reference_name,'_UMAP_transferred_labels.pdf', sep=''), dpi = 300, height = 7, width = 14, unit = 'in')
 
 ## print summary table
 df <- data.frame(seu_int@meta.data)
@@ -95,6 +99,11 @@ df <- df[, (colnames(df) %in% keep_list)]
 df_summary <- table(df[,1], df[,2])
 df_summary <- data.frame(df_summary)
 colnames(df_summary) <- c("cluster", "cell_type", "number_of_cells")
+    
+if(file.exists(paste(output_dir,'/step7/info7/reference_based_annotation/',par_reference_name, '_prediction_summary.xlsx', sep=""))){
+file.remove(paste(output_dir,'/step7/info7/reference_based_annotation/',par_reference_name, '_prediction_summary.xlsx', sep=""))
+}
+    
 write.xlsx(df_summary, file=paste(output_dir,'/step7/info7/reference_based_annotation/',par_reference_name, '_prediction_summary.xlsx', sep=""),row.names=FALSE)
 
 ## save RNA expression matrix

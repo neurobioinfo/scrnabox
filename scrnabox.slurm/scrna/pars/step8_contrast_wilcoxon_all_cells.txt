@@ -1,0 +1,3 @@
+contrast_name meta_data_variable group1 group2
+design1 orig.ident Control1 Parkinson1
+design2 DiseaseStatus HC PD

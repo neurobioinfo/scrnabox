@@ -26,16 +26,16 @@ fi
 
 STEP=step_1
 
-if [[  ${MODE0[@]}  =~  1  ]]; then
-export ACCOUNT=$ACCOUNT
+if [[ $QUEUE =~ sbatch ]] && [[  ${MODE0[@]}  =~  1  ]]; then
+  export ACCOUNT=$ACCOUNT
   if [ ! -d $OUTPUT_DIR/step1 ]; then 
     mkdir -p $OUTPUT_DIR/step1 
   fi
-  step1_par_auto=`grep 'par_automated_library_prep=' ${OUTPUT_DIR}/job_info/parameters/step1_par.txt`
-  step1_par_auto1=`echo ${step1_par_auto//[[:blank:]]/} | tr 'A-Z' 'a-z'`
+    step1_par_auto=`grep 'par_automated_library_prep=' ${OUTPUT_DIR}/job_info/parameters/step1_par.txt`
+    step1_par_auto1=`echo ${step1_par_auto//[[:blank:]]/} | tr 'A-Z' 'a-z'`
   if [[ "${step1_par_auto1}" == "par_automated_library_prep=\"yes\"" ]]; then
-        module load r/$R_VERSION 
-        Rscript ${PIPELINE_HOME}/hto/scripts/step1/hto_step1_auto.R $OUTPUT_DIR  $R_LIB_PATH 
+      module load r/$R_VERSION 
+      Rscript ${PIPELINE_HOME}/hto/scripts/step1/hto_step1_auto.R $OUTPUT_DIR  $R_LIB_PATH 
       echo "Note: You are generating samples_info automatically"
   fi
     cp -r  $OUTPUT_DIR/samples_info/* $OUTPUT_DIR/step1 
@@ -94,7 +94,7 @@ SAMPLE_SIZE=`wc -l < ${OUTPUT_DIR}/job_info/.tmp/sample.list`
 # ===============================================
 #
 STEP=step_2
-if [[  ${MODE0[@]}  =~  2 ]]  ; then
+if [[ $QUEUE =~ sbatch ]] && [[  ${MODE0[@]}  =~  2 ]]  ; then
   echo -e "\n\n-----------------------------------------------------------" >> $EXPECTED_DONE_FILES
   echo -e  "--------Job submitted using pipeline version $VERSION--------"  >> $EXPECTED_DONE_FILES
   echo "-----------------------------------------------------------"  >> $EXPECTED_DONE_FILES
@@ -136,7 +136,7 @@ if [[  ${MODE0[@]}  =~  2 ]]  ; then
   fi
 fi 
 
-if [[  ${MODE0[@]}  =~  2 ]]  &&  [[  ${MODE0[@]} =~ 1 ]] ; then
+if [[ $QUEUE =~ sbatch ]] && [[  ${MODE0[@]}  =~  2 ]]  &&  [[  ${MODE0[@]} =~ 1 ]] ; then
   # echo $TIMESTAMP  >> $EXPECTED_DONE_FILES
   # echo -e  "--------Job submitted using pipeline version $VERSION--------"  >> $EXPECTED_DONE_FILES
   # echo "-----------------------------------------------------------"  >> $EXPECTED_DONE_FILES
@@ -169,7 +169,7 @@ if [[  ${MODE0[@]}  =~  2 ]]  &&  [[  ${MODE0[@]} =~ 1 ]] ; then
   echo_general="STEP 2: Job Number:$step_2"; echo -e $echo_general
   echo "-------------------------------------------" >> $EXPECTED_DONE_FILES
   echo "The Output is under ${OUTPUT_DIR}/step2" >> $EXPECTED_DONE_FILES
-elif [[  ${MODE0[@]}  =~  2  ]]  &&  [[  ${MODE0[@]} != 1 ]]; then
+elif [[ $QUEUE =~ sbatch ]] &&  [[  ${MODE0[@]}  =~  2  ]]  &&  [[  ${MODE0[@]} != 1 ]]; then
   # echo "just step 2 at" $TIMESTAMP >> $EXPECTED_DONE_FILES
   # echo $TIMESTAMP  >> $EXPECTED_DONE_FILES
   # echo -e  "--------Job submitted using pipeline version $VERSION--------"  >> $EXPECTED_DONE_FILES
@@ -209,7 +209,7 @@ fi
 # ===============================================
 #
 STEP=step_3
-if [[  ${MODE0[@]}  =~  3 ]]  ; then
+if [[ $QUEUE =~ sbatch ]] && [[  ${MODE0[@]}  =~  3 ]]  ; then
   echo -e "\n\n-----------------------------------------------------------" >> $EXPECTED_DONE_FILES
   echo -e  "--------Job submitted using pipeline version $VERSION--------"  >> $EXPECTED_DONE_FILES
   echo "-----------------------------------------------------------"  >> $EXPECTED_DONE_FILES
@@ -252,7 +252,7 @@ if [[  ${MODE0[@]}  =~  3 ]]  ; then
 fi 
 
 
-if [[  ${MODE0[@]}  =~  3 ]]  &&  [[  ${MODE0[@]} =~ 2 ]] ; then
+if [[ $QUEUE =~ sbatch ]] &&  [[  ${MODE0[@]}  =~  3 ]]  &&  [[  ${MODE0[@]} =~ 2 ]] ; then
   # echo $TIMESTAMP  >> $EXPECTED_DONE_FILES
   # echo -e  "--------Job submitted using pipeline version $VERSION--------"  >> $EXPECTED_DONE_FILES
   # echo "-----------------------------------------------------------"  >> $EXPECTED_DONE_FILES
@@ -287,7 +287,7 @@ if [[  ${MODE0[@]}  =~  3 ]]  &&  [[  ${MODE0[@]} =~ 2 ]] ; then
   echo "The Output is under ${OUTPUT_DIR}/step3" >> $EXPECTED_DONE_FILES
   # echo -e $DEPEND_step_3
     # echo "test 2"
-elif [[  ${MODE0[@]}  =~  3  ]]  &&  [[  ${MODE0[@]} != 2 ]]; then
+elif [[ $QUEUE =~ sbatch ]] &&  [[  ${MODE0[@]}  =~  3  ]]  &&  [[  ${MODE0[@]} != 2 ]]; then
   # echo "just step 3 at" $TIMESTAMP >> $EXPECTED_DONE_FILES
   # echo -e  "--------Job submitted using pipeline version $VERSION--------"  >> $EXPECTED_DONE_FILES
   # echo $TIMESTAMP  >> $EXPECTED_DONE_FILES
@@ -327,7 +327,7 @@ fi
 
 STEP=step_4
 # export STEP4_ANT_LAB=$OUTPUT_DIR/job_info/parameters/step4_antibody_label.txt
-if [[  ${MODE0[@]}  =~  4 ]]  ; then
+if [[ $QUEUE =~ sbatch ]] &&  [[  ${MODE0[@]}  =~  4 ]]  ; then
   echo -e "\n\n-----------------------------------------------------------" >> $EXPECTED_DONE_FILES
   echo -e  "--------Job submitted using pipeline version $VERSION--------"  >> $EXPECTED_DONE_FILES
   echo "-----------------------------------------------------------"  >> $EXPECTED_DONE_FILES
@@ -367,7 +367,7 @@ if [[  ${MODE0[@]}  =~  4 ]]  ; then
   fi    
 fi
 
-if [[  ${MODE0[@]}  =~  4 ]]  &&  [[  ${MODE0[@]} =~ 3 ]] && [[  ${MSD}  =~  F  ]] ; then
+if [[ $QUEUE =~ sbatch ]] &&  [[  ${MODE0[@]}  =~  4 ]]  &&  [[  ${MODE0[@]} =~ 3 ]] && [[  ${MSD}  =~  F  ]] ; then
   if [  -d $OUTPUT_DIR/step4/objs4 ]; then 
     rm -rf  $OUTPUT_DIR/step4/objs4 ; mkdir -p $OUTPUT_DIR/step4/objs4 &
   else
@@ -404,7 +404,7 @@ if [[  ${MODE0[@]}  =~  4 ]]  &&  [[  ${MODE0[@]} =~ 3 ]] && [[  ${MSD}  =~  F  
   echo_general="STEP 4: Job Number:$step_4"; echo -e $echo_general
   echo "-------------------------------------------" >> $EXPECTED_DONE_FILES
   echo "The Output is under ${OUTPUT_DIR}/step4" >> $EXPECTED_DONE_FILES
-elif [[  ${MODE0[@]}  =~  4  ]]  &&  [[  ${MODE0[@]} != 3 ]] && [[  ${MSD}  =~  F  ]] ; then
+elif [[ $QUEUE =~ sbatch ]] && [[  ${MODE0[@]}  =~  4  ]]  &&  [[  ${MODE0[@]} != 3 ]] && [[  ${MSD}  =~  F  ]] ; then
   if [  -d $OUTPUT_DIR/step4/objs4 ]; then 
     rm -rf  $OUTPUT_DIR/step4/objs4 ; mkdir -p $OUTPUT_DIR/step4/objs4 &
   else
@@ -448,7 +448,7 @@ fi
   # echo -e 'NOTE: MSD  is not for Standard scRNA-seq'
 # fi
 
-if [[  ${MODE0[@]}  =~  4 ]] && [[  ${MSD}  =~  T  ]] &&  [[  ${SCRNA_METHOD} =~ HTO ]] ; then
+if [[ $QUEUE =~ sbatch ]] &&  [[  ${MODE0[@]}  =~  4 ]] && [[  ${MSD}  =~  T  ]] &&  [[  ${SCRNA_METHOD} =~ HTO ]] ; then
   # echo $TIMESTAMP  >> $EXPECTED_DONE_FILES
   # echo -e  "--------Job submitted using pipeline version $VERSION--------"  >> $EXPECTED_DONE_FILES
   # echo "-----------------------------------------------------------"  >> $EXPECTED_DONE_FILES
@@ -491,7 +491,7 @@ fi
 # ===============================================
 #
 STEP=step_5
-if [[  ${MODE0[@]}  =~  5 ]]  ; then
+if [[ $QUEUE =~ sbatch ]] && [[  ${MODE0[@]}  =~  5 ]]  ; then
   echo -e "\n\n-----------------------------------------------------------" >> $EXPECTED_DONE_FILES
   echo -e  "--------Job submitted using pipeline version $VERSION--------"  >> $EXPECTED_DONE_FILES
   echo "-----------------------------------------------------------"  >> $EXPECTED_DONE_FILES
@@ -532,7 +532,7 @@ if [[  ${MODE0[@]}  =~  5 ]]  ; then
     mkdir -p $OUTPUT_DIR/step5/info5   
   fi
 fi 
-if [[  ${MODE0[@]}  =~  5 ]]  &&  [[  ${MODE0[@]} =~ 4 ]] ; then
+if [[ $QUEUE =~ sbatch ]] &&  [[  ${MODE0[@]}  =~  5 ]]  &&  [[  ${MODE0[@]} =~ 4 ]] ; then
   # echo $TIMESTAMP  >> $EXPECTED_DONE_FILES
   # echo -e  "--------Job submitted using pipeline version $VERSION--------"  >> $EXPECTED_DONE_FILES
   # echo "-----------------------------------------------------------"  >> $EXPECTED_DONE_FILES
@@ -567,7 +567,7 @@ if [[  ${MODE0[@]}  =~  5 ]]  &&  [[  ${MODE0[@]} =~ 4 ]] ; then
   echo "-------------------------------------------" >> $EXPECTED_DONE_FILES
  echo "The Output is under ${OUTPUT_DIR}/step5" >> $EXPECTED_DONE_FILES
 
-elif [[  ${MODE0[@]}  =~  5  ]]  &&  [[  ${MODE0[@]} != 4 ]]; then
+elif [[ $QUEUE =~ sbatch ]] &&  [[  ${MODE0[@]}  =~  5  ]]  &&  [[  ${MODE0[@]} != 4 ]]; then
   # echo "just step 5 at" $TIMESTAMP >> $EXPECTED_DONE_FILES
   # echo -e  "--------Job submitted using pipeline version $VERSION--------"  >> $EXPECTED_DONE_FILES
   # echo $TIMESTAMP  >> $EXPECTED_DONE_FILES
@@ -609,7 +609,7 @@ fi
 # ===============================================
 #
 STEP=step_6
-if [[  ${MODE0[@]}  =~  6 ]]  ; then
+if [[ $QUEUE =~ sbatch ]] &&  [[  ${MODE0[@]}  =~  6 ]]  ; then
   echo -e "\n\n-----------------------------------------------------------" >> $EXPECTED_DONE_FILES
   echo -e  "--------Job submitted using pipeline version $VERSION--------"  >> $EXPECTED_DONE_FILES
   echo "-----------------------------------------------------------"  >> $EXPECTED_DONE_FILES
@@ -650,7 +650,7 @@ if [[  ${MODE0[@]}  =~  6 ]]  ; then
     mkdir -p $OUTPUT_DIR/step6/info6   
   fi
 fi 
-if [[  ${MODE0[@]}  =~  6 ]]  &&  [[  ${MODE0[@]} =~ 5 ]] ; then
+if [[ $QUEUE =~ sbatch ]] &&  [[  ${MODE0[@]}  =~  6 ]]  &&  [[  ${MODE0[@]} =~ 5 ]] ; then
   # echo $TIMESTAMP  >> $EXPECTED_DONE_FILES
   # echo -e  "--------Job submitted using pipeline version $VERSION--------"  >> $EXPECTED_DONE_FILES
   # echo "-----------------------------------------------------------"  >> $EXPECTED_DONE_FILES
@@ -684,7 +684,7 @@ if [[  ${MODE0[@]}  =~  6 ]]  &&  [[  ${MODE0[@]} =~ 5 ]] ; then
   cat  $OUTPUT_DIR/job_info/parameters/step6_par.txt >> $EXPECTED_DONE_FILES
   echo "-------------------------------------------" >> $EXPECTED_DONE_FILES
   echo "The Output is under ${OUTPUT_DIR}/step6" >> $EXPECTED_DONE_FILES
-elif [[  ${MODE0[@]}  =~  6  ]]  &&  [[  ${MODE0[@]} != 5 ]]; then
+elif [[ $QUEUE =~ sbatch ]] &&  [[  ${MODE0[@]}  =~  6  ]]  &&  [[  ${MODE0[@]} != 5 ]]; then
   # echo "just step 6 at" $TIMESTAMP >> $EXPECTED_DONE_FILES
   # echo -e  "--------Job submitted using pipeline version $VERSION--------"  >> $EXPECTED_DONE_FILES
   # echo $TIMESTAMP  >> $EXPECTED_DONE_FILES
@@ -727,7 +727,7 @@ fi
 # ===============================================
 #
 
-if [[  ${MODE0[@]}  =~  7 ]]; then
+if [[ $QUEUE =~ sbatch ]] && [[  ${MODE0[@]}  =~  7 ]]; then
   echo -e "\n\n-----------------------------------------------------------" >> $EXPECTED_DONE_FILES
   echo -e  "--------Job submitted using pipeline version $VERSION--------"  >> $EXPECTED_DONE_FILES
   echo "-----------------------------------------------------------"  >> $EXPECTED_DONE_FILES
@@ -745,8 +745,8 @@ if [[  ${MODE0[@]}  =~  7 ]]; then
   fi    
 fi
 
-STEP=step_7marker
-if [[  ${MODE0[@]}  =~  7  ]] && [[   ${STEP7marker}  =~  T ]]; then
+STEP=step_7_markergsea
+if [[  ${MODE0[@]}  =~  7  ]] && [[   ${STEP7markergsea}  =~  T ]]; then
   if [ -z "$SAMPLE_SIZE" ]; then
     SAMPLE_SIZE=4
   fi
@@ -768,11 +768,7 @@ if [[  ${MODE0[@]}  =~  7  ]] && [[   ${STEP7marker}  =~  T ]]; then
   export THREADS=$THREADS
   export WALLTIME=$WALLTIME
   export MEM=$MEM
-  # echo "just step 7 at" $TIMESTAMP >> $EXPECTED_DONE_FILES
-  # echo $TIMESTAMP  >> $EXPECTED_DONE_FILES
-  # echo -e  "--------Job submitted using pipeline version $VERSION--------"  >> $EXPECTED_DONE_FILES
-  # echo "-----------------------------------------------------------"  >> $EXPECTED_DONE_FILES
-  echo "STEP step_7marker submitted (not dependent on other job) "  >> $EXPECTED_DONE_FILES
+  echo "STEP 7 submitted (not dependent on other job) "  >> $EXPECTED_DONE_FILES
   step_7="$QUEUE -A $ACCOUNT  \
     --ntasks-per-node=${THREADS} \
     --mem=${MEM} \
@@ -780,34 +776,69 @@ if [[  ${MODE0[@]}  =~  7  ]] && [[   ${STEP7marker}  =~  T ]]; then
     --job-name ${STEP} \
     --export OUTPUT_DIR=${OUTPUT_DIR},PIPELINE_HOME=${PIPELINE_HOME},R_LIB_PATH=${R_LIB_PATH},R_VERSION=${R_VERSION},SCRNA_METHOD=${SCRNA_METHOD} \
     --output $JOB_OUTPUT_DIR/logs/%x.o%j \
-    $PIPELINE_HOME/hto/scripts/step7/pipeline_step7_marker.qsub"
+    $PIPELINE_HOME/scrna/scripts/step7/pipeline_step7_markergsea.qsub"
   step_7=$($step_7 | grep -oP "\d+")
-  echo "[Q] STEP 7 marker         : $step_7 " >> $EXPECTED_DONE_FILES 
+  echo "[Q] STEP 7 markergsea         : $step_7 " >> $EXPECTED_DONE_FILES 
   echo "THREADS: ${THREADS} " >> $EXPECTED_DONE_FILES
   echo "WALLTIME: ${WALLTIME} " >> $EXPECTED_DONE_FILES
   echo "MEM: ${MEM} " >> $EXPECTED_DONE_FILES  
-  if [ -z "${THREADS_ARRAY[$STEP]}" ]; then
-        echo -e "NOTE: THREADS of $STEP is empty, so pipeline assigns it based on #samples,\n you can add THREADS_ARRAY in scrnabox_config.ini"   >> $EXPECTED_DONE_FILES
-  fi
-  if [ -z "${MEM_ARRAY[$STEP]}" ]; then
-      echo -e "NOTE: MEM of $STEP is empty, so pipeline assigns it based on #samples,\n you can add MEM_ARRAY in scrnabox_config.ini"   >> $EXPECTED_DONE_FILES
-  fi
-  if [ -z "${WALLTIME_ARRAY[$STEP]}" ]; then
-      echo  -e "NOTE: WALLTIME of $STEP is empty, so pipeline assigns it based on  #samples,\n you can add WALLTIME_ARRAY in scrnabox_config.ini"   >> $EXPECTED_DONE_FILES
-  fi    
+  # DEPEND_step_7="--Nodependency on other JOB. \n --JOB Number:$step_7"; echo -e $DEPEND_step_7
   DEPEND_step_7="--dependency=afterok:$step_7"
-  echo_general="STEP7 marker: Job Number:$step_7"; echo -e $echo_general
+  echo_general="STEP 7: Job Number:$step_7"; echo -e $echo_general
   echo -e "\n------Parameters used to run this step-----" >> $EXPECTED_DONE_FILES
   cat  $OUTPUT_DIR/job_info/parameters/step7_par.txt >> $EXPECTED_DONE_FILES
-  echo "-------------------------------------------" >> $EXPECTED_DONE_FILES
+  echo "-------------------------------------------" >> $EXPECTED_DONE_FILES  
   echo "The Output is under ${OUTPUT_DIR}/step7" >> $EXPECTED_DONE_FILES
 fi 
 
-STEP=step_7fta
+STEP=step_7_knownmarkers
+if [[ $QUEUE =~ sbatch ]] && [[  ${MODE0[@]}  =~  7  ]] &&  [[   ${STEP7knownmarkers}  =~  T ]]; then
+    if [ -z "$SAMPLE_SIZE" ]; then
+    SAMPLE_SIZE=4
+  fi
+  if [ -z "${THREADS_ARRAY[$STEP]}" ]; then
+      THREADS=$((SAMPLE_SIZE*4)) 
+  else
+      THREADS=${THREADS_ARRAY[$STEP]}
+  fi
+  if [ -z "${MEM_ARRAY[$STEP]}" ]; then
+      MEM=$((SAMPLE_SIZE*10))g 
+  else 
+      MEM=${MEM_ARRAY[$STEP]}
+  fi
+  if [ -z "${WALLTIME_ARRAY[$STEP]}" ]; then
+      WALLTIME=$((SAMPLE_SIZE*100)) 
+  else
+      WALLTIME=${WALLTIME_ARRAY[$STEP]}
+  fi
+  export THREADS=$THREADS
+  export WALLTIME=$WALLTIME
+  export MEM=$MEM
+  echo "STEP 7 submitted (not dependent on other job) "  >> $EXPECTED_DONE_FILES
+  step_7="$QUEUE -A $ACCOUNT  \
+    --ntasks-per-node=${THREADS} \
+    --mem=${MEM} \
+    --time=${WALLTIME} \
+    --job-name ${STEP} \
+    --export OUTPUT_DIR=${OUTPUT_DIR},PIPELINE_HOME=${PIPELINE_HOME},R_LIB_PATH=${R_LIB_PATH},R_VERSION=${R_VERSION},SCRNA_METHOD=${SCRNA_METHOD} \
+    --output $JOB_OUTPUT_DIR/logs/%x.o%j \
+    $PIPELINE_HOME/scrna/scripts/step7/pipeline_step7_knownmarkers.qsub"
+  step_7=$($step_7 | grep -oP "\d+")
+  echo "[Q] STEP 7 knownmarkers         : $step_7 " >> $EXPECTED_DONE_FILES 
+  echo "THREADS: ${THREADS} " >> $EXPECTED_DONE_FILES
+  echo "WALLTIME: ${WALLTIME} " >> $EXPECTED_DONE_FILES
+  echo "MEM: ${MEM} " >> $EXPECTED_DONE_FILES  
+  DEPEND_step_7="--dependency=afterok:$step_7"
+  echo_general="STEP 7: Job Number:$step_7"; echo -e $echo_general
+  echo -e "\n------Parameters used to run this step-----" >> $EXPECTED_DONE_FILES
+  cat  $OUTPUT_DIR/job_info/parameters/step7_par.txt >> $EXPECTED_DONE_FILES
+  echo "-------------------------------------------" >> $EXPECTED_DONE_FILES  
+  echo "The Output is under ${OUTPUT_DIR}/step7" >> $EXPECTED_DONE_FILES
+fi 
 
-if [[  ${MODE0[@]}  =~  7  ]] &&  [[   ${STEP7fta}  =~  T ]]; then
 
-
+STEP=step_7_referenceannotation
+if [[ $QUEUE =~ sbatch ]] && [[  ${MODE0[@]}  =~  7  ]] &&  [[   ${STEP7referenceannotation}  =~  T ]]; then
   if [ -z "$SAMPLE_SIZE" ]; then
     SAMPLE_SIZE=4
   fi
@@ -822,53 +853,40 @@ if [[  ${MODE0[@]}  =~  7  ]] &&  [[   ${STEP7fta}  =~  T ]]; then
       MEM=${MEM_ARRAY[$STEP]}
   fi
   if [ -z "${WALLTIME_ARRAY[$STEP]}" ]; then
-      WALLTIME=$((SAMPLE_SIZE*80)) 
+      WALLTIME=$((SAMPLE_SIZE*100)) 
   else
       WALLTIME=${WALLTIME_ARRAY[$STEP]}
   fi
   export THREADS=$THREADS
   export WALLTIME=$WALLTIME
   export MEM=$MEM
-  # echo "just step 7 at" $TIMESTAMP >> $EXPECTED_DONE_FILES
-  # echo $TIMESTAMP  >> $EXPECTED_DONE_FILES
-  # echo -e  "--------Job submitted using pipeline version $VERSION--------"  >> $EXPECTED_DONE_FILES
-  # echo "-----------------------------------------------------------"  >> $EXPECTED_DONE_FILES
-  echo "STEP step_7fta submitted (not dependent on other job) "  >> $EXPECTED_DONE_FILES
+  echo "STEP 7 submitted (not dependent on other job) "  >> $EXPECTED_DONE_FILES
   step_7="$QUEUE -A $ACCOUNT  \
     --ntasks-per-node=${THREADS} \
     --mem=${MEM} \
     --time=${WALLTIME} \
-    --job-name ${STEP} \
+    --job-name ${STEP}_referenceannotation \
     --export OUTPUT_DIR=${OUTPUT_DIR},PIPELINE_HOME=${PIPELINE_HOME},R_LIB_PATH=${R_LIB_PATH},R_VERSION=${R_VERSION},SCRNA_METHOD=${SCRNA_METHOD} \
     --output $JOB_OUTPUT_DIR/logs/%x.o%j \
-    $PIPELINE_HOME/hto/scripts/step7/pipeline_step7_fta.qsub"
+    $PIPELINE_HOME/scrna/scripts/step7/pipeline_step7_referenceannotation.qsub"
   step_7=$($step_7 | grep -oP "\d+")
-  echo "[Q] STEP 7 fta         : $step_7 " >> $EXPECTED_DONE_FILES 
+  echo "[Q] STEP 7 referenceannotation         : $step_7 " >> $EXPECTED_DONE_FILES 
   echo "THREADS: ${THREADS} " >> $EXPECTED_DONE_FILES
   echo "WALLTIME: ${WALLTIME} " >> $EXPECTED_DONE_FILES
   echo "MEM: ${MEM} " >> $EXPECTED_DONE_FILES  
-  if [ -z "${THREADS_ARRAY[$STEP]}" ]; then
-        echo -e "NOTE: THREADS of $STEP is empty, so pipeline assigns it based on #samples,\n you can add THREADS_ARRAY in scrnabox_config.ini"   >> $EXPECTED_DONE_FILES
-  fi
-  if [ -z "${MEM_ARRAY[$STEP]}" ]; then
-      echo -e "NOTE: MEM of $STEP is empty, so pipeline assigns it based on #samples,\n you can add MEM_ARRAY in scrnabox_config.ini"   >> $EXPECTED_DONE_FILES
-  fi
-  if [ -z "${WALLTIME_ARRAY[$STEP]}" ]; then
-      echo  -e "NOTE: WALLTIME of $STEP is empty, so pipeline assigns it based on  #samples,\n you can add WALLTIME_ARRAY in scrnabox_config.ini"   >> $EXPECTED_DONE_FILES
-  fi    
-  DEPEND_step_7="--dependency=afterok:$step_7"
-  echo_general="STEP7 fta: Job Number:$step_7"; echo -e $echo_general
-  echo -e "\n------Parameters used to run this step-----" >> $EXPECTED_DONE_FILES
+  # DEPEND_step_7="--Nodependency on other JOB. \n --JOB Number:$step_7"; echo -e $DEPEND_step_7
+    DEPEND_step_7="--dependency=afterok:$step_7"
+  echo_general="STEP 7: Job Number:$step_7"; echo -e $echo_general
+    echo -e "\n------Parameters used to run this step-----" >> $EXPECTED_DONE_FILES
   cat  $OUTPUT_DIR/job_info/parameters/step7_par.txt >> $EXPECTED_DONE_FILES
   echo "-------------------------------------------" >> $EXPECTED_DONE_FILES
   echo "The Output is under ${OUTPUT_DIR}/step7" >> $EXPECTED_DONE_FILES
 fi 
 
 
-STEP=step_7enrich
-if [[  ${MODE0[@]}  =~  7  ]] &&  [[   ${STEP7enrich}  =~  T ]]; then
 
-
+STEP=step_7_annotate
+if [[ $QUEUE =~ sbatch ]] && [[  ${MODE0[@]}  =~  7  ]] &&  [[   ${STEP7annotate}  =~  T ]]; then
   if [ -z "$SAMPLE_SIZE" ]; then
     SAMPLE_SIZE=4
   fi
@@ -878,67 +896,53 @@ if [[  ${MODE0[@]}  =~  7  ]] &&  [[   ${STEP7enrich}  =~  T ]]; then
       THREADS=${THREADS_ARRAY[$STEP]}
   fi
   if [ -z "${MEM_ARRAY[$STEP]}" ]; then
-      MEM=$((SAMPLE_SIZE*6))g 
+      MEM=$((SAMPLE_SIZE*10))g 
   else 
       MEM=${MEM_ARRAY[$STEP]}
   fi
   if [ -z "${WALLTIME_ARRAY[$STEP]}" ]; then
-      WALLTIME=$((SAMPLE_SIZE*80)) 
+      WALLTIME=$((SAMPLE_SIZE*100)) 
   else
       WALLTIME=${WALLTIME_ARRAY[$STEP]}
   fi
-
   export THREADS=$THREADS
   export WALLTIME=$WALLTIME
   export MEM=$MEM
-
-  # echo "just step 7 at" $TIMESTAMP >> $EXPECTED_DONE_FILES
-  # echo $TIMESTAMP  >> $EXPECTED_DONE_FILES
-  # echo -e  "--------Job submitted using pipeline version $VERSION--------"  >> $EXPECTED_DONE_FILES
-  # echo "-----------------------------------------------------------"  >> $EXPECTED_DONE_FILES
   echo "STEP 7 submitted (not dependent on other job) "  >> $EXPECTED_DONE_FILES
   step_7="$QUEUE -A $ACCOUNT  \
     --ntasks-per-node=${THREADS} \
     --mem=${MEM} \
     --time=${WALLTIME} \
-    --job-name ${STEP}_enrich \
+    --job-name ${STEP}_annotate \
     --export OUTPUT_DIR=${OUTPUT_DIR},PIPELINE_HOME=${PIPELINE_HOME},R_LIB_PATH=${R_LIB_PATH},R_VERSION=${R_VERSION},SCRNA_METHOD=${SCRNA_METHOD} \
     --output $JOB_OUTPUT_DIR/logs/%x.o%j \
-    $PIPELINE_HOME/hto/scripts/step7/pipeline_step7_enrich.qsub"
+    $PIPELINE_HOME/scrna/scripts/step7/pipeline_step7_annotate.qsub"
   step_7=$($step_7 | grep -oP "\d+")
-  echo "[Q] STEP 7 enrich         : $step_7 " >> $EXPECTED_DONE_FILES 
+  echo "[Q] STEP 7 annotate         : $step_7 " >> $EXPECTED_DONE_FILES 
   echo "THREADS: ${THREADS} " >> $EXPECTED_DONE_FILES
   echo "WALLTIME: ${WALLTIME} " >> $EXPECTED_DONE_FILES
   echo "MEM: ${MEM} " >> $EXPECTED_DONE_FILES  
-  if [ -z "${THREADS_ARRAY[$STEP]}" ]; then
-        echo -e "NOTE: THREADS of $STEP is empty, so pipeline assigns it based on #samples,\n you can add THREADS_ARRAY in scrnabox_config.ini"   >> $EXPECTED_DONE_FILES
-  fi
-  if [ -z "${MEM_ARRAY[$STEP]}" ]; then
-      echo -e "NOTE: MEM of $STEP is empty, so pipeline assigns it based on #samples,\n you can add MEM_ARRAY in scrnabox_config.ini"   >> $EXPECTED_DONE_FILES
-  fi
-  if [ -z "${WALLTIME_ARRAY[$STEP]}" ]; then
-      echo  -e "NOTE: WALLTIME of $STEP is empty, so pipeline assigns it based on  #samples,\n you can add WALLTIME_ARRAY in scrnabox_config.ini"   >> $EXPECTED_DONE_FILES
-  fi    
-  # DEPEND_step_7="--Nodependency on other JOB.\n--JOB Number:$step_7"; echo -e $DEPEND_step_7
+  # DEPEND_step_7="--Nodependency on other JOB. \n --JOB Number:$step_7"; echo -e $DEPEND_step_7
     DEPEND_step_7="--dependency=afterok:$step_7"
-  echo_general="STEP7 enrich: Job Number:$step_7"; echo -e $echo_general
-  echo -e "\n------Parameters used to run this step-----" >> $EXPECTED_DONE_FILES
+  echo_general="STEP 7: Job Number:$step_7"; echo -e $echo_general
+    echo -e "\n------Parameters used to run this step-----" >> $EXPECTED_DONE_FILES
   cat  $OUTPUT_DIR/job_info/parameters/step7_par.txt >> $EXPECTED_DONE_FILES
   echo "-------------------------------------------" >> $EXPECTED_DONE_FILES
   echo "The Output is under ${OUTPUT_DIR}/step7" >> $EXPECTED_DONE_FILES
 fi 
+
 
 # ===============================================
 # STEP 8: 
 # ===============================================
 #
 
-STEP=step_8_dgelist
-THRm=`wc -l < ${OUTPUT_DIR}/job_info/parameters/step8_contrast_genotype.txt`
-THRi=`wc -l < ${OUTPUT_DIR}/job_info/parameters/step8_contrast_celltype.txt`
+STEP=step_8
+# THRm=`wc -l < ${OUTPUT_DIR}/job_info/parameters/step8_contrast_genotype.txt`
+# THRi=`wc -l < ${OUTPUT_DIR}/job_info/parameters/step8_contrast_celltype.txt`
 
 
-if [[  ${MODE0[@]}  =~  8 ]]; then
+if [[ $QUEUE =~ sbatch ]] && [[  ${MODE0[@]}  =~  8 ]]; then
   echo -e "\n\n-----------------------------------------------------------" >> $EXPECTED_DONE_FILES
   echo -e  "--------Job submitted using pipeline version $VERSION--------"  >> $EXPECTED_DONE_FILES
   echo "-----------------------------------------------------------"  >> $EXPECTED_DONE_FILES
@@ -953,7 +957,9 @@ if [[  ${MODE0[@]}  =~  8 ]]; then
   fi      
 fi
 
-if [[  ${MODE0[@]}  =~  8  ]] &&  [[   ${STEP8dgelist}  =~  T ]]; then
+STEP=step_8_addmeta
+
+if [[ $QUEUE =~ sbatch ]] &&  [[  ${MODE0[@]}  =~  8  ]] &&  [[   ${STEP8addmeta}  =~  T ]]; then
   if [ -z "$SAMPLE_SIZE" ]; then
     SAMPLE_SIZE=4
   fi
@@ -987,7 +993,7 @@ if [[  ${MODE0[@]}  =~  8  ]] &&  [[   ${STEP8dgelist}  =~  T ]]; then
     --job-name ${STEP}_dgelist \
     --export OUTPUT_DIR=${OUTPUT_DIR},PIPELINE_HOME=${PIPELINE_HOME},R_LIB_PATH=${R_LIB_PATH},R_VERSION=${R_VERSION},SCRNA_METHOD=${SCRNA_METHOD} \
     --output $JOB_OUTPUT_DIR/logs/%x.o%j \
-    $PIPELINE_HOME/hto/scripts/step8/pipeline_step8_dgelist.qsub"
+    $PIPELINE_HOME/hto/scripts/step8/pipeline_step8_addmeta.qsub"
   step_8=$($step_8 | grep -oP "\d+")
   echo "[Q] STEP 8         : $step_8 " >> $EXPECTED_DONE_FILES 
   echo "THREADS: ${THREADS} " >> $EXPECTED_DONE_FILES
@@ -1010,12 +1016,9 @@ if [[  ${MODE0[@]}  =~  8  ]] &&  [[   ${STEP8dgelist}  =~  T ]]; then
   echo "The Output is under ${OUTPUT_DIR}/step8" >> $EXPECTED_DONE_FILES
 fi 
 
-STEP=step_8_cont
-THRm=`wc -l < ${OUTPUT_DIR}/job_info/parameters/step8_contrast_genotype.txt`
-THRi=`wc -l < ${OUTPUT_DIR}/job_info/parameters/step8_contrast_celltype.txt`
-
-if [[  ${MODE0[@]}  =~  8 ]]  &&  [[  ${STEP8dgelist}  =~  T ]] &&  [[   ${STEP8m}  =~  T ]]; then
-    if [ -z "$SAMPLE_SIZE" ]; then
+STEP=step_8_rundge
+if [[ $QUEUE =~ sbatch ]] && [[  ${MODE0[@]}  =~  8  ]] &&  [[   ${STEP8rundge}  =~  T ]]; then
+  if [ -z "$SAMPLE_SIZE" ]; then
     SAMPLE_SIZE=4
   fi
   if [ -z "${THREADS_ARRAY[$STEP]}" ]; then
@@ -1024,7 +1027,7 @@ if [[  ${MODE0[@]}  =~  8 ]]  &&  [[  ${STEP8dgelist}  =~  T ]] &&  [[   ${STEP8
       THREADS=${THREADS_ARRAY[$STEP]}
   fi
   if [ -z "${MEM_ARRAY[$STEP]}" ]; then
-      MEM=$((SAMPLE_SIZE*20))g 
+      MEM=$((SAMPLE_SIZE*40))g 
   else 
       MEM=${MEM_ARRAY[$STEP]}
   fi
@@ -1036,186 +1039,6 @@ if [[  ${MODE0[@]}  =~  8 ]]  &&  [[  ${STEP8dgelist}  =~  T ]] &&  [[   ${STEP8
   export THREADS=$THREADS
   export WALLTIME=$WALLTIME
   export MEM=$MEM
-
-  if [ ! -d $OUTPUT_DIR/step8/cont_genotype ]; then 
-    mkdir -p $OUTPUT_DIR/step8/cont_genotype
-  fi
-  # echo $TIMESTAMP  >> $EXPECTED_DONE_FILES
-  # echo -e  "--------Job submitted using pipeline version $VERSION--------"  >> $EXPECTED_DONE_FILES
-  # echo "-----------------------------------------------------------"  >> $EXPECTED_DONE_FILES
-  echo "STEP 8 genotype submitted following step_8_dgelist"  >> $EXPECTED_DONE_FILES
-  step_8="$QUEUE -A $ACCOUNT  \
-    --ntasks-per-node=${THREADS} \
-    --mem=${MEM}  \
-    --time=${WALLTIME} \
-    --job-name ${STEP}_genotype \
-    $DEPEND_step_8_dgelist \
-    --export OUTPUT_DIR=${OUTPUT_DIR},PIPELINE_HOME=${PIPELINE_HOME},R_LIB_PATH=${R_LIB_PATH},R_VERSION=${R_VERSION},CONT=${CONT},SCRNA_METHOD=${SCRNA_METHOD} \
-    --output $JOB_OUTPUT_DIR/logs/%x.o%j \
-    $PIPELINE_HOME/hto/scripts/step8/pipeline_step8_genotype.qsub"
-  step_8=$($step_8 | grep -oP "\d+")
-  echo "[Q] STEP 8         : $step_8 " >> $EXPECTED_DONE_FILES
-  echo "THREADS: ${THREADS} " >> $EXPECTED_DONE_FILES
-  echo "WALLTIME: ${WALLTIME} " >> $EXPECTED_DONE_FILES
-  echo "MEM: ${MEM} " >> $EXPECTED_DONE_FILES  
-  if [ -z "${THREADS_ARRAY[$STEP]}" ]; then
-        echo -e "NOTE: THREADS of $STEP is empty, so pipeline assigns it based on #samples,\n you can add THREADS_ARRAY in scrnabox_config.ini"   >> $EXPECTED_DONE_FILES
-  fi
-  if [ -z "${MEM_ARRAY[$STEP]}" ]; then
-      echo -e "NOTE: MEM of $STEP is empty, so pipeline assigns it based on #samples,\n you can add MEM_ARRAY in scrnabox_config.ini"   >> $EXPECTED_DONE_FILES
-  fi
-  if [ -z "${WALLTIME_ARRAY[$STEP]}" ]; then
-      echo  -e "NOTE: WALLTIME of $STEP is empty, so pipeline assigns it based on  #samples,\n you can add WALLTIME_ARRAY in scrnabox_config.ini"   >> $EXPECTED_DONE_FILES
-  fi    
-  DEPEND_step_8="--dependency=afterok:$step_8"
-  echo_general="STEP8 genotype, Job Number:$step_8"; echo -e $echo_general
-  echo -e "\n------Parameters used to run this step-----" >> $EXPECTED_DONE_FILES
-  cat  $OUTPUT_DIR/job_info/parameters/step8_par.txt >> $EXPECTED_DONE_FILES
-  echo "-------------------------------------------" >> $EXPECTED_DONE_FILES
-  echo "The Output is under ${OUTPUT_DIR}/step8" >> $EXPECTED_DONE_FILES
-elif [[  ${MODE0[@]}  =~  8  ]]  &&  [[  ${STEP8dgelist}  !=  T ]] &&  [[   ${STEP8m}  =~  T ]]; then
-  if [ -z "$SAMPLE_SIZE" ]; then
-    SAMPLE_SIZE=4
-  fi
-  if [ -z "${THREADS_ARRAY[$STEP]}" ]; then
-      THREADS=$((SAMPLE_SIZE*8)) 
-  else
-      THREADS=${THREADS_ARRAY[$STEP]}
-  fi
-  if [ -z "${MEM_ARRAY[$STEP]}" ]; then
-      MEM=$((SAMPLE_SIZE*20))g 
-  else 
-      MEM=${MEM_ARRAY[$STEP]}
-  fi
-  if [ -z "${WALLTIME_ARRAY[$STEP]}" ]; then
-      WALLTIME=$((SAMPLE_SIZE*100)) 
-  else
-      WALLTIME=${WALLTIME_ARRAY[$STEP]}
-  fi
-  export THREADS=$THREADS
-  export WALLTIME=$WALLTIME
-  export MEM=$MEM
-  if [ ! -d $OUTPUT_DIR/step8/cont_genotype ]; then 
-    mkdir -p $OUTPUT_DIR/step8/cont_genotype
-  fi
-  # echo "just step 8 at" $TIMESTAMP >> $EXPECTED_DONE_FILES
-  # echo $TIMESTAMP  >> $EXPECTED_DONE_FILES
-  # echo -e  "--------Job submitted using pipeline version $VERSION--------"  >> $EXPECTED_DONE_FILES
-  # echo "-----------------------------------------------------------"  >> $EXPECTED_DONE_FILES
-  echo "STEP 8 genotype submitted (not dependent on other job) "  >> $EXPECTED_DONE_FILES
-  step_8="$QUEUE -A $ACCOUNT  \
-    --ntasks-per-node=${THREADS} \
-    --mem=${MEM} \
-    --time=${WALLTIME} \
-    --job-name ${STEP}_genotype \
-    --export OUTPUT_DIR=${OUTPUT_DIR},PIPELINE_HOME=${PIPELINE_HOME},R_LIB_PATH=${R_LIB_PATH},R_VERSION=${R_VERSION},CONT=${CONT},SCRNA_METHOD=${SCRNA_METHOD} \
-    --output $JOB_OUTPUT_DIR/logs/%x.o%j \
-    $PIPELINE_HOME/hto/scripts/step8/pipeline_step8_genotype.qsub"
-  step_8=$($step_8 | grep -oP "\d+")
-  echo "[Q] STEP 8         : $step_8 " >> $EXPECTED_DONE_FILES 
-  echo "THREADS: ${THREADS} " >> $EXPECTED_DONE_FILES
-  echo "WALLTIME: ${WALLTIME} " >> $EXPECTED_DONE_FILES
-  echo "MEM: ${MEM} " >> $EXPECTED_DONE_FILES  
-  if [ -z "${THREADS_ARRAY[$STEP]}" ]; then
-        echo -e "NOTE: THREADS of $STEP is empty, so pipeline assigns it based on #samples,\n you can add THREADS_ARRAY in scrnabox_config.ini"   >> $EXPECTED_DONE_FILES
-  fi
-  if [ -z "${MEM_ARRAY[$STEP]}" ]; then
-      echo -e "NOTE: MEM of $STEP is empty, so pipeline assigns it based on #samples,\n you can add MEM_ARRAY in scrnabox_config.ini"   >> $EXPECTED_DONE_FILES
-  fi
-  if [ -z "${WALLTIME_ARRAY[$STEP]}" ]; then
-      echo  -e "NOTE: WALLTIME of $STEP is empty, so pipeline assigns it based on  #samples,\n you can add WALLTIME_ARRAY in scrnabox_config.ini"   >> $EXPECTED_DONE_FILES
-  fi    
-  DEPEND_step_8="--dependency=afterok:$step_8"
-  echo_general="STEP8 genotype, Job Number:$step_8"; echo -e $echo_general
-  echo -e "\n------Parameters used to run this step-----" >> $EXPECTED_DONE_FILES
-  cat  $OUTPUT_DIR/job_info/parameters/step8_par.txt >> $EXPECTED_DONE_FILES
-  echo "-------------------------------------------" >> $EXPECTED_DONE_FILES
-    echo "The Output is under ${OUTPUT_DIR}/step8" >> $EXPECTED_DONE_FILES
-fi 
-if [[  ${MODE0[@]}  =~  8 ]]  &&  [[  ${STEP8dgelist}  =~  T ]] &&  [[   ${STEP8i}  =~  T ]]; then
-    if [ -z "$SAMPLE_SIZE" ]; then
-    SAMPLE_SIZE=4
-  fi
-  if [ -z "${THREADS_ARRAY[$STEP]}" ]; then
-      THREADS=$((SAMPLE_SIZE*10)) 
-  else
-      THREADS=${THREADS_ARRAY[$STEP]}
-  fi
-  if [ -z "${MEM_ARRAY[$STEP]}" ]; then
-      MEM=$((SAMPLE_SIZE*20))g 
-  else 
-      MEM=${MEM_ARRAY[$STEP]}
-  fi
-  if [ -z "${WALLTIME_ARRAY[$STEP]}" ]; then
-      WALLTIME=$((SAMPLE_SIZE*110)) 
-  else
-      WALLTIME=${WALLTIME_ARRAY[$STEP]}
-  fi
-  export THREADS=$THREADS
-  export WALLTIME=$WALLTIME
-  export MEM=$MEM
-
-  if [ ! -d $OUTPUT_DIR/step8/cont_celltype ]; then 
-    mkdir -p $OUTPUT_DIR/step8/cont_celltype
-  fi
-  # echo $TIMESTAMP  >> $EXPECTED_DONE_FILES
-  # echo -e  "--------Job submitted using pipeline version $VERSION--------"  >> $EXPECTED_DONE_FILES
-  # echo "-----------------------------------------------------------"  >> $EXPECTED_DONE_FILES
-  echo "STEP 8 Cell type submitted following step 8 dgelist"  >> $EXPECTED_DONE_FILES
-  step_8="$QUEUE -A $ACCOUNT  \
-    --ntasks-per-node=${THREADS} \
-    --mem=${MEM} \
-    --time=${WALLTIME} \
-    --job-name ${STEP}_celltype \
-    $DEPEND_step_8_dgelist \
-    --export OUTPUT_DIR=${OUTPUT_DIR},PIPELINE_HOME=${PIPELINE_HOME},R_LIB_PATH=${R_LIB_PATH},R_VERSION=${R_VERSION},CONT=${CONT},SCRNA_METHOD=${SCRNA_METHOD} \
-    --output $JOB_OUTPUT_DIR/logs/%x.o%j \
-    $PIPELINE_HOME/hto/scripts/step8/pipeline_step8_celltype.qsub"
-  step_8=$($step_8 | grep -oP "\d+")
-  echo "[Q] STEP 8         : $step_8 " >> $EXPECTED_DONE_FILES
-  echo "THREADS: ${THREADS} " >> $EXPECTED_DONE_FILES
-  echo "WALLTIME: ${WALLTIME} " >> $EXPECTED_DONE_FILES
-  echo "MEM: ${MEM} " >> $EXPECTED_DONE_FILES  
-  if [ -z "${THREADS_ARRAY[$STEP]}" ]; then
-        echo -e "NOTE: THREADS of $STEP is empty, so pipeline assigns it based on #samples,\n you can add THREADS_ARRAY in scrnabox_config.ini"   >> $EXPECTED_DONE_FILES
-  fi
-  if [ -z "${MEM_ARRAY[$STEP]}" ]; then
-      echo -e "NOTE: MEM of $STEP is empty, so pipeline assigns it based on #samples,\n you can add MEM_ARRAY in scrnabox_config.ini"   >> $EXPECTED_DONE_FILES
-  fi
-  if [ -z "${WALLTIME_ARRAY[$STEP]}" ]; then
-      echo  -e "NOTE: WALLTIME of $STEP is empty, so pipeline assigns it based on  #samples,\n you can add WALLTIME_ARRAY in scrnabox_config.ini"   >> $EXPECTED_DONE_FILES
-  fi    
-  DEPEND_step_8="--dependency=afterok:$step_8"
-  echo_general="STEP8 Celltype, Job Number:$step_8"; echo -e $echo_general
-  echo -e "\n------Parameters used to run this step-----" >> $EXPECTED_DONE_FILES
-  cat  $OUTPUT_DIR/job_info/parameters/step8_par.txt >> $EXPECTED_DONE_FILES
-  echo "-------------------------------------------" >> $EXPECTED_DONE_FILES  
-  echo "The Output is under ${OUTPUT_DIR}/step8" >> $EXPECTED_DONE_FILES
-elif [[  ${MODE0[@]}  =~  8  ]]  &&  [[ ${STEP8dgelist}  !=  T ]] &&  [[   ${STEP8i}  =~  T ]]; then
-  if [ -z "$SAMPLE_SIZE" ]; then
-    SAMPLE_SIZE=4
-  fi
-  if [ -z "${THREADS_ARRAY[$STEP]}" ]; then
-      THREADS=$((SAMPLE_SIZE*10)) 
-  else
-      THREADS=${THREADS_ARRAY[$STEP]}
-  fi
-  if [ -z "${MEM_ARRAY[$STEP]}" ]; then
-      MEM=$((SAMPLE_SIZE*20))g 
-  else 
-      MEM=${MEM_ARRAY[$STEP]}
-  fi
-  if [ -z "${WALLTIME_ARRAY[$STEP]}" ]; then
-      WALLTIME=$((SAMPLE_SIZE*110)) 
-  else
-      WALLTIME=${WALLTIME_ARRAY[$STEP]}
-  fi
-  export THREADS=$THREADS
-  export WALLTIME=$WALLTIME
-  export MEM=$MEM
-  if [ ! -d $OUTPUT_DIR/step8/cont_celltype ]; then 
-    mkdir -p $OUTPUT_DIR/step8/cont_celltype
-  fi
   # echo "just step 8 at" $TIMESTAMP >> $EXPECTED_DONE_FILES
   # echo $TIMESTAMP  >> $EXPECTED_DONE_FILES
   # echo -e  "--------Job submitted using pipeline version $VERSION--------"  >> $EXPECTED_DONE_FILES
@@ -1225,10 +1048,10 @@ elif [[  ${MODE0[@]}  =~  8  ]]  &&  [[ ${STEP8dgelist}  !=  T ]] &&  [[   ${STE
     --ntasks-per-node=${THREADS} \
     --mem=${MEM} \
     --time=${WALLTIME} \
-    --job-name ${STEP}_celltype \
-    --export OUTPUT_DIR=${OUTPUT_DIR},PIPELINE_HOME=${PIPELINE_HOME},R_LIB_PATH=${R_LIB_PATH},R_VERSION=${R_VERSION},CONT=${CONT},SCRNA_METHOD=${SCRNA_METHOD} \
+    --job-name ${STEP}_dgelist \
+    --export OUTPUT_DIR=${OUTPUT_DIR},PIPELINE_HOME=${PIPELINE_HOME},R_LIB_PATH=${R_LIB_PATH},R_VERSION=${R_VERSION},SCRNA_METHOD=${SCRNA_METHOD} \
     --output $JOB_OUTPUT_DIR/logs/%x.o%j \
-    $PIPELINE_HOME/hto/scripts/step8/pipeline_step8_celltype.qsub"
+    $PIPELINE_HOME/hto/scripts/step8/pipeline_step8_rundge.qsub"
   step_8=$($step_8 | grep -oP "\d+")
   echo "[Q] STEP 8         : $step_8 " >> $EXPECTED_DONE_FILES 
   echo "THREADS: ${THREADS} " >> $EXPECTED_DONE_FILES
@@ -1243,13 +1066,12 @@ elif [[  ${MODE0[@]}  =~  8  ]]  &&  [[ ${STEP8dgelist}  !=  T ]] &&  [[   ${STE
   if [ -z "${WALLTIME_ARRAY[$STEP]}" ]; then
       echo  -e "NOTE: WALLTIME of $STEP is empty, so pipeline assigns it based on  #samples,\n you can add WALLTIME_ARRAY in scrnabox_config.ini"   >> $EXPECTED_DONE_FILES
   fi    
-  DEPEND_step_8="--dependency=afterok:$step_8"
-  echo_general="STEP 8 Celltype, Job Number:$step_8"; echo -e $echo_general
+  DEPEND_step_8_dgelist="--dependency=afterok:$step_8"
+  echo_general="STEP dgelist: Job Number:$step_8"; echo -e $echo_general
   echo -e "\n------Parameters used to run this step-----" >> $EXPECTED_DONE_FILES
   cat  $OUTPUT_DIR/job_info/parameters/step8_par.txt >> $EXPECTED_DONE_FILES
   echo "-------------------------------------------" >> $EXPECTED_DONE_FILES
   echo "The Output is under ${OUTPUT_DIR}/step8" >> $EXPECTED_DONE_FILES
-
 fi 
 
 

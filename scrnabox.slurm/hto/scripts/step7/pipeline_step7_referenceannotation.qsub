@@ -1,6 +1,5 @@
 #!/bin/bash
 
-
 umask 002
 
 #----------------------------------------------------------------#
@@ -10,11 +9,11 @@ umask 002
 #----------------------------------------------------------------#
 
 echo "-------------------------------------------"
-echo "step7 marker submitted at `date +%FT%H.%M.%S`" 
+echo "step7 referenceannotation submitted at `date +%FT%H.%M.%S`" 
 echo "-------------------------------------------"
 echo "* PIPELINE_HOME:        $PIPELINE_HOME"
 echo "* DIR:                  $OUTPUT_DIR"
-echo "* SCRNA_METHOD:         ${SCRNA_METHOD}"
+echo "* SCRNA_METHOD:                  ${SCRNA_METHOD}"
 echo "-------------------------------------------"
 echo "------Parameters used in this step---------"
 cat  $OUTPUT_DIR/job_info/parameters/step7_par.txt
@@ -24,10 +23,6 @@ echo -e "------Output of Run------------------------\n\n"
 # START PIPELINE                                      #
 #----------------------------------------------------------------#
 
-module load r/$R_VERSION
-# Rscript ${PIPELINE_HOME}/scrna/scripts/step7/step7marker.R $OUTPUT_DIR  $R_LIB_PATH
-
-
-Rscript ${PIPELINE_HOME}/scrna/scripts/step7/scrna_step7_marker.R $OUTPUT_DIR  $R_LIB_PATH $PIPELINE_HOME
-
+module load r/$R_VERSION 
+Rscript ${PIPELINE_HOME}/hto/scripts/step7/hto_step7_referenceannotation.R $OUTPUT_DIR  $R_LIB_PATH $PIPELINE_HOME
 

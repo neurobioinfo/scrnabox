@@ -10,7 +10,7 @@ umask 002
 #----------------------------------------------------------------#
 
 echo "-------------------------------------------"
-echo "step7 marker submitted at `date +%FT%H.%M.%S`" 
+echo "step7 knownmarkers submitted at `date +%FT%H.%M.%S`" 
 echo "-------------------------------------------"
 echo "* PIPELINE_HOME:        $PIPELINE_HOME"
 echo "* DIR:                  $OUTPUT_DIR"
@@ -25,7 +25,7 @@ echo -e "------Output of Run------------------------\n\n"
 #----------------------------------------------------------------#
 
 module load r/$R_VERSION
-Rscript ${PIPELINE_HOME}/hto/scripts/step7/hto_step7_marker.R $OUTPUT_DIR  $R_LIB_PATH $PIPELINE_HOME
 
+Rscript ${PIPELINE_HOME}/hto/scripts/step7/hto_step7_knownmarkers.R $OUTPUT_DIR  $R_LIB_PATH $PIPELINE_HOME
 
 

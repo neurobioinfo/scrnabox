@@ -1,5 +1,6 @@
 #!/bin/bash
 
+
 # The pipeline is done as part of Project Dark Genome 
 # Copyright belong MNI BIOINFO CORE (https://github.com/neurobioinfo)
 # The pipeline is written by Saeid Amiri (saeid.amiri@mcgill.ca)
@@ -32,7 +33,7 @@ if (( TOTALSIZE == 0 )); then
   TOTALSIZE=1
 fi
 
-if [[  ${MODE0[@]}  =~  integrate  ]] ; then
+if [[ $QUEUE =~ sbatch ]] && [[  ${MODE0[@]}  =~  integrate  ]] ; then
   if [ -z "$SAMPLE_SIZE" ]; then
     SAMPLE_SIZE=4
   fi

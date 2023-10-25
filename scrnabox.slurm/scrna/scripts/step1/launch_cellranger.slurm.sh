@@ -57,14 +57,16 @@ if [ -f $OUTPUT_DIR/job_info/.tmp/step1_par.txt ]; then
     rm $OUTPUT_DIR/job_info/.tmp/step1_par.txt
 fi
 
-grep "REF_DIR_GRCH=" $OUTPUT_DIR/job_info/parameters/step1_par.txt | sed 's/\"//g' | sed "s/\'//g" > $OUTPUT_DIR/job_info/.tmp/step1_par.txt
-grep "R1LENGTH=" $OUTPUT_DIR/job_info/parameters/step1_par.txt >> $OUTPUT_DIR/job_info/.tmp/step1_par.txt
-grep "MEMPERCORE="  $OUTPUT_DIR/job_info/parameters/step1_par.txt>> $OUTPUT_DIR/job_info/.tmp/step1_par.txt
+grep "par_ref_dir_grch=" $OUTPUT_DIR/job_info/parameters/step1_par.txt | sed 's/\"//g' | sed "s/\'//g" | sed "s/[[:blank:]]//g" > $OUTPUT_DIR/job_info/.tmp/step1_par.txt
+grep "par_r1_length=" $OUTPUT_DIR/job_info/parameters/step1_par.txt | sed "s/[[:blank:]]//g" >> $OUTPUT_DIR/job_info/.tmp/step1_par.txt
+grep "par_mempercode="  $OUTPUT_DIR/job_info/parameters/step1_par.txt | sed "s/[[:blank:]]//g" >> $OUTPUT_DIR/job_info/.tmp/step1_par.txt
+grep "par_include_introns="  $OUTPUT_DIR/job_info/parameters/step1_par.txt | sed 's/\"//g' | sed "s/\'//g" | sed "s/[[:blank:]]//g" | sed 's/[A-Z]/\L&/g' >> $OUTPUT_DIR/job_info/.tmp/step1_par.txt
+
 source $OUTPUT_DIR/job_info/.tmp/step1_par.txt
 LIBRARY=${LIBRARY:-./library.csv}
 EXPECT_CELLS=${EXPECT_CELLS:-6000}
 SLURM_TEMPLATE=${SLURM_TEMPLATE:-./slurm.template}
-REF_DIR=${REF_DIR_GRCH}
+REF_DIR=${par_ref_dir_grch}
 
 ############
 # RUN CELLRANGER
@@ -77,25 +79,50 @@ pwd_dir=$(pwd)
 TEMPLOG=$OUTPUT_DIR/job_info/logs/step_1_$(basename ${pwd_dir}).log
 echo "CELL RANGER is currently running on $(basename ${pwd_dir}). Please leave it undisturbed until it finishes. "
 
-if [[  -n ${R1LENGTH} ]]; then
-    cellranger count  \
+if [[  -n ${par_r1_length} ]]; then
+    if [[  -n ${par_include_introns} ]] && [[ ${par_include_introns} =~ yes ]]; then
+        cellranger count  \
+            --id=${RUN_NAME} \
+            --libraries=${LIBRARY} \
+            --transcriptome=${REF_DIR} \
+            --mempercore=${par_mempercode}\
+            --expect-cells=${EXPECT_CELLS} \
+            --jobmode=${SLURM_TEMPLATE} \
+            --r1-length ${par_r1_length} \
+            --include-introns \
+            2>&1|tee -a ${RUN_NAME}.$(date +%Y%m%d_%H%M).log   >  ${TEMPLOG}
+    else
+        cellranger count  \
         --id=${RUN_NAME} \
         --libraries=${LIBRARY} \
         --transcriptome=${REF_DIR} \
-        --mempercore=${MEMPERCORE}\
+        --mempercore=${par_mempercode}\
         --expect-cells=${EXPECT_CELLS} \
         --jobmode=${SLURM_TEMPLATE} \
-        --r1-length ${R1LENGTH} \
-    2>&1|tee -a ${RUN_NAME}.$(date +%Y%m%d_%H%M).log   >  ${TEMPLOG}
+        --r1-length ${par_r1_length} \
+        2>&1|tee -a ${RUN_NAME}.$(date +%Y%m%d_%H%M).log   >  ${TEMPLOG}
+    fi
 else
-    cellranger count  \
-        --id=${RUN_NAME} \
-        --libraries=${LIBRARY} \
-        --transcriptome=${REF_DIR} \
-        --mempercore=${MEMPERCORE}\
-        --expect-cells=${EXPECT_CELLS} \
-        --jobmode=${SLURM_TEMPLATE} \
-    2>&1|tee -a ${RUN_NAME}.$(date +%Y%m%d_%H%M).log   >  ${TEMPLOG}
+    if [[  -n ${par_include_introns} ]]  && [[ ${par_include_introns} =~ yes ]]; then
+        cellranger count  \
+            --id=${RUN_NAME} \
+            --libraries=${LIBRARY} \
+            --transcriptome=${REF_DIR} \
+            --mempercore=${par_mempercode}\
+            --expect-cells=${EXPECT_CELLS} \
+            --jobmode=${SLURM_TEMPLATE} \
+            --include-introns \    
+            2>&1|tee -a ${RUN_NAME}.$(date +%Y%m%d_%H%M).log   >  ${TEMPLOG}
+    else        
+        cellranger count  \
+            --id=${RUN_NAME} \
+            --libraries=${LIBRARY} \
+            --transcriptome=${REF_DIR} \
+            --mempercore=${par_mempercode}\
+            --expect-cells=${EXPECT_CELLS} \
+            --jobmode=${SLURM_TEMPLATE} \
+            2>&1|tee -a ${RUN_NAME}.$(date +%Y%m%d_%H%M).log   >  ${TEMPLOG}
+    fi    
 fi 
 echo -e "The computation on  $(basename ${pwd_dir}) is done. "
 awk '/Pipestance/'  ${TEMPLOG}

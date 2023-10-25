@@ -25,10 +25,12 @@ par_paired_end_seq= TRUE
 # CellRanger counts pipeline parameters.
 ############################################################################
 ## path to reference genome
-REF_DIR_GRCH='/cvmfs/soft.mugqic/CentOS6/genomes/species/Homo_sapiens.GRCh38/genome/10xGenomics/refdata-cellranger-GRCh38-3.0.0'
+par_ref_dir_grch='/cvmfs/soft.mugqic/CentOS6/genomes/species/Homo_sapiens.GRCh38/genome/10xGenomics/refdata-cellranger-GRCh38-3.0.0'
 
-## Minimum number of bases to retain for R1 sequence of gene expression assay. If you want to use this parameter uncomment the line below and define your R1LENGTH.
-# R1LENGTH=20
+## Minimum number of bases to retain for R1 sequence of gene expression assay. If you want to use this parameter uncomment the line below and define your par_r1_length.
+# par_r1_length=20
 
 ## For clusters whose job managers do not support memory requests, it is possible to request memory in the form of cores. This option will scale up the number of threads requested via the MRO_THREADS variable according to how much memory a stage requires when given to the ratio of memory on your nodes.
-MEMPERCORE=30 
+par_mempercode=30 
+#
+par_include_introns="yes"

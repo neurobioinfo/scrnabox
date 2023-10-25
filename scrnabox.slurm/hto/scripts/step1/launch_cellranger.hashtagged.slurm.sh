@@ -85,7 +85,7 @@ pwd_dir=$(pwd)
 TEMPLOG=$OUTPUT_DIR/job_info/logs/step_1_$(basename ${pwd_dir}).log
 echo "CELL RANGER is currently running on $(basename ${pwd_dir}). Please leave it undisturbed until it finishes. "
 if [[  -n ${par_r1_length} ]]; then
-    if [[  -n ${par_include_introns} ]] [[ ${par_include_introns} =~ yes ]]; then
+    if [[ ${par_include_introns} =~ yes ]]; then
         cellranger count  \
             --id=${RUN_NAME} \
             --libraries=${LIBRARY} \
@@ -110,7 +110,7 @@ if [[  -n ${par_r1_length} ]]; then
             2>&1|tee -a ${RUN_NAME}.$(date +%Y%m%d_%H%M).log  >  ${TEMPLOG}
     fi    
 else
-    if [[  -n ${par_include_introns} ]] [[ ${par_include_introns} =~ yes ]]; then
+    if [[ ${par_include_introns} =~ yes ]]; then
         cellranger count  \
             --id=${RUN_NAME} \
             --libraries=${LIBRARY} \

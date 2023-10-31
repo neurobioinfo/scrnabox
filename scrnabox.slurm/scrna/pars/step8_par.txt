@@ -6,6 +6,13 @@ par_save_metadata= "yes"
 
 
 ############################################################################
+# If you already have a processed Seurat RDS object, and did not perform Step 7 of scRNAbox use this parameter to add the path to the Seurat object. 
+# Uncomment the line to activate the parameter
+############################################################################
+#par_seurat_object= "/path/to/seurat/object"
+
+
+############################################################################
 # Add metadata parameters
 ############################################################################
 ## Define the column from the Seurat object that you want to use to merge the new metadata
@@ -20,14 +27,23 @@ par_metadata= "/home/fiorini9/scratch/scrna_pipeline/standard_v1.38/pipeline/met
 # Choose which differential gene expression (DGE) methods you want to use for this submission
 ############################################################################
 ## Perform Wilcoxon DGE with all cells
-par_run_wilcoxon_all_cells= "no"
+par_run_cell_based_all_cells= "yes"
 
 ## Perform Wilcoxon DGE with cell type groups
-par_run_wilcoxon_celltype_groups= "no"
+par_run_cell_based_celltype_groups= "yes"
 
 ## Perform Pseudo-Bulk DGE with all cells
-par_run_pseudo_bulk_all_cells= "yes"
+par_run_sample_based_all_cells= "yes"
 
 ## Perform Pseudo-Bulk DGE with cell type groups
-par_run_pseudo_bulk_celltype_groups= "yes"
+par_run_sample_based_celltype_groups= "yes"
+
+
+############################################################################
+# Cell-replicate DGE parameters
+############################################################################
+## Which statistical method to use when computing DGE using individual cells as replicates
+par_statistical_method= "MAST"
+
+
 

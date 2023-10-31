@@ -2,19 +2,26 @@ site_name: scRNAbox
 site_url: https://neurobioinfo.github.io/
 nav:
     - Home: index.md
-    - Installation: installation.md
-    - Overview:
-        - '- Standard Analysis Track' : SCRNA.md
-        - '- Cell Hashtag Analysis Track' : HTO.md
-        - '- Job configurations' : config.md
-        - '- Execution parameters' : reference.md 
-        - '- Outputs': outputs.md
-        
+    - Pipeline:
+        - 'Installation' : installation.md
+        - 'Step 0: Set up' : Step0.md
+        - 'Step 1: FASTQ to expression matrix' : Step1.md
+        - 'Step 2: Seurat object and ambient RNA' : Step2.md
+        - 'Step 3: Quality control and filtering' : Step3.md
+        - 'Step 4: Doublet removal (standard)' : Step4.md
+        - 'Step 4: Demultiplexing (HTO)' : Step4HTO.md
+        - 'Step 5: Integration' : Step5.md
+        - 'Step 6: Clustering' : Step6.md
+        - 'Step 7: Cluster annotation' : Step7.md
+        - 'Step 8: Differential gene expression' : Step8.md
+    - Additional information:    
+        - 'Job configurations' : config.md
+        - 'Execution parameters' : reference.md 
+        - 'Outputs': outputs.md 
     - Tutorial:
-        - '- Standard Analysis: Midbrain dataset' : Dataset1.md
-        - '- Cell Hashtag Analysis: PBMC dataset' : Dataset2.md
-        - '- Processed Data' : PROC.md
-        - '- CellRanger library preparation' : library_prep.md
+        - 'scRNAbox analysis of midbrain dataset' : Dataset1.md
+        - 'Downloading the midbrain dataset' : midbrain_download.md
+        - 'Manual CellRanger library preparation' : library_prep.md
 
     - FAQ : FAQ.md        
            
@@ -24,3 +31,4 @@ nav:
         - '- Contributing': contributing.md
         - '- Acknowledgement': Acknowledgement.md
 theme: readthedocs
+

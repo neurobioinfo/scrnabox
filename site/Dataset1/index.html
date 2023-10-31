@@ -5,14 +5,14 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><link rel="canonical" href="https://neurobioinfo.github.io/Dataset1/" />
       <link rel="shortcut icon" href="../img/favicon.ico" />
-    <title>- Standard Analysis: Midbrain dataset - scRNAbox</title>
+    <title>scRNAbox analysis of midbrain dataset - scRNAbox</title>
     <link rel="stylesheet" href="../css/theme.css" />
     <link rel="stylesheet" href="../css/theme_extra.css" />
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
     
       <script>
         // Current page data
-        var mkdocs_page_name = "- Standard Analysis: Midbrain dataset";
+        var mkdocs_page_name = "scRNAbox analysis of midbrain dataset";
         var mkdocs_page_input_path = "Dataset1.md";
         var mkdocs_page_url = "/Dataset1/";
       </script>
@@ -43,34 +43,49 @@
                 <li class="toctree-l1"><a class="reference internal" href="..">Home</a>
                 </li>
               </ul>
+              <p class="caption"><span class="caption-text">Pipeline</span></p>
               <ul>
-                <li class="toctree-l1"><a class="reference internal" href="../installation/">Installation</a>
-                </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../installation/">Installation</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../Step0/">Step 0: Set up</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../Step1/">Step 1: FASTQ to expression matrix</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../Step2/">Step 2: Seurat object and ambient RNA</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../Step3/">Step 3: Quality control and filtering</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../Step4/">Step 4: Doublet removal (standard)</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../Step4HTO/">Step 4: Demultiplexing (HTO)</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../Step5/">Step 5: Integration</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../Step6/">Step 6: Clustering</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../Step7/">Step 7: Cluster annotation</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../Step8/">Step 8: Differential gene expression</a>
+                  </li>
               </ul>
-              <p class="caption"><span class="caption-text">Overview</span></p>
+              <p class="caption"><span class="caption-text">Additional information</span></p>
               <ul>
-                  <li class="toctree-l1"><a class="reference internal" href="../SCRNA/">- Standard Analysis Track</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../config/">Job configurations</a>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../HTO/">- Cell Hashtag Analysis Track</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../reference/">Execution parameters</a>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../config/">- Job configurations</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../reference/">- Execution parameters</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../outputs/">- Outputs</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../outputs/">Outputs</a>
                   </li>
               </ul>
               <p class="caption"><span class="caption-text">Tutorial</span></p>
               <ul class="current">
-                  <li class="toctree-l1 current"><a class="reference internal current" href="./">- Standard Analysis: Midbrain dataset</a>
+                  <li class="toctree-l1 current"><a class="reference internal current" href="./">scRNAbox analysis of midbrain dataset</a>
     <ul class="current">
     </ul>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../Dataset2/">- Cell Hashtag Analysis: PBMC dataset</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../midbrain_download/">Downloading the midbrain dataset</a>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../PROC/">- Processed Data</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../library_prep/">- CellRanger library preparation</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../library_prep/">Manual CellRanger library preparation</a>
                   </li>
               </ul>
               <ul>
@@ -103,7 +118,7 @@
   <ul class="wy-breadcrumbs">
     <li><a href=".." class="icon icon-home" aria-label="Docs"></a> &raquo;</li>
           <li>Tutorial &raquo;</li>
-      <li class="breadcrumb-item active">- Standard Analysis: Midbrain dataset</li>
+      <li class="breadcrumb-item active">scRNAbox analysis of midbrain dataset</li>
     <li class="wy-breadcrumbs-aside">
     </li>
   </ul>
@@ -112,7 +127,7 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
             <div class="section" itemprop="articleBody">
               
-                <h2 id="application-case-1-standard-scrnaseq-analysis-track-of-scrnabox">Application Case 1: Standard scRNAseq Analysis Track of scRNAbox</h2>
+                <h2 id="scrnabox-analysis-of-the-midbrain-dataset">ScRNAbox analysis of the midbrain dataset</h2>
 <h2 id="contents">Contents</h2>
 <ul>
 <li><a href="#introduction">Introduction</a></li>
@@ -150,278 +165,39 @@
 </ul>
 <hr />
 <h2 id="introduction">Introduction</h2>
-<p>This guide illustrates the steps taken for Application Case 1 in our pre-print manuscript. Here, we are using the Standard scRNAseq Analysis Track of scRNAbox to analyze a publicly available scRNAseq dataset produced by <a href="https://academic.oup.com/brain/article/145/3/964/6469020">Smajic et al.</a>. This data set (referred to as the midbrain dataset in the manuscript) describes &gt;41,000 single-nuclei transcriptomes from the post-mortem midbrains of five individuals with Parkinson’s disease (PD) and six controls sequenced separately. </p>
+<p>This guide illustrates the steps taken to analyze the midbrain dataset (<a href="https://academic.oup.com/brain/article/145/3/964/6469020">Smajic et al. 2022</a>) that was presented in our <a href="">pre-print manuscript</a>. This dataset describes single-nuclei transcriptomes from the post-mortem midbrains of five individuals with Parkinson’s disease (PD) and six controls sequenced separately. </p>
 <hr />
-<h2 id="downloading-the-midbrain-dataset">Downloading the midbrain dataset</h2>
-<p>The scRNAseq data produced by <a href="https://academic.oup.com/brain/article/145/3/964/6469020">Smajic et al.</a> is publicly available in the Gene Expression Omnibus with accession code <a href="https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE157783">GSE157783</a>. To download the data, we must first install SRAtoolkit (if this is not already installed on your High-Performance Computing (HPC) system). We will create a directory for our raw data and download SRAtoolkit with the following code:</p>
-<pre><code>mkdir data_download
-cd data_download
-wget --output-document sratoolkit.tar.gz https://ftp-trace.ncbi.nlm.nih.gov/sra/sdk/current/sratoolkit.current-ubuntu64.tar.gz
-tar -vxzf sratoolkit.tar.gz
-export PATH=$PATH:$PWD/sratoolkit.3.0.5-ubuntu64/bin
-</code></pre>
-<p>For more information regarding the SRAtoolkit, please visit the <a href="https://github.com/ncbi/sra-tools/wiki">documentation</a>.</p>
-<p>The Sequence Read Archive (SRA) run identifiers for each of the 11 samples in the midbrain dataset are:</p>
-<table>
-<thead>
-<tr>
-<th style="text-align: left;">Sample</th>
-<th style="text-align: left;">SRR</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align: left;">PD1</td>
-<td style="text-align: left;">SRR12621862</td>
-</tr>
-<tr>
-<td style="text-align: left;">PD2</td>
-<td style="text-align: left;">SRR12621863</td>
-</tr>
-<tr>
-<td style="text-align: left;">PD3</td>
-<td style="text-align: left;">SRR12621864</td>
-</tr>
-<tr>
-<td style="text-align: left;">PD4</td>
-<td style="text-align: left;">SRR12621865</td>
-</tr>
-<tr>
-<td style="text-align: left;">PD5</td>
-<td style="text-align: left;">SRR12621866</td>
-</tr>
-<tr>
-<td style="text-align: left;">CTRL1</td>
-<td style="text-align: left;">SRR12621867</td>
-</tr>
-<tr>
-<td style="text-align: left;">CTRL2</td>
-<td style="text-align: left;">SRR12621868</td>
-</tr>
-<tr>
-<td style="text-align: left;">CTRL3</td>
-<td style="text-align: left;">SRR12621869</td>
-</tr>
-<tr>
-<td style="text-align: left;">CTRL4</td>
-<td style="text-align: left;">SRR12621870</td>
-</tr>
-<tr>
-<td style="text-align: left;">CTRL5</td>
-<td style="text-align: left;">SRR12621871</td>
-</tr>
-<tr>
-<td style="text-align: left;">CTRL6</td>
-<td style="text-align: left;">SRR12621872</td>
-</tr>
-</tbody>
-</table>
-<p><strong>Note</strong>: If you simply want to test scRNAbox's Standard scRNAseq Analysis Track, it may be best to only incorportate a subset of samples in a test run, as using all 11 samples will take substantially longer. In this case, we suggest including at least three PD sample and three control to facilitate differential gene expression (DGE) contrasts in Step 8. </p>
-<p>To download the FASTQ files for all 11 samples, run the following code. Please note that this may take a very long time. </p>
-<pre><code>export PATH=$PATH:$PWD/sratoolkit.3.0.5-ubuntu64/bin
-module load StdEnv/2020 gcc/9.3.0
-module load sra-toolkit/3.0.0 
-
-#PD1
-prefetch SRR12621862 
-fasterq-dump SRR12621862 
-
-#PD2
-prefetch SRR12621863 
-fasterq-dump SRR12621863  
-
-#PD3
-prefetch SRR12621864 
-fasterq-dump SRR12621864  
-
-#PD4
-prefetch SRR12621865 
-fasterq-dump SRR12621865  
-
-#PD5
-prefetch SRR12621866 
-fasterq-dump SRR12621866 
-
-#CTRL1
-prefetch SRR12621867 
-fasterq-dump SRR12621867 
-
-#CTRL2
-prefetch SRR12621868 
-fasterq-dump SRR12621868  
-
-#CTRL3
-prefetch SRR12621869 
-fasterq-dump SRR12621869  
-
-#CTRL4
-prefetch SRR12621870 
-fasterq-dump SRR12621870  
-
-#CTRL5
-prefetch SRR12621871 
-fasterq-dump SRR12621871  
-
-#CTRL6
-prefetch SRR12621872
-fasterq-dump SRR12621872 
-</code></pre>
-<p>If the FASTQ files for all 11 samples have been downloaded properly, the <code>data_download</code> folder should contain the following:</p>
-<pre><code>data_download
-├── SRR12621862
-│   └── SRR12621862.sra
-├── SRR12621862_1.fastq
-├── SRR12621862_2.fastq
-├── SRR12621863
-│   └── SRR12621863.sra
-├── SRR12621863_1.fastq
-├── SRR12621863_2.fastq
-├── SRR12621864
-│   └── SRR12621864.sra
-├── SRR12621864_1.fastq
-├── SRR12621864_2.fastq
-├── SRR12621865
-│   └── SRR12621865.sra
-├── SRR12621865_1.fastq
-├── SRR12621865_2.fastq
-├── SRR12621866
-│   └── SRR12621866.sra
-├── SRR12621866_1.fastq
-├── SRR12621866_2.fastq
-├── SRR12621867
-│   └── SRR12621867.sra
-├── SRR12621867_1.fastq
-├── SRR12621867_2.fastq
-├── SRR12621868
-│   └── SRR12621868.sra
-├── SRR12621868_1.fastq
-├── SRR12621868_2.fastq
-├── SRR12621869
-│   └── SRR12621869.sra
-├── SRR12621869_1.fastq
-├── SRR12621869_2.fastq
-├── SRR12621870
-│   └── SRR12621870.sra
-├── SRR12621870_1.fastq
-├── SRR12621870_2.fastq
-├── SRR12621871
-│   └── SRR12621871.sra
-├── SRR12621871_1.fastq
-├── SRR12621871_2.fastq
-├── SRR12621872
-│   └── SRR12621872.sra
-├── SRR12621872_1.fastq
-└── SRR12621872_2.fastq
-</code></pre>
-<p>Next, we will rename the FASTQ files according to the CellRanger nomenclature and transfer the FASTQ files to a folder named <code>fastqs</code>. For more information regarding the nomeclature required by the CellRanger <em>counts</em> pipeline, please visit CellRanger's <a href="https://support.10xgenomics.com/single-cell-gene-expression/software/pipelines/latest/using/fastq-input">documentation</a>.</p>
-<p><strong>Note</strong>: The <code>fastqs</code> folder should only contain FASTQ files for the experiment.</p>
-<pre><code>mkdir fastqs
-
-#PD1
-cp ~/data_download/SRR12621862_1.fastq ~/fastqs/PD1_S1_L001_R1_001.fastq
-cp ~/data_download/SRR12621862_2.fastq ~/fastqs/PD1_S1_L001_R2_001.fastq
-
-#PD2
-cp ~/data_download/SRR12621863_1.fastq ~/fastqs/PD2_S1_L001_R1_001.fastq
-cp ~/data_download/SRR12621863_2.fastq ~/fastqs/PD2_S1_L001_R2_001.fastq
-
-#PD3
-cp ~/data_download/SRR12621864_1.fastq ~/fastqs/PD3_S1_L001_R1_001.fastq
-cp ~/data_download/SRR12621864_2.fastq ~/fastqs/PD3_S1_L001_R2_001.fastq
-
-#PD4
-cp ~/data_download/SRR12621865_1.fastq ~/fastqs/PD4_S1_L001_R1_001.fastq
-cp ~/data_download/SRR12621865_2.fastq ~/fastqs/PD4_S1_L001_R2_001.fastq
-
-#PD5
-cp ~/data_download/SRR12621866_1.fastq ~/fastqs/PD5_S1_L001_R1_001.fastq
-cp ~/data_download/SRR12621866_2.fastq ~/fastqs/PD5_S1_L001_R2_001.fastq
-
-#Ctrl1
-cp ~/data_download/SRR12621867_1.fastq ~/fastqs/CTRL1_S1_L001_R1_001.fastq
-cp ~/data_download/SRR12621867_2.fastq ~/fastqs/CTRL1_S1_L001_R2_001.fastq
-
-#Ctrl2
-cp ~/data_download/SRR12621868_1.fastq ~/fastqs/CTRL2_S1_L001_R1_001.fastq
-cp ~/data_download/SRR12621868_2.fastq ~/fastqs/CTRL2_S1_L001_R2_001.fastq
-
-#Ctrl3
-cp ~/data_download/SRR12621869_1.fastq ~/fastqs/CTRL3_S1_L001_R1_001.fastq
-cp ~/data_download/SRR12621869_2.fastq ~/fastqs/CTRL3_S1_L001_R2_001.fastq
-
-#Ctrl4
-cp ~/data_download/SRR12621870_1.fastq ~/fastqs/CTRL4_S1_L001_R1_001.fastq
-cp ~/data_download/SRR12621870_2.fastq ~/fastqs/CTRL4_S1_L001_R2_001.fastq
-
-#Ctrl5
-cp ~/data_download/SRR12621871_1.fastq ~/fastqs/CTRL5_S1_L001_R1_001.fastq
-cp ~/data_download/SRR12621871_2.fastq ~/fastqs/CTRL5_S1_L001_R2_001.fastq
-
-#Ctrl6
-cp ~/data_download/SRR12621872_1.fastq ~/fastqs/CTRL6_S1_L001_R1_001.fastq
-cp ~/data_download/SRR12621872_2.fastq ~/fastqs/CTRL6_S1_L001_R2_001.fastq
-</code></pre>
-<p>If the above steps were conducted properly, the <code>fastqs</code> folder should contain the following files:</p>
-<pre><code>├── CTRL1_S1_L001_R1_001.fastq
-├── CTRL1_S1_L001_R2_001.fastq
-├── CTRL2_S1_L001_R1_001.fastq
-├── CTRL2_S1_L001_R2_001.fastq
-├── CTRL3_S1_L001_R1_001.fastq
-├── CTRL3_S1_L001_R2_001.fastq
-├── CTRL4_S1_L001_R1_001.fastq
-├── CTRL4_S1_L001_R2_001.fastq
-├── CTRL5_S1_L001_R1_001.fastq
-├── CTRL5_S1_L001_R2_001.fastq
-├── CTRL6_S1_L001_R1_001.fastq
-├── CTRL6_S1_L001_R2_001.fastq
-├── PD1_S1_L001_R1_001.fastq
-├── PD1_S1_L001_R2_001.fastq
-├── PD2_S1_L001_R1_001.fastq
-├── PD2_S1_L001_R2_001.fastq
-├── PD3_S1_L001_R1_001.fastq
-├── PD3_S1_L001_R2_001.fastq
-├── PD4_S1_L001_R1_001.fastq
-├── PD4_S1_L001_R2_001.fastq
-├── PD5_S1_L001_R1_001.fastq
-└── PD5_S1_L001_R2_001.fastq
-</code></pre>
+<h2 id="downlaoding-the-midbrain-dataset">Downlaoding the midbrain dataset</h2>
+<p>In you want to use the midbrain dataset to test the scRNAbox pipeline, please see <a href="../midbrain_download/">here</a> for detialed instructions on how to download the publicly available data.</p>
 <hr />
 <h2 id="installation">Installation</h2>
 <h4 id="scrnaboxslurm-installation">scrnabox.slurm installation</h4>
-<p>Now that the raw data has been downloaded and organized, we can install the latest version of <code>scrnabox.slurm</code> (v0.135):</p>
+<p>To download the latest version of <code>scrnabox.slurm</code> (v0.1.35) run the following command: </p>
 <pre><code>wget https://github.com/neurobioinfo/scrnabox/releases/download/v0.1.35/scrnabox.slurm.zip
 unzip scrnabox.slurm.zip
 </code></pre>
 <p>For a description of the options for running <code>scrnabox.slurm</code> run the following command:</p>
-<pre><code>export SCRNABOX_HOME=~/scrnabox/scrnabox.slurm
-bash $SCRNABOX_HOME/launch_scrnabox.sh -h 
+<pre><code>bash /pathway/to/scrnabox.slurm/launch_scrnabox.sh -h 
 </code></pre>
-<p>If the pipeline has been installed properly, the above command should return the folllowing:</p>
+<p>If the <code>scrnabox.slurm</code> has been installed properly, the above command should return the folllowing:</p>
 <pre><code>        mandatory arguments:
                 -d  (--dir)  = Working directory (where all the outputs will be printed) (give full path)
                 --steps  =  Specify what steps, e.g., 2 to run just step 2, 2-4, run steps 2 through 4)
 
         optional arguments:
-                -h  (--help)  = See helps regarding the pipeline options. 
-                --method  = Choose what scRNA method you want to use; use HTO  and SCRNA for for hashtag nad Standard scRNA, respectively. 
-                --nFeature_RNA_L  = Lower threshold of number of unique RNA transcripts for each cell, it filters nFeature_RNA &gt; nFeature_RNA_L.  
-                --nFeature_RNA_U  = Upper threshold of number of unique RNA transcripts for each cell, it filters --nFeature_RNA_U.  
-                --nCount_RNA_L  = Lower threshold for nCount_RNA, it filters nCount_RNA &gt; nCount_RNA_L   
-                --nCount_RNA_U  = Upper threshold for  nCount_RNA, it filters nCount_RNA &lt; nCount_RNA_U  
-                --mitochondria_percent_L  = Lower threshold for the amount of mitochondrial transcript, it is in percent, mitochondria_percent &gt; mitochondria_percent_L. 
-                --mitochondria_percent_U  = Upper threshold for the amount of mitochondrial transcript, it is in percent, mitochondria_percent &lt; mitochondria_percent_U. 
-                --log10GenesPerUMI_U  = Upper threshold for the log number of genes per UMI for each cell, it is in percent,log10GenesPerUMI=log10(nFeature_RNA)/log10(nCount_RNA). mitochondria_percent &lt; log10GenesPerUMI_U. 
-                --log10GenesPerUMI_L  = Lower threshold for the log number of genes per UMI for each cell, log10GenesPerUMI=log10(nFeature_RNA)/log10(nCount_RNA). mitochondria_percent &gt; log10GenesPerUMI_L.  
-                --msd  = you can get the hashtag labels by running the following code 
-                --marker  = Find marker. 
-                --sinfo  = Do you need sample info? 
-                --fta  = FindTransferAnchors 
-                --enrich  = Annotation 
-                --dgelist  = creates a DGEListobject from a table of counts obtained from seurate objects. 
-                --genotype  = Run the genotype contrast. 
-                --celltype  = Run the Genotype-cell contrast. 
-                --cont  = You can directly call the contrast to the pipeline.  
-                --seulist                = You can directly call the list of seurat objects to the pipeline. 
+                -h  (--help)  = See helps regarding the pipeline arguments. 
+                --method  = Select your preferred method: HTO and SCRNA for hashtag, and Standard scRNA, respectively. 
+                --msd  = You can get the hashtag labels by running the following code 
+                --markergsea  = Identify marker genes for each cluster and run marker gene set enrichment analysis (GSEA) using EnrichR libraries. 
+                --knownmarkers  = Run module score and visualize the expression of known cell type marker genes. 
+                --referenceannotation  = Run module score and visualize the expression of known cell type marker genes. 
+                --annotate  = Run module score and visualize the expression of known cell type marker genes. 
+                --addmeta  = Add metadata columns to the Seurat object 
+                --rundge  = Perform differential gene expression contrasts 
+                --seulist  = You can directly call the list of seurat objects to the pipeline.  
+
+ ------------------- 
+ For a comprehensive help, visit https://github.com/neurobioinfo/scrnabox for documentation.
 </code></pre>
 <hr />
 <h4 id="cellranger-installation">CellRanger installation</h4>
@@ -430,59 +206,23 @@ bash $SCRNABOX_HOME/launch_scrnabox.sh -h
 <hr />
 <h4 id="r-library-preparation-and-r-package-installation">R library preparation and R package installation</h4>
 <p>We must prepapre a common R library where we will load all of the required R packages. If the required R packages are already installed on your HPC system in a common R library, you may skip the following procedures. 
-First, we will creat an <code>R</code> folder and download our desired R version. The analyses presented in our pre-print manuscript were conducted using R v4.2.1</p>
-<pre><code>#make common R library
-mkdir R_library
-cd R_library
-
-#install and open R in the terminal
+<br /></p>
+<p>We will first install <code>R</code>. The analyses presented in our <a href="">pre-print manuscript</a> were conducted using v4.2.1.</p>
+<pre><code># install R
 module load r/4.2.1
-R
-
-#set common R library path
-R_LIB_PATH=&quot;~/R_library&quot;
-.libPaths(R_LIB_PATH)
-
-library(Seurat)
-library(ggplot2)
-library(dplyr)
-library(foreach)
-library(doParallel)
-library(Matrix)
-library(DoubletFinder)
-library(cowplot)
-library(clustree)
-library(xlsx)
-library(enrichR)
-library(stringi)
-library(limma)
-library(tidyverse)
-library(edgeR)
-library(vctrs)
-library(RColorBrewer)
-library(fossil)
-library(openxlsx)
-library(stringr)
-library(ggpubr)
-library(SoupX)
-library(MatrixGenerics)
-library(BiocGenerics)
-library(S4Vectors)
-library(IRanges)
-library(GenomeInfoDb)
-library(GenomicRanges)
-library(Biobase)
-library(SummarizedExperiment)
-library(SingleCellExperiment)
-library(DropletUtils)  
-library(stringr)
-devtools::install_github(“neurobioinfo/scrnabox/scrnaboxR”)
 </code></pre>
-<p><strong>Saeid, is there a way to automatically load these packages when scrnaboxR is installed?</strong></p>
+<p>Then, we will run the installation code, which creates a directory where the R packages will be loaded and will install the required R packages:</p>
+<pre><code># Folder for R packages 
+R_PATH=~/path/to/R/library
+mkdir -p $R_PATH
+
+# Install package
+Rscript ./scrnabox.slurm/soft/R/install_packages_scrnabox.R $R_PATH
+</code></pre>
 <hr />
-<h2 id="scrnabox-standard-analysis-track">scRNAbox: Standard Analysis Track</h2>
+<h2 id="scrnabox-pipeline">scRNAbox pipeline</h2>
 <h3 id="step-0-pipeline-initiation">Step 0: Pipeline initiation</h3>
-<p>Now that <code>scrnabox.slurm</code>, <code>CellRanger</code>, <code>R</code>, and the Required R packages have been installed, we can proceed to our analysis with the Standard scRNAseq Analysis Track of the scRNAbox pipeline. We will create a <code>pipeline</code> folder designated for the analysis and run the pipeline initiation Step using the following code:</p>
+<p>Now that <code>scrnabox.slurm</code>, <code>CellRanger</code>, <code>R</code>, and the Required R packages have been installed, we can proceed to our analysis with the scRNAbox pipeline. We will create a <code>pipeline</code> folder designated for the analysis and run Step 0, selecting the standard analysis track (<code>--method SCRNA</code>), using the following code:</p>
 <pre><code>mkdir pipeline
 cd pipeline
 
@@ -504,7 +244,7 @@ R_LIB_PATH=~/R
 </code></pre>
 <hr />
 <h3 id="step-1-fastq-to-gene-expression-matrix">Step 1: FASTQ to gene expression matrix</h3>
-<p>In this Step, we will run the CellRanger <em>counts</em> pipeline to generate feature-barcode expression matrices from the FASTQ files. While it is possible to manually prepare the <code>library.csv</code> files for each of the 11 samples in the experiment prior to running Step 1, for this analysis we are going to opt for automated library preparation. For more information regarding the manual prepartion of <code>library.csv</code> files, please see the the <a href="../library_prep/">CellRanger library preparation</a> tutorial. <br /> 
+<p>In Step 1, we will run the CellRanger <em>counts</em> pipeline to generate feature-barcode expression matrices from the FASTQ files. While it is possible to manually prepare the <code>library.csv</code> files for each of the 11 samples in the experiment prior to running Step 1, for this analysis we are going to opt for automated library preparation. For more information regarding the manual prepartion of <code>library.csv</code> files, please see the the <a href="../library_prep/">CellRanger library preparation</a> tutorial. <br /> 
 <br /> 
 For our analysis of the midbrain dataset we set the following execution parameters for Step 1 (<code>~/pipeline/job_info/parameters/step1_par.txt</code>):</p>
 <table>
@@ -521,7 +261,7 @@ For our analysis of the midbrain dataset we set the following execution paramete
 </tr>
 <tr>
 <td style="text-align: left;">par_fastq_directory</td>
-<td style="text-align: left;">~/fastqs</td>
+<td style="text-align: left;">/path/to/directory/with/fastqs</td>
 </tr>
 <tr>
 <td style="text-align: left;">par_sample_names</td>
@@ -540,20 +280,24 @@ For our analysis of the midbrain dataset we set the following execution paramete
 <td style="text-align: left;">TRUE</td>
 </tr>
 <tr>
-<td style="text-align: left;">REF_DIR_GRCH</td>
+<td style="text-align: left;">par_ref_dir_grch</td>
 <td style="text-align: left;">~/genome/10xGenomics/refdata-cellranger-GRCh38-3.0.0</td>
 </tr>
 <tr>
-<td style="text-align: left;">R1LENGTH</td>
+<td style="text-align: left;">par_r1_length</td>
 <td style="text-align: left;">NULL</td>
 </tr>
 <tr>
-<td style="text-align: left;">MEMPERCORE</td>
+<td style="text-align: left;">par_include_introns</td>
+<td style="text-align: left;">NULL</td>
+</tr>
+<tr>
+<td style="text-align: left;">par_mempercode</td>
 <td style="text-align: left;">30</td>
 </tr>
 </tbody>
 </table>
-<p><strong>Note:</strong> The parameters file for each Analytical Step is located in <code>~/pipeline/job_info/parameters</code>. For a comprehensive description of the execution parameters for each Analytical Step see the <a href="../reference/">Execution parameters</a> section of the scRNAbox documentation. </p>
+<p><strong>Note:</strong> The parameters file for each step is located in <code>~/pipeline/job_info/parameters</code>. For a comprehensive description of the execution parameters for each see see <a href="../reference/">here</a>. </p>
 <p>Given that CellRanger runs a user interface and is not submitted as a Job, it is recommended to run Step 1 in a <strong>'screen'</strong> which will allow the the task to keep running if the connection is broken. To run Step 1, use the following command:</p>
 <pre><code>export SCRNABOX_HOME=~/scrnabox/scrnabox.slurm
 export SCRNABOX_PWD=~/pipeline
@@ -563,12 +307,12 @@ bash $SCRNABOX_HOME/launch_scrnabox.sh \
 -d ${SCRNABOX_PWD} \
 --steps 1
 </code></pre>
-<p>The outputs of the CellRanger <em>counts</em> pipeline are deposited into <code>~/pipeline/step1</code>. The expression matrix, features, and barcode files outputed by CellRanger are located in <code>~/pipeline/step1/run/ouput_folder/outs/raw_feature_bc_matrix</code>.</p>
+<p>The outputs of the CellRanger <em>counts</em> pipeline are deposited into <code>~/pipeline/step1</code>.</p>
 <hr />
 <h3 id="step-2-create-seurat-object-and-remove-ambient-rna">Step 2: Create Seurat object and remove ambient RNA</h3>
-<p>In this Step, we are going to use the CellRanger-generated feature-barcode matrices to produce unique Seurat objects for each of the 11 samples. Ambient RNA detection and removal is optional for this Step; however, because <a href="https://academic.oup.com/brain/article/145/3/964/6469020">Smajic et al.</a> did not perform this analytical procedure we will skip it. We will retain genes that were detected in at least three cells and cells that expressed at least 1000 genes. <br /> 
-<br /> 
-For our analysis of the midbrain dataset we set the following execution parameters for Step 2 (<code>~/pipeline/job_info/parameters/step2_par.txt</code>):</p>
+<p>In Step 2, we are going to use the CellRanger-generated feature-barcode matrices to produce unique Seurat objects for each of the 11 samples. Ambient RNA detection and removal is optional for this step; however, because <a href="https://academic.oup.com/brain/article/145/3/964/6469020">Smajic et al.</a> did not perform this analytical procedure we will skip it. 
+<br /> </p>
+<p>For our analysis of the midbrain dataset we set the following execution parameters for Step 2 (<code>~/pipeline/job_info/parameters/step2_par.txt</code>):</p>
 <table>
 <thead>
 <tr>
@@ -2112,8 +1856,8 @@ bash $SCRNABOX_HOME/launch_scrnabox.sh \
             </div>
           </div><footer>
     <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
-        <a href="../outputs/" class="btn btn-neutral float-left" title="- Outputs"><span class="icon icon-circle-arrow-left"></span> Previous</a>
-        <a href="../Dataset2/" class="btn btn-neutral float-right" title="- Cell Hashtag Analysis: PBMC dataset">Next <span class="icon icon-circle-arrow-right"></span></a>
+        <a href="../outputs/" class="btn btn-neutral float-left" title="Outputs"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../midbrain_download/" class="btn btn-neutral float-right" title="Downloading the midbrain dataset">Next <span class="icon icon-circle-arrow-right"></span></a>
     </div>
 
   <hr/>
@@ -2139,7 +1883,7 @@ bash $SCRNABOX_HOME/launch_scrnabox.sh \
       <span><a href="../outputs/" style="color: #fcfcfc">&laquo; Previous</a></span>
     
     
-      <span><a href="../Dataset2/" style="color: #fcfcfc">Next &raquo;</a></span>
+      <span><a href="../midbrain_download/" style="color: #fcfcfc">Next &raquo;</a></span>
     
   </span>
 </div>

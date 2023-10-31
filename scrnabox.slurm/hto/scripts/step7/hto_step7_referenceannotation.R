@@ -21,17 +21,32 @@ lapply(packages, library, character.only = TRUE)
 ## load parameters
 source(paste(output_dir,'/job_info/parameters/step7_par.txt',sep=""))
 
+################### import the right Seurat object ###################
+## load name of existing Seurat objects
+#sample_name<-list.files(path = paste(output_dir, "/step6/objs6",sep=""),pattern = "*.rds")
+
+#if(file.exists(paste(output_dir,'/step7/objs7/','seu_step7.rds', sep = ""))){
+#    seu_int<-readRDS(paste(output_dir,'/step7/objs7/','seu_step7.rds', sep=''))
+#else{
+#    seu_int<-readRDS(paste(output_dir,'/step6/objs6/',sample_name, sep=''))
+#}
+################### ############################## ###################
 
 ################### import the right Seurat object ###################
 ## load name of existing Seurat objects
 sample_name<-list.files(path = paste(output_dir, "/step6/objs6",sep=""),pattern = "*.rds")
 
-if(file.exists(paste(output_dir,'/step7/objs7/','seu_step7.rds', sep = ""))){
-    seu_int<-readRDS(paste(output_dir,'/step7/objs7/','seu_step7.rds', sep=''))
+if (exists("par_seurat_object")) {                                                   
+    seu_int<-readRDS(par_seurat_object)
 }else{
-    seu_int<-readRDS(paste(output_dir,'/step6/objs6/',sample_name, sep=''))
+    if(file.exists(paste(output_dir,'/step7/objs7/','seu_step7.rds', sep = ""))){
+        seu_int<-readRDS(paste(output_dir,'/step7/objs7/','seu_step7.rds', sep=''))
+    }else{
+        seu_int<-readRDS(paste(output_dir,'/step6/objs6/',sample_name, sep=''))
+    }
 }
 ################### ############################## ###################
+
 
 ## set output directory
 PWD=paste(output_dir,'/step7/objs7/', sep='')
@@ -100,10 +115,11 @@ df <- df[, (colnames(df) %in% keep_list)]
 df_summary <- table(df[,1], df[,2])
 df_summary <- data.frame(df_summary)
 colnames(df_summary) <- c("cluster", "cell_type", "number_of_cells")
-
+    
 if(file.exists(paste(output_dir,'/step7/info7/reference_based_annotation/',par_reference_name, '_prediction_summary.xlsx', sep=""))){
 file.remove(paste(output_dir,'/step7/info7/reference_based_annotation/',par_reference_name, '_prediction_summary.xlsx', sep=""))
 }
+    
 write.xlsx(df_summary, file=paste(output_dir,'/step7/info7/reference_based_annotation/',par_reference_name, '_prediction_summary.xlsx', sep=""),row.names=FALSE)
 
 ## save RNA expression matrix
@@ -122,4 +138,3 @@ writeLines(capture.output(sessionInfo()), paste(output_dir,'/step7/info7/session
 if(file.exists("Rplots.pdf")){
     file.remove("Rplots.pdf")
 }
-

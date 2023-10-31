@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><link rel="canonical" href="https://neurobioinfo.github.io/Step4/" />
+      <link rel="shortcut icon" href="../img/favicon.ico" />
+    <title>Step 4: Doublet removal (standard) - scRNAbox</title>
+    <link rel="stylesheet" href="../css/theme.css" />
+    <link rel="stylesheet" href="../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "Step 4: Doublet removal (standard)";
+        var mkdocs_page_input_path = "Step4.md";
+        var mkdocs_page_url = "/Step4/";
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href=".." class="icon icon-home"> scRNAbox
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="..">Home</a>
+                </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Pipeline</span></p>
+              <ul class="current">
+                  <li class="toctree-l1"><a class="reference internal" href="../installation/">Installation</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../Step0/">Step 0: Set up</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../Step1/">Step 1: FASTQ to expression matrix</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../Step2/">Step 2: Seurat object and ambient RNA</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../Step3/">Step 3: Quality control and filtering</a>
+                  </li>
+                  <li class="toctree-l1 current"><a class="reference internal current" href="./">Step 4: Doublet removal (standard)</a>
+    <ul class="current">
+    </ul>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../Step4HTO/">Step 4: Demultiplexing (HTO)</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../Step5/">Step 5: Integration</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../Step6/">Step 6: Clustering</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../Step7/">Step 7: Cluster annotation</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../Step8/">Step 8: Differential gene expression</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Additional information</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../config/">Job configurations</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../reference/">Execution parameters</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../outputs/">Outputs</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Tutorial</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../Dataset1/">scRNAbox analysis of midbrain dataset</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../midbrain_download/">Downloading the midbrain dataset</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../library_prep/">Manual CellRanger library preparation</a>
+                  </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../FAQ/">FAQ</a>
+                </li>
+              </ul>
+              <p class="caption"><span class="caption-text">About</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../LICENSE/">- License</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../changelog/">- Changelog</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../contributing/">- Contributing</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../Acknowledgement/">- Acknowledgement</a>
+                  </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="..">scRNAbox</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href=".." class="icon icon-home" aria-label="Docs"></a> &raquo;</li>
+          <li>Pipeline &raquo;</li>
+      <li class="breadcrumb-item active">Step 4: Doublet removal (standard)</li>
+    <li class="wy-breadcrumbs-aside">
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="step-4-doublet-removal-standard-track">Step 4: Doublet removal (standard track)</h1>
+<p>In Step 4 of the standard analysis track, doublets (barcodes produced by sequencing two or more cells) are identified and optionally removed from downstream analysis using the DoubletFinder tool (<a href="https://www.cell.com/cell-systems/pdfExtended/S2405-4712(19)30073-0">McGinnis et al. 2019</a>). </p>
+<hr />
+<p>The following parameters are adjustable for Step 4 of the standard track (<code>~/working_directory/job_info/parameters/step4_par.txt</code>):</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Parameter</th>
+<th style="text-align: left;">Default</th>
+<th style="text-align: left;">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">par_save_RNA</td>
+<td style="text-align: left;">No</td>
+<td style="text-align: left;">Whether or not to export an RNA expression matrix</td>
+</tr>
+<tr>
+<td style="text-align: left;">par_save_metadata</td>
+<td style="text-align: left;">No</td>
+<td style="text-align: left;">Whether or not to export a metadata dataframe</td>
+</tr>
+<tr>
+<td style="text-align: left;">par_seurat_object</td>
+<td style="text-align: left;">NULL</td>
+<td style="text-align: left;">If users already have a Seurat object(s), they may provide the path to a directory that contains an existing Seurat object(s) to initiate the pipeline at Step 4</td>
+</tr>
+<tr>
+<td style="text-align: left;">par_RunUMAP_dims</td>
+<td style="text-align: left;">10</td>
+<td style="text-align: left;">Number of dimensions to use as input features for uniform manifold approximation and projection (UMAP)</td>
+</tr>
+<tr>
+<td style="text-align: left;">par_RunUMAP_n.neighbors</td>
+<td style="text-align: left;">65</td>
+<td style="text-align: left;">Number of neighboring points used in local approximations of manifold structure</td>
+</tr>
+<tr>
+<td style="text-align: left;">par_dropDN</td>
+<td style="text-align: left;">Yes</td>
+<td style="text-align: left;">Whether or not to remove predicted doublets from downstream analyses</td>
+</tr>
+<tr>
+<td style="text-align: left;">par_PCs</td>
+<td style="text-align: left;">20</td>
+<td style="text-align: left;">The number of statistically significant principal components. Can be informed by elbow plot produced in Step 3</td>
+</tr>
+<tr>
+<td style="text-align: left;">par_pN</td>
+<td style="text-align: left;">0.25</td>
+<td style="text-align: left;">The number of artificial doublets to generate. DoubletFinderr is largely invariant to this parameter. We suggest keeping 0.25</td>
+</tr>
+<tr>
+<td style="text-align: left;">par_sct</td>
+<td style="text-align: left;">FALSE</td>
+<td style="text-align: left;">Logical representing whether SCTransform was used during original Seurat object pre-processing</td>
+</tr>
+<tr>
+<td style="text-align: left;">par_sample_names</td>
+<td style="text-align: left;">NULL</td>
+<td style="text-align: left;">A list of sample names for each sample in the experiement, corresponding to the expected doublet rates listed in the parameter below. Sample names should be the same as those used to produce the <code>samples_info</code> folder during the setup procedures.</td>
+</tr>
+<tr>
+<td style="text-align: left;">par_expected_doublet_rate</td>
+<td style="text-align: left;">NULL</td>
+<td style="text-align: left;">A vector of expected doublet rates for each sample (e.g. for a 5% expected doublet rate, write 0.05). The expected doublet rates for each sample should be listed in the same order as the sample names in the above parameter. Make sure to have as many expected doublet rates listed as you have samples.</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Note:</strong> For more information regarding the expected doublet rates, please see the 10X Genomics <a href="https://kb.10xgenomics.com/hc/en-us/articles/360059124751-Why-is-the-multiplet-rate-different-for-the-Next-GEM-Single-Cell-3-LT-v3-1-assay-compared-to-other-single-cell-applications-">documentation</a>.</p>
+<hr />
+<p>To run Step 4, use the following command:</p>
+<pre><code>bash $SCRNABOX_HOME/launch_scrnabox.sh \
+-d ${SCRNABOX_PWD} \
+--steps 4 
+</code></pre>
+<p>The resulting output files are deposited into <code>~/working_directory/step4</code>. For a description of the outputs see <a href="../outputs/">here</a>.</p>
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="../Step3/" class="btn btn-neutral float-left" title="Step 3: Quality control and filtering"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../Step4HTO/" class="btn btn-neutral float-right" title="Step 4: Demultiplexing (HTO)">Next <span class="icon icon-circle-arrow-right"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+    
+      <span><a href="../Step3/" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="../Step4HTO/" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script src="../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "..";</script>
+    <script src="../js/theme_extra.js"></script>
+    <script src="../js/theme.js"></script>
+      <script src="../search/main.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>

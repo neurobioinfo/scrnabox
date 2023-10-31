@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><link rel="canonical" href="https://neurobioinfo.github.io/Step1/" />
+      <link rel="shortcut icon" href="../img/favicon.ico" />
+    <title>Step 1: FASTQ to expression matrix - scRNAbox</title>
+    <link rel="stylesheet" href="../css/theme.css" />
+    <link rel="stylesheet" href="../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "Step 1: FASTQ to expression matrix";
+        var mkdocs_page_input_path = "Step1.md";
+        var mkdocs_page_url = "/Step1/";
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href=".." class="icon icon-home"> scRNAbox
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="..">Home</a>
+                </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Pipeline</span></p>
+              <ul class="current">
+                  <li class="toctree-l1"><a class="reference internal" href="../installation/">Installation</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../Step0/">Step 0: Set up</a>
+                  </li>
+                  <li class="toctree-l1 current"><a class="reference internal current" href="./">Step 1: FASTQ to expression matrix</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#library-preparation">Library preparation</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#librarycsv">library.csv</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#feature_refcsv">feature_ref.csv</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#running-step-1">Running Step 1</a>
+    </li>
+    </ul>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../Step2/">Step 2: Seurat object and ambient RNA</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../Step3/">Step 3: Quality control and filtering</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../Step4/">Step 4: Doublet removal (standard)</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../Step4HTO/">Step 4: Demultiplexing (HTO)</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../Step5/">Step 5: Integration</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../Step6/">Step 6: Clustering</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../Step7/">Step 7: Cluster annotation</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../Step8/">Step 8: Differential gene expression</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Additional information</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../config/">Job configurations</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../reference/">Execution parameters</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../outputs/">Outputs</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Tutorial</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../Dataset1/">scRNAbox analysis of midbrain dataset</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../midbrain_download/">Downloading the midbrain dataset</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../library_prep/">Manual CellRanger library preparation</a>
+                  </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../FAQ/">FAQ</a>
+                </li>
+              </ul>
+              <p class="caption"><span class="caption-text">About</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../LICENSE/">- License</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../changelog/">- Changelog</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../contributing/">- Contributing</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../Acknowledgement/">- Acknowledgement</a>
+                  </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="..">scRNAbox</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href=".." class="icon icon-home" aria-label="Docs"></a> &raquo;</li>
+          <li>Pipeline &raquo;</li>
+      <li class="breadcrumb-item active">Step 1: FASTQ to expression matrix</li>
+    <li class="wy-breadcrumbs-aside">
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="step-1-fastq-to-gene-expression-matrix">Step 1: FASTQ to gene expression matrix</h1>
+<ul>
+<li><a href="#library-preparation">Library preparation</a></li>
+<li><a href="#running-step-1">Running Step 1</a></li>
+</ul>
+<hr />
+<p>In Step 1, gene expression matrices are generated from FASTQ files using the CellRanger <em>counts</em> pipeline. Prior to running CellRanger, <code>library.csv</code> files must be prepared to define the FASTQ files for each sample. In addition, <code>feature_ref.csv</code> files must be prepared for the HTO track to define the HTOs used in the experiment. ScRNAbox provides an option for automating library preparation but the correct information must still be defined in the parameters. Alternatively, users may manually prepapre the libraries. For a tutorial on manual library preparation, please see the <a href="../library_prep/">tutorial</a>.<br /></p>
+<hr />
+<h2 id="library-preparation">Library preparation</h2>
+<h4 id="librarycsv">library.csv</h4>
+<p>The <code>library.csv</code> file defines the necessary information of the FASTQ files for the experiment, including the gene expression and antibody assays. The structure of the <code>library.csv</code> file should be: <br /></p>
+<pre><code>fastqs,sample,library_type
+path/to/fastqs/directory/,SampleNameGEX,Gene Expression
+path/to/fastqs/directory/,SampleNameHTO,Antibody Capture
+</code></pre>
+<ul>
+<li>The <code>fastqs</code> column defines the path to the directory that contains the FASTQ files for the experiment. <br /> </li>
+<li>The <code>sample</code> column defines the sample name of the corresponding FASTQ file. Please note that FASTQ files must be named according to standard CellRanger nomenclature (e.g. CTRL1_S1_L001_R1_001.fastq). For more information please visit CellRanger's <a href="https://support.10xgenomics.com/single-cell-gene-expression/software/pipelines/latest/using/fastq-input">documentation</a>. <br /></li>
+<li>The <code>library_type</code> column defines the assay type. For the standard analysis track, this will always be "Gene expression". For the HTO analysis track, each sequencing run should have a "Gene Expression" and "Antibody Capture" assay. For more information, please visit CellRanger's <a href="" title="https://support.10xgenomics.com/single-cell-gene-expression/software/pipelines/latest/using/feature-bc-analysis">documentation</a> <br /></li>
+</ul>
+<p>For more information regarding the preparation of the <code>library.csv</code>, please see CellRanger's <a href="https://support.10xgenomics.com/single-cell-gene-expression/software/pipelines/latest/using/feature-bc-analysis">documentation</a>.</p>
+<h4 id="feature_refcsv">feature_ref.csv</h4>
+<p>The <code>feature_ref.csv</code> file defines the necessary information for processing HTOs that will eventually be used to demultiplex the pooled samples. For example, if there are four samples pooled together with four unique HTOs, the structure of the <code>feature_ref.csv</code> file should be:</p>
+<pre><code>id,name,read,pattern,sequence,feature_type
+Hash1,B0251_TotalSeqB,R2,5PNNNNNNNNNN(BC),GTCAACTCTTTAGCG,Antibody Capture
+Hash2,B0252_TotalSeqB,R2,5PNNNNNNNNNN(BC),TGATGGCCTATTGGG,Antibody Capture
+Hash3,B0253_TotalSeqB,R2,5PNNNNNNNNNN(BC),TTCCGCCTCTCTTTG,Antibody Capture
+Hash4,B0254_TotalSeqB,R2,5PNNNNNNNNNN(BC),AGTAAGTTCAGCGTA,Antibody Capture
+</code></pre>
+<ul>
+<li>The <code>id</code> column defines the barcode ID which will be used to track the feature counts. <br /> </li>
+<li>The <code>name</code> column defines the arbitrary name for the barcode identifier. <br /> </li>
+<li>The <code>read</code> column defines which RNA sequencing read contains the barcode sequence. This value Will be either R1 or R2.<br /> </li>
+<li>The <code>pattern</code> column defines the pattern of the barcode identifiers. For more information please visit the 10X Genomics <a href="https://support.10xgenomics.com/single-cell-gene-expression/software/pipelines/latest/using/feature-bc-analysis#pattern">documentation</a><br /> </li>
+<li>The <code>sequence</code> column defines nucleotide sequence associated with the barcode identifier.<br /> </li>
+<li>The <code>feature_type</code> column defines the type of feature used for sample identification. Please ensure that the feature_type in the <code>feature_ref.csv</code> file matches a library_type in the <code>library.csv</code> file.  <br /> </li>
+</ul>
+<p>For more information regarding the preparation of the <code>feature_ref.csv</code>, please see CellRanger's <a href="https://support.10xgenomics.com/single-cell-gene-expression/software/pipelines/latest/using/feature-bc-analysis">documentation</a>.</p>
+<hr />
+<h2 id="running-step-1">Running Step 1</h2>
+<p>The following parameters are adjustable for Step 1 of the <strong>standard track</strong> (<code>~/working_directory/job_info/parameters/step1_par.txt</code>):</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Parameter</th>
+<th style="text-align: left;">Default</th>
+<th style="text-align: left;">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">par_automated_library_prep</td>
+<td style="text-align: left;">No</td>
+<td style="text-align: left;">Whether or not to perform automated library prep. Alternatively, you may set this parameter to "no" and manually prepare the libraries.</td>
+</tr>
+<tr>
+<td style="text-align: left;">par_fastq_directory</td>
+<td style="text-align: left;">NULL</td>
+<td style="text-align: left;">Path to directory containing the FASTQ files. This directory should only contain FASTQ files for the experiment.</td>
+</tr>
+<tr>
+<td style="text-align: left;">par_sample_names</td>
+<td style="text-align: left;">NULL</td>
+<td style="text-align: left;">The sample names used to name the FASTQ files according to CellRanger nomeclature</td>
+</tr>
+<tr>
+<td style="text-align: left;">par_rename_samples</td>
+<td style="text-align: left;">Yes</td>
+<td style="text-align: left;">Whether or not you want to rename your samples. These names will be used to identify cells in the Seurat objects</td>
+</tr>
+<tr>
+<td style="text-align: left;">par_new_sample_names</td>
+<td style="text-align: left;">NULL</td>
+<td style="text-align: left;">New sample names. Make sure they are defined in the same order as 'par_sample_names'</td>
+</tr>
+<tr>
+<td style="text-align: left;">par_paired_end_seq</td>
+<td style="text-align: left;">Yes</td>
+<td style="text-align: left;">Whether or not paired-end sequencing was performed</td>
+</tr>
+<tr>
+<td style="text-align: left;">par_ref_dir_grch</td>
+<td style="text-align: left;">NULL</td>
+<td style="text-align: left;">Path to reference genome for FASTQ alignment. 10X Genomics reference genomes are available for download. For more information see the 10X Genomics <a href="https://support.10xgenomics.com/single-cell-gene-expression/software/pipelines/latest/using/tutorial_ct">documentation</a>.</td>
+</tr>
+<tr>
+<td style="text-align: left;">par_r1_length</td>
+<td style="text-align: left;">NULL</td>
+<td style="text-align: left;">Minimum number of bases to retain for R1 sequence of gene expression</td>
+</tr>
+<tr>
+<td style="text-align: left;">par_include_introns</td>
+<td style="text-align: left;">No</td>
+<td style="text-align: left;">Whether or not to include intronic reads in the gene expression matrix</td>
+</tr>
+<tr>
+<td style="text-align: left;">par_mempercode</td>
+<td style="text-align: left;">30</td>
+<td style="text-align: left;">For clusters whose job managers do not support memory requests, it is possible to request memory in the form of cores. This option will scale up the number of threads requested via the <strong>MRO_THREADS</strong> variable according to how much memory a stage requires when given to the ratio of memory on your nodes.</td>
+</tr>
+</tbody>
+</table>
+<p>The following parameters are adjustable for Step 1 of the <strong>HTO track</strong> (<code>~/working_directory/job_info/parameters/step1_par.txt</code>):</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Parameter</th>
+<th style="text-align: left;">Default</th>
+<th style="text-align: left;">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">par_automated_library_prep</td>
+<td style="text-align: left;">Yes</td>
+<td style="text-align: left;">Whether or not to perform automated library prep. Alternatively, you may set this parameter to "no" and manually prepare the libraries.</td>
+</tr>
+<tr>
+<td style="text-align: left;">par_fastq_directory</td>
+<td style="text-align: left;">NULL</td>
+<td style="text-align: left;">Path to directory containing the FASTQ files. This directory should only contain FASTQ files for the experiment.</td>
+</tr>
+<tr>
+<td style="text-align: left;">par_RNA_run_names</td>
+<td style="text-align: left;">NULL</td>
+<td style="text-align: left;">The names of the sequencing runs for the RNA assay</td>
+</tr>
+<tr>
+<td style="text-align: left;">par_HTO_run_names</td>
+<td style="text-align: left;">NULL</td>
+<td style="text-align: left;">The names of the sequencing runs for the HTO assay</td>
+</tr>
+<tr>
+<td style="text-align: left;">par_seq_run_names</td>
+<td style="text-align: left;">NULL</td>
+<td style="text-align: left;">The user-selected name for the sequencing run.  These names will be used to identify cells in the Seurat objects</td>
+</tr>
+<tr>
+<td style="text-align: left;">par_paired_end_seq</td>
+<td style="text-align: left;">Yes</td>
+<td style="text-align: left;">Whether or not paired-end sequencing was performed</td>
+</tr>
+<tr>
+<td style="text-align: left;">id</td>
+<td style="text-align: left;">NULL</td>
+<td style="text-align: left;">Barcode ID which will be used to track the feature counts</td>
+</tr>
+<tr>
+<td style="text-align: left;">name</td>
+<td style="text-align: left;">NULL</td>
+<td style="text-align: left;">The user-selected name for the barcode identifier</td>
+</tr>
+<tr>
+<td style="text-align: left;">read</td>
+<td style="text-align: left;">R2</td>
+<td style="text-align: left;">Which RNA sequencing read contains the barcode sequence. This value Will be either R1 or R2.</td>
+</tr>
+<tr>
+<td style="text-align: left;">pattern</td>
+<td style="text-align: left;">NULL</td>
+<td style="text-align: left;">The pattern of the barcode identifiers</td>
+</tr>
+<tr>
+<td style="text-align: left;">sequence</td>
+<td style="text-align: left;">NULL</td>
+<td style="text-align: left;">The nucleotide sequence associated with the barcode identifier</td>
+</tr>
+<tr>
+<td style="text-align: left;">par_ref_dir_grch</td>
+<td style="text-align: left;">NULL</td>
+<td style="text-align: left;">Path to reference genome for FASTQ alignment. 10X Genomics reference genomes are available for download. For more information see their <a href="https://support.10xgenomics.com/single-cell-gene-expression/software/pipelines/latest/using/tutorial_ct">documentation</a>.</td>
+</tr>
+<tr>
+<td style="text-align: left;">par_r1_length</td>
+<td style="text-align: left;">NULL</td>
+<td style="text-align: left;">Minimum number of bases to retain for R1 sequence of gene expression</td>
+</tr>
+<tr>
+<td style="text-align: left;">par_include_introns</td>
+<td style="text-align: left;">No</td>
+<td style="text-align: left;">Whether or not to include intronic reads in the gene expression matrix</td>
+</tr>
+<tr>
+<td style="text-align: left;">par_mempercode</td>
+<td style="text-align: left;">30</td>
+<td style="text-align: left;">For clusters whose job managers do not support memory requests, it is possible to request memory in the form of cores. This option will scale up the number of threads requested via the <strong>MRO_THREADS</strong> variable according to how much memory a stage requires when given to the ratio of memory on your nodes.</td>
+</tr>
+</tbody>
+</table>
+<p>Given that CellRanger runs a user interface, it is recommended to run Step 1 in a <strong>'screen'</strong> which will allow the the task to keep running if the connection is broken. To run Step 1, use the following command:</p>
+<pre><code>screen -S run_scrnabox
+bash $SCRNABOX_HOME/launch_scrnabox.sh \
+-d ${SCRNABOX_PWD} \
+--steps 1
+</code></pre>
+<p>The resulting output files are deposited into <code>~/working_directory/step1</code>. The expression filtered matrix, features, and barcode files outputed by CellRanger are located in <code>~/working_directory/step1/sample/ouput_folder/outs/filtered_feature_bc_matrix</code>.</p>
+<p><strong>Note:</strong> If CellRanger was successfull it will display <em>Pipestance completed successfully!</em> If this message is not displayed, you must re-run the Step 1. If CellRanger fails a second time, please contact the developers.</p>
+<p><strong>Note:</strong> If you do not have access to FASTQ files for your experiment, you may intiate the pipeline at which ever Analytical Step takes your data object as input. In the case where FASTQ files are not available, users do not have to create the <code>samples_info</code> folder. For more information see <a href="../PROC/">Processed Data</a>.  </p>
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="../Step0/" class="btn btn-neutral float-left" title="Step 0: Set up"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../Step2/" class="btn btn-neutral float-right" title="Step 2: Seurat object and ambient RNA">Next <span class="icon icon-circle-arrow-right"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+    
+      <span><a href="../Step0/" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="../Step2/" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script src="../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "..";</script>
+    <script src="../js/theme_extra.js"></script>
+    <script src="../js/theme.js"></script>
+      <script src="../search/main.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>

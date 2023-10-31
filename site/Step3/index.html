@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><link rel="canonical" href="https://neurobioinfo.github.io/Step3/" />
+      <link rel="shortcut icon" href="../img/favicon.ico" />
+    <title>Step 3: Quality control and filtering - scRNAbox</title>
+    <link rel="stylesheet" href="../css/theme.css" />
+    <link rel="stylesheet" href="../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "Step 3: Quality control and filtering";
+        var mkdocs_page_input_path = "Step3.md";
+        var mkdocs_page_url = "/Step3/";
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href=".." class="icon icon-home"> scRNAbox
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="..">Home</a>
+                </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Pipeline</span></p>
+              <ul class="current">
+                  <li class="toctree-l1"><a class="reference internal" href="../installation/">Installation</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../Step0/">Step 0: Set up</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../Step1/">Step 1: FASTQ to expression matrix</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../Step2/">Step 2: Seurat object and ambient RNA</a>
+                  </li>
+                  <li class="toctree-l1 current"><a class="reference internal current" href="./">Step 3: Quality control and filtering</a>
+    <ul class="current">
+    </ul>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../Step4/">Step 4: Doublet removal (standard)</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../Step4HTO/">Step 4: Demultiplexing (HTO)</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../Step5/">Step 5: Integration</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../Step6/">Step 6: Clustering</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../Step7/">Step 7: Cluster annotation</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../Step8/">Step 8: Differential gene expression</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Additional information</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../config/">Job configurations</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../reference/">Execution parameters</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../outputs/">Outputs</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Tutorial</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../Dataset1/">scRNAbox analysis of midbrain dataset</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../midbrain_download/">Downloading the midbrain dataset</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../library_prep/">Manual CellRanger library preparation</a>
+                  </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../FAQ/">FAQ</a>
+                </li>
+              </ul>
+              <p class="caption"><span class="caption-text">About</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../LICENSE/">- License</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../changelog/">- Changelog</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../contributing/">- Contributing</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../Acknowledgement/">- Acknowledgement</a>
+                  </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="..">scRNAbox</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href=".." class="icon icon-home" aria-label="Docs"></a> &raquo;</li>
+          <li>Pipeline &raquo;</li>
+      <li class="breadcrumb-item active">Step 3: Quality control and filtering</li>
+    <li class="wy-breadcrumbs-aside">
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="step-3-quality-control-and-generation-of-filtered-data-objects">Step 3: Quality control and generation of filtered data objects</h1>
+<p>In Step 3, low quality cells are filtered based on the user-defined thresholds for:</p>
+<ul>
+<li>the number of RNA unique transcripts (genes);</li>
+<li>the total number of RNA transcripts;</li>
+<li>the percentage of mitochondrial-encoded transcripts; </li>
+<li>the percentage of ribosome gene transcripts.</li>
+</ul>
+<p>In addition, users can  remove or regress a custom gene list from the dataset. Finally, normalization and scaling is performed on the filtered Seurat objects. <br /></p>
+<hr />
+<p>The following parameters are adjustable for Step 3 (<code>~/working_directory/job_info/parameters/step3_par.txt</code>):</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Parameter</th>
+<th style="text-align: left;">Default</th>
+<th style="text-align: left;">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">par_save_RNA</td>
+<td style="text-align: left;">No</td>
+<td style="text-align: left;">Whether or not to export an RNA expression matrix</td>
+</tr>
+<tr>
+<td style="text-align: left;">par_save_metadata</td>
+<td style="text-align: left;">No</td>
+<td style="text-align: left;">Whether or not to export a metadata dataframe</td>
+</tr>
+<tr>
+<td style="text-align: left;">par_seurat_object</td>
+<td style="text-align: left;">NULL</td>
+<td style="text-align: left;">If users already have a Seurat object(s), they may provide the path to a directory that contains an existing Seurat object(s) to initiate the pipeline at Step 3</td>
+</tr>
+<tr>
+<td style="text-align: left;">par_nFeature_RNA_L</td>
+<td style="text-align: left;">NULL</td>
+<td style="text-align: left;">Only retain cells expressing a minimum number of unique RNA transcripts</td>
+</tr>
+<tr>
+<td style="text-align: left;">par_nFeature_RNA_U</td>
+<td style="text-align: left;">NULL</td>
+<td style="text-align: left;">Only retain cells expressing a maximum number of unique RNA transcripts</td>
+</tr>
+<tr>
+<td style="text-align: left;">par_nCount_RNA_L</td>
+<td style="text-align: left;">NULL</td>
+<td style="text-align: left;">Only retain cells with a minimum number of total RNA transcripts</td>
+</tr>
+<tr>
+<td style="text-align: left;">par_nCount_RNA_U</td>
+<td style="text-align: left;">NULL</td>
+<td style="text-align: left;">Only retain cells with a maximum number of total RNA transcripts</td>
+</tr>
+<tr>
+<td style="text-align: left;">par_mitochondria_percent_L</td>
+<td style="text-align: left;">NULL</td>
+<td style="text-align: left;">Only retain cells with a minimum percentage of mitochondrial-encoded genes</td>
+</tr>
+<tr>
+<td style="text-align: left;">par_mitochondria_percent_U</td>
+<td style="text-align: left;">NULL</td>
+<td style="text-align: left;">Only retain cells with a maximum percentage of mitochondrial-encoded genes</td>
+</tr>
+<tr>
+<td style="text-align: left;">par_ribosomal_percent_L</td>
+<td style="text-align: left;">NULL</td>
+<td style="text-align: left;">Only retain cells with a minimum percentage of ribosome genes</td>
+</tr>
+<tr>
+<td style="text-align: left;">par_ribosomal_percent_U</td>
+<td style="text-align: left;">NULL</td>
+<td style="text-align: left;">Only retain cells with a maximum percentage of ribosome genes</td>
+</tr>
+<tr>
+<td style="text-align: left;">par_remove_mitochondrial_genes</td>
+<td style="text-align: left;">No</td>
+<td style="text-align: left;">Whether or not to remove mitochondrial genes</td>
+</tr>
+<tr>
+<td style="text-align: left;">par_remove_ribosomal_genes</td>
+<td style="text-align: left;">No</td>
+<td style="text-align: left;">Whether or not to remove ribosomal genes</td>
+</tr>
+<tr>
+<td style="text-align: left;">par_remove_genes</td>
+<td style="text-align: left;">NULL</td>
+<td style="text-align: left;">If users want to remove specific genes from their data, they may define a list of gene identifiers</td>
+</tr>
+<tr>
+<td style="text-align: left;">par_regress_cell_cycle_genes</td>
+<td style="text-align: left;">No</td>
+<td style="text-align: left;">Whether or not to regress cell cycle genes</td>
+</tr>
+<tr>
+<td style="text-align: left;">par_regress_custom_genes</td>
+<td style="text-align: left;">No</td>
+<td style="text-align: left;">Whether or not to regress a custom list of genes</td>
+</tr>
+<tr>
+<td style="text-align: left;">par_regress_genes</td>
+<td style="text-align: left;">NULL</td>
+<td style="text-align: left;">List of custom genes to regress</td>
+</tr>
+<tr>
+<td style="text-align: left;">par_normalization.method</td>
+<td style="text-align: left;">LogNormalize</td>
+<td style="text-align: left;">Method to use for normalization</td>
+</tr>
+<tr>
+<td style="text-align: left;">par_scale.factor</td>
+<td style="text-align: left;">10000</td>
+<td style="text-align: left;">Scale factor for scaling the data</td>
+</tr>
+<tr>
+<td style="text-align: left;">par_selection.method</td>
+<td style="text-align: left;">vst</td>
+<td style="text-align: left;">Method for choosing the top variable features</td>
+</tr>
+<tr>
+<td style="text-align: left;">par_nfeatures</td>
+<td style="text-align: left;">2500</td>
+<td style="text-align: left;">Number of features to select as top variable features</td>
+</tr>
+<tr>
+<td style="text-align: left;">par_top</td>
+<td style="text-align: left;">10</td>
+<td style="text-align: left;">Number of most variable features to be reported in the csv file</td>
+</tr>
+<tr>
+<td style="text-align: left;">par_npcs_pca</td>
+<td style="text-align: left;">30</td>
+<td style="text-align: left;">Total Number of principal components to compute and store for principal component analysis (PCA)</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<p>To run Step 3, use the following command:</p>
+<pre><code>bash $SCRNABOX_HOME/launch_scrnabox.sh \
+-d ${SCRNABOX_PWD} \
+--steps 3
+</code></pre>
+<p>The resulting output files are deposited into <code>~/working_directory/step3</code>. For a description of the outputs see <a href="../outputs/">here</a>.</p>
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="../Step2/" class="btn btn-neutral float-left" title="Step 2: Seurat object and ambient RNA"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../Step4/" class="btn btn-neutral float-right" title="Step 4: Doublet removal (standard)">Next <span class="icon icon-circle-arrow-right"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+    
+      <span><a href="../Step2/" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="../Step4/" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script src="../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "..";</script>
+    <script src="../js/theme_extra.js"></script>
+    <script src="../js/theme.js"></script>
+      <script src="../search/main.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>

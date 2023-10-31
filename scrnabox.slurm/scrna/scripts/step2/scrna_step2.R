@@ -67,13 +67,13 @@ if (tolower(par_ambient_RNA)=="yes") {
       ## create Seurat object with feature-barcode matrices correct for ambient RNA expression and filter according to user-defined parameters
       datadirs <- file.path(paste0(output_dir, '/step2/step2_ambient/',sample_name[i]))
       sparse_matrix <- Seurat::Read10X(data.dir = datadirs)
-      seurat_object <- Seurat::CreateSeuratObject(counts = sparse_matrix, min.cells=par_min.cells_L,min.features= 1) # only keep cells expressing atleast one gene
+      seurat_object <- Seurat::CreateSeuratObject(counts = sparse_matrix, min.cells=par_min.cells_L,min.features= 1, project = sample_name[i]) # only keep cells expressing atleast one gene
       
       ## name Seurat object
       nam <- paste("seurat_object", sample_name[i], sep = ".")
       assign(nam, seurat_object)
       seu<-get(nam)
-      
+
       ## calculate percent mitochondrial
       seu[["percent.mt"]] <- Seurat::PercentageFeatureSet(seu, pattern = "^MT-")
       seu <- subset(seu, subset = percent.mt < 100)
@@ -208,7 +208,7 @@ list<-dir(path = paste(output_dir, "/step1",sep=""),full.names = TRUE)
       datadirs <- file.path(list[i],   "ouput_folder","outs","filtered_feature_bc_matrix")
       names(datadirs)=sample_name[i]
       sparse_matrix <- Seurat::Read10X(data.dir = datadirs)
-      seurat_object <- Seurat::CreateSeuratObject(counts = sparse_matrix, min.cells=par_min.cells_L,min.features= 1) # only keep cells expressing atleast one gene
+      seurat_object <- Seurat::CreateSeuratObject(counts = sparse_matrix, min.cells=par_min.cells_L,min.features= 1, project = sample_name[i]) # only keep cells expressing atleast one gene
       ## name seurat object
       nam <- paste("seurat_object", sample_name[i], sep = ".")
       assign(nam, seurat_object)

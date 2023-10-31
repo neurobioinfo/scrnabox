@@ -28,8 +28,22 @@ source(paste(output_dir,'/job_info/parameters/step7_par.txt',sep=""))
 if (tolower(par_run_module_score)=='yes') {
 
 ## load existing Seurat objects
+#sample_name<-list.files(path = paste(output_dir, "/step6/objs6",sep=""),pattern = "*.rds")
+#seu_int<-readRDS(paste(output_dir,'/step6/objs6/',sample_name, sep=''))
+
+################### import the right Seurat object ###################
 sample_name<-list.files(path = paste(output_dir, "/step6/objs6",sep=""),pattern = "*.rds")
-seu_int<-readRDS(paste(output_dir,'/step6/objs6/',sample_name, sep=''))
+
+if (exists("par_seurat_object")) {                                                   
+    seu_int<-readRDS(par_seurat_object)
+}else{
+    if(file.exists(paste(output_dir,'/step7/objs7/','seu_step7.rds', sep = ""))){
+        seu_int<-readRDS(paste(output_dir,'/step7/objs7/','seu_step7.rds', sep=''))
+    }else{
+        seu_int<-readRDS(paste(output_dir,'/step6/objs6/',sample_name, sep=''))
+    }
+} 
+################### ############################## ###################
 
 ## set cell identity to the clustering resolution defined by the user
 Idents(seu_int) <- par_level_cluster
@@ -65,11 +79,27 @@ if(file.exists("Rplots.pdf")){
 if (tolower(par_run_visualize_markers)=='yes') {
 
 ## load existing Seurat objects
+#sample_name<-list.files(path = paste(output_dir, "/step6/objs6",sep=""),pattern = "*.rds")
+#seu_int<-readRDS(paste(output_dir,'/step6/objs6/',sample_name, sep=''))
+
+################### import the right Seurat object ###################
 sample_name<-list.files(path = paste(output_dir, "/step6/objs6",sep=""),pattern = "*.rds")
-seu_int<-readRDS(paste(output_dir,'/step6/objs6/',sample_name, sep=''))
+
+if (exists("par_seurat_object")) {                                                   
+    seu_int<-readRDS(par_seurat_object)
+}else{
+    if(file.exists(paste(output_dir,'/step7/objs7/','seu_step7.rds', sep = ""))){
+        seu_int<-readRDS(paste(output_dir,'/step7/objs7/','seu_step7.rds', sep=''))
+    }else{
+        seu_int<-readRDS(paste(output_dir,'/step6/objs6/',sample_name, sep=''))
+    }
+} 
+################### ############################## ###################
 
 ## set cell identity to the clustering resolution defined by the user
 Idents(seu_int) <- par_level_cluster
+
+## Set default assay to RNA
 DefaultAssay(seu_int) <- "RNA"
 
 ## create directories for visualize features annotation method

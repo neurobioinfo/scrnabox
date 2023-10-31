@@ -18,20 +18,30 @@ set.seed(1234)
 packages<-c('Seurat','ggplot2', 'dplyr','foreach', 'doParallel')
 lapply(packages, library, character.only = TRUE)
 
-## create list of existing Seurat objects from step 3
-sample_name<-list.files(path = paste(output_dir, "/step3/objs3",sep=""),pattern = "*.rds")
-print("list of sample")
-print(sample_name)
-
-if(length(sample_name)<1) {
-   print("You do not have any object from step 3 ")
-}
-
+## load Seurat objects
+if (exists("par_seurat_object")) {                                                  
+    sample_name<-list.files(path = par_seurat_object)
+    sample_nameb<-gsub(".rds","",sample_name)
+    if(length(sample_name)<1) {
+    print("You do not have any existing Seurat object")
+    }
 for (i in 1:length(sample_name)) {
-  if (!grepl(".rds",tolower(sample_name[i]), fixed = TRUE)){
-     print(c(sample_name[i],"is not R rds"))
-  }
-}  
+    if (!grepl(".rds",tolower(sample_name[i]), fixed = TRUE)){
+        print(c(sample_name[i],"is not R rds"))
+    }
+    }  
+} else {
+    sample_name<-list.files(path = paste(output_dir, "/step3/objs3",sep=""))
+    sample_nameb<-gsub(".rds","",sample_name)
+    if(length(sample_name)<1) {
+    print("You do not have any object from step 3 ")
+    }
+for (i in 1:length(sample_name)) {
+    if (!grepl(".rds",tolower(sample_name[i]), fixed = TRUE)){
+        print(c(sample_name[i],"is not R rds"))
+    }
+    }
+}
 
 ## load parameters text file
 source(paste(output_dir,'/job_info/parameters/step4_par.txt',sep=""))

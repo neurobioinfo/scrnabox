@@ -27,26 +27,19 @@ If the `scrnabox.slurm` has been installed properly, the above command should re
                 --steps  =  Specify what steps, e.g., 2 to run just step 2, 2-4, run steps 2 through 4)
 
         optional arguments:
-                -h  (--help)  = See helps regarding the pipeline options. 
-                --method  = Choose what scRNA method you want to use; use HTO  and SCRNA for for hashtag nad Standard scRNA, respectively. 
-                --nFeature_RNA_L  = Lower threshold of number of unique RNA transcripts for each cell, it filters nFeature_RNA > nFeature_RNA_L.  
-                --nFeature_RNA_U  = Upper threshold of number of unique RNA transcripts for each cell, it filters --nFeature_RNA_U.  
-                --nCount_RNA_L  = Lower threshold for nCount_RNA, it filters nCount_RNA > nCount_RNA_L   
-                --nCount_RNA_U  = Upper threshold for  nCount_RNA, it filters nCount_RNA < nCount_RNA_U  
-                --mitochondria_percent_L  = Lower threshold for the amount of mitochondrial transcript, it is in percent, mitochondria_percent > mitochondria_percent_L. 
-                --mitochondria_percent_U  = Upper threshold for the amount of mitochondrial transcript, it is in percent, mitochondria_percent < mitochondria_percent_U. 
-                --log10GenesPerUMI_U  = Upper threshold for the log number of genes per UMI for each cell, it is in percent,log10GenesPerUMI=log10(nFeature_RNA)/log10(nCount_RNA). mitochondria_percent < log10GenesPerUMI_U. 
-                --log10GenesPerUMI_L  = Lower threshold for the log number of genes per UMI for each cell, log10GenesPerUMI=log10(nFeature_RNA)/log10(nCount_RNA). mitochondria_percent > log10GenesPerUMI_L.  
-                --msd  = you can get the hashtag labels by running the following code 
-                --marker  = Find marker. 
-                --sinfo  = Do you need sample info? 
-                --fta  = FindTransferAnchors 
-                --enrich  = Annotation 
-                --dgelist  = creates a DGEListobject from a table of counts obtained from seurate objects. 
-                --genotype  = Run the genotype contrast. 
-                --celltype  = Run the Genotype-cell contrast. 
-                --cont  = You can directly call the contrast to the pipeline.  
-                --seulist                = You can directly call the list of seurat objects to the pipeline. 
+                -h  (--help)  = See helps regarding the pipeline arguments. 
+                --method  = Select your preferred method: HTO and SCRNA for hashtag, and Standard scRNA, respectively. 
+                --msd  = You can get the hashtag labels by running the following code 
+                --markergsea  = Identify marker genes for each cluster and run marker gene set enrichment analysis (GSEA) using EnrichR libraries. 
+                --knownmarkers  = Run module score and visualize the expression of known cell type marker genes. 
+                --referenceannotation  = Run module score and visualize the expression of known cell type marker genes. 
+                --annotate  = Run module score and visualize the expression of known cell type marker genes. 
+                --addmeta  = Add metadata columns to the Seurat object 
+                --rundge  = Perform differential gene expression contrasts 
+                --seulist  = You can directly call the list of seurat objects to the pipeline.  
+ 
+ ------------------- 
+ For a comprehensive help, visit https://github.com/neurobioinfo/scrnabox for documentation.
 ```
  - - - -
 
@@ -57,52 +50,25 @@ For information regarding the installation of `CellRanger`, please visit the 10X
  - - - -
 
 ### R library preparation and R package installation
-Users must first install `R` onto their HPC system: 
+Users must first install `R` (v4.2 or later) onto their HPC system: 
 
 ```
 # install R
 module load r/4.2.1
 ```
-Then, users should create a designated directory on their HPC system where the required R packages will be installed:
+Then, users must run the following installation code, which will create a directory where the R packages will be loaded and will install the required R packages:
 
 ```
-# make common R library
-mkdir R_library
-cd R_library
+# Folder for R packages 
+R_PATH=~/path/to/R/library
+mkdir -p $R_PATH
 
-# open R
-R 
-
-# set common R library path
-R_LIB_PATH="/pathway/to/R_library"
-.libPaths(R_LIB_PATH)
-
-# load packages
-library(Seurat)
-library(ggplot2)
-library(dplyr)
-library(foreach)
-library(doParallel)
-library(Matrix)
-library(DoubletFinder)
-library(cowplot)
-library(clustree)
-library(xlsx)
-library(enrichR)
-library(stringi)
-library(limma)
-library(tidyverse)
-library(edgeR)
-library(vctrs)
-library(RColorBrewer)
-library(fossil)
-library(openxlsx)
-library(stringr)
-library(ggpubr)
-devtools::install_github(“neurobioinfo/scrnabox/scrnaboxR”)
+# Install package
+Rscript ./scrnabox.slurm/soft/R/install_packages_scrnabox.R $R_PATH
 ```
+Alternatively, users can install the packages manually. The packages required for each step of the scRNAbox are described at `./scrnabox.slurm/soft/R/R.library_hto.ini`
  - - - -
-Upon completing the installation procedures, users can proceed with the scRNAbox pipeline using either the [Standard scRNAseq Analysis Track](SCRNA.md) or [Cell Hashtag scRNAseq Analysis Track](HTO.md). 
+Upon completing the installation procedures, users can proceed with the scRNAbox pipeline.
 
 
 

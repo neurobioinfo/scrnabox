@@ -1,0 +1,3 @@
+contrast_name meta_data_celltype cell_type meta_data_variable group1 group2
+design1 clustering_1 Oligodendrocytes orig.ident Control1 Parkinson1
+design2 clustering_2 Microglia DiseaseStatus HC PD

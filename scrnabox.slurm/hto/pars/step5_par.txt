@@ -6,6 +6,14 @@ par_save_metadata= "yes"
 
 
 ############################################################################
+# If you already have a processed Seurat RDS object(s), and did not perform Step 4 of scRNAbox use this to add the path to the directory containing your Seurat object(s). 
+# Make sure that no other files/objects are present in the directory besides Seurat RDS objects. 
+# Uncomment the line to activate the parameter
+############################################################################
+#par_seurat_object= "/path/to/seurat/object"
+
+
+############################################################################
 # If you only have one Seurat object and want to skip integration set the following to "yes"
 ############################################################################
 par_one_seurat= "no"

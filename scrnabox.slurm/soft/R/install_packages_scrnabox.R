@@ -69,7 +69,7 @@ if (!require("BiocManager", quietly = TRUE)) {
 
 pkgs_BiocManager <- c('Matrix','cowplot','xlsx','clustree','enrichR','stringi','limma', 'edgeR', 
 'org.Hs.eg.db', 'SoupX','MatrixGenerics','BiocGenerics','S4Vectors','IRanges','GenomeInfoDb','GenomicRanges', 'Biobase', 
-'SummarizedExperiment', 'SingleCellExperiment', 'DropletUtils', 'EnhancedVolcano')
+'SummarizedExperiment', 'SingleCellExperiment', 'DropletUtils', 'EnhancedVolcano', 'MAST')
 
 ## install via BiocManager
 write("Installation of package via BiocManager",  stdout())

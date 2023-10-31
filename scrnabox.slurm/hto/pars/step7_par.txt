@@ -6,6 +6,13 @@ par_save_metadata= "yes"
 
 
 ############################################################################
+# If you already have a processed Seurat RDS object and did not perform Step 6 of scRNAbox use this parameter to add the path to the directory containing your Seurat object. 
+# Uncomment the line to activate the parameter
+############################################################################
+#par_seurat_object= "/path/to/seurat/object"
+
+
+############################################################################
 # General parameters for cluster annotation 
 ############################################################################
 ## The cluster resolution that you want to use. If you skipped integration, use par_level_cluster="RNA_snn_res.0.7", for example, if you want to proceed with a clustering resolution of 0.7

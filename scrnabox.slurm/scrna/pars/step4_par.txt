@@ -6,6 +6,14 @@ par_save_metadata= "yes"
 
 
 ############################################################################
+# If you already have a processed Seurat RDS object, and did not perform Step 3 of scRNAbox use this to add the path to the directory containing you Seurat object(s). 
+# Make sure that no other files/objects are present in the directory besides Seurat RDS objects. 
+# Uncomment the line to activate the parameter
+############################################################################
+#par_seurat_object= "/path/to/seurat/object"
+
+
+############################################################################
 # Parameters for UMAP dimensional reduction
 ############################################################################
 ## Number of dimensions to use as input into UMAP

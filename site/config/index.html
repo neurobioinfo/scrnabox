@@ -5,14 +5,14 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><link rel="canonical" href="https://neurobioinfo.github.io/config/" />
       <link rel="shortcut icon" href="../img/favicon.ico" />
-    <title>- Job configurations - scRNAbox</title>
+    <title>Job configurations - scRNAbox</title>
     <link rel="stylesheet" href="../css/theme.css" />
     <link rel="stylesheet" href="../css/theme_extra.css" />
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
     
       <script>
         // Current page data
-        var mkdocs_page_name = "- Job configurations";
+        var mkdocs_page_name = "Job configurations";
         var mkdocs_page_input_path = "config.md";
         var mkdocs_page_url = "/config/";
       </script>
@@ -43,34 +43,49 @@
                 <li class="toctree-l1"><a class="reference internal" href="..">Home</a>
                 </li>
               </ul>
+              <p class="caption"><span class="caption-text">Pipeline</span></p>
               <ul>
-                <li class="toctree-l1"><a class="reference internal" href="../installation/">Installation</a>
-                </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../installation/">Installation</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../Step0/">Step 0: Set up</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../Step1/">Step 1: FASTQ to expression matrix</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../Step2/">Step 2: Seurat object and ambient RNA</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../Step3/">Step 3: Quality control and filtering</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../Step4/">Step 4: Doublet removal (standard)</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../Step4HTO/">Step 4: Demultiplexing (HTO)</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../Step5/">Step 5: Integration</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../Step6/">Step 6: Clustering</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../Step7/">Step 7: Cluster annotation</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../Step8/">Step 8: Differential gene expression</a>
+                  </li>
               </ul>
-              <p class="caption"><span class="caption-text">Overview</span></p>
+              <p class="caption"><span class="caption-text">Additional information</span></p>
               <ul class="current">
-                  <li class="toctree-l1"><a class="reference internal" href="../SCRNA/">- Standard Analysis Track</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../HTO/">- Cell Hashtag Analysis Track</a>
-                  </li>
-                  <li class="toctree-l1 current"><a class="reference internal current" href="./">- Job configurations</a>
+                  <li class="toctree-l1 current"><a class="reference internal current" href="./">Job configurations</a>
     <ul class="current">
     </ul>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../reference/">- Execution parameters</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../reference/">Execution parameters</a>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../outputs/">- Outputs</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../outputs/">Outputs</a>
                   </li>
               </ul>
               <p class="caption"><span class="caption-text">Tutorial</span></p>
               <ul>
-                  <li class="toctree-l1"><a class="reference internal" href="../Dataset1/">- Standard Analysis: Midbrain dataset</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../Dataset1/">scRNAbox analysis of midbrain dataset</a>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../Dataset2/">- Cell Hashtag Analysis: PBMC dataset</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../midbrain_download/">Downloading the midbrain dataset</a>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../PROC/">- Processed Data</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../library_prep/">- CellRanger library preparation</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../library_prep/">Manual CellRanger library preparation</a>
                   </li>
               </ul>
               <ul>
@@ -102,8 +117,8 @@
         <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
   <ul class="wy-breadcrumbs">
     <li><a href=".." class="icon icon-home" aria-label="Docs"></a> &raquo;</li>
-          <li>Overview &raquo;</li>
-      <li class="breadcrumb-item active">- Job configurations</li>
+          <li>Additional information &raquo;</li>
+      <li class="breadcrumb-item active">Job configurations</li>
     <li class="wy-breadcrumbs-aside">
     </li>
   </ul>
@@ -116,84 +131,93 @@
 <ul>
 <li><a href="#introduction">Introduction</a></li>
 <li><a href="#general-configurations">General configurations</a></li>
-<li><a href="#analytical-step-configurations">Analytical Step configurations</a></li>
+<li><a href="#step-configurations">Step configurations</a></li>
 </ul>
 <hr />
 <h2 id="introduction">Introduction</h2>
-<p>Upon running the pipeline initiation Step (Step 0), the <code>scrnabox_config.ini</code> file is automatically deposited into <code>~/working_directory/job_info/configs</code>:</p>
-<pre><code>ACCOUNT=HPC_account_owner_name
+<p>Upon running Step 0, the <code>scrnabox_config.ini</code> file is automatically deposited into <code>~/working_directory/job_info/configs</code>:</p>
+<pre><code>ACCOUNT=HPC_account_own_name
 MODULEUSE=/cvmfs/soft.mugqic/CentOS6/modulefiles
 MODULECELLRANGER=mugqic/cellranger/5.0.1
 R_VERSION=4.2.1
-R_LIB_PATH=/path/to/R/library
+R_LIB_PATH=/path?to?R?library
 SCRNA_METHOD=SCRNA
 ############# 
 
 ############# [step2]
-#THREADS_ARRAY[&quot;step_2&quot;]=4
-#MEM_ARRAY[&quot;step_2&quot;]=16g
-#WALLTIME_ARRAY[&quot;step_2&quot;]=00-05:00 
+# THREADS_ARRAY[&quot;step_2&quot;]=10
+# MEM_ARRAY[&quot;step_2&quot;]=16g
+# WALLTIME_ARRAY[&quot;step_2&quot;]=00-05:00 
 
 ############# [step3]
-#THREADS_ARRAY[&quot;step_3&quot;]=4
-#MEM_ARRAY[&quot;step_3&quot;]=16g
-#WALLTIME_ARRAY[&quot;step_3&quot;]=00-05:00 
+# THREADS_ARRAY[&quot;step_3&quot;]=10
+# MEM_ARRAY[&quot;step_3&quot;]=16g
+# WALLTIME_ARRAY[&quot;step_3&quot;]=00-05:00 
 
 ############# [step4]
-#THREADS_ARRAY[&quot;step_4&quot;]=4
-#MEM_ARRAY[&quot;step_4&quot;]=45g
-#WALLTIME_ARRAY[&quot;step_4&quot;]=00-05:00 
+# THREADS_ARRAY[&quot;step_4&quot;]=10
+# MEM_ARRAY[&quot;step_4&quot;]=45g
+# WALLTIME_ARRAY[&quot;step_4&quot;]=00-05:00 
 
 ############# [step5]
-#THREADS_ARRAY[&quot;step_5&quot;]=4
-#MEM_ARRAY[&quot;step_5&quot;]=45g
-#WALLTIME_ARRAY[&quot;step_5&quot;]=00-05:00 
+# THREADS_ARRAY[&quot;step_5&quot;]=10
+# MEM_ARRAY[&quot;step_5&quot;]=16g
+# WALLTIME_ARRAY[&quot;step_5&quot;]=00-05:00 
 
 #############[step6]
-#THREADS_ARRAY[&quot;step_6&quot;]=4
-#MEM_ARRAY[&quot;step_6&quot;]=16g
-#WALLTIME_ARRAY[&quot;step_6&quot;]=00-05:00 
+# THREADS_ARRAY[&quot;step_6&quot;]=10
+# MEM_ARRAY[&quot;step_6&quot;]=16g
+# WALLTIME_ARRAY[&quot;step_6&quot;]=00-05:00 
 
 ############# [step7]
-#THREADS_ARRAY[&quot;step_7marker&quot;]=4
-#MEM_ARRAY[&quot;step_7marker&quot;]=40g
-#WALLTIME_ARRAY[&quot;step_7marker&quot;]=00-1:00 
+# THREADS_ARRAY[&quot;step_7_markergsea&quot;]=4
+# MEM_ARRAY[&quot;step_7_markergsea&quot;]=16g
+# WALLTIME_ARRAY[&quot;step_7_markergsea&quot;]=00-05:00
 
-#THREADS_ARRAY[&quot;step_7enrich&quot;]=10
-#MEM_ARRAY[&quot;step_7enrich&quot;]=15g
-#WALLTIME_ARRAY[&quot;step_7enrich&quot;]=00-01:00 
+# THREADS_ARRAY[&quot;step_7_knownmarkers&quot;]=4
+# MEM_ARRAY[&quot;step_7_knownmarkers&quot;]=16g
+# WALLTIME_ARRAY[&quot;step_7_knownmarkers&quot;]=00-05:00
 
-#THREADS_ARRAY[&quot;step_7fta&quot;]=4
-#MEM_ARRAY[&quot;step_7fta&quot;]=150g
-#WALLTIME_ARRAY[&quot;step_7fta&quot;]=00-09:00 
+# THREADS_ARRAY[&quot;step_7_referenceannotation&quot;]=10
+# MEM_ARRAY[&quot;step_7_referenceannotation&quot;]=150g
+# WALLTIME_ARRAY[&quot;step_7_referenceannotation&quot;]=00-12:00
+
+# THREADS_ARRAY[&quot;step_7_annotate&quot;]=4
+# MEM_ARRAY[&quot;step_7_annotate&quot;]=16g
+# WALLTIME_ARRAY[&quot;step_7_annotate&quot;]=00-05:00
 
 ############# [step8]
-#THREADS_ARRAY[&quot;step_8_dgelist&quot;]=4
-#MEM_ARRAY[&quot;step_8_dgelist&quot;]=40g
-#WALLTIME_ARRAY[&quot;step_8_dgelist&quot;]=00-12:00 
+# THREADS_ARRAY[&quot;step_8_addmeta&quot;]=4
+# MEM_ARRAY[&quot;step_8_addmeta&quot;]=16g
+# WALLTIME_ARRAY[&quot;step_8_addmeta&quot;]=00-12:00 
 
-############# [step8]
-#THREADS_ARRAY[&quot;step_8_cont&quot;]=10
-#MEM_ARRAY[&quot;step_8_cont&quot;]=40g
-#WALLTIME_ARRAY[&quot;step_8_cont&quot;]=00-12:00 
+# THREADS_ARRAY[&quot;step_8_rundge&quot;]=4
+# MEM_ARRAY[&quot;step_8_rundge&quot;]=40g
+# WALLTIME_ARRAY[&quot;step_8_rundge&quot;]=00-12:00 
+
+############# [integrate]
+# THREADS_ARRAY[&quot;integrate&quot;]=10
+# MEM_ARRAY[&quot;integrate&quot;]=40g
+# WALLTIME_ARRAY[&quot;integrate&quot;]=00-04:00 
+
 </code></pre>
-<p>The <code>scrnabox_config.ini</code> defines the parameters for each Job submission to the <a href="https://slurm.schedmd.com/">Slurm Workload Manager</a>. Prior to performing their analysis with the scRNAbox pipeline, users should modify the this file to adjust the <a href="#general-configurations">General configurations</a> and <a href="#analytical-step-configurations">Analytical Step configurations</a>. </p>
+<p>The <code>scrnabox_config.ini</code> defines the parameters for each Job submission to the <a href="https://slurm.schedmd.com/">Slurm Workload Manager</a>. Prior to performing their analysis with the scRNAbox pipeline, users should modify this file to adjust the <a href="#general-configurations">General configurations</a> and <a href="#analytical-step-configurations">Analytical Step configurations</a>. </p>
 <hr />
 <h2 id="general-configurations">General configurations</h2>
-<p>The following <strong>general configuration</strong> parameters must be adjusted by the user:</p>
+<p>The following parameters must be adjusted by the user:</p>
 <p>1) <strong>ACCOUNT</strong>: the name of the account for the HPC system; <br />
 2) <strong>MODULEUSE</strong>: <br />
 3) <strong>MODULECELLRANGER</strong>:  <br />
 4) <strong>R_VERSION</strong>: the version of R installed on the HPC system; <br />
-5) <strong>R_LIB_PATH</strong>: the path to the R library containing the required R packages for running scRNAbox; <br />
-6) <strong>SCRNA_METHOD</strong>: The Analytical Track used for analysis. This will be automatically defined upon running Step 0. <br /></p>
+5) <strong>R_LIB_PATH</strong>: the path to the R library containing the required R packages for running scRNAbox (must be v4.2 or greater); <br />
+6) <strong>SCRNA_METHOD</strong>: The analysis track to use (SCRNA or HTO). This will be automatically defined upon running Step 0. <br /></p>
 <hr />
-<h2 id="analytical-step-configurations">Analytical Step configurations</h2>
-<p>Each Analytical Step of the scRNAbox pipeline has three configuartion parameters:</p>
-<p>1) <strong>THREADS_ARRAY</strong>: number of CPUs for the Job; <br />
-2) <strong>MEM_ARRAY</strong>: Amount of memory (RAM) for the Job; <br />
-3) <strong>WALLTIME_ARRAY</strong>: Amount of time for the Job.  <br /></p>
-<p>In the original <code>scrnabox_config.ini</code> file, the configuration parameters for each Analytical Step will be commented out and the <strong>default</strong> configurations will be used. If users need to change the configurations for any Analytical Step, they may uncomment the line of code and define the parameter:</p>
+<h2 id="step-configurations">Step configurations</h2>
+<p>Each step of the scRNAbox pipeline has three configuartion parameters:</p>
+<p>1) <strong>THREADS_ARRAY</strong>: number of CPUs for the job; <br />
+2) <strong>MEM_ARRAY</strong>: amount of memory (RAM) for the job; <br />
+3) <strong>WALLTIME_ARRAY</strong>: amount of time for the job.  <br /></p>
+<p>In the original <code>scrnabox_config.ini</code> file, the configuration parameters for each Analytical Step will be commented out and the <strong>default</strong> configurations will be used. If users need to change the configurations for any step, they can uncomment the line of code and define the parameter:</p>
 <pre><code># orginal scrnabox_config.ini
 #THREADS_ARRAY[&quot;step_2&quot;]=4
 #MEM_ARRAY[&quot;step_2&quot;]=16g
@@ -208,8 +232,8 @@ WALLTIME_ARRAY[&quot;step_2&quot;]=00-10:00
             </div>
           </div><footer>
     <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
-        <a href="../HTO/" class="btn btn-neutral float-left" title="- Cell Hashtag Analysis Track"><span class="icon icon-circle-arrow-left"></span> Previous</a>
-        <a href="../reference/" class="btn btn-neutral float-right" title="- Execution parameters">Next <span class="icon icon-circle-arrow-right"></span></a>
+        <a href="../Step8/" class="btn btn-neutral float-left" title="Step 8: Differential gene expression"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../reference/" class="btn btn-neutral float-right" title="Execution parameters">Next <span class="icon icon-circle-arrow-right"></span></a>
     </div>
 
   <hr/>
@@ -232,7 +256,7 @@ WALLTIME_ARRAY[&quot;step_2&quot;]=00-10:00
   <span class="rst-current-version" data-toggle="rst-current-version">
     
     
-      <span><a href="../HTO/" style="color: #fcfcfc">&laquo; Previous</a></span>
+      <span><a href="../Step8/" style="color: #fcfcfc">&laquo; Previous</a></span>
     
     
       <span><a href="../reference/" style="color: #fcfcfc">Next &raquo;</a></span>

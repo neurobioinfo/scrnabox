@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><link rel="canonical" href="https://neurobioinfo.github.io/midbrain_download/" />
+      <link rel="shortcut icon" href="../img/favicon.ico" />
+    <title>Downloading the midbrain dataset - scRNAbox</title>
+    <link rel="stylesheet" href="../css/theme.css" />
+    <link rel="stylesheet" href="../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "Downloading the midbrain dataset";
+        var mkdocs_page_input_path = "midbrain_download.md";
+        var mkdocs_page_url = "/midbrain_download/";
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href=".." class="icon icon-home"> scRNAbox
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="..">Home</a>
+                </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Pipeline</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../installation/">Installation</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../Step0/">Step 0: Set up</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../Step1/">Step 1: FASTQ to expression matrix</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../Step2/">Step 2: Seurat object and ambient RNA</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../Step3/">Step 3: Quality control and filtering</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../Step4/">Step 4: Doublet removal (standard)</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../Step4HTO/">Step 4: Demultiplexing (HTO)</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../Step5/">Step 5: Integration</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../Step6/">Step 6: Clustering</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../Step7/">Step 7: Cluster annotation</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../Step8/">Step 8: Differential gene expression</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Additional information</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../config/">Job configurations</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../reference/">Execution parameters</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../outputs/">Outputs</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Tutorial</span></p>
+              <ul class="current">
+                  <li class="toctree-l1"><a class="reference internal" href="../Dataset1/">scRNAbox analysis of midbrain dataset</a>
+                  </li>
+                  <li class="toctree-l1 current"><a class="reference internal current" href="./">Downloading the midbrain dataset</a>
+    <ul class="current">
+    </ul>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../library_prep/">Manual CellRanger library preparation</a>
+                  </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../FAQ/">FAQ</a>
+                </li>
+              </ul>
+              <p class="caption"><span class="caption-text">About</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../LICENSE/">- License</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../changelog/">- Changelog</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../contributing/">- Contributing</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../Acknowledgement/">- Acknowledgement</a>
+                  </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="..">scRNAbox</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href=".." class="icon icon-home" aria-label="Docs"></a> &raquo;</li>
+          <li>Tutorial &raquo;</li>
+      <li class="breadcrumb-item active">Downloading the midbrain dataset</li>
+    <li class="wy-breadcrumbs-aside">
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h2 id="downloading-the-midbrain-dataset">Downloading the midbrain dataset</h2>
+<p>The scRNAseq data produced by <a href="https://academic.oup.com/brain/article/145/3/964/6469020">Smajic et al.</a> is publicly available in the Gene Expression Omnibus with accession code <a href="https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE157783">GSE157783</a>. To download the data, we must first install SRAtoolkit (if this is not already installed on your High-Performance Computing (HPC) system). We will create a directory for our raw data and download SRAtoolkit with the following code:</p>
+<pre><code>mkdir data_download
+cd data_download
+wget --output-document sratoolkit.tar.gz https://ftp-trace.ncbi.nlm.nih.gov/sra/sdk/current/sratoolkit.current-ubuntu64.tar.gz
+tar -vxzf sratoolkit.tar.gz
+export PATH=$PATH:$PWD/sratoolkit.3.0.5-ubuntu64/bin
+</code></pre>
+<p>For more information regarding the SRAtoolkit, please visit the <a href="https://github.com/ncbi/sra-tools/wiki">documentation</a>.</p>
+<p>The Sequence Read Archive (SRA) run identifiers for each of the 11 samples in the midbrain dataset are:</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Sample</th>
+<th style="text-align: left;">SRR</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">PD1</td>
+<td style="text-align: left;">SRR12621862</td>
+</tr>
+<tr>
+<td style="text-align: left;">PD2</td>
+<td style="text-align: left;">SRR12621863</td>
+</tr>
+<tr>
+<td style="text-align: left;">PD3</td>
+<td style="text-align: left;">SRR12621864</td>
+</tr>
+<tr>
+<td style="text-align: left;">PD4</td>
+<td style="text-align: left;">SRR12621865</td>
+</tr>
+<tr>
+<td style="text-align: left;">PD5</td>
+<td style="text-align: left;">SRR12621866</td>
+</tr>
+<tr>
+<td style="text-align: left;">CTRL1</td>
+<td style="text-align: left;">SRR12621867</td>
+</tr>
+<tr>
+<td style="text-align: left;">CTRL2</td>
+<td style="text-align: left;">SRR12621868</td>
+</tr>
+<tr>
+<td style="text-align: left;">CTRL3</td>
+<td style="text-align: left;">SRR12621869</td>
+</tr>
+<tr>
+<td style="text-align: left;">CTRL4</td>
+<td style="text-align: left;">SRR12621870</td>
+</tr>
+<tr>
+<td style="text-align: left;">CTRL5</td>
+<td style="text-align: left;">SRR12621871</td>
+</tr>
+<tr>
+<td style="text-align: left;">CTRL6</td>
+<td style="text-align: left;">SRR12621872</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Note</strong>: If you simply want to test scRNAbox's Standard scRNAseq Analysis Track, it may be best to only incorportate a subset of samples in a test run, as using all 11 samples will take substantially longer. In this case, we suggest including at least three PD sample and three control to facilitate differential gene expression (DGE) contrasts in Step 8. </p>
+<p>To download the FASTQ files for all 11 samples, run the following code. Please note that this may take a very long time. </p>
+<pre><code>export PATH=$PATH:$PWD/sratoolkit.3.0.5-ubuntu64/bin
+module load StdEnv/2020 gcc/9.3.0
+module load sra-toolkit/3.0.0 
+
+#PD1
+prefetch SRR12621862 
+fasterq-dump SRR12621862 
+
+#PD2
+prefetch SRR12621863 
+fasterq-dump SRR12621863  
+
+#PD3
+prefetch SRR12621864 
+fasterq-dump SRR12621864  
+
+#PD4
+prefetch SRR12621865 
+fasterq-dump SRR12621865  
+
+#PD5
+prefetch SRR12621866 
+fasterq-dump SRR12621866 
+
+#CTRL1
+prefetch SRR12621867 
+fasterq-dump SRR12621867 
+
+#CTRL2
+prefetch SRR12621868 
+fasterq-dump SRR12621868  
+
+#CTRL3
+prefetch SRR12621869 
+fasterq-dump SRR12621869  
+
+#CTRL4
+prefetch SRR12621870 
+fasterq-dump SRR12621870  
+
+#CTRL5
+prefetch SRR12621871 
+fasterq-dump SRR12621871  
+
+#CTRL6
+prefetch SRR12621872
+fasterq-dump SRR12621872 
+</code></pre>
+<p>If the FASTQ files for all 11 samples have been downloaded properly, the <code>data_download</code> folder should contain the following:</p>
+<pre><code>data_download
+├── SRR12621862
+│   └── SRR12621862.sra
+├── SRR12621862_1.fastq
+├── SRR12621862_2.fastq
+├── SRR12621863
+│   └── SRR12621863.sra
+├── SRR12621863_1.fastq
+├── SRR12621863_2.fastq
+├── SRR12621864
+│   └── SRR12621864.sra
+├── SRR12621864_1.fastq
+├── SRR12621864_2.fastq
+├── SRR12621865
+│   └── SRR12621865.sra
+├── SRR12621865_1.fastq
+├── SRR12621865_2.fastq
+├── SRR12621866
+│   └── SRR12621866.sra
+├── SRR12621866_1.fastq
+├── SRR12621866_2.fastq
+├── SRR12621867
+│   └── SRR12621867.sra
+├── SRR12621867_1.fastq
+├── SRR12621867_2.fastq
+├── SRR12621868
+│   └── SRR12621868.sra
+├── SRR12621868_1.fastq
+├── SRR12621868_2.fastq
+├── SRR12621869
+│   └── SRR12621869.sra
+├── SRR12621869_1.fastq
+├── SRR12621869_2.fastq
+├── SRR12621870
+│   └── SRR12621870.sra
+├── SRR12621870_1.fastq
+├── SRR12621870_2.fastq
+├── SRR12621871
+│   └── SRR12621871.sra
+├── SRR12621871_1.fastq
+├── SRR12621871_2.fastq
+├── SRR12621872
+│   └── SRR12621872.sra
+├── SRR12621872_1.fastq
+└── SRR12621872_2.fastq
+</code></pre>
+<p>Next, we will rename the FASTQ files according to the CellRanger nomenclature and transfer the FASTQ files to a folder named <code>fastqs</code>. For more information regarding the nomeclature required by the CellRanger <em>counts</em> pipeline, please visit CellRanger's <a href="https://support.10xgenomics.com/single-cell-gene-expression/software/pipelines/latest/using/fastq-input">documentation</a>.</p>
+<p><strong>Note</strong>: The <code>fastqs</code> folder should only contain FASTQ files for the experiment.</p>
+<pre><code>mkdir fastqs
+
+#PD1
+cp ~/data_download/SRR12621862_1.fastq ~/fastqs/PD1_S1_L001_R1_001.fastq
+cp ~/data_download/SRR12621862_2.fastq ~/fastqs/PD1_S1_L001_R2_001.fastq
+
+#PD2
+cp ~/data_download/SRR12621863_1.fastq ~/fastqs/PD2_S1_L001_R1_001.fastq
+cp ~/data_download/SRR12621863_2.fastq ~/fastqs/PD2_S1_L001_R2_001.fastq
+
+#PD3
+cp ~/data_download/SRR12621864_1.fastq ~/fastqs/PD3_S1_L001_R1_001.fastq
+cp ~/data_download/SRR12621864_2.fastq ~/fastqs/PD3_S1_L001_R2_001.fastq
+
+#PD4
+cp ~/data_download/SRR12621865_1.fastq ~/fastqs/PD4_S1_L001_R1_001.fastq
+cp ~/data_download/SRR12621865_2.fastq ~/fastqs/PD4_S1_L001_R2_001.fastq
+
+#PD5
+cp ~/data_download/SRR12621866_1.fastq ~/fastqs/PD5_S1_L001_R1_001.fastq
+cp ~/data_download/SRR12621866_2.fastq ~/fastqs/PD5_S1_L001_R2_001.fastq
+
+#Ctrl1
+cp ~/data_download/SRR12621867_1.fastq ~/fastqs/CTRL1_S1_L001_R1_001.fastq
+cp ~/data_download/SRR12621867_2.fastq ~/fastqs/CTRL1_S1_L001_R2_001.fastq
+
+#Ctrl2
+cp ~/data_download/SRR12621868_1.fastq ~/fastqs/CTRL2_S1_L001_R1_001.fastq
+cp ~/data_download/SRR12621868_2.fastq ~/fastqs/CTRL2_S1_L001_R2_001.fastq
+
+#Ctrl3
+cp ~/data_download/SRR12621869_1.fastq ~/fastqs/CTRL3_S1_L001_R1_001.fastq
+cp ~/data_download/SRR12621869_2.fastq ~/fastqs/CTRL3_S1_L001_R2_001.fastq
+
+#Ctrl4
+cp ~/data_download/SRR12621870_1.fastq ~/fastqs/CTRL4_S1_L001_R1_001.fastq
+cp ~/data_download/SRR12621870_2.fastq ~/fastqs/CTRL4_S1_L001_R2_001.fastq
+
+#Ctrl5
+cp ~/data_download/SRR12621871_1.fastq ~/fastqs/CTRL5_S1_L001_R1_001.fastq
+cp ~/data_download/SRR12621871_2.fastq ~/fastqs/CTRL5_S1_L001_R2_001.fastq
+
+#Ctrl6
+cp ~/data_download/SRR12621872_1.fastq ~/fastqs/CTRL6_S1_L001_R1_001.fastq
+cp ~/data_download/SRR12621872_2.fastq ~/fastqs/CTRL6_S1_L001_R2_001.fastq
+</code></pre>
+<p>If the above steps were conducted properly, the <code>fastqs</code> folder should contain the following files:</p>
+<pre><code>├── CTRL1_S1_L001_R1_001.fastq
+├── CTRL1_S1_L001_R2_001.fastq
+├── CTRL2_S1_L001_R1_001.fastq
+├── CTRL2_S1_L001_R2_001.fastq
+├── CTRL3_S1_L001_R1_001.fastq
+├── CTRL3_S1_L001_R2_001.fastq
+├── CTRL4_S1_L001_R1_001.fastq
+├── CTRL4_S1_L001_R2_001.fastq
+├── CTRL5_S1_L001_R1_001.fastq
+├── CTRL5_S1_L001_R2_001.fastq
+├── CTRL6_S1_L001_R1_001.fastq
+├── CTRL6_S1_L001_R2_001.fastq
+├── PD1_S1_L001_R1_001.fastq
+├── PD1_S1_L001_R2_001.fastq
+├── PD2_S1_L001_R1_001.fastq
+├── PD2_S1_L001_R2_001.fastq
+├── PD3_S1_L001_R1_001.fastq
+├── PD3_S1_L001_R2_001.fastq
+├── PD4_S1_L001_R1_001.fastq
+├── PD4_S1_L001_R2_001.fastq
+├── PD5_S1_L001_R1_001.fastq
+└── PD5_S1_L001_R2_001.fastq
+</code></pre>
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="../Dataset1/" class="btn btn-neutral float-left" title="scRNAbox analysis of midbrain dataset"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../library_prep/" class="btn btn-neutral float-right" title="Manual CellRanger library preparation">Next <span class="icon icon-circle-arrow-right"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+    
+      <span><a href="../Dataset1/" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="../library_prep/" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script src="../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "..";</script>
+    <script src="../js/theme_extra.js"></script>
+    <script src="../js/theme.js"></script>
+      <script src="../search/main.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>

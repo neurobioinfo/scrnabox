@@ -71,7 +71,7 @@ if (tolower(par_ambient_RNA)=="yes") {
         ## create Seurat object with feature-barcode matrices correct for ambient RNA expression and filter according to user-defined parameters
         datadirs <- file.path(paste0(output_dir, '/step2/step2_ambient/',sample_name[i]))
         sparse_matrix <- Seurat::Read10X(data.dir = datadirs)
-        seurat_object <- Seurat::CreateSeuratObject(counts = sparse_matrix)
+        seurat_object <- Seurat::CreateSeuratObject(counts = sparse_matrix, project = sample_name[i])
         datadirs <- file.path(list[i],   "ouput_folder","outs","filtered_feature_bc_matrix")
         names(datadirs)=sample_name[i]
         sparse_matrix <- Seurat::Read10X(data.dir = datadirs)
@@ -215,7 +215,7 @@ if (tolower(par_ambient_RNA)=="no") {
           datadirs <- file.path(list[i],   "ouput_folder","outs","filtered_feature_bc_matrix")
           names(datadirs)=sample_name[i]
           sparse_matrix <- Seurat::Read10X(data.dir = datadirs)
-          seurat_object <- Seurat::CreateSeuratObject(counts = sparse_matrix$`Gene Expression`)
+          seurat_object <- Seurat::CreateSeuratObject(counts = sparse_matrix$`Gene Expression`, project = sample_name[i])
           seurat_object[['HTO']] = Seurat::CreateAssayObject(counts = sparse_matrix$`Antibody Capture`)
           ## save Seurat object for each sequencing run
           nam <- paste("seurat_object", sample_name[i], sep = ".")

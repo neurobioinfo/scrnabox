@@ -8,8 +8,8 @@ library(enrichR)
 ############################################
 #set up the parameters
 ############################################
-PWD <-'/Users/mfiorini/Desktop/scRNA_pipeline/enrichr1.38_practuce'
-cluster_marker <- '/Users/mfiorini/Desktop/scRNA_pipeline/ClusterMarkers.csv'
+PWD <-'/pathway/to/working/directory'
+cluster_marker <- '/pathway/to/ClusterMarkers.csv'
 db <- c('Descartes_Cell_Types_and_Tissue_2021','CellMarker_Augmented_2021','Azimuth_Cell_Types_2021')
 
 ############################################

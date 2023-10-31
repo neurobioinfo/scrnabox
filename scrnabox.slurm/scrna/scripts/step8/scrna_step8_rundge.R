@@ -17,33 +17,37 @@ lapply(packages, library, character.only = TRUE)
 ## load parameters
 source(paste(output_dir,'/job_info/parameters/step8_par.txt',sep=""))
 
-############################################################################
-## Wilcoxon all cells
-############################################################################
+########################################################################################################################################################
+## Cell-based DGE all cells
+########################################################################################################################################################
 
-if (tolower(par_run_wilcoxon_all_cells)=='yes') {
+if (tolower(par_run_cell_based_all_cells)=='yes') {
 
 ################### import the right Seurat object ###################
 ## load name of existing Seurat objects
 sample_name<-list.files(path = paste(output_dir, "/step7/objs7",sep=""),pattern = "*.rds")
 
-if(file.exists(paste(output_dir,'/step8/objs8/','seu_step8.rds', sep = ""))){
-    seu_int<-readRDS(paste(output_dir,'/step8/objs8/','seu_step8.rds', sep=''))
-}else{
-    seu_int<-readRDS(paste(output_dir,'/step7/objs7/',sample_name, sep=''))
-}
+if (exists("par_seurat_object")) {                                                  
+    seu_int<-readRDS(par_seurat_object)
+} else {
+  if(file.exists(paste(output_dir,'/step8/objs8/','seu_step8.rds', sep = ""))){
+      seu_int<-readRDS(paste(output_dir,'/step8/objs8/','seu_step8.rds', sep=''))
+  }else{
+      seu_int<-readRDS(paste(output_dir,'/step7/objs7/',sample_name, sep=''))
+  }
+} 
 ################### ############################## ###################
 
 ## set default assay to RNA
 DefaultAssay(seu_int) <- "RNA"
 
 ### sample-sample dge wilcoxon analysis ####
-dd<-read.csv(paste(output_dir,'/job_info/parameters/step8_contrast_wilcoxon_all_cells.txt',sep='/'), sep="")
+dd<-read.csv(paste(output_dir,'/job_info/parameters/step8_contrast_cell_based_all_cells.txt',sep='/'), sep="")
 
 
 ### create directories
 ## base directory
-OUT_dir_sample <- paste(output_dir,"/step8/wilcoxon_all_cells",sep='') 
+OUT_dir_sample <- paste(output_dir,"/step8/Cell_based_all_cells",sep='') 
 dir.create(OUT_dir_sample)
 
 ## contrast-specific
@@ -53,27 +57,47 @@ dir.create(paste(OUT_dir_sample,"/",dd[i,1],sep=''))
 
 for(i in 1:nrow(dd)){  
 Idents(seu_int) <- dd[i,2]    
-DGE <- FindMarkers(seu_int, ident.1 = dd[i,3], ident.2 = dd[i,4],  logfc.threshold = 0, test.use = "MAST", slot = "data")
+DGE <- FindMarkers(seu_int, ident.1 = dd[i,3], ident.2 = dd[i,4],  logfc.threshold = 0, test.use = par_statistical_method)
 #write dge
 write.csv(DGE, file = paste(OUT_dir_sample,"/",dd[i,1],"/", dd[i,1],'_DEG.csv', sep=""), quote = FALSE, sep = ",")
+
+#modify colour scheme
+DGE$col <- "lightgrey"
+DGE$col[DGE$avg_log2FC > 1 & DGE$p_val < 0.05] <- "indianred3"
+DGE$col[DGE$avg_log2FC < -1 & DGE$p_val < 0.05] <- "dodgerblue2"
+DGE$col[DGE$avg_log2FC > 1 & DGE$p_val_adj < 0.05] <- "red4"
+DGE$col[DGE$avg_log2FC < -1 & DGE$p_val_adj < 0.05] <- "navy"
+
+# fix cols
+keyvals <- DGE$col
+names(keyvals)[keyvals == 'indianred3'] <- 'Log2FC > 1; P < 0.05'
+names(keyvals)[keyvals == 'lightgrey'] <- 'NS'
+names(keyvals)[keyvals == 'dodgerblue2'] <- 'Log2FC< -1; P < 0.05'
+names(keyvals)[keyvals == 'red4'] <- 'Log2FC > 1; adj. P < 0.05'
+names(keyvals)[keyvals == 'navy'] <- 'Log2FC < -1; adj. P < 0.05'
 
 # volcano plot
 # volcano plot
 ## print volcano plot
     EnhancedVolcano(DGE,
-    lab = rownames(DGE),
-    x = 'avg_log2FC',
-    y = 'p_val',
-    #ylim = c(0,20),
-    #xlim = c(-2,2),
-    pCutoff = 0.001,
-    FCcutoff = 1,
-    pointSize = 2.0,
-    labSize = 5, 
-    #legendLabSize = 20,
-    #subtitleLabSize = 20,
-    #legendIconSize = 10,
-    )
+                    lab = NA,
+                    x = 'avg_log2FC',
+                    y = 'p_val',
+                    pCutoff = 0.05,
+                    FCcutoff = 1,
+                    pointSize = 2.0,
+                    labSize = 5, 
+                    colCustom = keyvals,
+                    parseLabels = TRUE,
+                    drawConnectors = TRUE,
+                    colAlpha = 1,
+    ) +
+    theme_classic() + 
+    theme(plot.subtitle=element_blank(),
+          plot.title=element_blank(),
+          legend.position = "right",
+          legend.title=element_blank())
+
 ggsave(file = paste(OUT_dir_sample,"/",dd[i,1],"/", dd[i,1],'_volcano_plot.pdf', sep=""))
 
 }
@@ -95,26 +119,30 @@ if (tolower(par_save_metadata)=='yes') {
 }
 
 ## write session info
-writeLines(capture.output(sessionInfo()), paste(output_dir,'/step8/info8/sessionInfo_wilcoxon_all_cells.txt', sep=""))
+writeLines(capture.output(sessionInfo()), paste(output_dir,'/step8/info8/sessionInfo_CellBased_all_cells.txt', sep=""))
 if(file.exists("Rplots.pdf")){
     file.remove("Rplots.pdf")
 }
 }
 
-############################################################################
-## Wilcoxon cell type groups
-############################################################################
+########################################################################################################################################################
+## Cell-based DGE cell type groups
+########################################################################################################################################################
 
-if (tolower(par_run_wilcoxon_celltype_groups)=='yes') {
+if (tolower(par_run_cell_based_celltype_groups)=='yes') {
 
 ################### import the right Seurat object ###################
 ## load name of existing Seurat objects
 sample_name<-list.files(path = paste(output_dir, "/step7/objs7",sep=""),pattern = "*.rds")
 
-if(file.exists(paste(output_dir,'/step8/objs8/','seu_step8.rds', sep = ""))){
-    seu_int<-readRDS(paste(output_dir,'/step8/objs8/','seu_step8.rds', sep=''))
-}else{
-    seu_int<-readRDS(paste(output_dir,'/step7/objs7/',sample_name, sep=''))
+if (exists("par_seurat_object")) {                                                  
+    seu_int<-readRDS(par_seurat_object)
+} else {
+  if(file.exists(paste(output_dir,'/step8/objs8/','seu_step8.rds', sep = ""))){
+      seu_int<-readRDS(paste(output_dir,'/step8/objs8/','seu_step8.rds', sep=''))
+  }else{
+      seu_int<-readRDS(paste(output_dir,'/step7/objs7/',sample_name, sep=''))
+  }
 }
 ################### ############################## ###################
 
@@ -122,12 +150,12 @@ if(file.exists(paste(output_dir,'/step8/objs8/','seu_step8.rds', sep = ""))){
 ## set default assay to RNA
 DefaultAssay(seu_int) <- "RNA"
 
-### sample-cell dge analysis ###
-dd<-read.csv(paste(output_dir,'/job_info/parameters/step8_contrast_wilcoxon_celltype_groups.txt',sep='/'), sep="")
+## sample-cell dge analysis ###
+dd<-read.csv(paste(output_dir,'/job_info/parameters/step8_contrast_cell_based_celltype_groups.txt',sep='/'), sep="")
 
 ### create directories
 ## base directory
-OUT_dir_sample <- paste(output_dir,"/step8/wilcoxon_celltype_groups",sep='') 
+OUT_dir_sample <- paste(output_dir,"/step8/Cell_based_celltype_groups",sep='') 
 dir.create(OUT_dir_sample)
 
 ## contrast-specific
@@ -139,31 +167,49 @@ for(i in 1:nrow(dd)){
 Idents(seu_int) <- dd[i,2]    
 celltype.sub.seu <- subset(seu_int, idents = dd[i,3])
 Idents(celltype.sub.seu) <- dd[i,4]    
-DGE <- FindMarkers(celltype.sub.seu, ident.1 = dd[i,5], ident.2 = dd[i,6],  logfc.threshold = 0, test.use = "MAST", slot = "data")
+DGE <- FindMarkers(celltype.sub.seu, ident.1 = dd[i,5], ident.2 = dd[i,6],  logfc.threshold = 0, test.use = par_statistical_method)
 #write dge
 write.csv(DGE, file = paste(OUT_dir_sample,"/",dd[i,1],"/", dd[i,1],'_DEG.csv', sep=""), quote = FALSE, sep = ",")
+
+# modify colour scheme
+DGE$col <- "lightgrey"
+DGE$col[DGE$avg_log2FC > 1 & DGE$p_val < 0.05] <- "indianred3"
+DGE$col[DGE$avg_log2FC < -1 & DGE$p_val < 0.05] <- "dodgerblue2"
+DGE$col[DGE$avg_log2FC > 1 & DGE$p_val_adj < 0.05] <- "red4"
+DGE$col[DGE$avg_log2FC < -1 & DGE$p_val_adj < 0.05] <- "navy"
+
+# fix cols
+keyvals <- DGE$col
+names(keyvals)[keyvals == 'indianred3'] <- 'Log2FC > 1; P < 0.05'
+names(keyvals)[keyvals == 'lightgrey'] <- 'NS'
+names(keyvals)[keyvals == 'dodgerblue2'] <- 'Log2FC< -1; P < 0.05'
+names(keyvals)[keyvals == 'red4'] <- 'Log2FC > 1; adj. P < 0.05'
+names(keyvals)[keyvals == 'navy'] <- 'Log2FC < -1; adj. P < 0.05'
 
 # volcano plot
 ## print volcano plot
     EnhancedVolcano(DGE,
-    lab = rownames(DGE),
-    x = 'avg_log2FC',
-    y = 'p_val',
-    #ylim = c(0,20),
-    #xlim = c(-2,2),
-    pCutoff = 0.001,
-    FCcutoff = 1,
-    pointSize = 2.0,
-    labSize = 5, 
-    #legendLabSize = 20,
-    #subtitleLabSize = 20,
-    #legendIconSize = 10,
-    )
+                    lab = NA,
+                    x = 'avg_log2FC',
+                    y = 'p_val',
+                    pCutoff = 0.05,
+                    FCcutoff = 1,
+                    pointSize = 2.0,
+                    labSize = 5, 
+                    colCustom = keyvals,
+                    parseLabels = TRUE,
+                    drawConnectors = TRUE,
+                    colAlpha = 1,
+    ) +
+    theme_classic() + 
+    theme(plot.subtitle=element_blank(),
+          plot.title=element_blank(),
+          legend.position = "right",
+          legend.title=element_blank())
+
 ggsave(file = paste(OUT_dir_sample,"/",dd[i,1],"/", dd[i,1],'_volcano_plot.pdf', sep=""))
-
-
 }
-################### ########################## ###################
+################### 
 
 ## print RDS object
 saveRDS(seu_int, paste(output_dir,'/step8/objs8',"/seu_step8.rds", sep=""))
@@ -181,37 +227,40 @@ if (tolower(par_save_metadata)=='yes') {
 }
 
 ## write session info
-writeLines(capture.output(sessionInfo()), paste(output_dir,'/step8/info8/sessionInfo_wilcoxon_celltype_groups.txt', sep=""))
+writeLines(capture.output(sessionInfo()), paste(output_dir,'/step8/info8/sessionInfo_CellBased_celltype_groups.txt', sep=""))
 if(file.exists("Rplots.pdf")){
     file.remove("Rplots.pdf")
 }
 }
 
 
+########################################################################################################################################################
+## Sample-based DGE cell type groups
+########################################################################################################################################################
 
-############################################################################
-## pseudo bulk cell type groups
-############################################################################
-
-if (tolower(par_run_pseudo_bulk_celltype_groups)=='yes') {
+if (tolower(par_run_sample_based_celltype_groups)=='yes') {
 
 ################### import the right Seurat object ###################
 ## load name of existing Seurat objects
 sample_name<-list.files(path = paste(output_dir, "/step7/objs7",sep=""),pattern = "*.rds")
 
-if(file.exists(paste(output_dir,'/step8/objs8/','seu_step8.rds', sep = ""))){
-    seu<-readRDS(paste(output_dir,'/step8/objs8/','seu_step8.rds', sep=''))
-}else{
-    seu<-readRDS(paste(output_dir,'/step7/objs7/',sample_name, sep=''))
+if (exists("par_seurat_object")) {                                                  
+    seu<-readRDS(par_seurat_object)
+} else {
+  if(file.exists(paste(output_dir,'/step8/objs8/','seu_step8.rds', sep = ""))){
+      seu<-readRDS(paste(output_dir,'/step8/objs8/','seu_step8.rds', sep=''))
+  }else{
+      seu<-readRDS(paste(output_dir,'/step7/objs7/',sample_name, sep=''))
+  }
 }
 ################### ############################## ###################
 
 ## read in the pseudobulk contrast matrix
-dd<-read.csv(paste(output_dir,'/job_info/parameters/step8_contrast_pseudo_bulk_celltype_groups.txt',sep='/'), sep="")
+dd<-read.csv(paste(output_dir,'/job_info/parameters/step8_contrast_sample_based_celltype_groups.txt',sep='/'), sep="")
 ## store the contrast name
 cont_name <- dd[1,1]
 ## create a psudobulk folder
-sudo_dir <- paste(output_dir,'/step8/pseudo_bulk_celltype_groups', sep = "")
+sudo_dir <- paste(output_dir,'/step8/Sample_based_celltype_groups', sep = "")
 dir.create(sudo_dir)
 outputpath <- sudo_dir
 dir.create(paste(sudo_dir,"/",cont_name, sep = ""))
@@ -352,25 +401,47 @@ for (i in celltypes.res){
     celltype <- i
     contrast <- names(list.results[[i]][["contrast_results"]])
     write.csv(result, paste(sudo_dir,"/",cont_name,"/info","/DGE_",celltype,contrast,".csv", sep = ""))
+    
+    ## colour 
+    result$col <- "lightgrey"
+    result$col[result$log2FoldChange > 1 & result$pvalue < 0.05] <- "indianred3"
+    result$col[result$log2FoldChange < -1 & result$pvalue < 0.05] <- "dodgerblue2"
+    result$col[result$log2FoldChange > 1 & result$padj < 0.05] <- "red4"
+    result$col[result$log2FoldChange < -1 & result$padj < 0.05] <- "navy"
+
+    # fix cols
+    keyvals <- result$col
+    names(keyvals)[keyvals == 'indianred3'] <- 'Log2FC > 1; P < 0.05'
+    names(keyvals)[keyvals == 'lightgrey'] <- 'NS'
+    names(keyvals)[keyvals == 'dodgerblue2'] <- 'Log2FC< -1; P < 0.05'
+    names(keyvals)[keyvals == 'red4'] <- 'Log2FC > 1; adj. P < 0.05'
+    names(keyvals)[keyvals == 'navy'] <- 'Log2FC < -1; adj. P < 0.05'
+    
     ## print volcano plot
     EnhancedVolcano(result,
-    lab = rownames(result),
-    x = 'log2FoldChange',
-    y = 'pvalue',
-    #ylim = c(0,20),
-    #xlim = c(-2,2),
-    pCutoff = 0.001,
-    FCcutoff = 1,
-    pointSize = 2.0,
-    labSize = 5, 
-    #legendLabSize = 20,
-    #subtitleLabSize = 20,
-    #legendIconSize = 10,
-    ) 
+                    lab = NA,
+                    x = 'log2FoldChange',
+                    y = 'pvalue',
+                    pCutoff = 0.05,
+                    FCcutoff = 1,
+                    pointSize = 2.0,
+                    labSize = 5, 
+                    colCustom = keyvals,
+                    parseLabels = TRUE,
+                    drawConnectors = TRUE,
+                    colAlpha = 1,
+    ) +
+    theme_classic() + 
+    theme(plot.subtitle=element_blank(),
+          plot.title=element_blank(),
+          legend.position = "right",
+          legend.title=element_blank())
+
     ggsave(file = paste(sudo_dir,"/",cont_name,"/figs","/DGE_",celltype,contrast,".pdf", sep = ""))
     } else {print("skip")}
   }
 }
+
 
 #A summarize results function
 summarize_contrast <- function(result, 
@@ -424,41 +495,46 @@ for (i in seq_along(Celltypes)) {
 
 # Combine all the summary results into a single data frame
 summary_table <- do.call(rbind, summary_results_list)
-write.csv(summary_table,paste(sudo_dir,"/",cont_name,"/PseudoBulk_DGEsummarytable.csv", sep = ""))
+write.csv(summary_table,paste(sudo_dir,"/",cont_name,"/SampleBased_DGEsummarytable.csv", sep = ""))
 # Print the summary table
 print(summary_table)
 
 ## write session info
-writeLines(capture.output(sessionInfo()), paste(output_dir,'/step8/info8/sessionInfo_pseudo_bulk_celltype_groups.txt', sep=""))
+writeLines(capture.output(sessionInfo()), paste(output_dir,'/step8/info8/sessionInfo_SampleBased_celltype_groups.txt', sep=""))
 if(file.exists("Rplots.pdf")){
     file.remove("Rplots.pdf")
 }
 
 }
 
-############################################################################
-## pseudo bulk all cells
-############################################################################
 
-if (tolower(par_run_pseudo_bulk_all_cells)=='yes') {
+########################################################################################################################################################
+## Sample-based DGE all cells
+########################################################################################################################################################
+
+if (tolower(par_run_sample_based_all_cells)=='yes') {
 
 ################### import the right Seurat object ###################
 ## load name of existing Seurat objects
 sample_name<-list.files(path = paste(output_dir, "/step7/objs7",sep=""),pattern = "*.rds")
 
-if(file.exists(paste(output_dir,'/step8/objs8/','seu_step8.rds', sep = ""))){
-    seu<-readRDS(paste(output_dir,'/step8/objs8/','seu_step8.rds', sep=''))
-}else{
-    seu<-readRDS(paste(output_dir,'/step7/objs7/',sample_name, sep=''))
+if (exists("par_seurat_object")) {                                                  
+    seu<-readRDS(par_seurat_object)
+} else {
+  if(file.exists(paste(output_dir,'/step8/objs8/','seu_step8.rds', sep = ""))){
+      seu<-readRDS(paste(output_dir,'/step8/objs8/','seu_step8.rds', sep=''))
+  }else{
+      seu<-readRDS(paste(output_dir,'/step7/objs7/',sample_name, sep=''))
+  }
 }
 ################### ############################## ###################
 
 ## read in the pseudobulk contrast matrix
-dd<-read.csv(paste(output_dir,'/job_info/parameters/step8_contrast_pseudo_bulk_all_cells.txt',sep='/'), sep="")
+dd<-read.csv(paste(output_dir,'/job_info/parameters/step8_contrast_sample_based_all_cells.txt',sep='/'), sep="")
 ## store the contrast name
 cont_name <- dd[1,1]
 ## create a psudobulk folder
-sudo_dir <- paste(output_dir,'/step8/pseudo_bulk_all_cells', sep = "")
+sudo_dir <- paste(output_dir,'/step8/Sample_based_all_cells', sep = "")
 dir.create(sudo_dir)
 outputpath <- sudo_dir
 dir.create(paste(sudo_dir,"/",cont_name, sep = ""))
@@ -598,21 +674,41 @@ for (i in celltypes.res){
     celltype <- i
     contrast <- names(list.results[[i]][["contrast_results"]])
     write.csv(result, paste(sudo_dir,"/",cont_name,"/DGE_",celltype,contrast,".csv", sep = ""))
+    
+    ## colour 
+    result$col <- "lightgrey"
+    result$col[result$log2FoldChange > 1 & result$pvalue < 0.05] <- "indianred3"
+    result$col[result$log2FoldChange < -1 & result$pvalue < 0.05] <- "dodgerblue2"
+    result$col[result$log2FoldChange > 1 & result$padj < 0.05] <- "red4"
+    result$col[result$log2FoldChange < -1 & result$padj < 0.05] <- "navy"
+
+    # fix cols
+    keyvals <- result$col
+    names(keyvals)[keyvals == 'indianred3'] <- 'Log2FC > 1; P < 0.05'
+    names(keyvals)[keyvals == 'lightgrey'] <- 'NS'
+    names(keyvals)[keyvals == 'dodgerblue2'] <- 'Log2FC< -1; P < 0.05'
+    names(keyvals)[keyvals == 'red4'] <- 'Log2FC > 1; adj. P < 0.05'
+    names(keyvals)[keyvals == 'navy'] <- 'Log2FC < -1; adj. P < 0.05'
+    
     ## print volcano plot
     EnhancedVolcano(result,
-    lab = rownames(result),
-    x = 'log2FoldChange',
-    y = 'pvalue',
-    #ylim = c(0,20),
-    #xlim = c(-2,2),
-    pCutoff = 0.001,
-    FCcutoff = 1,
-    pointSize = 2.0,
-    labSize = 5, 
-    #legendLabSize = 20,
-    #subtitleLabSize = 20,
-    #legendIconSize = 10,
-    ) 
+                    lab = NA,
+                    x = 'log2FoldChange',
+                    y = 'pvalue',
+                    pCutoff = 0.05,
+                    FCcutoff = 1,
+                    pointSize = 2.0,
+                    labSize = 5, 
+                    colCustom = keyvals,
+                    parseLabels = TRUE,
+                    drawConnectors = TRUE,
+                    colAlpha = 1,
+    ) +
+    theme_classic() + 
+    theme(plot.subtitle=element_blank(),
+          plot.title=element_blank(),
+          legend.position = "right",
+          legend.title=element_blank())
     ggsave(file = paste(sudo_dir,"/",cont_name,"/DGE_",celltype,contrast,".pdf", sep = ""))
   }
 }
@@ -670,12 +766,12 @@ for (i in seq_along(Celltypes)) {
 
 # Combine all the summary results into a single data frame
 summary_table <- do.call(rbind, summary_results_list)
-write.csv(summary_table,paste(sudo_dir,"/",cont_name,"/PseudoBulk_DGEsummarytable.csv", sep = ""))
+write.csv(summary_table,paste(sudo_dir,"/",cont_name,"/SampleBased_DGEsummarytable.csv", sep = ""))
 # Print the summary table
 print(summary_table)
 
 ## write session info
-writeLines(capture.output(sessionInfo()), paste(output_dir,'/step8/info8/sessionInfo_pseudo_bulk_celltype_groups.txt', sep=""))
+writeLines(capture.output(sessionInfo()), paste(output_dir,'/step8/info8/sessionInfo_SampleBased_celltype_groups.txt', sep=""))
 if(file.exists("Rplots.pdf")){
     file.remove("Rplots.pdf")
 }

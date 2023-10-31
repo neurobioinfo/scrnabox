@@ -37,16 +37,20 @@ par_remove_mitochondrial_genes= "no"
 par_remove_ribosomal_genes= "no"
 
 ## If you have specific genes that you want to remove, enter a vector of genes that you wish to remove. Uncomment the line to activate the parameter.
-#par_remove_genes= c("MT-ATP6", "MT-ATP8", "MT-CO1",  "MT-CO2",  "MT-CO3",  "MT-CYB",  "MT-ND1", "RPL10", "RPL10A", "RPL10L", "RPL11")
+#par_remove_genes= c("gene1", "gene2")
 
 
 ############################################################################
-# Regress cell cycle genes 
+# Regress genes
 ############################################################################
-## If you want to regress cell cycle genes, set the following parameters to "yes". If you do not want to regress them keep, the default as "no".
-## Note: if you are using your own Seurat object (i.e. not from Step 2), you can only regress cell cycle genes if your Seurat object has the cell cycle score computed.
+## If you want to regress cell cycle genes, set the following parameters to "yes". If you do not want to regress them keep, the default as "no". Note: if you are using your own Seurat object (i.e. not from Step 2), you can only regress cell cycle genes if your Seurat object has the cell cycle score computed.
 par_regress_cell_cycle_genes= "yes"
 
+## If you want to regress a custom list of genes, set the following parameters to "yes". If you do not want to regress a custom list, keep the default as "no". 
+par_regress_custom_genes= "yes"
+
+## Enter the genes that you want to regress in the list below.
+par_regress_genes= c("gene1", "gene2")
 
 ############################################################################
 # Parameters for normalization and scaling after quality control 

@@ -13,7 +13,6 @@ output_dir=args[1]
 r_lib_path=args[2]
 pipeline_home=args[3]
 
-
 ## load library
 .libPaths(r_lib_path)
 packages<-c('Seurat','ggplot2', 'dplyr', 'xlsx', 'Matrix')
@@ -24,13 +23,28 @@ source(paste(output_dir,'/job_info/parameters/step7_par.txt',sep=""))
 
 ################### import the right Seurat object ###################
 ## load name of existing Seurat objects
+#sample_name<-list.files(path = paste(output_dir, "/step6/objs6",sep=""),pattern = "*.rds")
+
+#if(file.exists(paste(output_dir,'/step7/objs7/','seu_step7.rds', sep = ""))){
+#    seu_int<-readRDS(paste(output_dir,'/step7/objs7/','seu_step7.rds', sep=''))
+#}else{
+#    seu_int<-readRDS(paste(output_dir,'/step6/objs6/',sample_name, sep=''))
+#}
+################### ############################## ###################
+
+################### import the right Seurat object ###################
 sample_name<-list.files(path = paste(output_dir, "/step6/objs6",sep=""),pattern = "*.rds")
 
-if(file.exists(paste(output_dir,'/step7/objs7/','seu_step7.rds', sep = ""))){
-    seu_int<-readRDS(paste(output_dir,'/step7/objs7/','seu_step7.rds', sep=''))
+if (exists("par_seurat_object")) {                                                   
+    seu_int<-readRDS(par_seurat_object)
 }else{
-    seu_int<-readRDS(paste(output_dir,'/step6/objs6/',sample_name, sep=''))
+    if(file.exists(paste(output_dir,'/step7/objs7/','seu_step7.rds', sep = ""))){
+        seu_int<-readRDS(paste(output_dir,'/step7/objs7/','seu_step7.rds', sep=''))
+    }else{
+        seu_int<-readRDS(paste(output_dir,'/step6/objs6/',sample_name, sep=''))
+    }
 }
+
 ################### ############################## ###################
 
 ## set cell identity to the clustering resolution defined by the user
@@ -68,8 +82,8 @@ DimPlot(seu_int, reduction = "umap", label = TRUE, pt.size = 0.5, raster = FALSE
 ggsave(file = paste(OUT_dir_figs_annotate,par_name_metadata,'_cluster_annotation.pdf', sep=''))
 
 ## print UMAP splitted
-DimPlot(seu_int, reduction = "umap", split.by = "MULTI_ID_Lables",label = TRUE, pt.size = 0.5, raster = FALSE) + NoLegend()
-ggsave(file = paste(OUT_dir_figs_annotate,par_name_metadata,'_split_cluster_annotation.pdf', sep=''), dpi = 300, height = 5, width = 10, unit = 'in')
+DimPlot(seu_int, reduction = "umap", split.by = "Sample_ID", label = TRUE, pt.size = 0.5, ncol = 3, raster = FALSE) + NoLegend()
+ggsave(file = paste(OUT_dir_figs_annotate,par_name_metadata,'_split_cluster_annotation.pdf', sep=''), dpi = 300, height = 15, width = 15, unit = 'in')
 
 ## save metadata information
 write.csv(colnames(seu_int[[]]), file= paste(output_dir,'/step7/info7/meta_info_seu_step7',".txt", sep=""))

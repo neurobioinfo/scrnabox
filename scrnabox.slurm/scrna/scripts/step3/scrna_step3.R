@@ -144,14 +144,40 @@ foreach (i=1:length(sample_name)) %do% {
     Seurat::LabelPoints(plot = vf_plot,points = topsel, repel = TRUE)
     ggsave(paste(output_dir,'/step3/figs3/VariableFeaturePlot_',sample_nameb[i],".pdf",sep=""))
 
-    ##Do not regress out cc genes
-    if (tolower(par_regress_cell_cycle_genes)=='no') {
+    ##Do not regress out cc genes or custom list
+    if (tolower(par_regress_cell_cycle_genes)=='no' & tolower(par_regress_custom_genes)=='no') {
     seu<- ScaleData(seu, verbose = FALSE)
     }
 
-    ## Regress out cc genes
-    if (tolower(par_regress_cell_cycle_genes)=='yes') {
+    ## Regress out cc genes only
+    if (tolower(par_regress_cell_cycle_genes)=='yes' & tolower(par_regress_custom_genes)=='no') {
     seu<- ScaleData(seu, vars.to.regress = c("S.Score", "G2M.Score"), verbose = FALSE)
+    }
+
+    ## Regress out custom gene list  only
+    if (tolower(par_regress_custom_genes)=='yes' & tolower(par_regress_cell_cycle_genes)=='no') {
+        par_regress_genes <- list(par_regress_genes)
+        seu <- AddModuleScore(
+        object = seu,
+        features = par_regress_genes,
+        nbin = 24,
+        ctrl = 4,
+        k = FALSE,
+        name = 'regress_features')    
+    seu<- ScaleData(seu, vars.to.regress = "regress_features", verbose = FALSE)
+    }
+
+    ## Regress out custom gene list and cc genes
+    if (tolower(par_regress_custom_genes)=='yes' & tolower(par_regress_cell_cycle_genes)=='yes') {
+        par_regress_genes <- list(par_regress_genes)
+        seu <- AddModuleScore(
+        object = seu,
+        features = par_regress_genes,
+        nbin = 24,
+        ctrl = 4,
+        k = FALSE,
+        name = 'regress_features')    
+    seu<- ScaleData(seu, vars.to.regress = c("S.Score", "G2M.Score", "regress_features"), verbose = FALSE)
     }
 
     ## perform linear dimensional reduction
@@ -197,6 +223,7 @@ foreach (i=1:length(sample_name)) %do% {
     sink()
 
 }
+
 
 ## save session information
 writeLines(capture.output(sessionInfo()), paste(output_dir,'/step3/info3/sessionInfo.txt', sep=""))

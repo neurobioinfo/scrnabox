@@ -5,14 +5,14 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><link rel="canonical" href="https://neurobioinfo.github.io/outputs/" />
       <link rel="shortcut icon" href="../img/favicon.ico" />
-    <title>- Outputs - scRNAbox</title>
+    <title>Outputs - scRNAbox</title>
     <link rel="stylesheet" href="../css/theme.css" />
     <link rel="stylesheet" href="../css/theme_extra.css" />
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
     
       <script>
         // Current page data
-        var mkdocs_page_name = "- Outputs";
+        var mkdocs_page_name = "Outputs";
         var mkdocs_page_input_path = "outputs.md";
         var mkdocs_page_url = "/outputs/";
       </script>
@@ -43,34 +43,49 @@
                 <li class="toctree-l1"><a class="reference internal" href="..">Home</a>
                 </li>
               </ul>
+              <p class="caption"><span class="caption-text">Pipeline</span></p>
               <ul>
-                <li class="toctree-l1"><a class="reference internal" href="../installation/">Installation</a>
-                </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../installation/">Installation</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../Step0/">Step 0: Set up</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../Step1/">Step 1: FASTQ to expression matrix</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../Step2/">Step 2: Seurat object and ambient RNA</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../Step3/">Step 3: Quality control and filtering</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../Step4/">Step 4: Doublet removal (standard)</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../Step4HTO/">Step 4: Demultiplexing (HTO)</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../Step5/">Step 5: Integration</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../Step6/">Step 6: Clustering</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../Step7/">Step 7: Cluster annotation</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../Step8/">Step 8: Differential gene expression</a>
+                  </li>
               </ul>
-              <p class="caption"><span class="caption-text">Overview</span></p>
+              <p class="caption"><span class="caption-text">Additional information</span></p>
               <ul class="current">
-                  <li class="toctree-l1"><a class="reference internal" href="../SCRNA/">- Standard Analysis Track</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../config/">Job configurations</a>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../HTO/">- Cell Hashtag Analysis Track</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../reference/">Execution parameters</a>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../config/">- Job configurations</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../reference/">- Execution parameters</a>
-                  </li>
-                  <li class="toctree-l1 current"><a class="reference internal current" href="./">- Outputs</a>
+                  <li class="toctree-l1 current"><a class="reference internal current" href="./">Outputs</a>
     <ul class="current">
     </ul>
                   </li>
               </ul>
               <p class="caption"><span class="caption-text">Tutorial</span></p>
               <ul>
-                  <li class="toctree-l1"><a class="reference internal" href="../Dataset1/">- Standard Analysis: Midbrain dataset</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../Dataset1/">scRNAbox analysis of midbrain dataset</a>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../Dataset2/">- Cell Hashtag Analysis: PBMC dataset</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../midbrain_download/">Downloading the midbrain dataset</a>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../PROC/">- Processed Data</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../library_prep/">- CellRanger library preparation</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../library_prep/">Manual CellRanger library preparation</a>
                   </li>
               </ul>
               <ul>
@@ -102,8 +117,8 @@
         <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
   <ul class="wy-breadcrumbs">
     <li><a href=".." class="icon icon-home" aria-label="Docs"></a> &raquo;</li>
-          <li>Overview &raquo;</li>
-      <li class="breadcrumb-item active">- Outputs</li>
+          <li>Additional information &raquo;</li>
+      <li class="breadcrumb-item active">Outputs</li>
     <li class="wy-breadcrumbs-aside">
     </li>
   </ul>
@@ -112,30 +127,42 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
             <div class="section" itemprop="articleBody">
               
-                <h2 id="outputs-of-each-analytical-step-in-the-scrnabox-pipeline">Outputs of each Analytical Step in the scRNAbox pipeline</h2>
+                <h2 id="outputs-of-each-step-in-the-scrnabox-pipeline">Outputs of each step in the scRNAbox pipeline</h2>
 <ul>
 <li><a href="#introduction">Introduction</a></li>
-<li><a href="#standard-scrnaseq-analysis-track">Standard scRNAseq Analysis Track</a></li>
-<li><a href="#cell-hashtag-scrnaseq-analysis-track">Cell Hashtag scRNAseq Analysis Track</a></li>
+<li><a href="#outputs">Outputs</a><ul>
+<li><a href="#step-1-fastq-to-gene-expression-matrix">Step 1: FASTQ to expression matrix</a></li>
+<li><a href="#step-2-create-seurat-object-and-remove-ambient-rna">Step 2: Create Seurat object and remove ambient RNA</a></li>
+<li><a href="#step-3-quality-control-and-generation-of-filtered-data-objects">Step 3: Quality control and generation of filtered data objects</a></li>
+<li><a href="#step-4-doublet-removal-standard-track">Step 4: Doublet removal (standard track)</a></li>
+<li><a href="#step-4-demultiplexing-and-doublet-detection-hto-track">Step 4: Demultiplexing and doublet detection (HTO track)</a></li>
+<li><a href="#step-5-creation-of-a-single-seurat-object-from-all-samples">Step 5: Creation of a single Seurat object from all samples</a></li>
+<li><a href="#step-6-clustering">Step 6: Clustering</a></li>
+<li><a href="#step-7-cluster-annotation">Step 7: Cluster annotation</a></li>
+<li><a href="#step-8-differential-gene-expression">Step 8: Differential gene expression</a></li>
+</ul>
+</li>
 </ul>
 <hr />
 <h2 id="introduction">Introduction</h2>
-<p>Each Analytical Step of the scRNAbox pipeline produces outputs for the analysis. The outputs of each Analytical Step are deposited into a Step-specific folder which contains three sub folders:</p>
-<pre><code>step1
-├── figs1
-├── info1
-└── objs1
+<p>The outputs of each Step of the scRNAbox pipeline are deposited into a step-specific folder in the working directory which contains three sub folders:</p>
+<pre><code>working_directory
+└──step1
+    ├── figs1
+    ├── info1
+    └── objs1
 </code></pre>
 <ul>
 <li>The <code>figs/</code> folder contains figures;</li>
 <li>The <code>info/</code> folder contains text files and tables;</li>
 <li>The <code>objs/</code> folder contains intermediate Seurat RDS objects.</li>
 </ul>
-<p><strong>Note:</strong> If users re-run an Analytical Step, the outputs from the previous run will automatically be overwritten. If you do not want to lose the outputs from a previous run, it is important to copy the materials to a separate directory. One exception to this is when annotating data in Step 7; users can re-run the <strong>Annotate</strong> step as many times as they wish and each interation will add a new metadata column to the already existing Seurat object.</p>
+<p><strong>Note:</strong> If users re-run an Analytical Step, the outputs from the previous run will automatically be overwritten. If you do not want to lose the outputs from a previous run, it is important to copy the materials to a separate directory. One exception to this is when annotating data in Step 7; users can re-run the <strong>annotate</strong> step as many times as they wish and each interation will add a new metadata column to the already existing Seurat object.</p>
 <hr />
-<h2 id="standard-scrnaseq-analysis-track">Standard scRNAseq Analysis Track</h2>
+<h2 id="outputs">Outputs</h2>
 <h4 id="step-1-fastq-to-gene-expression-matrix">Step 1: FASTQ to gene expression matrix</h4>
 <p>All of the outputs of the CellRanger <em>counts</em> pipeline are produced. For more information on the outputs, please visit the CellRanger <a href="https://support.10xgenomics.com/single-cell-gene-expression/software/pipelines/latest/using/count">documentation</a>.</p>
+<hr />
 <h4 id="step-2-create-seurat-object-and-remove-ambient-rna">Step 2: Create Seurat object and remove ambient RNA</h4>
 <table>
 <thead>
@@ -146,6 +173,16 @@
 </tr>
 </thead>
 <tbody>
+<tr>
+<td style="text-align: left;">Figure</td>
+<td style="text-align: left;">ambient_RNA_estimation_sample_name.pdf</td>
+<td style="text-align: left;">Sample-specific probability density plot showing the ambient RNA estimation. For more information see <a href="https://cran.r-project.org/web/packages/SoupX/vignettes/pbmcTutorial.html">here</a></td>
+</tr>
+<tr>
+<td style="text-align: left;">Figure</td>
+<td style="text-align: left;">ambient_RNA_markers_sample_name.pdf</td>
+<td style="text-align: left;">Sample-specific figure showing the marker genes used for ambient RNA estimation. For more information see [here]https://cran.r-project.org/web/packages/SoupX/vignettes/pbmcTutorial.html)</td>
+</tr>
 <tr>
 <td style="text-align: left;">Figure</td>
 <td style="text-align: left;">vioplot_sample_name.pdf</td>
@@ -203,7 +240,8 @@
 </tr>
 </tbody>
 </table>
-<h4 id="step-3-quality-control-and-filtering">Step 3: Quality control and filtering</h4>
+<hr />
+<h4 id="step-3-quality-control-and-generation-of-filtered-data-objects">Step 3: Quality control and generation of filtered data objects</h4>
 <table>
 <thead>
 <tr>
@@ -270,7 +308,8 @@
 </tr>
 </tbody>
 </table>
-<h4 id="step-4-doublet-removal">Step 4: Doublet removal</h4>
+<hr />
+<h4 id="step-4-doublet-removal-standard-track">Step 4: Doublet removal (standard track)</h4>
 <table>
 <thead>
 <tr>
@@ -322,489 +361,8 @@
 </tr>
 </tbody>
 </table>
-<h4 id="step-5-integration-and-linear-dimensional-reduction">Step 5: Integration and linear dimensional reduction</h4>
-<table>
-<thead>
-<tr>
-<th style="text-align: left;">Output type</th>
-<th style="text-align: left;">Name</th>
-<th style="text-align: left;">Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align: left;">Figure</td>
-<td style="text-align: left;">DimPlot_pca.pdf</td>
-<td style="text-align: left;">PCA showing the first two PCs, colour-coded by sample</td>
-</tr>
-<tr>
-<td style="text-align: left;">Figure</td>
-<td style="text-align: left;">DimPlot_umap.pdf</td>
-<td style="text-align: left;">UMAP, colour-coded by sample</td>
-</tr>
-<tr>
-<td style="text-align: left;">Figure</td>
-<td style="text-align: left;">elbow.pdf</td>
-<td style="text-align: left;">Elbow plot to visualize the percentage of variance explained by each PC</td>
-</tr>
-<tr>
-<td style="text-align: left;">Figure</td>
-<td style="text-align: left;">Jackstraw_plot.pdf</td>
-<td style="text-align: left;">Jackstraw plot to visualize the distribution of p-values for each PC</td>
-</tr>
-<tr>
-<td style="text-align: left;">Info</td>
-<td style="text-align: left;">seu_int_RNA.txt</td>
-<td style="text-align: left;">Sparse matrix of integrated assay</td>
-</tr>
-<tr>
-<td style="text-align: left;">Info</td>
-<td style="text-align: left;">seu_int_MetaData.txt</td>
-<td style="text-align: left;">Dataframe showing the Seurat object metadata</td>
-</tr>
-<tr>
-<td style="text-align: left;">Info</td>
-<td style="text-align: left;">meta_info_seu_step5.csv</td>
-<td style="text-align: left;">Text file showing the column names of the Seurat object metadata</td>
-</tr>
-<tr>
-<td style="text-align: left;">Info</td>
-<td style="text-align: left;">sessionInfo.txt</td>
-<td style="text-align: left;">Session information for the R session</td>
-</tr>
-<tr>
-<td style="text-align: left;">Data object</td>
-<td style="text-align: left;">seu_step5.rds</td>
-<td style="text-align: left;">Integrated intermediate Seurat RDS object</td>
-</tr>
-</tbody>
-</table>
-<h4 id="step-6-clustering">Step 6: Clustering</h4>
-<table>
-<thead>
-<tr>
-<th style="text-align: left;">Output type</th>
-<th style="text-align: left;">Name</th>
-<th style="text-align: left;">Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align: left;">Figure</td>
-<td style="text-align: left;">clustree_int.pdf</td>
-<td style="text-align: left;">Clustree plot showing the stability across the user-defied clustering resolutions</td>
-</tr>
-<tr>
-<td style="text-align: left;">Figure</td>
-<td style="text-align: left;">integrated_snn_res.pdf</td>
-<td style="text-align: left;">UMAP at the user defined clustering-resolution</td>
-</tr>
-<tr>
-<td style="text-align: left;">Figure</td>
-<td style="text-align: left;">ARI.pdf</td>
-<td style="text-align: left;">Mean and standard deviation of the Adjusted Rand Index (ARI) between clustering pairs at a user-defined resolution</td>
-</tr>
-<tr>
-<td style="text-align: left;">Info</td>
-<td style="text-align: left;">clustering_ARI.xlsx</td>
-<td style="text-align: left;">Excel file showing the mean and standard deviation of the ARI between clustering pairs at a user-defined resolution</td>
-</tr>
-<tr>
-<td style="text-align: left;">Info</td>
-<td style="text-align: left;">seu_RNA.txt</td>
-<td style="text-align: left;">Sparse matrix of integrated assay</td>
-</tr>
-<tr>
-<td style="text-align: left;">Info</td>
-<td style="text-align: left;">seu_MetaData.txt</td>
-<td style="text-align: left;">Dataframe showing the Seurat object metadata</td>
-</tr>
-<tr>
-<td style="text-align: left;">Info</td>
-<td style="text-align: left;">meta_info.csv</td>
-<td style="text-align: left;">Text file showing the column names of the Seurat object metadata</td>
-</tr>
-<tr>
-<td style="text-align: left;">Info</td>
-<td style="text-align: left;">sessionInfo.txt</td>
-<td style="text-align: left;">Session information for the R session</td>
-</tr>
-<tr>
-<td style="text-align: left;">Data object</td>
-<td style="text-align: left;">seu_step6.rds</td>
-<td style="text-align: left;">Intermediate Seurat RDS object</td>
-</tr>
-</tbody>
-</table>
-<h4 id="step-7-cluster-annotation">Step 7: Cluster annotation</h4>
-<table>
-<thead>
-<tr>
-<th style="text-align: left;">Cluster annotation method</th>
-<th style="text-align: left;">Output type</th>
-<th style="text-align: left;">Name</th>
-<th style="text-align: left;">Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align: left;"><strong>General</strong></td>
-<td style="text-align: left;">Figure</td>
-<td style="text-align: left;">umap.pdf</td>
-<td style="text-align: left;">UMAP plot of integrated assay at the user-defined clustering resolution used for cluster annotation</td>
-</tr>
-<tr>
-<td style="text-align: left;"><strong>General</strong></td>
-<td style="text-align: left;">Figure</td>
-<td style="text-align: left;">umap_splitted.pdf</td>
-<td style="text-align: left;">UMAP plot of integrated assay at the user-defined clustering resolution used for cluster annotation, split by sample</td>
-</tr>
-<tr>
-<td style="text-align: left;"><strong>Method 1:</strong> Cluster marker GSEA</td>
-<td style="text-align: left;">Figure</td>
-<td style="text-align: left;">heatmap.pdf</td>
-<td style="text-align: left;">Heatmap showing the expression of the top marker genes across cells, stratified by cluster</td>
-</tr>
-<tr>
-<td style="text-align: left;"><strong>Method 1:</strong> Cluster marker GSEA</td>
-<td style="text-align: left;">Figure</td>
-<td style="text-align: left;">plotenrich.pdf</td>
-<td style="text-align: left;">Barplot showing the 20 most enriched terms for a particular cluster and cell type library</td>
-</tr>
-<tr>
-<td style="text-align: left;"><strong>Method 2:</strong> Module score</td>
-<td style="text-align: left;">Figure</td>
-<td style="text-align: left;">module_score_gene_set.pdf</td>
-<td style="text-align: left;">UMAP plot showing the module score across cells for user-defined gene sets</td>
-</tr>
-<tr>
-<td style="text-align: left;"><strong>Method 3:</strong> Reference-based annotations</td>
-<td style="text-align: left;">Figure</td>
-<td style="text-align: left;">UMAP_transferred_labels.pdf</td>
-<td style="text-align: left;">UMAP plots showing the cluster annotations from the reference Seurat object projected onto the query Seurat object</td>
-</tr>
-<tr>
-<td style="text-align: left;"><strong>Visualize features</strong></td>
-<td style="text-align: left;">Figure</td>
-<td style="text-align: left;">select_feature_dot_plot.pdf</td>
-<td style="text-align: left;">Dotplot showing the expression of user-defined features at the cluster level</td>
-</tr>
-<tr>
-<td style="text-align: left;"><strong>Visualize features</strong></td>
-<td style="text-align: left;">Figure</td>
-<td style="text-align: left;">select_feature_violin_plot.pdf</td>
-<td style="text-align: left;">Violin plot showing the expression of user-defined features at the cluster level</td>
-</tr>
-<tr>
-<td style="text-align: left;"><strong>Visualize features</strong></td>
-<td style="text-align: left;">Figure</td>
-<td style="text-align: left;">select_feature_feature_plot.pdf</td>
-<td style="text-align: left;">UMAP plots showing the expression of user-defined features at the cell level</td>
-</tr>
-<tr>
-<td style="text-align: left;"><strong>Annotate</strong></td>
-<td style="text-align: left;">Figure</td>
-<td style="text-align: left;">clustering_name_cluster_annotation.pdf</td>
-<td style="text-align: left;">UMAP plot of the integrated assay showing the cluster annotation</td>
-</tr>
-<tr>
-<td style="text-align: left;"><strong>Annotate</strong></td>
-<td style="text-align: left;">Figure</td>
-<td style="text-align: left;">clustering_name_split_cluster_annotation.pdf</td>
-<td style="text-align: left;">UMAP plot of the integrated assay showing the cluster annotation, split by sample</td>
-</tr>
-<tr>
-<td style="text-align: left;"><strong>General</strong></td>
-<td style="text-align: left;">Info</td>
-<td style="text-align: left;">meta_info_seu_step7.txt</td>
-<td style="text-align: left;">Text file showing the column names of the Seurat object metadata</td>
-</tr>
-<tr>
-<td style="text-align: left;"><strong>General</strong></td>
-<td style="text-align: left;">Info</td>
-<td style="text-align: left;">sessionInfo_marker.txt</td>
-<td style="text-align: left;">Session information for the R session</td>
-</tr>
-<tr>
-<td style="text-align: left;"><strong>Method 1:</strong> Cluster marker GSEA</td>
-<td style="text-align: left;">Info</td>
-<td style="text-align: left;">cluster_just_genes.xlsx</td>
-<td style="text-align: left;">Excel file showing the marker genes for each cluster</td>
-</tr>
-<tr>
-<td style="text-align: left;"><strong>Method 1:</strong> Cluster marker GSEA</td>
-<td style="text-align: left;">Info</td>
-<td style="text-align: left;">cluster_whole.xlsx</td>
-<td style="text-align: left;">Excel file showing the marker genes and corresponding summary statistics for each cluster</td>
-</tr>
-<tr>
-<td style="text-align: left;"><strong>Method 1:</strong> Cluster marker GSEA</td>
-<td style="text-align: left;">Info</td>
-<td style="text-align: left;">ClusterMarkers.csv</td>
-<td style="text-align: left;">csv file showing the marker genes and corresponding summary statistics for each cluster</td>
-</tr>
-<tr>
-<td style="text-align: left;"><strong>Method 1:</strong> Cluster marker GSEA</td>
-<td style="text-align: left;">Info</td>
-<td style="text-align: left;">top_sel.csv</td>
-<td style="text-align: left;">csv file showing the top n marker genes for each cluster. The user defined n in the execution parameters</td>
-</tr>
-<tr>
-<td style="text-align: left;"><strong>Method 1:</strong> Cluster marker GSEA</td>
-<td style="text-align: left;">Info</td>
-<td style="text-align: left;">Er.genes.csv</td>
-<td style="text-align: left;">Enrichment terms and the corresponding statistics for a particular cluster and cell type library</td>
-</tr>
-<tr>
-<td style="text-align: left;"><strong>Method 1:</strong> Cluster marker GSEA</td>
-<td style="text-align: left;">Data object</td>
-<td style="text-align: left;">ClusterMarkers.rds</td>
-<td style="text-align: left;">RDS object containing the marker genes for each cluster</td>
-</tr>
-<tr>
-<td style="text-align: left;"><strong>Method 2:</strong> Module score</td>
-<td style="text-align: left;">Info</td>
-<td style="text-align: left;">geneset_by_cluster.csv</td>
-<td style="text-align: left;">Mean module score across clusters for each user-defined gene set</td>
-</tr>
-<tr>
-<td style="text-align: left;"><strong>Method 3:</strong> Reference-based annotations</td>
-<td style="text-align: left;">Info</td>
-<td style="text-align: left;">reference_predictions_summary.xlsx</td>
-<td style="text-align: left;">Number of cells from each cluster assigned a particular annotation based of the reference</td>
-</tr>
-<tr>
-<td style="text-align: left;"><strong>General</strong></td>
-<td style="text-align: left;">Data object</td>
-<td style="text-align: left;">seu_step7.rds</td>
-<td style="text-align: left;">Intermediate Seurat RDS object</td>
-</tr>
-</tbody>
-</table>
-<h4 id="step-8-differential-gene-expression-contrasts">Step 8: Differential gene expression contrasts</h4>
-<table>
-<thead>
-<tr>
-<th style="text-align: left;">DGE contrast</th>
-<th style="text-align: left;">Output type</th>
-<th style="text-align: left;">Name</th>
-<th style="text-align: left;">Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align: left;"><strong>Pseudo-bulk</strong></td>
-<td style="text-align: left;">Figure</td>
-<td style="text-align: left;">contrast_name.pdf</td>
-<td style="text-align: left;">Volcano plot of showing differentially expressed genes</td>
-</tr>
-<tr>
-<td style="text-align: left;"><strong>Sample-sample contrasts</strong></td>
-<td style="text-align: left;">Figure</td>
-<td style="text-align: left;">contrast_name_volcano_plot.pdf</td>
-<td style="text-align: left;">Volcano plot of showing differentially expressed genes</td>
-</tr>
-<tr>
-<td style="text-align: left;"><strong>Sample-cell contrasts</strong></td>
-<td style="text-align: left;">Figure</td>
-<td style="text-align: left;">contrast_name_volcano_plot.pdf</td>
-<td style="text-align: left;">Volcano plot of showing differentially expressed genes</td>
-</tr>
-<tr>
-<td style="text-align: left;"><strong>Sample-sample contrasts</strong></td>
-<td style="text-align: left;">Info</td>
-<td style="text-align: left;">contrast_name_DEG.csv</td>
-<td style="text-align: left;">Differentially exppresed genes identified for the user-defined contrast</td>
-</tr>
-<tr>
-<td style="text-align: left;"><strong>Sample-cell contrasts</strong></td>
-<td style="text-align: left;">Info</td>
-<td style="text-align: left;">contrast_name_DEG.csv</td>
-<td style="text-align: left;">Differentially exppresed genes identified for the user-defined contrast</td>
-</tr>
-<tr>
-<td style="text-align: left;"><strong>Pseudo-bulk</strong></td>
-<td style="text-align: left;">Info</td>
-<td style="text-align: left;">Aggregated_expression_summary.csv</td>
-<td style="text-align: left;">Aggregated counts across user-defined sample groups</td>
-</tr>
-<tr>
-<td style="text-align: left;"><strong>Pseudo-bulk</strong></td>
-<td style="text-align: left;">Info</td>
-<td style="text-align: left;">PseudoBulk_DGEsummarytable.csv</td>
-<td style="text-align: left;">Number of differentially expressed genes in the positive and negative direction for each user-defined contrast</td>
-</tr>
-<tr>
-<td style="text-align: left;"><strong>General</strong></td>
-<td style="text-align: left;">Info</td>
-<td style="text-align: left;">seu_RNA.txt</td>
-<td style="text-align: left;">Sparse matrix of integrated assay</td>
-</tr>
-<tr>
-<td style="text-align: left;"><strong>General</strong></td>
-<td style="text-align: left;">Info</td>
-<td style="text-align: left;">seu_MetaData.txt</td>
-<td style="text-align: left;">Dataframe showing the Seurat object metadata</td>
-</tr>
-<tr>
-<td style="text-align: left;"><strong>General</strong></td>
-<td style="text-align: left;">Info</td>
-<td style="text-align: left;">meta_info.csv</td>
-<td style="text-align: left;">Text file showing the column names of the Seurat object metadata</td>
-</tr>
-<tr>
-<td style="text-align: left;"><strong>General</strong></td>
-<td style="text-align: left;">Info</td>
-<td style="text-align: left;">sessionInfo.txt</td>
-<td style="text-align: left;">Session information for the R session</td>
-</tr>
-<tr>
-<td style="text-align: left;"><strong>General</strong></td>
-<td style="text-align: left;">Data object</td>
-<td style="text-align: left;">seu_step8.rds</td>
-<td style="text-align: left;">Intermediate Seurat RDS object</td>
-</tr>
-</tbody>
-</table>
 <hr />
-<h2 id="cell-hashtag-scrnaseq-analysis-track">Cell Hashtag scRNAseq Analysis Track</h2>
-<h4 id="step-1-fastq-to-gene-expression-matrix_1">Step 1: FASTQ to gene expression matrix</h4>
-<p>All of the outputs of the CellRanger <em>counts</em> pipeline are produced. For more information on the outputs, please visit the CellRanger <a href="https://support.10xgenomics.com/single-cell-gene-expression/software/pipelines/latest/using/count">documentation</a>.</p>
-<h4 id="step-2-create-seurat-object-and-remove-ambient-rna_1">Step 2: Create Seurat object and remove ambient RNA</h4>
-<table>
-<thead>
-<tr>
-<th style="text-align: left;">Output type</th>
-<th style="text-align: left;">Name</th>
-<th style="text-align: left;">Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align: left;">Figure</td>
-<td style="text-align: left;">vioplot_run_name.pdf</td>
-<td style="text-align: left;">Run-specific violin plot showing the distribution of cells according to QC metrics</td>
-</tr>
-<tr>
-<td style="text-align: left;">Figure</td>
-<td style="text-align: left;">zoomed_in_vioplot_run_name.pdf</td>
-<td style="text-align: left;">Run-specific violin plot showing the distribution of cells according to QC metrics. The minimum value to the mean is shown.</td>
-</tr>
-<tr>
-<td style="text-align: left;">Figure</td>
-<td style="text-align: left;">cell_cycle_dim_plot_run_name.pdf</td>
-<td style="text-align: left;">Run-specific principal component analysis of cell-cycle genes, colour-coded by the cell cycle score of each cell.</td>
-</tr>
-<tr>
-<td style="text-align: left;">Info</td>
-<td style="text-align: left;">run_name_ambient_rna_summary.rds</td>
-<td style="text-align: left;">Run-specific summary of ambient RNA estimation by SoupX</td>
-</tr>
-<tr>
-<td style="text-align: left;">Info</td>
-<td style="text-align: left;">run_name_RNA.txt</td>
-<td style="text-align: left;">Run-specific sparse matrix of RNA assay</td>
-</tr>
-<tr>
-<td style="text-align: left;">Info</td>
-<td style="text-align: left;">estimated_ambient_RNA_run_name.txt</td>
-<td style="text-align: left;">Run-specific ambient RNA estimation.</td>
-</tr>
-<tr>
-<td style="text-align: left;">Info</td>
-<td style="text-align: left;">MetaData_run_name.txt</td>
-<td style="text-align: left;">Run-specific dataframe showing the Seurat object metadata</td>
-</tr>
-<tr>
-<td style="text-align: left;">Info</td>
-<td style="text-align: left;">meta_info_run_name.txt</td>
-<td style="text-align: left;">Run-specific text file showing the column names of the Seurat object metadata</td>
-</tr>
-<tr>
-<td style="text-align: left;">Info</td>
-<td style="text-align: left;">summary_run_name.txt</td>
-<td style="text-align: left;">Run-specific text file showing the summary of QC metrics (Minimum, 1st Quartile, Median, Mean, 3rd Quartile, Maximum)</td>
-</tr>
-<tr>
-<td style="text-align: left;">Info</td>
-<td style="text-align: left;">sessionInfo.txt</td>
-<td style="text-align: left;">Session information for the R session</td>
-</tr>
-<tr>
-<td style="text-align: left;">Data object</td>
-<td style="text-align: left;">run_name.rds</td>
-<td style="text-align: left;">Run-specific intermediate Seurat RDS object</td>
-</tr>
-</tbody>
-</table>
-<h4 id="step-3-quality-control-and-filtering_1">Step 3: Quality control and filtering</h4>
-<table>
-<thead>
-<tr>
-<th style="text-align: left;">Output type</th>
-<th style="text-align: left;">Name</th>
-<th style="text-align: left;">Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align: left;">Figure</td>
-<td style="text-align: left;">dimplot_pca_run_name.pdf</td>
-<td style="text-align: left;">Run-specific PCA showing the first two PCs</td>
-</tr>
-<tr>
-<td style="text-align: left;">Figure</td>
-<td style="text-align: left;">elbow_run_name.pdf</td>
-<td style="text-align: left;">Elbow plot to visualize the percentage of variance explained by each PC</td>
-</tr>
-<tr>
-<td style="text-align: left;">Figure</td>
-<td style="text-align: left;">filtered_QC_vioplot_run_name.pdf</td>
-<td style="text-align: left;">Run-specific violin plot showing the distribution of cells according to QC metrics after filtering</td>
-</tr>
-<tr>
-<td style="text-align: left;">Figure</td>
-<td style="text-align: left;">VariableFeaturePlot_run_name.pdf</td>
-<td style="text-align: left;">Run-specific figure showing the most variably expressed genes</td>
-</tr>
-<tr>
-<td style="text-align: left;">Info</td>
-<td style="text-align: left;">run_name_RNA.txt</td>
-<td style="text-align: left;">Run-specific sparse matrix of RNA assay</td>
-</tr>
-<tr>
-<td style="text-align: left;">Info</td>
-<td style="text-align: left;">MetaData_run_name.txt</td>
-<td style="text-align: left;">Run-specific dataframe showing the Seurat object metadata</td>
-</tr>
-<tr>
-<td style="text-align: left;">Info</td>
-<td style="text-align: left;">meta_info_run_name.txt</td>
-<td style="text-align: left;">Run-specific text file showing the column names of the Seurat object metadata</td>
-</tr>
-<tr>
-<td style="text-align: left;">Info</td>
-<td style="text-align: left;">most_variable_genes_run_name.txt</td>
-<td style="text-align: left;">Run-specific text file showing the column names of the Seurat object metadata</td>
-</tr>
-<tr>
-<td style="text-align: left;">Info</td>
-<td style="text-align: left;">summary_run_name.txt</td>
-<td style="text-align: left;">Run-specific text file showing the summary of QC metrics (Minimum, 1st Quartile, Median, Mean, 3rd Quartile, Maximum)</td>
-</tr>
-<tr>
-<td style="text-align: left;">Info</td>
-<td style="text-align: left;">sessionInfo.txt</td>
-<td style="text-align: left;">Session information for the R session</td>
-</tr>
-<tr>
-<td style="text-align: left;">Data object</td>
-<td style="text-align: left;">run_name.rds</td>
-<td style="text-align: left;">Run-specific intermediate Seurat RDS object</td>
-</tr>
-</tbody>
-</table>
-<h4 id="step-4-demultiplexing-and-doublet-removal">Step 4: Demultiplexing and doublet removal</h4>
+<h4 id="step-4-demultiplexing-and-doublet-detection-hto-track">Step 4: Demultiplexing and doublet detection (HTO track)</h4>
 <table>
 <thead>
 <tr>
@@ -886,7 +444,8 @@
 </tr>
 </tbody>
 </table>
-<h4 id="step-5-integration-and-linear-dimensional-reduction_1">Step 5: Integration and linear dimensional reduction</h4>
+<hr />
+<h4 id="step-5-creation-of-a-single-seurat-object-from-all-samples">Step 5: Creation of a single Seurat object from all samples</h4>
 <table>
 <thead>
 <tr>
@@ -898,23 +457,43 @@
 <tbody>
 <tr>
 <td style="text-align: left;">Figure</td>
-<td style="text-align: left;">DimPlot_pca.pdf</td>
-<td style="text-align: left;">PCA showing the first two PCs, colour-coded by run</td>
+<td style="text-align: left;">intergrated_DimPlot_pca.pdf</td>
+<td style="text-align: left;">PCA showing the first two PCs of integrated assay, colour-coded by sample</td>
 </tr>
 <tr>
 <td style="text-align: left;">Figure</td>
-<td style="text-align: left;">DimPlot_umap.pdf</td>
-<td style="text-align: left;">UMAP, colour-coded by run</td>
+<td style="text-align: left;">integrated_DimPlot_umap.pdf</td>
+<td style="text-align: left;">UMAP of integrated assay, colour-coded by sample</td>
 </tr>
 <tr>
 <td style="text-align: left;">Figure</td>
-<td style="text-align: left;">elbow.pdf</td>
-<td style="text-align: left;">Elbow plot to visualize the percentage of variance explained by each PC</td>
+<td style="text-align: left;">integrated_elbow.pdf</td>
+<td style="text-align: left;">Elbow plot to visualize the percentage of variance explained by each PC for the integrated assay</td>
 </tr>
 <tr>
 <td style="text-align: left;">Figure</td>
-<td style="text-align: left;">Jackstraw_plot.pdf</td>
-<td style="text-align: left;">Jackstraw plot to visualize the distribution of p-values for each PC</td>
+<td style="text-align: left;">integrated_Jackstraw.pdf</td>
+<td style="text-align: left;">Jackstraw plot to visualize the distribution of p-values for each PC for the integrated assay</td>
+</tr>
+<tr>
+<td style="text-align: left;">Figure</td>
+<td style="text-align: left;">merge_DimPlot_pca.pdf</td>
+<td style="text-align: left;">PCA showing the first two PCs of merged object, colour-coded by sample</td>
+</tr>
+<tr>
+<td style="text-align: left;">Figure</td>
+<td style="text-align: left;">merge_DimPlot_umap.pdf</td>
+<td style="text-align: left;">UMAP of merged object, colour-coded by sample</td>
+</tr>
+<tr>
+<td style="text-align: left;">Figure</td>
+<td style="text-align: left;">merge_elbow.pdf</td>
+<td style="text-align: left;">Elbow plot to visualize the percentage of variance explained by each PC for the merged object</td>
+</tr>
+<tr>
+<td style="text-align: left;">Figure</td>
+<td style="text-align: left;">merge_Jackstraw.pdf</td>
+<td style="text-align: left;">Jackstraw plot to visualize the distribution of p-values for each PC for the merged object</td>
 </tr>
 <tr>
 <td style="text-align: left;">Info</td>
@@ -924,12 +503,27 @@
 <tr>
 <td style="text-align: left;">Info</td>
 <td style="text-align: left;">seu_int_MetaData.txt</td>
-<td style="text-align: left;">Dataframe showing the Seurat object metadata</td>
+<td style="text-align: left;">Dataframe showing the integrated object metadata</td>
 </tr>
 <tr>
 <td style="text-align: left;">Info</td>
-<td style="text-align: left;">meta_info_seu_step5.csv</td>
-<td style="text-align: left;">Text file showing the column names of the Seurat object metadata</td>
+<td style="text-align: left;">integrated_meta_info_seu_step5.csv</td>
+<td style="text-align: left;">Text file showing the column names of the integrated object metadata</td>
+</tr>
+<tr>
+<td style="text-align: left;">Info</td>
+<td style="text-align: left;">seu_merge_RNA.txt</td>
+<td style="text-align: left;">Sparse matrix of merged data object</td>
+</tr>
+<tr>
+<td style="text-align: left;">Info</td>
+<td style="text-align: left;">seu_merge_MetaData.txt</td>
+<td style="text-align: left;">Dataframe showing the merged object metadata</td>
+</tr>
+<tr>
+<td style="text-align: left;">Info</td>
+<td style="text-align: left;">merge_meta_info_seu_step5.csv</td>
+<td style="text-align: left;">Text file showing the column names of the merged object metadata</td>
 </tr>
 <tr>
 <td style="text-align: left;">Info</td>
@@ -943,7 +537,8 @@
 </tr>
 </tbody>
 </table>
-<h4 id="step-6-clustering_1">Step 6: Clustering</h4>
+<hr />
+<h4 id="step-6-clustering">Step 6: Clustering</h4>
 <table>
 <thead>
 <tr>
@@ -1000,7 +595,8 @@
 </tr>
 </tbody>
 </table>
-<h4 id="step-7-cluster-annotation_1">Step 7: Cluster annotation</h4>
+<hr />
+<h4 id="step-7-cluster-annotation">Step 7: Cluster annotation</h4>
 <table>
 <thead>
 <tr>
@@ -1012,58 +608,46 @@
 </thead>
 <tbody>
 <tr>
-<td style="text-align: left;"><strong>General</strong></td>
-<td style="text-align: left;">Figure</td>
-<td style="text-align: left;">umap.pdf</td>
-<td style="text-align: left;">UMAP plot of integrated assay at the user-defined clustering resolution used for cluster annotation</td>
-</tr>
-<tr>
-<td style="text-align: left;"><strong>General</strong></td>
-<td style="text-align: left;">Figure</td>
-<td style="text-align: left;">umap_splitted.pdf</td>
-<td style="text-align: left;">UMAP plot of integrated assay at the user-defined clustering resolution used for cluster annotation, split by run</td>
-</tr>
-<tr>
-<td style="text-align: left;"><strong>Method 1:</strong> Cluster marker GSEA</td>
+<td style="text-align: left;"><strong>Tool 1:</strong> Cluster marker GSEA</td>
 <td style="text-align: left;">Figure</td>
 <td style="text-align: left;">heatmap.pdf</td>
 <td style="text-align: left;">Heatmap showing the expression of the top marker genes across cells, stratified by cluster</td>
 </tr>
 <tr>
-<td style="text-align: left;"><strong>Method 1:</strong> Cluster marker GSEA</td>
+<td style="text-align: left;"><strong>Tool 1:</strong> Cluster marker GSEA</td>
 <td style="text-align: left;">Figure</td>
 <td style="text-align: left;">plotenrich.pdf</td>
 <td style="text-align: left;">Barplot showing the 20 most enriched terms for a particular cluster and cell type library</td>
 </tr>
 <tr>
-<td style="text-align: left;"><strong>Method 2:</strong> Module score</td>
+<td style="text-align: left;"><strong>Tool 2:</strong> Profile known markers</td>
 <td style="text-align: left;">Figure</td>
 <td style="text-align: left;">module_score_gene_set.pdf</td>
 <td style="text-align: left;">UMAP plot showing the module score across cells for user-defined gene sets</td>
 </tr>
 <tr>
-<td style="text-align: left;"><strong>Method 3:</strong> Reference-based annotations</td>
-<td style="text-align: left;">Figure</td>
-<td style="text-align: left;">UMAP_transferred_labels.pdf</td>
-<td style="text-align: left;">UMAP plots showing the cluster annotations from the reference Seurat object projected onto the query Seurat object</td>
-</tr>
-<tr>
-<td style="text-align: left;"><strong>Visualize features</strong></td>
+<td style="text-align: left;"><strong>Tool 2:</strong> Profile known markers</td>
 <td style="text-align: left;">Figure</td>
 <td style="text-align: left;">select_feature_dot_plot.pdf</td>
 <td style="text-align: left;">Dotplot showing the expression of user-defined features at the cluster level</td>
 </tr>
 <tr>
-<td style="text-align: left;"><strong>Visualize features</strong></td>
+<td style="text-align: left;"><strong>Tool 2:</strong> Profile known markers</td>
 <td style="text-align: left;">Figure</td>
 <td style="text-align: left;">select_feature_violin_plot.pdf</td>
 <td style="text-align: left;">Violin plot showing the expression of user-defined features at the cluster level</td>
 </tr>
 <tr>
-<td style="text-align: left;"><strong>Visualize features</strong></td>
+<td style="text-align: left;"><strong>Tool 2:</strong> Profile known markers</td>
 <td style="text-align: left;">Figure</td>
 <td style="text-align: left;">select_feature_feature_plot.pdf</td>
 <td style="text-align: left;">UMAP plots showing the expression of user-defined features at the cell level</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Tool 3:</strong> Reference-based annotations</td>
+<td style="text-align: left;">Figure</td>
+<td style="text-align: left;">UMAP_transferred_labels.pdf</td>
+<td style="text-align: left;">UMAP plots showing the cluster annotations from the reference Seurat object projected onto the query Seurat object</td>
 </tr>
 <tr>
 <td style="text-align: left;"><strong>Annotate</strong></td>
@@ -1075,7 +659,7 @@
 <td style="text-align: left;"><strong>Annotate</strong></td>
 <td style="text-align: left;">Figure</td>
 <td style="text-align: left;">clustering_name_split_cluster_annotation.pdf</td>
-<td style="text-align: left;">UMAP plot of the integrated assay showing the cluster annotation, split by run</td>
+<td style="text-align: left;">UMAP plot of the integrated assay showing the cluster annotation, split by sample</td>
 </tr>
 <tr>
 <td style="text-align: left;"><strong>General</strong></td>
@@ -1090,49 +674,49 @@
 <td style="text-align: left;">Session information for the R session</td>
 </tr>
 <tr>
-<td style="text-align: left;"><strong>Method 1:</strong> Cluster marker GSEA</td>
+<td style="text-align: left;"><strong>Tool 1:</strong> Cluster marker GSEA</td>
 <td style="text-align: left;">Info</td>
 <td style="text-align: left;">cluster_just_genes.xlsx</td>
 <td style="text-align: left;">Excel file showing the marker genes for each cluster</td>
 </tr>
 <tr>
-<td style="text-align: left;"><strong>Method 1:</strong> Cluster marker GSEA</td>
+<td style="text-align: left;"><strong>Tool 1:</strong> Cluster marker GSEA</td>
 <td style="text-align: left;">Info</td>
 <td style="text-align: left;">cluster_whole.xlsx</td>
 <td style="text-align: left;">Excel file showing the marker genes and corresponding summary statistics for each cluster</td>
 </tr>
 <tr>
-<td style="text-align: left;"><strong>Method 1:</strong> Cluster marker GSEA</td>
+<td style="text-align: left;"><strong>Tool 1:</strong> Cluster marker GSEA</td>
 <td style="text-align: left;">Info</td>
 <td style="text-align: left;">ClusterMarkers.csv</td>
 <td style="text-align: left;">csv file showing the marker genes and corresponding summary statistics for each cluster</td>
 </tr>
 <tr>
-<td style="text-align: left;"><strong>Method 1:</strong> Cluster marker GSEA</td>
+<td style="text-align: left;"><strong>Tool 1:</strong> Cluster marker GSEA</td>
 <td style="text-align: left;">Info</td>
 <td style="text-align: left;">top_sel.csv</td>
 <td style="text-align: left;">csv file showing the top n marker genes for each cluster. The user defined n in the execution parameters</td>
 </tr>
 <tr>
-<td style="text-align: left;"><strong>Method 1:</strong> Cluster marker GSEA</td>
+<td style="text-align: left;"><strong>Tool 1:</strong> Cluster marker GSEA</td>
 <td style="text-align: left;">Info</td>
 <td style="text-align: left;">Er.genes.csv</td>
 <td style="text-align: left;">Enrichment terms and the corresponding statistics for a particular cluster and cell type library</td>
 </tr>
 <tr>
-<td style="text-align: left;"><strong>Method 1:</strong> Cluster marker GSEA</td>
+<td style="text-align: left;"><strong>Tool 1:</strong> Cluster marker GSEA</td>
 <td style="text-align: left;">Data object</td>
 <td style="text-align: left;">ClusterMarkers.rds</td>
 <td style="text-align: left;">RDS object containing the marker genes for each cluster</td>
 </tr>
 <tr>
-<td style="text-align: left;"><strong>Method 2:</strong> Module score</td>
+<td style="text-align: left;"><strong>Tool 2:</strong> Module score</td>
 <td style="text-align: left;">Info</td>
 <td style="text-align: left;">geneset_by_cluster.csv</td>
 <td style="text-align: left;">Mean module score across clusters for each user-defined gene set</td>
 </tr>
 <tr>
-<td style="text-align: left;"><strong>Method 3:</strong> Reference-based annotations</td>
+<td style="text-align: left;"><strong>Tool 3:</strong> Reference-based annotations</td>
 <td style="text-align: left;">Info</td>
 <td style="text-align: left;">reference_predictions_summary.xlsx</td>
 <td style="text-align: left;">Number of cells from each cluster assigned a particular annotation based of the reference</td>
@@ -1145,11 +729,12 @@
 </tr>
 </tbody>
 </table>
-<h4 id="step-8-differential-gene-expression-contrasts_1">Step 8: Differential gene expression contrasts</h4>
+<hr />
+<h4 id="step-8-differential-gene-expression">Step 8: Differential gene expression</h4>
 <table>
 <thead>
 <tr>
-<th style="text-align: left;">DGE contrast</th>
+<th style="text-align: left;">DGE method</th>
 <th style="text-align: left;">Output type</th>
 <th style="text-align: left;">Name</th>
 <th style="text-align: left;">Description</th>
@@ -1157,46 +742,34 @@
 </thead>
 <tbody>
 <tr>
-<td style="text-align: left;"><strong>Pseudo-bulk</strong></td>
+<td style="text-align: left;"><strong>general</strong></td>
 <td style="text-align: left;">Figure</td>
 <td style="text-align: left;">contrast_name.pdf</td>
 <td style="text-align: left;">Volcano plot of showing differentially expressed genes</td>
 </tr>
 <tr>
-<td style="text-align: left;"><strong>Sample-sample contrasts</strong></td>
-<td style="text-align: left;">Figure</td>
-<td style="text-align: left;">contrast_name_volcano_plot.pdf</td>
-<td style="text-align: left;">Volcano plot of showing differentially expressed genes</td>
-</tr>
-<tr>
-<td style="text-align: left;"><strong>Sample-cell contrasts</strong></td>
-<td style="text-align: left;">Figure</td>
-<td style="text-align: left;">contrast_name_volcano_plot.pdf</td>
-<td style="text-align: left;">Volcano plot of showing differentially expressed genes</td>
-</tr>
-<tr>
-<td style="text-align: left;"><strong>Sample-sample  contrasts</strong></td>
+<td style="text-align: left;"><strong>Cell-based DGE</strong></td>
 <td style="text-align: left;">Info</td>
 <td style="text-align: left;">contrast_name_DEG.csv</td>
 <td style="text-align: left;">Differentially exppresed genes identified for the user-defined contrast</td>
 </tr>
 <tr>
-<td style="text-align: left;"><strong>Sample-cell contrasts</strong></td>
-<td style="text-align: left;">Info</td>
-<td style="text-align: left;">contrast_name_DEG.csv</td>
-<td style="text-align: left;">Differentially exppresed genes identified for the user-defined contrast</td>
-</tr>
-<tr>
-<td style="text-align: left;"><strong>Pseudo-bulk</strong></td>
+<td style="text-align: left;"><strong>Sample-based DGE</strong></td>
 <td style="text-align: left;">Info</td>
 <td style="text-align: left;">Aggregated_expression_summary.csv</td>
-<td style="text-align: left;">Aggregated counts across user-defined run groups</td>
+<td style="text-align: left;">Aggregated counts across user-defined sample groups</td>
 </tr>
 <tr>
-<td style="text-align: left;"><strong>Pseudo-bulk</strong></td>
+<td style="text-align: left;"><strong>Sample-based DGE</strong></td>
 <td style="text-align: left;">Info</td>
-<td style="text-align: left;">PseudoBulk_DGEsummarytable.csv</td>
+<td style="text-align: left;">SampleBased_DGEsummarytable.csv</td>
 <td style="text-align: left;">Number of differentially expressed genes in the positive and negative direction for each user-defined contrast</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Sample-based DGE</strong></td>
+<td style="text-align: left;">Info</td>
+<td style="text-align: left;">DGE_contrast_name.csv</td>
+<td style="text-align: left;">Differentially exppresed genes identified for the user-defined contrast</td>
 </tr>
 <tr>
 <td style="text-align: left;"><strong>General</strong></td>
@@ -1234,8 +807,8 @@
             </div>
           </div><footer>
     <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
-        <a href="../reference/" class="btn btn-neutral float-left" title="- Execution parameters"><span class="icon icon-circle-arrow-left"></span> Previous</a>
-        <a href="../Dataset1/" class="btn btn-neutral float-right" title="- Standard Analysis: Midbrain dataset">Next <span class="icon icon-circle-arrow-right"></span></a>
+        <a href="../reference/" class="btn btn-neutral float-left" title="Execution parameters"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../Dataset1/" class="btn btn-neutral float-right" title="scRNAbox analysis of midbrain dataset">Next <span class="icon icon-circle-arrow-right"></span></a>
     </div>
 
   <hr/>

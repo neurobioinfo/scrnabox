@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><link rel="canonical" href="https://neurobioinfo.github.io/Step7/" />
+      <link rel="shortcut icon" href="../img/favicon.ico" />
+    <title>Step 7: Cluster annotation - scRNAbox</title>
+    <link rel="stylesheet" href="../css/theme.css" />
+    <link rel="stylesheet" href="../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "Step 7: Cluster annotation";
+        var mkdocs_page_input_path = "Step7.md";
+        var mkdocs_page_url = "/Step7/";
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href=".." class="icon icon-home"> scRNAbox
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="..">Home</a>
+                </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Pipeline</span></p>
+              <ul class="current">
+                  <li class="toctree-l1"><a class="reference internal" href="../installation/">Installation</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../Step0/">Step 0: Set up</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../Step1/">Step 1: FASTQ to expression matrix</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../Step2/">Step 2: Seurat object and ambient RNA</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../Step3/">Step 3: Quality control and filtering</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../Step4/">Step 4: Doublet removal (standard)</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../Step4HTO/">Step 4: Demultiplexing (HTO)</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../Step5/">Step 5: Integration</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../Step6/">Step 6: Clustering</a>
+                  </li>
+                  <li class="toctree-l1 current"><a class="reference internal current" href="./">Step 7: Cluster annotation</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#tool-1-cluster-marker-gsea">Tool 1: Cluster marker GSEA</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#tool-2-expression-profiling-of-known-marker-genes">Tool 2: Expression profiling of known marker genes</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#tool-3-reference-based-annotation">Tool 3: Reference-based annotation</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#adding-annotations">Adding annotations</a>
+    </li>
+    </ul>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../Step8/">Step 8: Differential gene expression</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Additional information</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../config/">Job configurations</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../reference/">Execution parameters</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../outputs/">Outputs</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Tutorial</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../Dataset1/">scRNAbox analysis of midbrain dataset</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../midbrain_download/">Downloading the midbrain dataset</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../library_prep/">Manual CellRanger library preparation</a>
+                  </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../FAQ/">FAQ</a>
+                </li>
+              </ul>
+              <p class="caption"><span class="caption-text">About</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../LICENSE/">- License</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../changelog/">- Changelog</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../contributing/">- Contributing</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../Acknowledgement/">- Acknowledgement</a>
+                  </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="..">scRNAbox</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href=".." class="icon icon-home" aria-label="Docs"></a> &raquo;</li>
+          <li>Pipeline &raquo;</li>
+      <li class="breadcrumb-item active">Step 7: Cluster annotation</li>
+    <li class="wy-breadcrumbs-aside">
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="step-7-cluster-annotation">Step 7: Cluster annotation</h1>
+<p>In Step 7, cluster annotation is performed to define the cell types comprising the clusters identified in Step 6. ScRNAbox provides three tools to identify cell types comprising the clusters:</p>
+<p><a href="#tool-1-cluster-marker-gsea">Tool 1: Cluster marker gene identification and gene set enrichment analysis (GSEA)</a><br /> 
+Seurat's <em>FindAllMarkers</em> function is used to identify differentially expressed marker genes (DEG) by the Wilcoxon rank-sum test (<a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4481139/">Macosko et al. 2015</a>). DEGs in the positive direction     (Log2 fold-change &gt; 0.00) are then tested for enrichment across user-defined gene set libraries that define cell types using the EnrichR tool (<a href="https://bmcbioinformatics.biomedcentral.com/articles/10.1186/1471-2105-14-128">Chen et al. 2013</a>). <br /></p>
+<p><a href="#tool-2-expression-profiling-of-known-marker-genes">Tool 2: Expression profiling of cell type markers and module scores</a> <br />
+Users can visualize the expression of individual genes and the aggregated expression of multiple genes. For each gene in a user-defined list, plots are produced to visualize its expression at the cluster or cell level. The aggregated expression of genes in a user-defined list are calculated using the Seurat AddModuleScore function (<a href="https://pubmed.ncbi.nlm.nih.gov/27124452/">Tirosh et al. 2016</a>. <br /></p>
+<p><a href="#tool-3-reference-based-annotation">Tool 3: Cell type predictions based on reference data</a> 
+Seurat's <em>FindTransferAnchors</em> and <em>TransferData</em> functions are used to leverage cell-type annotations from a reference Seurat object and generate annotation predictions for the query dataset (<a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4481139/">Macosko et al. 2015</a>). 
+<br /></p>
+<p>Additionally, users can <a href="#adding-annotations">add cluster annotations</a> to the Seurat object.</p>
+<hr />
+<p>The following parameters are adjustable for Step 7 (<code>~/working_directory/job_info/parameters/step7_par.txt</code>):</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Annotation Method</th>
+<th style="text-align: left;">Parameter</th>
+<th style="text-align: left;">Default</th>
+<th style="text-align: left;">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>General</strong></td>
+<td style="text-align: left;">par_save_RNA</td>
+<td style="text-align: left;">No</td>
+<td style="text-align: left;">Whether or not to export an RNA expression matrix</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>General</strong></td>
+<td style="text-align: left;">par_save_metadata</td>
+<td style="text-align: left;">No</td>
+<td style="text-align: left;">Whether or not to export a metadata dataframe</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>General</strong></td>
+<td style="text-align: left;">par_seurat_object</td>
+<td style="text-align: left;">NULL</td>
+<td style="text-align: left;">If users already have a Seurat object, they may provide the path to the Seurat object to initiate the pipeline at Step 7</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>General</strong></td>
+<td style="text-align: left;">par_level_cluster</td>
+<td style="text-align: left;">integrated_snn_res.0.7</td>
+<td style="text-align: left;">The cluster resolution that you want to annotate. If you skipped integration in Step 5, use par_level_cluster='RNA_snn_res.0.7', if you want to proceed with a clustering resolution of 0.7.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Tool 1</strong></td>
+<td style="text-align: left;">par_run_find_marker</td>
+<td style="text-align: left;">Yes</td>
+<td style="text-align: left;">Whether or not to find marker genes for each cluster</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Tool 1</strong></td>
+<td style="text-align: left;">par_run_enrichR</td>
+<td style="text-align: left;">Yes</td>
+<td style="text-align: left;">Whether or not to run gene set enrichment analysis (GSEA) on the marker genes for each cluster using the EnrichR tools. Note that the HPC must have access to the internet to run GSEA.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Tool 1</strong></td>
+<td style="text-align: left;">par_top_sel</td>
+<td style="text-align: left;">5</td>
+<td style="text-align: left;">Number of top markers to identify based on avg_log2FC</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Tool 1</strong></td>
+<td style="text-align: left;">par_db</td>
+<td style="text-align: left;">Descartes_Cell_Types_and_Tissue_2021,<br /> CellMarker_Augmented_2021,<br />Azimuth_Cell_Types_2021</td>
+<td style="text-align: left;">Character vector of EnrichR databases that define cell types. The top marker genes for each cluster will be tested for enrichment across these databases.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Tool 2</strong></td>
+<td style="text-align: left;">par_run_module_score</td>
+<td style="text-align: left;">Yes</td>
+<td style="text-align: left;">Whether or not to compute module score for aggregated expression</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Tool 2</strong></td>
+<td style="text-align: left;">par_run_vidsualize_markers</td>
+<td style="text-align: left;">Yes</td>
+<td style="text-align: left;">Whether or not to visualize the expression of individual genes</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Tool 2</strong></td>
+<td style="text-align: left;">par_module_score</td>
+<td style="text-align: left;">NULL</td>
+<td style="text-align: left;">Path to the csv file containing the gene sets for the module score</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Tool 2</strong></td>
+<td style="text-align: left;">par_select_features_list</td>
+<td style="text-align: left;">NULL</td>
+<td style="text-align: left;">List of genes whose expression will be visualized individually</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Tool 2</strong></td>
+<td style="text-align: left;">par_select_features_csv</td>
+<td style="text-align: left;">NULL</td>
+<td style="text-align: left;">If you want to define multiple lists of features to visualize individually, you can do so with a csv file. The header should contain the list names and all features belonging to the same list should be in the same column.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Tool 3</strong></td>
+<td style="text-align: left;">par_reference</td>
+<td style="text-align: left;">NULL</td>
+<td style="text-align: left;">Path defining the location of the reference Seurat object</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Tool 3</strong></td>
+<td style="text-align: left;">par_reference_name</td>
+<td style="text-align: left;">Reference</td>
+<td style="text-align: left;">An arbitrary name for the reference object. This will be used to name the metadata slot.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Tool 3</strong></td>
+<td style="text-align: left;">par_level_celltype</td>
+<td style="text-align: left;">NULL</td>
+<td style="text-align: left;">The name of the metadata column in the reference Seurat object that defines cell types</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Tool 3</strong></td>
+<td style="text-align: left;">par_FindTransferAnchors_dim</td>
+<td style="text-align: left;">10</td>
+<td style="text-align: left;">Number of dimensions from linear dimensional reduction used to find transfer anchors between the reference and query Seurat objects</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Tool 3</strong></td>
+<td style="text-align: left;">par_futureglobalsmaxSize</td>
+<td style="text-align: left;">50000 * 1024^2</td>
+<td style="text-align: left;">This will increase your RAM usage so set this number mindfully</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Annotate</strong></td>
+<td style="text-align: left;">par_annotate_resolution</td>
+<td style="text-align: left;">NULL</td>
+<td style="text-align: left;">Which clustering resolution you want to annotate</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Annotate</strong></td>
+<td style="text-align: left;">par_name_metadata</td>
+<td style="text-align: left;">clustering_label_1</td>
+<td style="text-align: left;">The name of the metadata slot that will contain the annotations</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Annotate</strong></td>
+<td style="text-align: left;">par_annotate_labels</td>
+<td style="text-align: left;">NULL</td>
+<td style="text-align: left;">A list of cluster labels. There must as many labels as clusters at the defined clustering resolution. Please refrain from using "_" when annotating.</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="tool-1-cluster-marker-gsea">Tool 1: Cluster marker GSEA</h2>
+<p>To run cluster marker GSEA, use the following command:</p>
+<pre><code>bash $SCRNABOX_HOME/launch_scrnabox.sh \
+-d ${SCRNABOX_PWD} \
+--steps 7 \
+--markergsea T
+</code></pre>
+<p>The resulting output files are deposited into <code>~/working_directory/step7/*/marker</code>. For a description of the outputs see <a href="../outputs/">here</a>.</p>
+<hr />
+<p><strong>Note:</strong>  In order to test the cluster marker genes for enrichment across EnrichR libraries, the HPC must have access to the internet. If your HPC cannot access the internet, you must set <code>par_run_enrichR = "no"</code>. However, the enrichment step can still be performed on your local machine directly in R. To do so, begin by downloading the <code>ClusterMarkers.csv</code> file obtained from running the above command with <code>par_run_find_marker = "yes"</code> to your computer: </p>
+<pre><code>scp username@beluga.computecanada.ca:~/working_directory/step7/info7/marker/ClusterMarkers.csv ~/Desktop/working_directory
+</code></pre>
+<p>Then run the follwing code in R:</p>
+<pre><code>#set up the environment
+library(Seurat)
+library(dplyr)
+library(ggplot2)
+library(enrichR)
+
+
+## set up the parameters
+PWD &lt;-'/path/directory/where/outputs/will/be/deposited'
+cluster_marker &lt;- '/path/to/ClusterMarkers.csv'
+db &lt;- c('Descartes_Cell_Types_and_Tissue_2021','CellMarker_Augmented_2021','Azimuth_Cell_Types_2021')
+
+## set up the function
+annotation&lt;-function(PWD,cluster_marker,db) {
+  library(Seurat)
+  library(dplyr)
+  library(ggplot2)
+  library(enrichR)
+  setwd(PWD)
+
+  cluster_marker &lt;- read.delim(cluster_marker, header = T, sep = &quot;,&quot;) 
+
+  dir.create(&quot;annot_enrich&quot;) 
+  for (i in unique(cluster_marker$cluster)) {
+    dir.create(paste0(PWD,&quot;/annot_enrich&quot;, &quot;/clust&quot;,i))
+  }
+
+  for (i in unique(cluster_marker$cluster)) {
+    for (j in 1:length(db)) { 
+    setwd(PWD)
+    setwd(paste0('./annot_enrich/clust',i))
+    N1.c0 &lt;- cluster_marker %&gt;% filter(cluster == i &amp; avg_log2FC &gt; 0)
+    genes &lt;- N1.c0$gene
+    N1.c0.Er &lt;- enrichr(genes, databases = db[j])
+    if(is.null(N1.c0.Er)) next
+    plotEnrich(N1.c0.Er[[1]], showTerms = 20, numChar = 40, y = &quot;Count&quot;, orderBy = &quot;P.value&quot;) +
+      ggtitle(paste0(db[j], &quot; cluster &quot;, i))
+    ggsave(file = paste0(&quot;plotenrich_clust_&quot;,i, &quot;_&quot;, j,&quot;.pdf&quot;))
+    #plotEnrich(N1.c0.Er[[2]], showTerms = 20, numChar = 40, y = &quot;Count&quot;, orderBy = &quot;P.value&quot;)
+    #ggsave(file = &quot;plotenrich2.pdf&quot;)
+    #plotEnrich(N1.c0.Er[[3]], showTerms = 20, numChar = 40, y = &quot;Count&quot;, orderBy = &quot;P.value&quot;)
+    #ggsave(file = &quot;plotenrich3.pdf&quot;)
+    ### You don't need to make the tables or else this should all be saved
+    N1.Er.genes.1 &lt;- N1.c0.Er[[1]] %&gt;% dplyr::select(Term, Genes, Combined.Score)
+    write.csv(N1.Er.genes.1,paste0(&quot;Er_genes_clust_&quot;,i,&quot;_&quot;,db[j],&quot;.csv&quot;))
+    #N1.Er.genes.2 &lt;- N1.c0.Er[[2]] %&gt;% select(Term, Genes, Combined.Score)
+    #write.csv(N1.Er.genes.2,&quot;Er.genes.2.csv&quot;)
+    #N1.Er.genes.3 &lt;- N1.c0.Er[[3]] %&gt;% select(Term, Genes, Combined.Score)
+    #write.csv(N1.Er.genes.3,&quot;Er.genes.3.csv&quot;)
+  }
+}
+}
+
+## perform enrichment
+annotation(PWD,cluster_marker,db)
+</code></pre>
+<hr />
+<h2 id="tool-2-expression-profiling-of-known-marker-genes">Tool 2: Expression profiling of known marker genes</h2>
+<p>To profile the expression known marker genes, use the following command:</p>
+<pre><code>bash $SCRNABOX_HOME/launch_scrnabox.sh \
+-d ${SCRNABOX_PWD} \
+--steps 7 \
+--knownmarkers T
+</code></pre>
+<p>The resulting output files are deposited into <code>~/working_directory/step7/*/visualize_features</code> for individual expression or <code>~/working_directory/step7/*/module_score</code> for aggregated expression. For a description of the outputs see <a href="../outputs/">here</a>.</p>
+<hr />
+<h2 id="tool-3-reference-based-annotation">Tool 3: Reference-based annotation</h2>
+<p>To perform reference-based annotation, use the following command:</p>
+<pre><code>bash $SCRNABOX_HOME/launch_scrnabox.sh \
+-d ${SCRNABOX_PWD} \
+--steps 7 \
+--referenceannotation T
+</code></pre>
+<p>The resulting output files are deposited into <code>~/working_directory/step7/*/reference_based_annotation</code>. For a description of the outputs see <a href="../outputs/">here</a>.</p>
+<hr />
+<h2 id="adding-annotations">Adding annotations</h2>
+<p>To add cluster annotations to the Seurat object's metadata, use the following command:</p>
+<pre><code>bash $SCRNABOX_HOME/launch_scrnabox.sh \
+-d ${SCRNABOX_PWD} \
+--steps 7 \
+--annotate T
+</code></pre>
+<p>The resulting output files are deposited into <code>~/working_directory/step7/*/annotate</code>. For a description of the outputs see <a href="../outputs/">here</a>.</p>
+<p><strong>Note:</strong> The cluster annotations from each iteration of the step will be retained, allowing users to define multiple clustering levels.</p>
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="../Step6/" class="btn btn-neutral float-left" title="Step 6: Clustering"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../Step8/" class="btn btn-neutral float-right" title="Step 8: Differential gene expression">Next <span class="icon icon-circle-arrow-right"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+    
+      <span><a href="../Step6/" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="../Step8/" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script src="../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "..";</script>
+    <script src="../js/theme_extra.js"></script>
+    <script src="../js/theme.js"></script>
+      <script src="../search/main.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>

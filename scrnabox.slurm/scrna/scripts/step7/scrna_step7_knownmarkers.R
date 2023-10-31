@@ -70,6 +70,7 @@ seu_int<-readRDS(paste(output_dir,'/step6/objs6/',sample_name, sep=''))
 
 ## set cell identity to the clustering resolution defined by the user
 Idents(seu_int) <- par_level_cluster
+DefaultAssay(seu_int) <- "RNA"
 
 ## create directories for visualize features annotation method
 ## figures 

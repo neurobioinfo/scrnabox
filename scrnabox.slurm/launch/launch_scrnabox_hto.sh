@@ -40,7 +40,15 @@ if [[ $QUEUE =~ sbatch ]] && [[  ${MODE0[@]}  =~  1  ]]; then
   fi
     cp -r  $OUTPUT_DIR/samples_info/* $OUTPUT_DIR/step1 
   if  [ -f $JOB_OUTPUT_DIR/.tmp/sample.list ]; then rm $JOB_OUTPUT_DIR/.tmp/sample.list; touch $JOB_OUTPUT_DIR/.tmp/sample.list ; else touch $JOB_OUTPUT_DIR/.tmp/sample.list; fi 
-  if  [ -f $JOB_OUTPUT_DIR/.tmp/sample_dir.list ]; then rm $JOB_OUTPUT_DIR/.tmp/sample_dir.list; touch $JOB_OUTPUT_DIR/.tmp/sample_dir.list ; else touch $JOB_OUTPUT_DIR/.tmp/sample_dir.list; fi  
+  if  [ -f $JOB_OUTPUT_DIR/.tmp/sample_dir.list ]; then rm $JOB_OUTPUT_DIR/.tmp/sample_dir.list; touch $JOB_OUTPUT_DIR/.tmp/sample_dir.list ; else touch $JOB_OUTPUT_DIR/.tmp/sample_dir.list; fi
+  if [ -f $OUTPUT_DIR/job_info/.tmp/step1_par.txt ]; then
+      rm $OUTPUT_DIR/job_info/.tmp/step1_par.txt
+  fi
+  grep "par_ref_dir_grch=" $OUTPUT_DIR/job_info/parameters/step1_par.txt | sed 's/\"//g' | sed "s/\'//g" | sed "s/[[:blank:]]//g" > $OUTPUT_DIR/job_info/.tmp/step1_par.txt
+  grep "par_r1_length=" $OUTPUT_DIR/job_info/parameters/step1_par.txt | sed "s/[[:blank:]]//g" >> $OUTPUT_DIR/job_info/.tmp/step1_par.txt
+  grep "par_mempercode="  $OUTPUT_DIR/job_info/parameters/step1_par.txt | sed "s/[[:blank:]]//g">> $OUTPUT_DIR/job_info/.tmp/step1_par.txt
+  grep "par_include_introns="  $OUTPUT_DIR/job_info/parameters/step1_par.txt | sed 's/\"//g' | sed "s/\'//g" | sed "s/[[:blank:]]//g"  | sed 's/[A-Z]/\L&/g'>> $OUTPUT_DIR/job_info/.tmp/step1_par.txt
+
   search_dir=${OUTPUT_DIR}/step1
   for entry in "$search_dir"/*
   do

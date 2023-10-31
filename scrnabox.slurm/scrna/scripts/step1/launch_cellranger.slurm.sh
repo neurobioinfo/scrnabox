@@ -53,14 +53,14 @@ done
 # SET DEFAULT AND OTHER VARIABLES
 ############
 
-if [ -f $OUTPUT_DIR/job_info/.tmp/step1_par.txt ]; then
-    rm $OUTPUT_DIR/job_info/.tmp/step1_par.txt
-fi
+# if [ -f $OUTPUT_DIR/job_info/.tmp/step1_par.txt ]; then
+#     rm $OUTPUT_DIR/job_info/.tmp/step1_par.txt
+# fi
 
-grep "par_ref_dir_grch=" $OUTPUT_DIR/job_info/parameters/step1_par.txt | sed 's/\"//g' | sed "s/\'//g" | sed "s/[[:blank:]]//g" > $OUTPUT_DIR/job_info/.tmp/step1_par.txt
-grep "par_r1_length=" $OUTPUT_DIR/job_info/parameters/step1_par.txt | sed "s/[[:blank:]]//g" >> $OUTPUT_DIR/job_info/.tmp/step1_par.txt
-grep "par_mempercode="  $OUTPUT_DIR/job_info/parameters/step1_par.txt | sed "s/[[:blank:]]//g" >> $OUTPUT_DIR/job_info/.tmp/step1_par.txt
-grep "par_include_introns="  $OUTPUT_DIR/job_info/parameters/step1_par.txt | sed 's/\"//g' | sed "s/\'//g" | sed "s/[[:blank:]]//g" | sed 's/[A-Z]/\L&/g' >> $OUTPUT_DIR/job_info/.tmp/step1_par.txt
+# grep "par_ref_dir_grch=" $OUTPUT_DIR/job_info/parameters/step1_par.txt | sed 's/\"//g' | sed "s/\'//g" | sed "s/[[:blank:]]//g" > $OUTPUT_DIR/job_info/.tmp/step1_par.txt
+# grep "par_r1_length=" $OUTPUT_DIR/job_info/parameters/step1_par.txt | sed "s/[[:blank:]]//g" >> $OUTPUT_DIR/job_info/.tmp/step1_par.txt
+# grep "par_mempercode="  $OUTPUT_DIR/job_info/parameters/step1_par.txt | sed "s/[[:blank:]]//g" >> $OUTPUT_DIR/job_info/.tmp/step1_par.txt
+# grep "par_include_introns="  $OUTPUT_DIR/job_info/parameters/step1_par.txt | sed 's/\"//g' | sed "s/\'//g" | sed "s/[[:blank:]]//g" | sed 's/[A-Z]/\L&/g' >> $OUTPUT_DIR/job_info/.tmp/step1_par.txt
 
 source $OUTPUT_DIR/job_info/.tmp/step1_par.txt
 LIBRARY=${LIBRARY:-./library.csv}
@@ -111,7 +111,7 @@ else
             --mempercore=${par_mempercode}\
             --expect-cells=${EXPECT_CELLS} \
             --jobmode=${SLURM_TEMPLATE} \
-            --include-introns \    
+            --include-introns \
             2>&1|tee -a ${RUN_NAME}.$(date +%Y%m%d_%H%M).log   >  ${TEMPLOG}
     else        
         cellranger count  \

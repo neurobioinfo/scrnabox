@@ -4,8 +4,8 @@
 # Copyright belong MNI BIOINFO CORE (https://github.com/neurobioinfo)
 # The pipeline is written by Saeid Amiri (saeid.amiri@mcgill.ca)
 
-VERSION=0.1.421;
-DATE0=2023-10-17
+VERSION=0.1.422;
+DATE0=2023-10-25
 echo -e "scrnabox pipeline version $VERSION, dev"
 # updated on $DATE0"
 
@@ -141,7 +141,6 @@ if [[ -z $MSD ]]; then  MSD="F"; fi
 if [[ -z $CONT ]]; then  CONT="F"; fi
 
 
-
 FOUND_ERROR=0
 
 # ===============================================
@@ -168,7 +167,6 @@ fi
 # STEP 0: RUN setting 
 # ===============================================
 #
-
 
 
 if [[ ${MODE0[@]} == 0 ]]; then 
@@ -240,7 +238,12 @@ if [[ ${MODE0[@]} == 0 ]]; then
   fi 
         EXPECTED_DONE_FILES=$JOB_OUTPUT_DIR/summary_report.txt
         echo -e  "-------------------------------------------" >> $EXPECTED_DONE_FILES  
-        echo -e  "--------Pipeline is set up-----------------" $VERSION >> $EXPECTED_DONE_FILES
+        echo -e  "--------Pipeline is set up for ${SCRNA_METHOD0}-----------------" $VERSION >> $EXPECTED_DONE_FILES
+        if [[ $submit_cmd =~ sbatch ]]; then
+            echo -e  "--------running with scheduler-----------------" >> $EXPECTED_DONE_FILES
+        elif [[ $submit_cmd =~ bash ]]; then
+            echo -e  "--------running with the container-----------------" >> $EXPECTED_DONE_FILES
+        fi 
         echo "-----------------------------------------------------------"  >> $EXPECTED_DONE_FILES
         echo "The Output is under ${OUTPUT_DIR}/job_info/" >> $EXPECTED_DONE_FILES
 fi 
@@ -260,7 +263,6 @@ export ACCOUNT=$ACCOUNT
 export OUTPUT_DIR=$OUTPUT_DIR
 
 echo -e "NOTE: the pipeline is running  << $SCRNA_METHOD seq >>"
-
 
 
 TEMPCONFIG=$OUTPUT_DIR/job_info/.tmp/temp_config.ini
@@ -288,6 +290,7 @@ echo QUEUE=$QUEUE >> $TEMPCONFIG
 echo VERSION=$VERSION >> $TEMPCONFIG
 
 
+
 if  [[  ${MODE0[@]}  =~  integrate  ]]  ; then
    bash ${PIPELINE_HOME}/launch/launch_scrnabox_integ.sh
 elif  [[  ${SCRNA_METHOD} =~ SCRNA ]] ; then
@@ -295,5 +298,6 @@ elif  [[  ${SCRNA_METHOD} =~ SCRNA ]] ; then
 elif [[  ${SCRNA_METHOD} =~ HTO ]] ; then
    bash ${PIPELINE_HOME}/launch/launch_scrnabox_hto.sh
 fi
+
 
 exit 0

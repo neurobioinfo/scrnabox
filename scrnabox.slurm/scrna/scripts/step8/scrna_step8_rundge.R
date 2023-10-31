@@ -11,7 +11,7 @@ r_lib_path=args[2]
 
 ## load library
 .libPaths(r_lib_path)
-packages<-c('Seurat','ggplot2', 'dplyr','stringi','tidyverse','Matrix', 'ggrepel','DESeq2','EnhancedVolcano')
+packages<-c('Seurat','ggplot2', 'dplyr','stringi','tidyverse','Matrix', 'ggrepel','DESeq2','EnhancedVolcano', 'MAST')
 lapply(packages, library, character.only = TRUE)
 
 ## load parameters
@@ -53,7 +53,7 @@ dir.create(paste(OUT_dir_sample,"/",dd[i,1],sep=''))
 
 for(i in 1:nrow(dd)){  
 Idents(seu_int) <- dd[i,2]    
-DGE <- FindMarkers(seu_int, ident.1 = dd[i,3], ident.2 = dd[i,4],  logfc.threshold = 0)
+DGE <- FindMarkers(seu_int, ident.1 = dd[i,3], ident.2 = dd[i,4],  logfc.threshold = 0, test.use = "MAST", slot = "data")
 #write dge
 write.csv(DGE, file = paste(OUT_dir_sample,"/",dd[i,1],"/", dd[i,1],'_DEG.csv', sep=""), quote = FALSE, sep = ",")
 
@@ -139,7 +139,7 @@ for(i in 1:nrow(dd)){
 Idents(seu_int) <- dd[i,2]    
 celltype.sub.seu <- subset(seu_int, idents = dd[i,3])
 Idents(celltype.sub.seu) <- dd[i,4]    
-DGE <- FindMarkers(celltype.sub.seu, ident.1 = dd[i,5], ident.2 = dd[i,6],  logfc.threshold = 0)
+DGE <- FindMarkers(celltype.sub.seu, ident.1 = dd[i,5], ident.2 = dd[i,6],  logfc.threshold = 0, test.use = "MAST", slot = "data")
 #write dge
 write.csv(DGE, file = paste(OUT_dir_sample,"/",dd[i,1],"/", dd[i,1],'_DEG.csv', sep=""), quote = FALSE, sep = ",")
 
@@ -348,6 +348,7 @@ celltypes.res <- names(list.results)
 for (i in celltypes.res){
   for (j in length(names(list.results[[i]][["contrast_results"]]))){
     result <- as.data.frame(list.results[[i]][["contrast_results"]][[j]])
+    if (nrow(result) != 0) {
     celltype <- i
     contrast <- names(list.results[[i]][["contrast_results"]])
     write.csv(result, paste(sudo_dir,"/",cont_name,"/info","/DGE_",celltype,contrast,".csv", sep = ""))
@@ -367,9 +368,9 @@ for (i in celltypes.res){
     #legendIconSize = 10,
     ) 
     ggsave(file = paste(sudo_dir,"/",cont_name,"/figs","/DGE_",celltype,contrast,".pdf", sep = ""))
+    } else {print("skip")}
   }
 }
-
 
 #A summarize results function
 summarize_contrast <- function(result, 
@@ -434,7 +435,6 @@ if(file.exists("Rplots.pdf")){
 }
 
 }
-
 
 ############################################################################
 ## pseudo bulk all cells

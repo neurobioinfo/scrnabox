@@ -56,15 +56,15 @@ top5 <- ClusterMarkers %>% group_by(cluster) %>% top_n(n=par_top_sel, wt = avg_l
 write.csv(top5,"top_sel.csv")
 
 ## print cluster information
-if(file.exists(paste(output_dir,'/step7/info7/marker/', "cluster_whole.xlsx",sep=''))){
-    file.remove(paste(output_dir,'/step7/info7/marker/', "cluster_whole.xlsx",sep=''))
-}
-for (i in  sort(unlist(unique(seu_int[[par_level_cluster]])))) {
-  N1.c0 <- ClusterMarkers %>% filter(cluster == i & avg_log2FC > 0)
-  genes <- N1.c0$gene
-  write.xlsx(genes, file="cluster_just_genes.xlsx",sheetName=paste0('cluster',i), row.names=FALSE,append=TRUE)
-  write.xlsx(N1.c0, file="cluster_whole.xlsx",sheetName=paste0('cluster',i), row.names=FALSE,append=TRUE)
-}
+#if(file.exists(paste(output_dir,'/step7/info7/marker/', "cluster_whole.xlsx",sep=''))){
+#    file.remove(paste(output_dir,'/step7/info7/marker/', "cluster_whole.xlsx",sep=''))
+#}
+#for (i in  sort(unlist(unique(seu_int[[par_level_cluster]])))) {
+#  N1.c0 <- ClusterMarkers %>% filter(cluster == i & avg_log2FC > 0)
+#  genes <- N1.c0$gene
+#  write.xlsx(genes, file="cluster_just_genes.xlsx",sheetName=paste0('cluster',i), row.names=FALSE,append=TRUE)
+#  write.xlsx(N1.c0, file="cluster_whole.xlsx",sheetName=paste0('cluster',i), row.names=FALSE,append=TRUE)
+#}
 
 ## print heatmap of top marker genes
 heat_map<-DoHeatmap(seu_int, features = top5$gene, size=3, angle =90, group.bar.height = 0.02, group.by = par_level_cluster)
@@ -134,3 +134,4 @@ if(file.exists("Rplots.pdf")){
     file.remove("Rplots.pdf")
 }
 }
+

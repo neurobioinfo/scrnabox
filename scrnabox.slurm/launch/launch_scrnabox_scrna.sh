@@ -5,7 +5,6 @@
 # The pipeline is written by Saeid Amiri (saeid.amiri@mcgill.ca)
 
 
-
 declare -A THREADS_ARRAY
 declare -A  WALLTIME_ARRAY
 declare -A  MEM_ARRAY
@@ -38,17 +37,26 @@ if [[ $QUEUE =~ sbatch ]] && [[  ${MODE0[@]}  =~  1  ]]; then
   if [[ "${step1_par_auto1}" == "par_automated_library_prep=\"yes\"" ]]; then
         module load r/$R_VERSION 
         Rscript ${PIPELINE_HOME}/scrna/scripts/step1/scrna_step1_auto.R $OUTPUT_DIR  $R_LIB_PATH 
-      echo "Note: You are generating samples_info automatically"
+        echo "Note: You are generating samples_info automatically"
   fi
+
   cp -r  $OUTPUT_DIR/samples_info/* $OUTPUT_DIR/step1 
   if  [ -f $JOB_OUTPUT_DIR/.tmp/sample.list ]; then rm $JOB_OUTPUT_DIR/.tmp/sample.list; touch $JOB_OUTPUT_DIR/.tmp/sample.list ; else touch $JOB_OUTPUT_DIR/.tmp/sample.list; fi 
   if  [ -f $JOB_OUTPUT_DIR/.tmp/sample_dir.list ]; then rm $JOB_OUTPUT_DIR/.tmp/sample_dir.list; touch $JOB_OUTPUT_DIR/.tmp/sample_dir.list ; else touch $JOB_OUTPUT_DIR/.tmp/sample_dir.list; fi  
+  if [ -f $OUTPUT_DIR/job_info/.tmp/step1_par.txt ]; then
+    rm $OUTPUT_DIR/job_info/.tmp/step1_par.txt
+  fi
+  grep "par_ref_dir_grch=" $OUTPUT_DIR/job_info/parameters/step1_par.txt | sed 's/\"//g' | sed "s/\'//g" | sed "s/[[:blank:]]//g" > $OUTPUT_DIR/job_info/.tmp/step1_par.txt
+  grep "par_r1_length=" $OUTPUT_DIR/job_info/parameters/step1_par.txt | sed "s/[[:blank:]]//g" >> $OUTPUT_DIR/job_info/.tmp/step1_par.txt
+  grep "par_mempercode="  $OUTPUT_DIR/job_info/parameters/step1_par.txt | sed "s/[[:blank:]]//g" >> $OUTPUT_DIR/job_info/.tmp/step1_par.txt
+  grep "par_include_introns="  $OUTPUT_DIR/job_info/parameters/step1_par.txt | sed 's/\"//g' | sed "s/\'//g" | sed "s/[[:blank:]]//g" | sed 's/[A-Z]/\L&/g' >> $OUTPUT_DIR/job_info/.tmp/step1_par.txt
   search_dir=${OUTPUT_DIR}/step1
   for entry in "$search_dir"/*
   do
     echo "$entry" >> ${OUTPUT_DIR}/job_info/.tmp/sample_dir.list
     echo $(basename  "$entry") >> ${OUTPUT_DIR}/job_info/.tmp/sample.list
   done
+
   while read item
   do
     cp ${PIPELINE_HOME}/scrna/scripts/step1/slurm.template $item
@@ -56,10 +64,12 @@ if [[ $QUEUE =~ sbatch ]] && [[  ${MODE0[@]}  =~  1  ]]; then
     # cp ${PIPELINE_HOME}/scripts/step1/launch_cellranger.hashtagged.slurm.sh $item
     cp ${PIPELINE_HOME}/scrna/scripts/step1/launch_cellranger.slurm.sh $item
   done < ${OUTPUT_DIR}/job_info/.tmp/sample_dir.list
+
   while read item
   do
       cd ${item}; bash  ${item}/launch_cellranger.slurm.sh -r ouput_folder &
   done < ${OUTPUT_DIR}/job_info/.tmp/sample_dir.list
+
   wait
   # echo $TIMESTAMP  >> $EXPECTED_DONE_FILES
   echo -e  "-------------------------------------------" $VERSION >> $EXPECTED_DONE_FILES  
@@ -79,7 +89,7 @@ if  [ ! -f $JOB_OUTPUT_DIR/.tmp/sample.list ]; then
     do
       echo $(basename  "$entry") >> ${OUTPUT_DIR}/job_info/.tmp/sample.list
     done
-fi 
+fi
 
 
 if  [ ! -f $JOB_OUTPUT_DIR/.tmp/sample_dir.list ]; then

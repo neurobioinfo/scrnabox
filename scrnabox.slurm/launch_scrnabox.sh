@@ -4,8 +4,8 @@
 # Copyright belong MNI BIOINFO CORE (https://github.com/neurobioinfo)
 # The pipeline is written by Saeid Amiri (saeid.amiri@mcgill.ca)
 
-VERSION=0.1.423;
-DATE0=2023-10-25
+VERSION=0.1.424;
+DATE0=2023-11-01
 echo -e "scrnabox pipeline version $VERSION, dev"
 # updated on $DATE0"
 
@@ -52,14 +52,14 @@ Usage() {
 	echo -e "\toptional arguments:\n " \
           "\t\t-h  (--help)  = See helps regarding the pipeline arguments. \n" \
           "\t\t--method  = Select your preferred method: HTO and SCRNA for hashtag, and Standard scRNA, respectively. \n" \
-          "\t\t--msd  = You can get the hashtag labels by running the following code \n" \
-          "\t\t--markergsea  = Identify marker genes for each cluster and run marker gene set enrichment analysis (GSEA) using EnrichR libraries. \n" \
-          "\t\t--knownmarkers  = Run module score and visualize the expression of known cell type marker genes. \n" \
-          "\t\t--referenceannotation  = Run module score and visualize the expression of known cell type marker genes. \n" \
-          "\t\t--annotate  = Run module score and visualize the expression of known cell type marker genes. \n" \
-          "\t\t--addmeta  = Add metadata columns to the Seurat object \n" \
-          "\t\t--rundge  = Perform differential gene expression contrasts \n" \
-          "\t\t--seulist  = You can directly call the list of seurat objects to the pipeline.  \n \n" \
+          "\t\t--msd  = You can get the hashtag labels by running the following code (HTO Step 4). \n" \
+          "\t\t--markergsea  = Identify marker genes for each cluster and run marker gene set enrichment analysis (GSEA) using EnrichR libraries (Step 7). \n" \
+          "\t\t--knownmarkers  = Profile the individual or aggregated expression of known marker genes. \n" \
+          "\t\t--referenceannotation  = Generate annotation predictions based on the annotations of a reference Seurat object (Step 7). \n" \
+          "\t\t--annotate  = Add clustering annotations to Seurat object metadata (Step 7). \n" \
+          "\t\t--addmeta  = Add metadata columns to the Seurat object (Step 8). \n" \
+          "\t\t--rundge  = Perform differential gene expression contrasts (Step 8). \n" \
+          "\t\t--seulist  = You can directly call the list of Seurat objects to the pipeline.  \n \n" \
           "------------------- \n" \
           "For a comprehensive help, visit https://github.com/neurobioinfo/scrnabox for documentation. "
 

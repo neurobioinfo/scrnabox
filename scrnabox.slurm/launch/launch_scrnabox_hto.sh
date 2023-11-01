@@ -5,10 +5,6 @@
 # The pipeline is written by Saeid Amiri (saeid.amiri@mcgill.ca)
 
 
-# ===============================================
-# STEP 1: RUN cellranger 
-# ===============================================
-#
 declare -A THREADS_ARRAY
 declare -A  WALLTIME_ARRAY
 declare -A  MEM_ARRAY
@@ -23,7 +19,10 @@ else
   MODE0=$MODE
 fi
 
-
+# ===============================================
+# STEP 1: 
+# ===============================================
+#
 STEP=step_1
 
 if [[ $QUEUE =~ sbatch ]] && [[  ${MODE0[@]}  =~  1  ]]; then
@@ -921,7 +920,7 @@ if [[ $QUEUE =~ sbatch ]] && [[  ${MODE0[@]}  =~  7  ]] &&  [[   ${STEP7annotate
     --ntasks-per-node=${THREADS} \
     --mem=${MEM} \
     --time=${WALLTIME} \
-    --job-name ${STEP}_annotate \
+    --job-name ${STEP} \
     --export OUTPUT_DIR=${OUTPUT_DIR},PIPELINE_HOME=${PIPELINE_HOME},R_LIB_PATH=${R_LIB_PATH},R_VERSION=${R_VERSION},SCRNA_METHOD=${SCRNA_METHOD} \
     --output $JOB_OUTPUT_DIR/logs/%x.o%j \
     $PIPELINE_HOME/scrna/scripts/step7/pipeline_step7_annotate.qsub"
@@ -949,7 +948,6 @@ STEP=step_8
 # THRm=`wc -l < ${OUTPUT_DIR}/job_info/parameters/step8_contrast_genotype.txt`
 # THRi=`wc -l < ${OUTPUT_DIR}/job_info/parameters/step8_contrast_celltype.txt`
 
-
 if [[ $QUEUE =~ sbatch ]] && [[  ${MODE0[@]}  =~  8 ]]; then
   echo -e "\n\n-----------------------------------------------------------" >> $EXPECTED_DONE_FILES
   echo -e  "--------Job submitted using pipeline version $VERSION--------"  >> $EXPECTED_DONE_FILES
@@ -957,6 +955,9 @@ if [[ $QUEUE =~ sbatch ]] && [[  ${MODE0[@]}  =~  8 ]]; then
   if [ ! -d $OUTPUT_DIR/step8 ]; then 
   mkdir -p $OUTPUT_DIR/step8    
   fi
+  # if [ ! -d $OUTPUT_DIR/step8/figs8 ]; then 
+  #   mkdir -p $OUTPUT_DIR/step8/figs8
+  # fi  
   if [ ! -d $OUTPUT_DIR/step8/objs8 ]; then 
   mkdir -p $OUTPUT_DIR/step8/objs8
   fi
@@ -998,7 +999,7 @@ if [[ $QUEUE =~ sbatch ]] &&  [[  ${MODE0[@]}  =~  8  ]] &&  [[   ${STEP8addmeta
     --ntasks-per-node=${THREADS} \
     --mem=${MEM} \
     --time=${WALLTIME} \
-    --job-name ${STEP}_dgelist \
+    --job-name ${STEP} \
     --export OUTPUT_DIR=${OUTPUT_DIR},PIPELINE_HOME=${PIPELINE_HOME},R_LIB_PATH=${R_LIB_PATH},R_VERSION=${R_VERSION},SCRNA_METHOD=${SCRNA_METHOD} \
     --output $JOB_OUTPUT_DIR/logs/%x.o%j \
     $PIPELINE_HOME/hto/scripts/step8/pipeline_step8_addmeta.qsub"
@@ -1056,7 +1057,7 @@ if [[ $QUEUE =~ sbatch ]] && [[  ${MODE0[@]}  =~  8  ]] &&  [[   ${STEP8rundge} 
     --ntasks-per-node=${THREADS} \
     --mem=${MEM} \
     --time=${WALLTIME} \
-    --job-name ${STEP}_dgelist \
+    --job-name ${STEP} \
     --export OUTPUT_DIR=${OUTPUT_DIR},PIPELINE_HOME=${PIPELINE_HOME},R_LIB_PATH=${R_LIB_PATH},R_VERSION=${R_VERSION},SCRNA_METHOD=${SCRNA_METHOD} \
     --output $JOB_OUTPUT_DIR/logs/%x.o%j \
     $PIPELINE_HOME/hto/scripts/step8/pipeline_step8_rundge.qsub"

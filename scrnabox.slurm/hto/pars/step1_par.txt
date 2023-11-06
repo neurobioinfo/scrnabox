@@ -1,6 +1,6 @@
 ############################################################################
-# If you wan to automate the libraries preparation process,
-# set par_automated_library_prep to "yes" and adress the remaining parameters.
+# If you wan to automate the library preparation process,
+# set par_automated_library_prep to "yes" and address the remaining parameters.
 ############################################################################
 ## Do you want to perform automated library prep?
 par_automated_library_prep= "yes"
@@ -9,16 +9,16 @@ par_automated_library_prep= "yes"
 ###### library.csv parameters ######
 ####################################
 ## Path to the directory containing the FASTQ files for the RNA and Antibody assays. This folder should only contain the FASTQ files for the experiment. 
-par_fastq_directory= "/home/fiorini9/scratch/scrna_pipeline/stoeckius_markdown/raw_data/fastqs"
+par_fastq_directory= "/path/to/fastqs/directory"
 
 ## list the sequencing run name(s) used in the FASTQ nomenclature for the RNA assay
-par_RNA_run_names= c("run1GEX")
+par_RNA_run_names= c("run1GEX", "run2GEX", "run3GEX")
 
 ## list the sequencing run name(s) used in the FASTQ nomenclature for the Antibody assay
-par_HTO_run_names= c("run1HTO")
+par_HTO_run_names= c("run1HTO", "run2HTO", "run3HTO")
 
 ## Define the name(s) of your sequencing run(s). This can be whatever you would like, but make sure you list the names of the sequencing runs in the same order as the names of the RNA and HTO assays are listed.
-par_seq_run_names= c("run1")
+par_seq_run_names= c("run1", "run2", "run3")
 
 ## If your sequencing is paired-end, set the following to TRUE. Otherwise set it as FALSE.
 par_paired_end_seq= TRUE
@@ -48,12 +48,13 @@ par_sequence= c("AGGACCATCCAA","ACATGTTACCGT", "AGCTTACTATCC", "TCGATAATGCGA", "
 # CellRanger counts pipeline parameters
 ############################################################################
 ## path to reference genome
-par_ref_dir_grch="/cvmfs/soft.mugqic/CentOS6/genomes/species/Homo_sapiens.GRCh38/genome/10xGenomics/refdata-cellranger-GRCh38-3.0.0"
+par_ref_dir_grch="/path/to/CellRanger/reference/genome"
 
 ## Minimum number of bases to retain for R1 sequence of gene expression assay. If you want to use this parameter uncomment the line below and define your par_r1_length.
 #par_r1_length=20
 
 ## For clusters whose job managers do not support memory requests, it is possible to request memory in the form of cores. This option will scale up the number of threads requested via the MRO_THREADS variable according to how much memory a stage requires when given to the ratio of memory on your nodes.
 par_mempercode=30 
-###
-par_include_introns="yes"
+
+##  If you want CellRnager to include introns when producing the gene expression matrices set the following parameter to "yes", otherwise keep the default as "no".
+par_include_introns="no"

@@ -10,7 +10,7 @@ par_save_metadata= "yes"
 # Make sure that no other files/objects are present in the directory besides Seurat RDS objects. 
 # Uncomment the line to activate the parameter
 ############################################################################
-#par_seurat_object= "/path/to/seurat/object"
+#par_seurat_object= "/path/to/directory/containing/seurat/object"
 
 
 ############################################################################
@@ -66,7 +66,7 @@ par_maxiter= 5
 ## Number of columns if multiple plots are displayed for RidgePlot
 par_RidgePlot_ncol= 3
 
-## If you wish to rename the antibody labels, list the old antibody labels in "old_antibody_label" and list the new corresponding antibody labels in "new_antibody_label". Old antibody labels can be identified in the "_old_antibody_label_MULTIseqDemuxHTOcounts" file produced by running Step 4 msd
+## If you want to rename the antibody labels, list the old antibody labels in "old_antibody_label" and list the new corresponding antibody labels in "new_antibody_label". Old antibody labels can be identified in the "_old_antibody_label_MULTIseqDemuxHTOcounts" file produced by running Step 4 msd
 
 par_old_antibody_label= c("A-TotalSeqA", "B-TotalSeqA", "C-TotalSeqA", "D-TotalSeqA", "E-TotalSeqA", "F-TotalSeqA", "G-TotalSeqA", "H-TotalSeqA", "Doublet")
 

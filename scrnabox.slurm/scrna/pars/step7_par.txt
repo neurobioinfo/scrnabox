@@ -9,18 +9,18 @@ par_save_metadata= "yes"
 # If you already have a processed Seurat RDS object and did not perform Step 6 of scRNAbox use this parameter to add the path to the directory containing your Seurat object. 
 # Uncomment the line to activate the parameter
 ############################################################################
-#par_seurat_object= "/path/to/seurat/object"
+#par_seurat_object= "/path/to/seurat.rds"
 
 
 ############################################################################
 # General parameters for cluster annotation 
 ############################################################################
 ## The cluster resolution that you want to use. If you skipped integration, use par_level_cluster="RNA_snn_res.0.7", for example, if you want to proceed with a clustering resolution of 0.7
-par_level_cluster= "integrated_snn_res.1.4"
+par_level_cluster= "integrated_snn_res.0.7"
 
 
 ############################################################################
-# Method 1: Marker GSEA
+# Tool 1: Marker GSEA
 ############################################################################
 ## Identify cluster specific markers
 par_run_find_marker= "no"
@@ -36,7 +36,7 @@ par_db= c("Descartes_Cell_Types_and_Tissue_2021","CellMarker_Augmented_2021","Az
 
 
 ######################################################################
-# Method 2: Visualize the expression of known marker genes
+# Tool 2: Visualize the expression of known marker genes
 ######################################################################
 ## Perform module score computation
 par_run_module_score= "no"
@@ -48,14 +48,14 @@ par_run_visualize_markers= "yes"
 par_module_score= "/path/to/gene_sets.csv"
 
 ## List of markers that you want to visualize (dot plot, violin plot, feature plot)
-par_select_features_list= c("MOBP", "VCAN", "AQP4","FOXJ1", "CD74", "CLDN5", "GFRB", "SLC17A6", "GAD2", "GRIK1", "TH", "CADPS2")
+par_select_features_list= c("gene1", "gene2", "gene3")
 
 ## If you want to define multiple lists of markers to visualize, you can do so with a csv file. The header should contain the list names and all features belonging to the same list should be in the same column. Uncomment the below parameter and enter the location of the csv file. This can be the same csv file used for module score. 
 #par_select_features_csv= "/path/to/visualize_features.csv"
 
 
 #####################################################################
-# Method 3: Reference-based annotation parameters
+# Tool 3: Reference-based annotation parameters
 ######################################################################
 ## Seurat RDS object to use as the reference
 par_reference= "/path/to/reference_seurat_object.rds"
@@ -78,7 +78,7 @@ par_futureglobalsmaxSize= 60000 * 1024^2
 # Annotations from each iteration will be added to the Step 7 Seurat object
 ######################################################################
 ## The clustering resolution to annotate
-par_annotate_resolution= "integrated_snn_res.1.4"
+par_annotate_resolution= "integrated_snn_res.0.7"
 
 ## the name of the metadata slot under which the cluster labels will be stored. 
 par_name_metadata= "clustering_1"

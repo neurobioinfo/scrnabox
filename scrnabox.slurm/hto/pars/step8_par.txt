@@ -9,7 +9,7 @@ par_save_metadata= "yes"
 # If you already have a processed Seurat RDS object, and did not perform Step 5 of scRNAbox use this parameter to add the path to the directory containing your Seurat object. 
 # Uncomment the line to activate the parameter
 ############################################################################
-#par_seurat_object= "/path/to/seurat/object"
+#par_seurat_object= "/path/to/seurat.rds"
 
 
 ############################################################################
@@ -19,7 +19,7 @@ par_save_metadata= "yes"
 par_merge_meta= "Sample_ID"
 
 ## enter the location to a csv file describing new metadata that should be added to the Seurat object to facilitate DEG analysis. 
-par_metadata= "/home/fiorini9/scratch/scrna_pipeline/standard_v1.38/pipeline/metadata.csv"
+par_metadata= "path/to/metadata.csv"
 
 
 ############################################################################

@@ -55,7 +55,7 @@ par_select_features_list= c("gene1", "gene2", "gene3")
 
 
 #####################################################################
-# Method 3: Reference-based annotation parameters
+# Tool 3: Reference-based annotation parameters
 ######################################################################
 ## Seurat RDS object to use as the reference
 par_reference= "/path/to/reference_seurat_object.rds"

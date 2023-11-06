@@ -10,7 +10,7 @@ par_save_metadata= "yes"
 # Make sure that no other files/objects are present in the directory besides Seurat RDS objects. 
 # Uncomment the line to activate the parameter
 ############################################################################
-#par_seurat_object= "/path/to/seurat/object"
+#par_seurat_object= "/path/to/directory/containing/seurat/object"
 
 
 ############################################################################

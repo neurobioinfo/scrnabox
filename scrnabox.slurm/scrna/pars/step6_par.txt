@@ -9,7 +9,7 @@ par_save_metadata= "yes"
 # If you already have a processed Seurat RDS object, and did not perform Step 5 of scRNAbox use this parameter to add the path to the directory containing your Seurat object. 
 # Uncomment the line to activate the parameter
 ############################################################################
-#par_seurat_object= "/path/to/seurat/object"
+#par_seurat_object= "/path/to/seurat.rds"
 
 
 ############################################################################
@@ -44,8 +44,8 @@ par_FindClusters_resolution= c(0, 0.05, 0.2, 0.6, 0.8, 1.0, 1.2,1.4,1.6,1.8,2.0)
 ## If you want to compute ARI, set the following to "yes". This takes a long time. 
 par_compute_ARI= "yes"
 
-## Number of repetitions of generated clusters to calculate ARI. We recommend 100
-par_RI_reps=5
+## Number of repetitions of generated clusters to calculate ARI.
+par_RI_reps= 25
 
 
 

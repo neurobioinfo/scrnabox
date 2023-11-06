@@ -83,26 +83,24 @@
               </ul>
               <p class="caption"><span class="caption-text">Tutorial</span></p>
               <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="midbrain_download/">Downloading the midbrain dataset</a>
+                  </li>
                   <li class="toctree-l1"><a class="reference internal" href="Dataset1/">scRNAbox analysis of midbrain dataset</a>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="midbrain_download/">Downloading the midbrain dataset</a>
+                  <li class="toctree-l1"><a class="reference internal" href="DEG/">Analysis of DEGs</a>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="library_prep/">Manual CellRanger library preparation</a>
                   </li>
               </ul>
-              <ul>
-                <li class="toctree-l1"><a class="reference internal" href="FAQ/">FAQ</a>
-                </li>
-              </ul>
               <p class="caption"><span class="caption-text">About</span></p>
               <ul>
-                  <li class="toctree-l1"><a class="reference internal" href="LICENSE/">- License</a>
+                  <li class="toctree-l1"><a class="reference internal" href="LICENSE/">License</a>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="changelog/">- Changelog</a>
+                  <li class="toctree-l1"><a class="reference internal" href="changelog/">Changelog</a>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="contributing/">- Contributing</a>
+                  <li class="toctree-l1"><a class="reference internal" href="contributing/">Contributing</a>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="Acknowledgement/">- Acknowledgement</a>
+                  <li class="toctree-l1"><a class="reference internal" href="Acknowledgement/">Acknowledgement</a>
                   </li>
               </ul>
       </div>
@@ -129,39 +127,61 @@
             <div class="section" itemprop="articleBody">
               
                 <h1 id="welcome-to-scrnaboxs-documentation">Welcome to scRNAbox's documentation!</h1>
-<p>ScRNAbox is a single-cell RNA sequencing (scRNAseq) pipeline specifically designed for analyzing data under a High-Performance Computing (HPC) systems using the <a href="https://slurm.schedmd.com/">Slurm Workload Manager</a>. The scRNAbox pipeline incorporates nine Analytical Steps into a comprehensive scRNAseq analysis and provides the foundation for further investigations. The nine Analytical Steps are outlined below. </p>
+<p>ScRNAbox is a single-cell RNA sequencing (scRNAseq) pipeline specifically designed for analyzing data under a High-Performance Computing (HPC) systems using the <a href="https://slurm.schedmd.com/">Slurm Workload Manager</a>. The scRNAbox pipeline incorporates eight analytical steps into a comprehensive scRNAseq analysis that provides the foundation for further investigations. The eight analytical steps are outlined below. </p>
 <p align="center">
- <img src="https://github.com/neurobioinfo/scrnabox/assets/110110777/976ee925-c82a-4e3e-9100-dc8bd94f352a" width="550" height="100">
+ <img src="https://github.com/neurobioinfo/scrnabox/assets/110110777/3221e078-68d4-4fde-8a75-9d36691c1cf5" width="550" height="100">
  </p>
 
-<p>The scRNAbox pipeline provides two distinct, yet highly comparable Analysis Tracks:</p>
+<p>The scRNAbox pipeline provides two distinct, yet highly comparable analysis tracks:</p>
 <ol>
-<li><strong>Standard scRNAseq</strong></li>
-<li><strong>Cell Hashtag scRNAseq</strong></li>
+<li><strong>Standard analysis track</strong></li>
+<li><strong>HTO analysis track</strong></li>
 </ol>
-<p>The <strong>Standard Analysis Track</strong> is designed for experiments where each sample is captured and sequenced separately, while the <strong>Cell Hashtag Analysis Track</strong> is designed for multiplexed experiments, whereby samples are tagged with sample-specific barcodes, pooled, and sequenced together. The Cell Hashtag Analysis Track is distinguished by an additional sample demultiplexing Step that assigns cells to their sample-of-origin via the sample-specific barcodes. </p>
+<p>The <strong>standard analysis track</strong> is designed for experiments where each sample is captured and sequenced separately, while the <strong>HTO analysis track</strong> is designed for multiplexed experiments where samples are tagged with sample-specific oligonucleotide tagged Hashtag antibodies (HTO), pooled, and sequenced together. The <strong>HTO analysis track</strong> is distinguished by an additional sample demultiplexing step that assigns cells to their sample-of-origin via the sample-specific HTOs. </p>
 <p><img src="https://github.com/neurobioinfo/scrnabox/assets/110110777/3a6df83e-e104-45d2-9b04-fe246642c6a8" height="300"> </p>
-<p>For a comprehenseive description of each Analytical Step, please see <a href="SCRNA/">Standard Analysis Track</a> and <a href="HTO/">Cell Hashtag Analysis Track</a>. <br/></p>
-<p>For a tutorial that leverages the datasets used as the application cases in our pre-print manuscript, please see <a href="Dataset1/">Standard Analysis: Midbrain dataset</a> and <a href="Dataset2/">Cell Hashtag Analysis: PBMC dataset</a>.</p>
+<p>For a comprehenseive description of each step, please see the <strong>Pipeline</strong> section of the scRNAbox documentation or see our <a href="">pre-print manuscript</a>. <br/></p>
+<p>For a tutorial that leverages the datasets used as the application cases in our pre-print manuscript, please see <a href="Dataset1/">scRNAbox analysis of the midbrain dataset</a>.</p>
 <hr />
 <h2 id="contents">Contents</h2>
 <ul>
+<li>Pipeline:<ul>
 <li><a href="installation/">Installation</a></li>
-<li>Overview:<ul>
-<li><a href="SCRNA/">Standard Analysis Track</a></li>
-<li><a href="HTO/">Cell Hashtag Analysis Track</a></li>
-<li><a href="reference/">Execution parameters</a></li>
-<li><a href="outputs/">Outputs</a></li>
+<li><a href="Step0/">Step 0: Set up</a></li>
+<li><a href="Step1/">Step 1: FASTQ to expression matrix</a></li>
+<li><a href="Step2/">Step 2: Seurat object and ambient RNA</a></li>
+<li><a href="Step3/">Step 3: Quality control and filtering</a></li>
+<li><a href="Step4/">Step 4: Doublet removal (standard)</a></li>
+<li><a href="Step4HTO/">Step 4: Demultiplexing (HTO)</a></li>
+<li><a href="Step5/">Step 5: Integration</a></li>
+<li><a href="Step6/">Step 6: Clustering</a></li>
+<li><a href="Step7/">Step 7: Cluster annotation</a></li>
+<li><a href="Step8/">Step 8: Differential gene expression</a></li>
 </ul>
 </li>
-<li>Tutorial   <ul>
-<li><a href="Dataset1/">Standard Analysis Track: Midbrain dataset</a></li>
-<li><a href="Dataset2/">Cell Hashtag Analysis Track: PBMC dataset</a></li>
-<li><a href="PROC/">Processed Data</a></li>
-<li><a href="library_prep/">CellRanger library preparation</a></li>
+<li>Additional information:    <ul>
+<li><a href="config/">Job configurations</a></li>
+<li><a href="reference/">Execution parameters</a> </li>
+<li><a href="outputs/">Outputs</a> </li>
 </ul>
 </li>
-<li><a href="FAQ/">FAQ</a></li>
+<li>
+<p>Tutorial:</p>
+<ul>
+<li><a href="midbrain_download/">Downloading the midbrain dataset</a></li>
+<li><a href="Dataset1/">scRNAbox analysis of midbrain dataset</a></li>
+<li><a href="DEG/">Analysis of DEGs</a></li>
+<li><a href="library_prep/">Manual CellRanger library preparation</a>      </li>
+</ul>
+</li>
+<li>
+<p>About:</p>
+<ul>
+<li><a href="LICENSE/">License</a></li>
+<li><a href="changelog/">Changelog</a></li>
+<li><a href="contributing/">Contributing</a></li>
+<li><a href="Acknowledgement/">Acknowledgement</a></li>
+</ul>
+</li>
 </ul>
               
             </div>
@@ -211,5 +231,5 @@
 
 <!--
 MkDocs version : 1.5.2
-Build Date UTC : 2023-10-31 23:20:47.905954+00:00
+Build Date UTC : 2023-11-06 14:37:31.944747+00:00
 -->

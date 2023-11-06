@@ -16,7 +16,7 @@ Additionally, users can [add cluster annotations](#adding-annotations) to the Se
 
 The following parameters are adjustable for Step 7 (`~/working_directory/job_info/parameters/step7_par.txt`):
 
-|Annotation Method|Parameter|Default|Description|
+|Annotation tool|Parameter|Default|Description|
 |:--|:--|:--|:--|
 |**General**|par_save_RNA| No| Whether or not to export an RNA expression matrix|
 |**General**|par_save_metadata| No|Whether or not to export a metadata dataframe|
@@ -27,7 +27,7 @@ The following parameters are adjustable for Step 7 (`~/working_directory/job_inf
 |**Tool 1**|par_top_sel|5|Number of top markers to identify based on avg_log2FC|
 |**Tool 1**|par_db|Descartes_Cell_Types_and_Tissue_2021,<br /> CellMarker_Augmented_2021,<br />Azimuth_Cell_Types_2021|Character vector of EnrichR databases that define cell types. The top marker genes for each cluster will be tested for enrichment across these databases.|
 |**Tool 2**|par_run_module_score|Yes|Whether or not to compute module score for aggregated expression |
-|**Tool 2**|par_run_vidsualize_markers|Yes|Whether or not to visualize the expression of individual genes|
+|**Tool 2**|par_run_visualize_markers|Yes|Whether or not to visualize the expression of individual genes|
 |**Tool 2**|par_module_score|NULL|Path to the csv file containing the gene sets for the module score|
 |**Tool 2**|par_select_features_list|NULL|List of genes whose expression will be visualized individually|
 |**Tool 2**|par_select_features_csv|NULL|If you want to define multiple lists of features to visualize individually, you can do so with a csv file. The header should contain the list names and all features belonging to the same list should be in the same column.|
@@ -98,17 +98,8 @@ annotation<-function(PWD,cluster_marker,db) {
     plotEnrich(N1.c0.Er[[1]], showTerms = 20, numChar = 40, y = "Count", orderBy = "P.value") +
       ggtitle(paste0(db[j], " cluster ", i))
     ggsave(file = paste0("plotenrich_clust_",i, "_", j,".pdf"))
-    #plotEnrich(N1.c0.Er[[2]], showTerms = 20, numChar = 40, y = "Count", orderBy = "P.value")
-    #ggsave(file = "plotenrich2.pdf")
-    #plotEnrich(N1.c0.Er[[3]], showTerms = 20, numChar = 40, y = "Count", orderBy = "P.value")
-    #ggsave(file = "plotenrich3.pdf")
-    ### You don't need to make the tables or else this should all be saved
     N1.Er.genes.1 <- N1.c0.Er[[1]] %>% dplyr::select(Term, Genes, Combined.Score)
     write.csv(N1.Er.genes.1,paste0("Er_genes_clust_",i,"_",db[j],".csv"))
-    #N1.Er.genes.2 <- N1.c0.Er[[2]] %>% select(Term, Genes, Combined.Score)
-    #write.csv(N1.Er.genes.2,"Er.genes.2.csv")
-    #N1.Er.genes.3 <- N1.c0.Er[[3]] %>% select(Term, Genes, Combined.Score)
-    #write.csv(N1.Er.genes.3,"Er.genes.3.csv")
   }
 }
 }

@@ -1,5 +1,5 @@
 ## Downloading the midbrain dataset
-The scRNAseq data produced by [Smajic et al.](https://academic.oup.com/brain/article/145/3/964/6469020) is publicly available in the Gene Expression Omnibus with accession code [GSE157783](https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE157783). To download the data, we must first install SRAtoolkit (if this is not already installed on your High-Performance Computing (HPC) system). We will create a directory for our raw data and download SRAtoolkit with the following code:
+The single-nucleus RNA sequencing (snRNAseq) data produced by [Smajic et al.](https://academic.oup.com/brain/article/145/3/964/6469020) is publicly available in the Gene Expression Omnibus with accession code [GSE157783](https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE157783). To download the data, we must first install SRAtoolkit (if this is not already installed on your High-Performance Computing (HPC) system). We will create a directory for our raw data and download SRAtoolkit with the following code:
 
 ```
 mkdir data_download
@@ -27,7 +27,7 @@ The Sequence Read Archive (SRA) run identifiers for each of the 11 samples in th
 |CTRL5|SRR12621871|
 |CTRL6|SRR12621872|
 
-**Note**: If you simply want to test scRNAbox's Standard scRNAseq Analysis Track, it may be best to only incorportate a subset of samples in a test run, as using all 11 samples will take substantially longer. In this case, we suggest including at least three PD sample and three control to facilitate differential gene expression (DGE) contrasts in Step 8. 
+**Note**: If you simply want to test scRNAbox, it may be best to only incorportate a subset of samples in a test run, as using all 11 samples will take substantially longer. In this case, we suggest including at least three PD samples and three controls to facilitate differential gene expression (DGE) contrasts in Step 8. 
 
 To download the FASTQ files for all 11 samples, run the following code. Please note that this may take a very long time. 
 

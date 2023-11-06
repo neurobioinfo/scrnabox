@@ -19,16 +19,14 @@ nav:
         - 'Execution parameters' : reference.md 
         - 'Outputs': outputs.md 
     - Tutorial:
-        - 'scRNAbox analysis of midbrain dataset' : Dataset1.md
         - 'Downloading the midbrain dataset' : midbrain_download.md
-        - 'Manual CellRanger library preparation' : library_prep.md
-
-    - FAQ : FAQ.md        
-           
+        - 'scRNAbox analysis of midbrain dataset' : Dataset1.md
+        - 'Analysis of DEGs' : DEG.md
+        - 'Manual CellRanger library preparation' : library_prep.md     
     - About:
-        - '- License': 'LICENSE.md'
-        - '- Changelog': 'changelog.md'
-        - '- Contributing': contributing.md
-        - '- Acknowledgement': Acknowledgement.md
+        - 'License': 'LICENSE.md'
+        - 'Changelog': 'changelog.md'
+        - 'Contributing': contributing.md
+        - 'Acknowledgement': Acknowledgement.md
 theme: readthedocs
 

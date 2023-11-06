@@ -79,28 +79,26 @@
               </ul>
               <p class="caption"><span class="caption-text">Tutorial</span></p>
               <ul class="current">
+                  <li class="toctree-l1"><a class="reference internal" href="../midbrain_download/">Downloading the midbrain dataset</a>
+                  </li>
                   <li class="toctree-l1"><a class="reference internal" href="../Dataset1/">scRNAbox analysis of midbrain dataset</a>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../midbrain_download/">Downloading the midbrain dataset</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../DEG/">Analysis of DEGs</a>
                   </li>
                   <li class="toctree-l1 current"><a class="reference internal current" href="./">Manual CellRanger library preparation</a>
     <ul class="current">
     </ul>
                   </li>
               </ul>
-              <ul>
-                <li class="toctree-l1"><a class="reference internal" href="../FAQ/">FAQ</a>
-                </li>
-              </ul>
               <p class="caption"><span class="caption-text">About</span></p>
               <ul>
-                  <li class="toctree-l1"><a class="reference internal" href="../LICENSE/">- License</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../LICENSE/">License</a>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../changelog/">- Changelog</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../changelog/">Changelog</a>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../contributing/">- Contributing</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../contributing/">Contributing</a>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../Acknowledgement/">- Acknowledgement</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../Acknowledgement/">Acknowledgement</a>
                   </li>
               </ul>
       </div>
@@ -127,15 +125,14 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
             <div class="section" itemprop="articleBody">
               
-                <h2 id="cellranger-library-preparation">CellRanger Library Preparation</h2>
-<h2 id="contents">Contents</h2>
+                <h2 id="manual-cellranger-library-preparation">Manual CellRanger Library Preparation</h2>
 <ul>
 <li><a href="#introduction">Introduction</a></li>
-<li><a href="#standard-analysis-track">Standard Analysis Track</a><ul>
+<li><a href="#standard-analysis-track">Standard analysis track</a><ul>
 <li><a href="#librarycsv">library.csv</a></li>
 </ul>
 </li>
-<li><a href="#cell-hashtag-analysis-track">Cell Hashtag Analysis Track</a><ul>
+<li><a href="#hto-analysis-track">HTO analysis track</a><ul>
 <li><a href="#librarycsv">library.csv</a></li>
 <li><a href="#feature-ref-csv">feature_ref.csv</a></li>
 </ul>
@@ -143,10 +140,10 @@
 </ul>
 <hr />
 <h2 id="introduction">Introduction</h2>
-<p>Step 1 (FASTQ to gene expression matrix) of the scRNAbox pipeline leverages the CellRanger <em>counts</em> pipeline to generate gene expression matrices from FASTQ files. In order to run the CellRanger <em>counts</em> pipeline, libraries must be generated to define the information of the FASTQ files. For the <a href="">Standard Analysis Track</a>, a <code>library.csv</code> file must be generated for each sample. For the <a href="">Cell Hashtag Analysis Track</a>, a <code>library.csv</code> and <code>feature_ref.csv</code> file must be generated for each sequencing run. Athough scRNAbox provides an option to automate the library preparation process, it is important that users understand the information that is required for these files. </p>
+<p>Step 1 (FASTQ to gene expression matrix) of the scRNAbox pipeline leverages the CellRanger <em>counts</em> pipeline to generate gene expression matrices from FASTQ files. In order to run the CellRanger <em>counts</em> pipeline, libraries must be generated to define the information of the FASTQ files. For the <a href="#standard-analysis-track">Standard analysis track</a>, a <code>library.csv</code> file must be generated for each sample. For the <a href="#hto-analysis-track">HTO analysis track</a>, a <code>library.csv</code> and <code>feature_ref.csv</code> file must be generated for each sequencing run. Athough scRNAbox provides an option to automate the library preparation process, it is important that users understand the information that is required for these files. </p>
 <p>In this tutorial we demonstrate how users can manually prepare the <code>library.csv</code> and <code>feature_ref.csv</code> files. The information presented in this tutorial can also be used to inform the parameters that must be defined by the user for automated library preparation.</p>
 <hr />
-<h2 id="standard-analysis-track">Standard Analysis Track</h2>
+<h2 id="standard-analysis-track">Standard analysis track</h2>
 <h4 id="librarycsv">library.csv</h4>
 <p>The <code>library.csv</code> file defines the necessary information of the FASTQ files for the experiment, including the gene expression and antibody assays. The structure of the <code>library.csv</code> file should be: <br /></p>
 <pre><code>fastqs,sample,library_type
@@ -184,7 +181,7 @@ mkdir control2
         └── library.csv
 </code></pre>
 <hr />
-<h2 id="cell-hashtag-analysis-track">Cell Hashtag Analysis Track</h2>
+<h2 id="hto-analysis-track">HTO analysis track</h2>
 <h4 id="librarycsv_1">library.csv</h4>
 <p>The <code>library.csv</code> file defines the necessary information of the FASTQ files for the experiment, including the gene expression and antibody assays. The structure of the <code>library.csv</code> file should be: <br /></p>
 <pre><code>fastqs,sample,library_type
@@ -248,8 +245,8 @@ mkdir run4
             </div>
           </div><footer>
     <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
-        <a href="../midbrain_download/" class="btn btn-neutral float-left" title="Downloading the midbrain dataset"><span class="icon icon-circle-arrow-left"></span> Previous</a>
-        <a href="../FAQ/" class="btn btn-neutral float-right" title="FAQ">Next <span class="icon icon-circle-arrow-right"></span></a>
+        <a href="../DEG/" class="btn btn-neutral float-left" title="Analysis of DEGs"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../LICENSE/" class="btn btn-neutral float-right" title="License">Next <span class="icon icon-circle-arrow-right"></span></a>
     </div>
 
   <hr/>
@@ -272,10 +269,10 @@ mkdir run4
   <span class="rst-current-version" data-toggle="rst-current-version">
     
     
-      <span><a href="../midbrain_download/" style="color: #fcfcfc">&laquo; Previous</a></span>
+      <span><a href="../DEG/" style="color: #fcfcfc">&laquo; Previous</a></span>
     
     
-      <span><a href="../FAQ/" style="color: #fcfcfc">Next &raquo;</a></span>
+      <span><a href="../LICENSE/" style="color: #fcfcfc">Next &raquo;</a></span>
     
   </span>
 </div>

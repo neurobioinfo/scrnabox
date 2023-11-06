@@ -1,10 +1,8 @@
-## CellRanger Library Preparation
-## Contents
-
+## Manual CellRanger Library Preparation
 - [Introduction](#introduction)
-- [Standard Analysis Track](#standard-analysis-track)
+- [Standard analysis track](#standard-analysis-track)
     - [library.csv](#librarycsv)
-- [Cell Hashtag Analysis Track](#cell-hashtag-analysis-track)
+- [HTO analysis track](#hto-analysis-track)
     - [library.csv](#librarycsv)
     - [feature_ref.csv](#feature-ref-csv)
 
@@ -12,12 +10,12 @@
  - - - -
 
 ## Introduction
-Step 1 (FASTQ to gene expression matrix) of the scRNAbox pipeline leverages the CellRanger _counts_ pipeline to generate gene expression matrices from FASTQ files. In order to run the CellRanger _counts_ pipeline, libraries must be generated to define the information of the FASTQ files. For the [Standard Analysis Track](), a `library.csv` file must be generated for each sample. For the [Cell Hashtag Analysis Track](), a `library.csv` and `feature_ref.csv` file must be generated for each sequencing run. Athough scRNAbox provides an option to automate the library preparation process, it is important that users understand the information that is required for these files. 
+Step 1 (FASTQ to gene expression matrix) of the scRNAbox pipeline leverages the CellRanger _counts_ pipeline to generate gene expression matrices from FASTQ files. In order to run the CellRanger _counts_ pipeline, libraries must be generated to define the information of the FASTQ files. For the [Standard analysis track](#standard-analysis-track), a `library.csv` file must be generated for each sample. For the [HTO analysis track](#hto-analysis-track), a `library.csv` and `feature_ref.csv` file must be generated for each sequencing run. Athough scRNAbox provides an option to automate the library preparation process, it is important that users understand the information that is required for these files. 
 
 In this tutorial we demonstrate how users can manually prepare the `library.csv` and `feature_ref.csv` files. The information presented in this tutorial can also be used to inform the parameters that must be defined by the user for automated library preparation.
 
  - - - -
-## Standard Analysis Track
+## Standard analysis track
 #### library.csv
 The `library.csv` file defines the necessary information of the FASTQ files for the experiment, including the gene expression and antibody assays. The structure of the `library.csv` file should be: <br />
 ```
@@ -63,7 +61,7 @@ working_directory
 
  - - - -
 
-## Cell Hashtag Analysis Track
+## HTO analysis track
 #### library.csv
 The `library.csv` file defines the necessary information of the FASTQ files for the experiment, including the gene expression and antibody assays. The structure of the `library.csv` file should be: <br />
 ```

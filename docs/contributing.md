@@ -11,8 +11,7 @@ comments: false
 ---
 
 #### Contributing
-This is an early version, any contribute or suggestion is appreciated, it is supposed to be an easy-to-use pipline for 
-scRNA analysis, so you can directly contact with [Saeid Amiri](https://github.com/saeidamiri1) or [Rhalena Thomas](https://github.com/RhalenaThomas). 
+Any contributions or suggestions for improving the scRNAbox pipeline are welcomed and appreciated. You may directly contact [Saeid Amiri](https://github.com/saeidamiri1), [Michael Fiorini](https://github.com/fiorini9) or [Rhalena Thomas](https://github.com/RhalenaThomas). 
 
-If you encounter any [issue](https://github.com/neurobioinfo/scrnabox/issues), please file its Github repository.
+If you encounter any [issues](https://github.com/neurobioinfo/scrnabox/issues), please file them in the GitHub repository.
 

@@ -79,28 +79,26 @@
               </ul>
               <p class="caption"><span class="caption-text">Tutorial</span></p>
               <ul class="current">
-                  <li class="toctree-l1"><a class="reference internal" href="../Dataset1/">scRNAbox analysis of midbrain dataset</a>
-                  </li>
                   <li class="toctree-l1 current"><a class="reference internal current" href="./">Downloading the midbrain dataset</a>
     <ul class="current">
     </ul>
                   </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../Dataset1/">scRNAbox analysis of midbrain dataset</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../DEG/">Analysis of DEGs</a>
+                  </li>
                   <li class="toctree-l1"><a class="reference internal" href="../library_prep/">Manual CellRanger library preparation</a>
                   </li>
               </ul>
-              <ul>
-                <li class="toctree-l1"><a class="reference internal" href="../FAQ/">FAQ</a>
-                </li>
-              </ul>
               <p class="caption"><span class="caption-text">About</span></p>
               <ul>
-                  <li class="toctree-l1"><a class="reference internal" href="../LICENSE/">- License</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../LICENSE/">License</a>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../changelog/">- Changelog</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../changelog/">Changelog</a>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../contributing/">- Contributing</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../contributing/">Contributing</a>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../Acknowledgement/">- Acknowledgement</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../Acknowledgement/">Acknowledgement</a>
                   </li>
               </ul>
       </div>
@@ -128,7 +126,7 @@
             <div class="section" itemprop="articleBody">
               
                 <h2 id="downloading-the-midbrain-dataset">Downloading the midbrain dataset</h2>
-<p>The scRNAseq data produced by <a href="https://academic.oup.com/brain/article/145/3/964/6469020">Smajic et al.</a> is publicly available in the Gene Expression Omnibus with accession code <a href="https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE157783">GSE157783</a>. To download the data, we must first install SRAtoolkit (if this is not already installed on your High-Performance Computing (HPC) system). We will create a directory for our raw data and download SRAtoolkit with the following code:</p>
+<p>The single-nucleus RNA sequencing (snRNAseq) data produced by <a href="https://academic.oup.com/brain/article/145/3/964/6469020">Smajic et al.</a> is publicly available in the Gene Expression Omnibus with accession code <a href="https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE157783">GSE157783</a>. To download the data, we must first install SRAtoolkit (if this is not already installed on your High-Performance Computing (HPC) system). We will create a directory for our raw data and download SRAtoolkit with the following code:</p>
 <pre><code>mkdir data_download
 cd data_download
 wget --output-document sratoolkit.tar.gz https://ftp-trace.ncbi.nlm.nih.gov/sra/sdk/current/sratoolkit.current-ubuntu64.tar.gz
@@ -191,7 +189,7 @@ export PATH=$PATH:$PWD/sratoolkit.3.0.5-ubuntu64/bin
 </tr>
 </tbody>
 </table>
-<p><strong>Note</strong>: If you simply want to test scRNAbox's Standard scRNAseq Analysis Track, it may be best to only incorportate a subset of samples in a test run, as using all 11 samples will take substantially longer. In this case, we suggest including at least three PD sample and three control to facilitate differential gene expression (DGE) contrasts in Step 8. </p>
+<p><strong>Note</strong>: If you simply want to test scRNAbox, it may be best to only incorportate a subset of samples in a test run, as using all 11 samples will take substantially longer. In this case, we suggest including at least three PD samples and three controls to facilitate differential gene expression (DGE) contrasts in Step 8. </p>
 <p>To download the FASTQ files for all 11 samples, run the following code. Please note that this may take a very long time. </p>
 <pre><code>export PATH=$PATH:$PWD/sratoolkit.3.0.5-ubuntu64/bin
 module load StdEnv/2020 gcc/9.3.0
@@ -364,8 +362,8 @@ cp ~/data_download/SRR12621872_2.fastq ~/fastqs/CTRL6_S1_L001_R2_001.fastq
             </div>
           </div><footer>
     <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
-        <a href="../Dataset1/" class="btn btn-neutral float-left" title="scRNAbox analysis of midbrain dataset"><span class="icon icon-circle-arrow-left"></span> Previous</a>
-        <a href="../library_prep/" class="btn btn-neutral float-right" title="Manual CellRanger library preparation">Next <span class="icon icon-circle-arrow-right"></span></a>
+        <a href="../outputs/" class="btn btn-neutral float-left" title="Outputs"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../Dataset1/" class="btn btn-neutral float-right" title="scRNAbox analysis of midbrain dataset">Next <span class="icon icon-circle-arrow-right"></span></a>
     </div>
 
   <hr/>
@@ -388,10 +386,10 @@ cp ~/data_download/SRR12621872_2.fastq ~/fastqs/CTRL6_S1_L001_R2_001.fastq
   <span class="rst-current-version" data-toggle="rst-current-version">
     
     
-      <span><a href="../Dataset1/" style="color: #fcfcfc">&laquo; Previous</a></span>
+      <span><a href="../outputs/" style="color: #fcfcfc">&laquo; Previous</a></span>
     
     
-      <span><a href="../library_prep/" style="color: #fcfcfc">Next &raquo;</a></span>
+      <span><a href="../Dataset1/" style="color: #fcfcfc">Next &raquo;</a></span>
     
   </span>
 </div>

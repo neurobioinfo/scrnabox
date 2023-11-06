@@ -209,7 +209,7 @@ To ensure replicability, a summary report file documents the execution parameter
  - - - -
 
 #### Step 7: Cluster annotation
-|Annotation Method|Parameter|Default|Description|
+|Annotation tool|Parameter|Default|Description|
 |:--|:--|:--|:--|
 |**General**|par_save_RNA| No| Whether or not to export an RNA expression matrix|
 |**General**|par_save_metadata| No|Whether or not to export a metadata dataframe|
@@ -220,7 +220,7 @@ To ensure replicability, a summary report file documents the execution parameter
 |**Tool 1**|par_top_sel|5|Number of top markers to identify based on avg_log2FC|
 |**Tool 1**|par_db|Descartes_Cell_Types_and_Tissue_2021,<br /> CellMarker_Augmented_2021,<br />Azimuth_Cell_Types_2021|Character vector of EnrichR databases that define cell types. The top marker genes for each cluster will be tested for enrichment across these databases.|
 |**Tool 2**|par_run_module_score|Yes|Whether or not to compute module score for aggregated expression |
-|**Tool 2**|par_run_vidsualize_markers|Yes|Whether or not to visualize the expression of individual genes|
+|**Tool 2**|par_run_visualize_markers|Yes|Whether or not to visualize the expression of individual genes|
 |**Tool 2**|par_module_score|NULL|Path to the csv file containing the gene sets for the module score|
 |**Tool 2**|par_select_features_list|NULL|List of genes whose expression will be visualized individually|
 |**Tool 2**|par_select_features_csv|NULL|If you want to define multiple lists of features to visualize individually, you can do so with a csv file. The header should contain the list names and all features belonging to the same list should be in the same column.|
@@ -242,7 +242,7 @@ To ensure replicability, a summary report file documents the execution parameter
 |**General**|par_save_metadata| No|Whether or not to export a metadata dataframe|
 |**General**|par_seurat_object| NULL |If users already have a Seurat object, they may provide the path to the Seurat object to initiate the pipeline at Step 7|
 |**Add metadata**|par_merge_meta|orig.ident|The column from the Seurat metdata that will be used to merge the new metadata. This column must also exist in the submitted csv file contaning new metadata.|
-|**Add metadata**|par_metadata|orig.ident|The column from the Seurat metdata that will be used to merge the new metadata. This column must also exist in the submitted csv file contaning new metadata.|
+|**Add metadata**|par_metadata|NULL|csv file containing metadata to be added to the Seurat object|
 |**Cell-based DGE with all cells**|par_run_cell_based_all_cells|Yes|Whether or not to compute cell-based DGE with all cells |
 |**Cell-based DGE with cell type groups**|par_run_cell_based_cell_type_groups|Yes|Whether or not to compute cell-based DGE with cell type groups|
 |**Sample-based DGE with all cells**|par_run_sample_based_all_cells|Yes|Whether or not to compute sample-based DGE with all cells|

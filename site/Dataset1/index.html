@@ -79,28 +79,26 @@
               </ul>
               <p class="caption"><span class="caption-text">Tutorial</span></p>
               <ul class="current">
+                  <li class="toctree-l1"><a class="reference internal" href="../midbrain_download/">Downloading the midbrain dataset</a>
+                  </li>
                   <li class="toctree-l1 current"><a class="reference internal current" href="./">scRNAbox analysis of midbrain dataset</a>
     <ul class="current">
     </ul>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../midbrain_download/">Downloading the midbrain dataset</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../DEG/">Analysis of DEGs</a>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../library_prep/">Manual CellRanger library preparation</a>
                   </li>
               </ul>
-              <ul>
-                <li class="toctree-l1"><a class="reference internal" href="../FAQ/">FAQ</a>
-                </li>
-              </ul>
               <p class="caption"><span class="caption-text">About</span></p>
               <ul>
-                  <li class="toctree-l1"><a class="reference internal" href="../LICENSE/">- License</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../LICENSE/">License</a>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../changelog/">- Changelog</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../changelog/">Changelog</a>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../contributing/">- Contributing</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../contributing/">Contributing</a>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../Acknowledgement/">- Acknowledgement</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../Acknowledgement/">Acknowledgement</a>
                   </li>
               </ul>
       </div>
@@ -139,29 +137,33 @@
 </ul>
 </li>
 <li><a href="#scrnabox-standard-analysis-track">scRNAbox: Standard Analysis Track</a><ul>
-<li><a href="#step-0-pipeline-initiation">Step 0: Pipeline initiation</a></li>
+<li><a href="#step-0-set-up">Step 0: Set up</a></li>
 <li><a href="#step-1-fastq-to-gene-expression-matrix">Step 1: FASTQ to gene expression matrix</a>  </li>
 <li><a href="#step-2-create-seurat-object-and-remove-ambient-rna">Step 2: Create Seurat object and remove ambient RNA </a>  </li>
 <li><a href="#step-3-quality-control-and-filtering">Step 3: Quality control and filtering</a></li>
-<li><a href="#step-4-doublet-detection">Step 4: Doublet detection</a> </li>
-<li><a href="#step-5-integration-and-linear-dimensional-reduction">Step 5: Integration and linear dimensional reduction</a></li>
+<li><a href="#step-4-doublet-removal">Step 4: Doublet removal</a> </li>
+<li><a href="#step-5-integration">Step 5: Integration</a></li>
 <li><a href="#step-6-clustering">Step 6: Clustering</a> </li>
 <li><a href="#step-7-cluster-annotation">Step 7: Cluster annotation</a> <ul>
-<li><a href="#method-1-cluster-marker-gsea">Method 1: Cluster marker GSEA</a> </li>
-<li><a href="#method-2-module-score">Method 2: Module score</a> </li>
-<li><a href="#method-3-reference-based-annotation">Method 3: Reference-based annotation</a> </li>
-<li><a href="#visualizin-the-expression-of-select-features">Visualizing the expression of select features</a>    </li>
+<li><a href="#tool-1-cluster-marker-gsea">Tool 1: Cluster marker GSEA</a> </li>
+<li><a href="#tool-2-expression-profiling-of-known-marker-genes">Tool 2: Expression profiling of known marker genes</a> </li>
+<li><a href="#tool-3-reference-based-annotation">Tool 3: Reference-based annotation</a> </li>
+<li><a href="#annotate">Annotate</a>    </li>
 </ul>
 </li>
-<li><a href="#step-8-differential-gene-expression-contrasts">Step 8: Differential gene expression contrasts</a><ul>
-<li><a href="#create-dgelist-object">Create DGEList object</a> </li>
-<li><a href="#sample-sample-contrasts">Sample-sample contrasts</a> </li>
-<li><a href="#sample-cell-contrasts">Sample-cell contrasts</a></li>
+<li><a href="#step-8-differential-gene-expression-analysis">Step 8: Differential gene expression</a><ul>
+<li><a href="#add-metadata">Add metadata</a> </li>
+<li><a href="#cell-based-dge-using-all-cells">Cell-based DGE using all cells</a></li>
+<li><a href="#cell-based-dge-using-cell-type-groups">Cell-based DGE using cell type groups</a></li>
+<li><a href="#sample-based-dge-using-all-cells">Sample-based DGE using all cells</a></li>
+<li><a href="#sample-based-dge-using-cell-type-groups">Sample-based DGE using cell type groups</a></li>
 </ul>
 </li>
 </ul>
 </li>
-<li><a href="#job-configurations">Job Configurations</a>      </li>
+<li><a href="#analysis-of-differentially-expressed-genes">Analysis of differentially expressed genes</a></li>
+<li><a href="#publication-ready-figures">Publication-ready figures</a></li>
+<li><a href="#job-configurations">Job Configurations</a> </li>
 </ul>
 <hr />
 <h2 id="introduction">Introduction</h2>
@@ -221,8 +223,8 @@ Rscript ./scrnabox.slurm/soft/R/install_packages_scrnabox.R $R_PATH
 </code></pre>
 <hr />
 <h2 id="scrnabox-pipeline">scRNAbox pipeline</h2>
-<h3 id="step-0-pipeline-initiation">Step 0: Pipeline initiation</h3>
-<p>Now that <code>scrnabox.slurm</code>, <code>CellRanger</code>, <code>R</code>, and the Required R packages have been installed, we can proceed to our analysis with the scRNAbox pipeline. We will create a <code>pipeline</code> folder designated for the analysis and run Step 0, selecting the standard analysis track (<code>--method SCRNA</code>), using the following code:</p>
+<h3 id="step-0-set-up">Step 0: Set up</h3>
+<p>Now that <code>scrnabox.slurm</code>, <code>CellRanger</code>, <code>R</code>, and the required R packages have been installed, we can proceed to our analysis with the scRNAbox pipeline. We will create a <code>pipeline</code> folder designated for the analysis and run Step 0, selecting the standard analysis track (<code>--method SCRNA</code>), using the following code:</p>
 <pre><code>mkdir pipeline
 cd pipeline
 
@@ -244,7 +246,7 @@ R_LIB_PATH=~/R
 </code></pre>
 <hr />
 <h3 id="step-1-fastq-to-gene-expression-matrix">Step 1: FASTQ to gene expression matrix</h3>
-<p>In Step 1, we will run the CellRanger <em>counts</em> pipeline to generate feature-barcode expression matrices from the FASTQ files. While it is possible to manually prepare the <code>library.csv</code> files for each of the 11 samples in the experiment prior to running Step 1, for this analysis we are going to opt for automated library preparation. For more information regarding the manual prepartion of <code>library.csv</code> files, please see the the <a href="../library_prep/">CellRanger library preparation</a> tutorial. <br /> 
+<p>In Step 1, we will run the CellRanger <em>counts</em> pipeline to generate feature-barcode expression matrices from the FASTQ files. While it is possible to manually prepare the <code>library.csv</code> files for each of the 11 samples in the experiment prior to running Step 1, we are going to opt for automated library preparation. For more information regarding the manual prepartion of <code>library.csv</code> files, please see the the <a href="../library_prep/">CellRanger library preparation</a> tutorial. <br /> 
 <br /> 
 For our analysis of the midbrain dataset we set the following execution parameters for Step 1 (<code>~/pipeline/job_info/parameters/step1_par.txt</code>):</p>
 <table>
@@ -257,11 +259,11 @@ For our analysis of the midbrain dataset we set the following execution paramete
 <tbody>
 <tr>
 <td style="text-align: left;">par_automated_library_prep</td>
-<td style="text-align: left;">yes</td>
+<td style="text-align: left;">Yes</td>
 </tr>
 <tr>
 <td style="text-align: left;">par_fastq_directory</td>
-<td style="text-align: left;">/path/to/directory/with/fastqs</td>
+<td style="text-align: left;">/path/to/directory/containing/fastqs</td>
 </tr>
 <tr>
 <td style="text-align: left;">par_sample_names</td>
@@ -289,7 +291,7 @@ For our analysis of the midbrain dataset we set the following execution paramete
 </tr>
 <tr>
 <td style="text-align: left;">par_include_introns</td>
-<td style="text-align: left;">NULL</td>
+<td style="text-align: left;">Yes</td>
 </tr>
 <tr>
 <td style="text-align: left;">par_mempercode</td>
@@ -297,8 +299,8 @@ For our analysis of the midbrain dataset we set the following execution paramete
 </tr>
 </tbody>
 </table>
-<p><strong>Note:</strong> The parameters file for each step is located in <code>~/pipeline/job_info/parameters</code>. For a comprehensive description of the execution parameters for each see see <a href="../reference/">here</a>. </p>
-<p>Given that CellRanger runs a user interface and is not submitted as a Job, it is recommended to run Step 1 in a <strong>'screen'</strong> which will allow the the task to keep running if the connection is broken. To run Step 1, use the following command:</p>
+<p><strong>Note:</strong> The parameters file for each step is located in <code>~/pipeline/job_info/parameters</code>. For a comprehensive description of the execution parameters for each step see <a href="../reference/">here</a>. </p>
+<p>Given that CellRanger runs a user interface and is not submitted as a Job, it is recommended to run Step 1 in a <strong>'screen'</strong>, which will allow the the task to keep running if the connection is broken. To run Step 1, use the following command:</p>
 <pre><code>export SCRNABOX_HOME=~/scrnabox/scrnabox.slurm
 export SCRNABOX_PWD=~/pipeline
 
@@ -310,7 +312,7 @@ bash $SCRNABOX_HOME/launch_scrnabox.sh \
 <p>The outputs of the CellRanger <em>counts</em> pipeline are deposited into <code>~/pipeline/step1</code>.</p>
 <hr />
 <h3 id="step-2-create-seurat-object-and-remove-ambient-rna">Step 2: Create Seurat object and remove ambient RNA</h3>
-<p>In Step 2, we are going to use the CellRanger-generated feature-barcode matrices to produce unique Seurat objects for each of the 11 samples. Ambient RNA detection and removal is optional for this step; however, because <a href="https://academic.oup.com/brain/article/145/3/964/6469020">Smajic et al.</a> did not perform this analytical procedure we will skip it. 
+<p>In Step 2, we are going to use the CellRanger-generated feature-barcode matrices to produce unique Seurat objects for each of the 11 samples. In this step, we have the option to correct the expression matrices for ambient RNA contamination; however, because <a href="https://academic.oup.com/brain/article/145/3/964/6469020">Smajic et al.</a> did not perform this analytical procedure we will skip it. In addition, we will perform cell cycle scoring. Prior to performing cell cycle scoring, we must normalize and scale the counts matrix. 
 <br /> </p>
 <p>For our analysis of the midbrain dataset we set the following execution parameters for Step 2 (<code>~/pipeline/job_info/parameters/step2_par.txt</code>):</p>
 <table>
@@ -330,20 +332,32 @@ bash $SCRNABOX_HOME/launch_scrnabox.sh \
 <td style="text-align: left;">Yes</td>
 </tr>
 <tr>
-<td style="text-align: left;">par_ambient_RNA</td>
-<td style="text-align: left;">No</td>
-</tr>
-<tr>
 <td style="text-align: left;">par_count_matrices</td>
 <td style="text-align: left;">NULL</td>
 </tr>
 <tr>
-<td style="text-align: left;">par_min.cells_L</td>
-<td style="text-align: left;">3</td>
+<td style="text-align: left;">par_ambient_RNA</td>
+<td style="text-align: left;">No</td>
 </tr>
 <tr>
-<td style="text-align: left;">par_min.features_L</td>
-<td style="text-align: left;">1000</td>
+<td style="text-align: left;">par_min.cells_L</td>
+<td style="text-align: left;">1</td>
+</tr>
+<tr>
+<td style="text-align: left;">par_normalization.method</td>
+<td style="text-align: left;">LogNormalize</td>
+</tr>
+<tr>
+<td style="text-align: left;">par_scale.factor</td>
+<td style="text-align: left;">10000</td>
+</tr>
+<tr>
+<td style="text-align: left;">par_selection.method</td>
+<td style="text-align: left;">vst</td>
+</tr>
+<tr>
+<td style="text-align: left;">par_nfeatures</td>
+<td style="text-align: left;">2500</td>
 </tr>
 </tbody>
 </table>
@@ -355,30 +369,34 @@ bash $SCRNABOX_HOME/launch_scrnabox.sh \
 -d ${SCRNABOX_PWD} \
 --steps 2
 </code></pre>
-<p>Step 2 produces the following outputs for each sample. As an example we show the outputs for Parkinson1.</p>
+<p>Step 2 produces the following outputs for each sample. As an example we show the outputs for sample <em>Control1</em>:</p>
 <pre><code>step2
 ├── figs2
-│   └── vioplot_Parkinson1.png
+│   ├── ambient_RNA_estimation_Control1.pdf
+│   ├── ambient_RNA_markers_Control1.pdf
+│   ├── cell_cyle_dim_plot_Control1.pdf
+│   ├── vioplot_Control1.pdf
+│   └── zoomed_in_vioplot_Control1.pdf
 ├── info2
-│   ├── Parkinson11_RNA.txt
-│   ├── MetaDataParkinson11.txt
-│   ├── MetaDataParkinson1.txt
-│   ├── meta_infoParkinson1.txt
-│   ├── Parkinson1_RNA.txt
+│   ├── estimated_ambient_RNA_Control1.txt
+│   ├── MetaData_Control1.txt
+│   ├── meta_info_Control1.txt
+│   ├── Control1_ambient_rna_summary.rds
+│   ├── Control1_RNA.txt
 │   ├── sessionInfo.txt
-│   └── summary_Parkinson1.txt
+│   └── summary_Control1.txt
 └── objs2
-    └── Parkinson1.rds
+    └── Control1.rds
 </code></pre>
-<p><strong>Note:</strong> For a comprehensive description of the outputs for each Analytical Step, please see the <a href="../outputs/">Outputs</a> section of the scRNAbox documentation.</p>
+<p><strong>Note:</strong> For a comprehensive description of the outputs for each analytical step, please see the <a href="../outputs/">Outputs</a> section of the scRNAbox documentation.</p>
 <p align="center">
-<img src="https://github.com/neurobioinfo/scrnabox/assets/110110777/2127d7ea-f7be-43dd-9ae0-2421376e2727" width="350" height="100"> <br /> 
+<img src="https://github.com/neurobioinfo/scrnabox/assets/110110777/9cbbf8ea-8328-4915-9ebc-0a28022fe435"> <br /> 
 </p>
 
-<p><strong>Figure 1. Figure produced by Step 2 of the Standard Analysis Track.</strong> The figure for the Parkinson1 sample is shown as an example. Sample-specific violin plots are produced to visualize the distribution of genes per cell (nFeature_RNA), molecules per cell (nCount_RNA), percentage of mitochondrial-encoded genes per cell (percent.mt), and perentage of ribosomal genes per cell (percent.ribo).</p>
+<p><strong>Figure 1. Figures produced by Step 2 of the scRNAbox pipeline.</strong> The figures for the <em>Control1</em> sample are shown as an example. <strong>A)</strong> Estimated ambient RNA contamination rate (Rho) by SoupX. Estimates of the RNA contamination rate using various estimators are visualized via a frequency distribution; the true contamination rate is assigned as the most frequent estimate (red line; 5.1%). <strong>B)</strong> Log10 ratios of observed counts to expected counts for marker genes from each cluster. Clusters are defined by the CellRanger counts pipeline. The red line displays the estimated RNA contamination rate if the estimation was based entirely on the corresponding gene. <strong>C)</strong> Principal component analysis (PCA) of Seurat S and G2M cell cycle reference genes. <strong>D)</strong> Violin plots showing the distribution of cells according to quality control metrics calculated in Step 2. <strong>E)</strong> Zoomed in violin plots, from the minimum to the mean, showing the distribution of cells according to quality control metrics calculated in Step 2.</p>
 <hr />
 <h3 id="step-3-quality-control-and-filtering">Step 3: Quality control and filtering</h3>
-<p>In this Step, we are going to perform quality control (QC) procedures and filter out low quality cells. We are going to filter out cells with &lt;1500 unique molecules, &gt;10% mitochondrial-encoded genes, and &gt;10% ribosomal genes. In addition, we are going to remove mitochondrial-encoded and ribosomal genes and will perform cell cycle scoring. Prior to performing cell cycle scoring, we must normalize and scale the counts matrix. </p>
+<p>In Step 3, we are going to perform quality control procedures and filter out low quality cells. We are going to filter out cells with &lt; 1000 unique RNA transcripts, &lt; 1500 total RNA transcripts, and &gt; 10% mitochondria and ribosomal RNA. In addition, we are going to remove mitochondrial-encoded and ribosomal genes.</p>
 <p>For our analysis of the midbrain dataset we set the following execution parameters for Step 3 (<code>~/pipeline/job_info/parameters/step2_par.txt</code>):</p>
 <table>
 <thead>
@@ -402,7 +420,7 @@ bash $SCRNABOX_HOME/launch_scrnabox.sh \
 </tr>
 <tr>
 <td style="text-align: left;">par_nFeature_RNA_L</td>
-<td style="text-align: left;">NULL</td>
+<td style="text-align: left;">1000</td>
 </tr>
 <tr>
 <td style="text-align: left;">par_nFeature_RNA_U</td>
@@ -418,7 +436,7 @@ bash $SCRNABOX_HOME/launch_scrnabox.sh \
 </tr>
 <tr>
 <td style="text-align: left;">par_mitochondria_percent_L</td>
-<td style="text-align: left;">NULL</td>
+<td style="text-align: left;">0</td>
 </tr>
 <tr>
 <td style="text-align: left;">par_mitochondria_percent_U</td>
@@ -426,7 +444,7 @@ bash $SCRNABOX_HOME/launch_scrnabox.sh \
 </tr>
 <tr>
 <td style="text-align: left;">par_ribosomal_percent_L</td>
-<td style="text-align: left;">NULL</td>
+<td style="text-align: left;">0</td>
 </tr>
 <tr>
 <td style="text-align: left;">par_ribosomal_percent_U</td>
@@ -442,6 +460,18 @@ bash $SCRNABOX_HOME/launch_scrnabox.sh \
 </tr>
 <tr>
 <td style="text-align: left;">par_remove_genes</td>
+<td style="text-align: left;">NULL</td>
+</tr>
+<tr>
+<td style="text-align: left;">par_regress_cell_cycle_genes</td>
+<td style="text-align: left;">No</td>
+</tr>
+<tr>
+<td style="text-align: left;">par_regress_custom_genes</td>
+<td style="text-align: left;">No</td>
+</tr>
+<tr>
+<td style="text-align: left;">par_regress_genes</td>
 <td style="text-align: left;">NULL</td>
 </tr>
 <tr>
@@ -468,22 +498,6 @@ bash $SCRNABOX_HOME/launch_scrnabox.sh \
 <td style="text-align: left;">par_npcs_pca</td>
 <td style="text-align: left;">30</td>
 </tr>
-<tr>
-<td style="text-align: left;">par_cells</td>
-<td style="text-align: left;">500</td>
-</tr>
-<tr>
-<td style="text-align: left;">par_dims</td>
-<td style="text-align: left;">12</td>
-</tr>
-<tr>
-<td style="text-align: left;">par_dims_umap</td>
-<td style="text-align: left;">10</td>
-</tr>
-<tr>
-<td style="text-align: left;">par_n.neighbors</td>
-<td style="text-align: left;">65</td>
-</tr>
 </tbody>
 </table>
 <p>We can run Step 3 using the following code:</p>
@@ -494,105 +508,38 @@ bash $SCRNABOX_HOME/launch_scrnabox.sh \
 -d ${SCRNABOX_PWD} \
 --steps 3
 </code></pre>
-<p>Step 3 produces the following outputs for each sample. As an example we show the outputs for Parkinson1.</p>
+<p>Step 3 produces the following outputs for each sample. As an example we show the outputs for sample <em>Control1</em>:</p>
 <pre><code>step3
 ├── figs3
-│   ├── cellcycle_Parkinson1.png
-│   ├── dimplot_pcaParkinson1.png
-│   ├── dimplot_umapParkinson1.png
-│   ├── elbowplotParkinson1.png
-│   ├── QC_vioplot_Parkinson1.png
-│   └── VariableFeaturePlotParkinson1.png
+│   ├── dimplot_pca_Control1.pdf
+│   ├── elbowplot_Control1.pdf
+│   ├── filtered_QC_vioplot_Control1.pdf
+│   └── VariableFeaturePlot_Control1.pdf
 ├── info3
-│   ├── MetaDataParkinson1.txt
-│   ├── meta_info_Parkinson1.txt
-│   ├── most_variable_genes_Parkinson1.txt
-│   ├── Parkinson1_RNA.txt
+│   ├── MetaData_Control1.txt
+│   ├── meta_info_Control1.txt
+│   ├── most_variable_genes_Control1.txt
+│   ├── Control1_RNA.txt
 │   ├── sessionInfo.txt
-│   └── summary_Parkinson1.txt
+│   └── summary_Control1.txt
 └── objs3
-    └── Parkinson1.rds
+    └── Control1.rds
+
 </code></pre>
 <p align="center">
-<img src="https://github.com/neurobioinfo/scrnabox/assets/110110777/dbbb39e3-68ee-4e40-aed2-3835476386cd" width="800" height="120"> <br /> 
+<img src="https://github.com/neurobioinfo/scrnabox/assets/110110777/9864c056-a1ea-4d77-af6f-dd1c72f7a59b"> <br /> 
 </p>
 
-<p><strong>Figure 2. Figures produced by Step 3 of the Standard Analysis Track.</strong> The figures for the Parkinson1 sample are shown as an example. <strong>A)</strong> Distribution of QC metrics after filtering according to the user-defined thresholds. <strong>B)</strong> Variable features plot showing the top 2500 most variable features; the top 10 most variable features are labelled. <strong>C)</strong> Elbow plot to visualize the percentage of variance explained by each principal component (PC). <strong>D)</strong> Principal component analysis (PCA) visualizing the first two PCs. <strong>E)</strong> Uniform Manifold Approximation and Projections (UMAP) plot, taking the first ten PCs as input. <strong>F)</strong> Distibution of G2M and S scores across cells.</p>
+<p><strong>Figure 2. Figures produced by Step 3 of the scRNAbox pipeline.</strong> The figures for the <em>Control1</em> sample are shown as an example. <strong>A)</strong> Violin plots showing the distribution of cells according to quality control metrics  after filtering by user-defined thresholds. <strong>B)</strong> Scatter plot showing the top 2500 most variable features; the top 10 most variable features are labelled. <strong>C)</strong> Principal component analysis (PCA) visualizing the first two principal component (PC). <strong>D)</strong> Elbow plot to visualize the percentage of variance explained by each PC.  </p>
 <hr />
-<h3 id="step-4-doublet-detection">Step 4: Doublet detection</h3>
-<p>In this Step, we are going to identify doublets (erroneous libraries produced by two or more cells) and remove them from downstream analyses using the <a href="https://www.cell.com/cell-systems/pdfExtended/S2405-4712(19)30073-0">DoubletFinder</a> tool (McGinnis et al. 2019). For optimal performance, DoubletFinder requires the user to define the following parameters:</p>
+<h3 id="step-4-doublet-removal">Step 4: Doublet removal</h3>
+<p>In this Step, we are going to identify doublets (erroneous barcodes produced by two or more cells) and remove them from downstream analyses using the <a href="https://www.cell.com/cell-systems/pdfExtended/S2405-4712(19)30073-0">DoubletFinder</a> tool (McGinnis et al. 2019). For optimal performance, DoubletFinder requires the user to define the following parameters:</p>
 <ul>
 <li>The number of statistically significant PCs (par_PCs)</li>
 <li>The number of artificial doublets to generate (par_pN)</li>
 <li>The expected doublet rate for each sample (par_expected_doublet_rate)</li>
 </ul>
-<p>The <strong>number of statistically significant PCs</strong> can be informed by the elbow plots produced in Step 2; it this case the top 15 PCs should maintain a robust compression of the data across samples. DoubletFinder is largely invariant to the <strong>number of artifical doublets generated</strong>, therefore we will maintain the default parameter of 0.25. The <strong>expected doublet rate</strong> can be informed by the number of recovered cells (~8% for ~10,000 cells recovered). The number of recovered cells can be informed by the <code>barcodes.tsv.gz</code> file produced by the CellRanger <em>counts</em> pipeline, which is located in <code>~/pipeline/step1/&lt;sample&gt;/output_folder/outs/filtered_feature_bc_matrix</code>. The number of recovered cells for each sample and the corresponding doublet rate is shown below.</p>
-<table>
-<thead>
-<tr>
-<th style="text-align: left;">Sample</th>
-<th style="text-align: left;"># of recovered cells</th>
-<th style="text-align: left;">Expected doublet rate (%)</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align: left;">Control1</td>
-<td style="text-align: left;">4863</td>
-<td style="text-align: left;">3.9%</td>
-</tr>
-<tr>
-<td style="text-align: left;">Control2</td>
-<td style="text-align: left;">4827</td>
-<td style="text-align: left;">3.9%</td>
-</tr>
-<tr>
-<td style="text-align: left;">Control3</td>
-<td style="text-align: left;">2632</td>
-<td style="text-align: left;">2.3%</td>
-</tr>
-<tr>
-<td style="text-align: left;">Control4</td>
-<td style="text-align: left;">5221</td>
-<td style="text-align: left;">3.9%</td>
-</tr>
-<tr>
-<td style="text-align: left;">Control5</td>
-<td style="text-align: left;">3703</td>
-<td style="text-align: left;">3.1%</td>
-</tr>
-<tr>
-<td style="text-align: left;">Control6</td>
-<td style="text-align: left;">6533</td>
-<td style="text-align: left;">5.4%</td>
-</tr>
-<tr>
-<td style="text-align: left;">Parkinson1</td>
-<td style="text-align: left;">2512</td>
-<td style="text-align: left;">2.3%</td>
-</tr>
-<tr>
-<td style="text-align: left;">Parkinson2</td>
-<td style="text-align: left;">6437</td>
-<td style="text-align: left;">4.6%</td>
-</tr>
-<tr>
-<td style="text-align: left;">Parkinson3</td>
-<td style="text-align: left;">3963</td>
-<td style="text-align: left;">3.1%</td>
-</tr>
-<tr>
-<td style="text-align: left;">Parkinson4</td>
-<td style="text-align: left;">2495</td>
-<td style="text-align: left;">1.6%</td>
-</tr>
-<tr>
-<td style="text-align: left;">Parkinson5</td>
-<td style="text-align: left;">5937</td>
-<td style="text-align: left;">4.6%</td>
-</tr>
-</tbody>
-</table>
+<p>The <strong>number of statistically significant PCs</strong> can be informed by the elbow plots produced in Step 3; in this case the top 25 PCs should maintain a robust compression of the data across samples. DoubletFinder is largely invariant to the <strong>number of artifical doublets generated</strong>, therefore we will maintain the default parameter of 0.25. The <strong>expected doublet rate</strong> can be informed by the number of recovered cells (~8% for ~10,000 cells recovered). The number of recovered cells can be informed by the <code>barcodes.tsv.gz</code> file produced by the CellRanger <em>counts</em> pipeline, which is located in <code>~/pipeline/step1/&lt;sample&gt;/output_folder/outs/filtered_feature_bc_matrix</code>. </p>
 <p>The expected doublet rates are approximations obtained from the 10X Genomics Next GEM Single Cell 3' v3.1 <a href="https://kb.10xgenomics.com/hc/en-us/articles/360059124751-Why-is-the-multiplet-rate-different-for-the-Next-GEM-Single-Cell-3-LT-v3-1-assay-compared-to-other-single-cell-applications-">documentation</a>, which was used by <a href="https://academic.oup.com/brain/article/145/3/964/6469020">Smajic et al.</a> for library preparation. </p>
 <p>For our analysis of the midbrain dataset we set the following execution parameters for Step 4 (<code>~/pipeline/job_info/parameters/step4_par.txt</code>):</p>
 <table>
@@ -612,12 +559,24 @@ bash $SCRNABOX_HOME/launch_scrnabox.sh \
 <td style="text-align: left;">Yes</td>
 </tr>
 <tr>
+<td style="text-align: left;">par_seurat_object</td>
+<td style="text-align: left;">NULL</td>
+</tr>
+<tr>
+<td style="text-align: left;">par_RunUMAP_dims</td>
+<td style="text-align: left;">25</td>
+</tr>
+<tr>
+<td style="text-align: left;">par_RunUMAP_n.neighbors</td>
+<td style="text-align: left;">65</td>
+</tr>
+<tr>
 <td style="text-align: left;">par_dropDN</td>
 <td style="text-align: left;">Yes</td>
 </tr>
 <tr>
 <td style="text-align: left;">par_PCs</td>
-<td style="text-align: left;">15</td>
+<td style="text-align: left;">25</td>
 </tr>
 <tr>
 <td style="text-align: left;">par_pN</td>
@@ -633,7 +592,7 @@ bash $SCRNABOX_HOME/launch_scrnabox.sh \
 </tr>
 <tr>
 <td style="text-align: left;">par_expected_doublet_rate</td>
-<td style="text-align: left;">0.039, 0.039, 0.023, 0.039, 0.031, 0.054, 0.023, 0.046, 0.031, 0.016, 0.046</td>
+<td style="text-align: left;">0.042, 0.042, 0.023, 0.04, 0.027, 0.053, 0.023, 0.053, 0.034, 0.023, 0.05</td>
 </tr>
 </tbody>
 </table>
@@ -645,26 +604,29 @@ bash $SCRNABOX_HOME/launch_scrnabox.sh \
 -d ${SCRNABOX_PWD} \
 --steps 4
 </code></pre>
-<p>Step 4 produces the following outputs for each sample. As an example we show the outputs for Parkinson1.</p>
+<p>Step 4 produces the following outputs for each sample. As an example we show the outputs for sample <em>Control1</em>:</p>
 <pre><code>step4
 ├── figs4
-│   └── Parkinson1DF.classifications.png
+│   ├── Control1_DF.classifications.pdf
+│   └── Control1_doublet_summary.pdf
 ├── info4
-│   ├── meta_info_Parkinson1.txt
-│   ├── Parkinson1_RNA.txt
-│   ├── sessionInfo.txt
-│   └── seu_MetaDataParkinson1.txt
+│   ├── MetaData_Control1.txt
+│   ├── meta_info_Control1.txt
+│   ├── n_predicted_doublets_Control1.txt
+│   ├── Control1_RNA.txt
+│   └── sessionInfo.txt
 └── objs4
-    └── Parkinson1.rds
+    └── Control1.rds
+
 </code></pre>
 <p align="center">
-<img src="https://github.com/neurobioinfo/scrnabox/assets/110110777/d736992c-51dc-4c8c-af8b-d9ad0d5ef860" width="350" height="100"> <br /> 
+<img src="https://github.com/neurobioinfo/scrnabox/assets/110110777/6e16710f-9d0b-446f-9d07-0dcb4955bdd3"> <br /> 
 </p>
 
-<p><strong>Figure 3. Figure produced by Step 4 of the Standard Analysis Track.</strong> The figure for the Parkinson1 sample is shown as an example.  Uniform Manifold Approximation and Projections (UMAP) plot showing the cell-type classification (singlet or doublet) for each droplet. In the figure title, the first value represents the number of simulated droplets (0.25), the second value represents the neighbourhood size (0.03), and the third value represents the number of predicted doublets (19). </p>
+<p><strong>Figure 3. Figures produced by Step 4 of the scRNAbox pipeline standard track.</strong> The figures for the <em>Control1</em> sample are shown as an example. <strong>A)</strong> Results of doublet detection analysis with DoubletFinder. Left: violin plot displaying the distribution of the proportion of artificial nearest neighbours (pANN) across singlets and doublets. Right: a bar plot of the number of predicted singlets and doublets. <strong>B)</strong> Uniform Manifold Approximation Projection (UMAP) plots coloured by droplet assignments (singlet or doublet).</p>
 <hr />
-<h3 id="step-5-integration-and-linear-dimensional-reduction">Step 5: Integration and linear dimensional reduction</h3>
-<p>In this Step, we are going to integrate the individual Seurat objects to enable joint analyses across all 11 samples. We will then perform normalization, scaling and linear dimensional reduction on the integrated assay. The outputs from Step 5 will inform the optimal clustering parameters for Step 6. </p>
+<h3 id="step-5-integration">Step 5: Integration</h3>
+<p>In Step 5, we are going to integrate the individual Seurat objects to enable joint analyses across all 11 samples. We will then perform normalization, scaling and linear dimensional reduction on the integrated assay. The outputs from Step 5 will inform the optimal clustering parameters for Step 6. </p>
 <p>For our analysis of the midbrain dataset we set the following execution parameters for Step 5:</p>
 <table>
 <thead>
@@ -683,12 +645,20 @@ bash $SCRNABOX_HOME/launch_scrnabox.sh \
 <td style="text-align: left;">Yes</td>
 </tr>
 <tr>
-<td style="text-align: left;">par_skip_integration</td>
+<td style="text-align: left;">par_seurat_object</td>
+<td style="text-align: left;">NULL</td>
+</tr>
+<tr>
+<td style="text-align: left;">par_one_seurat</td>
 <td style="text-align: left;">No</td>
 </tr>
 <tr>
-<td style="text-align: left;">par_FindIntegrationAnchors_dim</td>
-<td style="text-align: left;">25</td>
+<td style="text-align: left;">par_integrate_seurat</td>
+<td style="text-align: left;">Yes</td>
+</tr>
+<tr>
+<td style="text-align: left;">par_merge_seurat</td>
+<td style="text-align: left;">No</td>
 </tr>
 <tr>
 <td style="text-align: left;">par_DefaultAssay</td>
@@ -699,6 +669,10 @@ bash $SCRNABOX_HOME/launch_scrnabox.sh \
 <td style="text-align: left;">LogNormalize</td>
 </tr>
 <tr>
+<td style="text-align: left;">par_scale.factor</td>
+<td style="text-align: left;">10000</td>
+</tr>
+<tr>
 <td style="text-align: left;">par_selection.method</td>
 <td style="text-align: left;">vst</td>
 </tr>
@@ -707,8 +681,8 @@ bash $SCRNABOX_HOME/launch_scrnabox.sh \
 <td style="text-align: left;">4000</td>
 </tr>
 <tr>
-<td style="text-align: left;">par_RunUMAP_n.neighbors</td>
-<td style="text-align: left;">65</td>
+<td style="text-align: left;">par_FindIntegrationAnchors_dim</td>
+<td style="text-align: left;">25</td>
 </tr>
 <tr>
 <td style="text-align: left;">par_RunPCA_npcs</td>
@@ -716,11 +690,15 @@ bash $SCRNABOX_HOME/launch_scrnabox.sh \
 </tr>
 <tr>
 <td style="text-align: left;">par_RunUMAP_dims</td>
-<td style="text-align: left;">10</td>
+<td style="text-align: left;">25</td>
+</tr>
+<tr>
+<td style="text-align: left;">par_RunUMAP_n.neighbors</td>
+<td style="text-align: left;">65</td>
 </tr>
 <tr>
 <td style="text-align: left;">par_compute_jackstraw</td>
-<td style="text-align: left;">Yes</td>
+<td style="text-align: left;">yes</td>
 </tr>
 </tbody>
 </table>
@@ -732,29 +710,29 @@ bash $SCRNABOX_HOME/launch_scrnabox.sh \
 -d ${SCRNABOX_PWD} \
 --steps 5
 </code></pre>
-<p>Step 5 produces the following outputs.</p>
+<p>Step 5 produces the following outputs:</p>
 <pre><code>step5
 ├── figs5
-│   ├── DimPlot_pca.png
-│   ├── DimPlot_umap.png
-│   ├── elbow.png
-│   └── Jackstraw_plot.png
+│   ├── integrated_DimPlot_pca.pdf
+│   ├── integrated_DimPlot_umap.pdf
+│   ├── integrated_elbow.pdf
+│   └── integrated_Jackstraw_plot.pdf
 ├── info5
-│   ├── meta_info_seu_step5.csv
+│   ├── int_meta_info_seu_step5.csv
 │   ├── sessionInfo.txt
-│   ├── seu_int_MetaData.txt
-│   └── seu_int_RNA.txt
+│   ├── seu_int_RNA.txt
+│   └── seu_int_MetaData.txt
 └── objs5
     └── seu_step5.rds
 </code></pre>
 <p align="center">
-<img src="https://github.com/neurobioinfo/scrnabox/assets/110110777/3142e6c8-67e7-4b59-afec-99fcc43ee15f" width="550" height="100"> <br /> 
+<img src="https://github.com/neurobioinfo/scrnabox/assets/110110777/69cbb1c9-0090-4e51-aad0-ce145af9502a"> <br /> 
 </p>
 
-<p><strong>Figure 4. Figures produced by Step 5 of the Standard Analysis Track.</strong> <strong>A)</strong> Principal component analysis (PCA) visualizing the first two principal components (PC) of the integrated assay. <strong>B)</strong> Uniform Manifold Approximation and Projections (UMAP) plot of the integrated assay, taking the first ten PCs as input. <strong>C)</strong> Jackstraw plot to visualize the distribution of p-values for each PC. <strong>D)</strong> Elbow plot to visualize the percentage of variance explained by each PC.</p>
+<p><strong>Figure 4. Figures produced by Step 5 of the scRNAbox pipeline standard track.</strong> <strong>A)</strong> Principal component analysis (PCA) visualizing the first two principal components (PC) of the integrated assay, colour coded by sample. <strong>B)</strong> Uniform Manifold Approximation and Projections (UMAP) plot of the integrated assay, colour coded by sample. <strong>C)</strong> Elbow plot to visualize the percentage of variance explained by each PC. <strong>D)</strong> Jackstraw plot to visualize the distribution of p-values for each PC. </p>
 <hr />
 <h3 id="step-6-clustering">Step 6: Clustering</h3>
-<p>In this Step, we will cluster the cells to indentify groups of cells with similar expression profiles. Based on the Elbow and Jackstraw plots produced in Step 5, we are going to use the first 25 PCs for the nearest-neighbour graph construction and to run the Uniform Manifold Approximation and Projection (UMAP) dimensional reduction. We will cluster the cells at a clustering resolution of 0.1 to 1.5, in intervals of 1.5. To determine the stability of clusters, we will run the Louvain clustering algorithm five times for each clustering resolution, while shuffling the order of the nodes in the graph for each iteration, and will compute the Adjusted Rand Index (ARI) between pairs of clusters at a given clustering resolution.</p>
+<p>In Step 6, we will cluster the cells to indentify groups with similar expression profiles. Based on the Elbow and Jackstraw plots produced in Step 5, we are going to use the first 25 PCs as input. We will cluster the cells at clustering resolutions ranging from 0.0 to 2.0. To determine the stability of clusters at each clustering resolution, we will run the Louvain clustering algorithm 25 times for each resolution, while shuffling the order of the nodes in the graph for each iteration. We will then compute the Adjusted Rand Index (ARI) between pairs of clusters at a given clustering resolution.</p>
 <p>For our analysis of the midbrain dataset we set the following execution parameters for Step 6:</p>
 <table>
 <thead>
@@ -773,7 +751,11 @@ bash $SCRNABOX_HOME/launch_scrnabox.sh \
 <td style="text-align: left;">Yes</td>
 </tr>
 <tr>
-<td style="text-align: left;">par_skip_step5</td>
+<td style="text-align: left;">par_seurat_object</td>
+<td style="text-align: left;">NULL</td>
+</tr>
+<tr>
+<td style="text-align: left;">par_skip_integration</td>
 <td style="text-align: left;">No</td>
 </tr>
 <tr>
@@ -794,7 +776,7 @@ bash $SCRNABOX_HOME/launch_scrnabox.sh \
 </tr>
 <tr>
 <td style="text-align: left;">par_FindClusters_resolution</td>
-<td style="text-align: left;">0.1,0.2,0.3,0.4,0.5,0.6,0.7,0.8,0.9,1.0,1.1,1.2,1.3,1.4,1.5</td>
+<td style="text-align: left;">0, 0.05, 0.2, 0.6, 0.8, 1.0, 1.2, 1.4, 1.5, 1.6, 1.8, 2.0</td>
 </tr>
 <tr>
 <td style="text-align: left;">par_compute_ARI</td>
@@ -802,7 +784,7 @@ bash $SCRNABOX_HOME/launch_scrnabox.sh \
 </tr>
 <tr>
 <td style="text-align: left;">par_RI_reps</td>
-<td style="text-align: left;">5</td>
+<td style="text-align: left;">25</td>
 </tr>
 </tbody>
 </table>
@@ -814,28 +796,25 @@ bash $SCRNABOX_HOME/launch_scrnabox.sh \
 -d ${SCRNABOX_PWD} \
 --steps 6
 </code></pre>
-<p>Step 6 produces the following outputs.</p>
+<p>Step 6 produces the following outputs:</p>
 <pre><code>step6
 ├── ARI
-│   ├── ARI.png
-│   └── test.xlsx
+│   ├── ARI.pdf
+│   └── clustering_ARI.xlsx
 ├── figs6
-│   ├── clustree_int.png
-│   ├── integrated_snn_res.0.1.png
-│   ├── integrated_snn_res.0.2.png
-│   ├── integrated_snn_res.0.3.png
-│   ├── integrated_snn_res.0.4.png
-│   ├── integrated_snn_res.0.5.png
-│   ├── integrated_snn_res.0.6.png
-│   ├── integrated_snn_res.0.7.png
-│   ├── integrated_snn_res.0.8.png
-│   ├── integrated_snn_res.0.9.png
-│   ├── integrated_snn_res.1.1.png
-│   ├── integrated_snn_res.1.2.png
-│   ├── integrated_snn_res.1.3.png
-│   ├── integrated_snn_res.1.4.png
-│   ├── integrated_snn_res.1.5.png
-│   └── integrated_snn_res.1.png
+│   ├── clustree_int.pdf
+│   ├── integrated_snn_res.0.05.pdf
+│   ├── integrated_snn_res.0.2.pdf
+│   ├── integrated_snn_res.0.6.pdf
+│   ├── integrated_snn_res.0.8.pdf
+│   ├── integrated_snn_res.0.pdf
+│   ├── integrated_snn_res.1.2.pdf
+│   ├── integrated_snn_res.1.4.pdf
+│   ├── integrated_snn_res.1.5.pdf
+│   ├── integrated_snn_res.1.6.pdf
+│   ├── integrated_snn_res.1.8.pdf
+│   ├── integrated_snn_res.1.pdf
+│   └── integrated_snn_res.2.pdf
 ├── info6
 │   ├── meta_info.csv
 │   ├── sessionInfo.txt
@@ -845,82 +824,71 @@ bash $SCRNABOX_HOME/launch_scrnabox.sh \
     └── seu_step6.rds
 </code></pre>
 <p align="center">
-<img src="https://github.com/neurobioinfo/scrnabox/assets/110110777/7a0e2e2f-acb6-4a0d-9e4a-579651ce4d8b" width="750" height="100"> <br /> 
+<img src="https://github.com/neurobioinfo/scrnabox/assets/110110777/7b4e633e-4995-4097-a994-ac6fbffa332f" width="750" height="100"> <br /> 
 </p>
 
-<p><strong>Figure 5. Figures produced by Step 6 of the Standard Analysis Track.</strong> <strong>A)</strong> ClustTree plot to visualize inter-cluster dynamics at varying cluster resolutions. <strong>B)</strong> Mean (top panel) and standard deviation (sd; middle panel) of the Adjusted RNA Index (ARI) between clustering pairs at each user-defined clustering resolution. The bottom panel shows the number of clusters at each user-defined clustering resolution. <strong>C)</strong> Uniform Manifold Approximation and Projections (UMAP) plot at a clustering resolution of 1.5. </p>
+<p><strong>Figure 5. Figures produced by Step 6 of the scRNAbox pipeline.</strong> <strong>A)</strong> Uniform Manifold Approximation and Projections (UMAP) plot, coloured according to the clusters identified at a resolution of 1.5. UMAP plots are produced for each user-defined clustering resolution. <strong>B)</strong> Mean (top panel) and standard deviation (sd; middle panel) of the Adjusted RNA Index (ARI) between clustering pairs at each user-defined clustering resolution. The bottom panel shows the number of clusters at each user-defined clustering resolution. <strong>C)</strong> ClustTree plot to visualize inter-cluster dynamics at varying cluster resolutions.</p>
 <hr />
 <h3 id="step-7-cluster-annotation">Step 7: Cluster annotation</h3>
-<p>In this Step, we are going to annotate the clusters identified in Step 6 to define the cellular species in the midbrain dataset. scRNAbox provides three distinct methods for cluster annotations</p>
+<p>In Step 7, we are going to annotate the clusters identified in Step 6 to identify the cell types comprising the midbrain dataset. scRNAbox provides three distinct tools for cluster annotations:</p>
 <ul>
-<li><strong>Method 1:</strong> Cluster marker gene set enrichment analysis (GSEA)</li>
-<li><strong>Method 2:</strong> Module score</li>
-<li><strong>Method 2:</strong> Reference-based annotation</li>
+<li><strong>Tool 1:</strong> Cluster marker and gene set enrichment analysis (GSEA)</li>
+<li><strong>Tool 2:</strong> Expression profiling of known marker genes</li>
+<li><strong>Tool 3:</strong> Reference-based annotation</li>
 </ul>
-<p>In addition to these three Methods, we can <strong>visualize the expression of select features</strong> to further inform the cellular species in the dataset.</p>
-<p>For comprehensive description of each cluster annotation Method, please see the <a href="../SCRNA/">Standard scRNAseq Analysis Track</a> section of the scRNAbox documentation or our pre-print manuscript. </p>
+<p>Additionally, users can add cluster annotations to the Seurat object.</p>
+<p>For comprehensive description of each cluster annotation tool, please see the <a href="../Step7/">Step 7:Cluster annotation</a> section of the scRNAbox documentation or our <a href="">pre-print manuscript</a>. </p>
 <hr />
-<h4 id="method-1-cluster-marker-gsea">Method 1: Cluster marker GSEA</h4>
-<p>Using Method 1, we are first going to identify differentially expressed marker genes for each cluster. We must define the number of marker genes for each cluster that we want scRNAbox to report and selecte a clustering resolution that we want to annotate. In this case we will report the top five marker genes for each cluster at a clustering resolution of 1.5.</p>
+<h4 id="tool-1-cluster-marker-gsea">Tool 1: Cluster marker GSEA</h4>
+<p>Using Tool 1, we are first going to identify differentially expressed marker genes for each cluster. We must define the number of marker genes for each cluster that we want scRNAbox to report and select a clustering resolution that we want to annotate. In this case we will report the top two marker genes for each cluster at a clustering resolution of 1.5.</p>
 <p>To identify the marker genes for each cluster, we set the following execution parameters for Step 7 (<code>step7_par.txt</code>):</p>
 <table>
 <thead>
 <tr>
+<th style="text-align: left;">Annotation tool</th>
 <th style="text-align: left;">Parameter</th>
 <th style="text-align: left;">Value</th>
 </tr>
 </thead>
 <tbody>
 <tr>
+<td style="text-align: left;"><strong>General</strong></td>
 <td style="text-align: left;">par_save_RNA</td>
-<td style="text-align: left;">Yes</td>
+<td style="text-align: left;">No</td>
 </tr>
 <tr>
+<td style="text-align: left;"><strong>General</strong></td>
 <td style="text-align: left;">par_save_metadata</td>
+<td style="text-align: left;">No</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>General</strong></td>
+<td style="text-align: left;">par_seurat_object</td>
+<td style="text-align: left;">NULL</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>General</strong></td>
+<td style="text-align: left;">par_level_cluster</td>
+<td style="text-align: left;">integrated_snn_res.1.5</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Tool 1</strong></td>
+<td style="text-align: left;">par_run_find_marker</td>
 <td style="text-align: left;">Yes</td>
 </tr>
 <tr>
-<td style="text-align: left;">par_level_cluster</td>
-<td style="text-align: left;">integrated_snn_res.1.9</td>
+<td style="text-align: left;"><strong>Tool 1</strong></td>
+<td style="text-align: left;">par_run_enrichR</td>
+<td style="text-align: left;">No</td>
 </tr>
 <tr>
+<td style="text-align: left;"><strong>Tool 1</strong></td>
 <td style="text-align: left;">par_top_sel</td>
-<td style="text-align: left;">5</td>
+<td style="text-align: left;">2</td>
 </tr>
 <tr>
+<td style="text-align: left;"><strong>Tool 1</strong></td>
 <td style="text-align: left;">par_db</td>
-<td style="text-align: left;">NULL</td>
-</tr>
-<tr>
-<td style="text-align: left;">par_compute_module_score</td>
-<td style="text-align: left;">No</td>
-</tr>
-<tr>
-<td style="text-align: left;">par_module_score</td>
-<td style="text-align: left;">NULL</td>
-</tr>
-<tr>
-<td style="text-align: left;">par_reference</td>
-<td style="text-align: left;">NULL</td>
-</tr>
-<tr>
-<td style="text-align: left;">par_level_celltype</td>
-<td style="text-align: left;">NULL</td>
-</tr>
-<tr>
-<td style="text-align: left;">par_FindTransferAnchors_dim</td>
-<td style="text-align: left;">NULL</td>
-</tr>
-<tr>
-<td style="text-align: left;">par_futureglobalsmaxSize</td>
-<td style="text-align: left;">NULL</td>
-</tr>
-<tr>
-<td style="text-align: left;">par_visualize_select_features</td>
-<td style="text-align: left;">No</td>
-</tr>
-<tr>
-<td style="text-align: left;">par_select_features</td>
 <td style="text-align: left;">NULL</td>
 </tr>
 </tbody>
@@ -932,17 +900,13 @@ export SCRNABOX_PWD=~/pipeline
 bash $SCRNABOX_HOME/launch_scrnabox.sh \
 -d ${SCRNABOX_PWD} \
 --steps 7 \
---marker T
+--markergsea T
 </code></pre>
 <p>The above code produces the following outputs:</p>
 <pre><code>step7
 ├── figs7
-│   ├── marker
-│   │   └── heatmap.pdf
-│   ├── module_score
-│   ├── umap.pdf
-│   ├── umap_splitted.pdf
-│   └── visualize_select_features
+│   └── marker
+│       └── heatmap.pdf
 ├── info7
 │   ├── marker
 │   │   ├── cluster_just_genes.xlsx
@@ -950,17 +914,17 @@ bash $SCRNABOX_HOME/launch_scrnabox.sh \
 │   │   ├── ClusterMarkers.rds
 │   │   ├── cluster_whole.xlsx
 │   │   └── top_sel.csv
-│   ├── module_score
-│   └── sessionInfo_marker.txt
+│   └── sessionInfo_find_marker.txt
 └── objs7
+    └── seu_step7.rds
 </code></pre>
-<p>In addition to identifying the marker genes for each cluster, the above code produces UMAP plots at the user-defined clustering resolution (1.5) to visualize the clustering landscape across all cells in the dataset and at the sample level. </p>
 <p align="center">
-<img src="https://github.com/neurobioinfo/scrnabox/assets/110110777/3e338a94-7248-4d10-b904-367b065482c4" width="750" height="100"> <br /> 
+<img src="https://github.com/neurobioinfo/scrnabox/assets/110110777/e7034065-0efa-48ab-8416-8e4792f86cc7"> <br /> 
 </p>
 
-<p><strong>Figure 6. Uniform Manifold Approximation and Projections (UMAP) plots at the user-defined clustering resolution.</strong> <strong>A)</strong> The clustering landscape at the user-defined clustering resolution across all cells in the dataset. <strong>B</strong>) The clustering landscape at the user-defined clustering resolution, stratified by sample. </p>
-<p>Now that we have identified the marker genes for each cluster, we will perform a <strong>gene set enrichment analysis (GSEA)</strong>; we will test the differentially expressed genes (DEG) in the positive direction (Log2 fold-change &gt; 0.00) for enrichment across gene set libraries that define cell types using the EnrichR tool. For this analysis, we will leverage the following libraries:</p>
+<p><strong>Figure 6. Figure produced by Tool 1 (marker gene gene set enrichment analysis) of scRNAbox's cluster annotation module (Step 7).</strong> A heatmap is produced to visualize the expression of the top markers genes at the cell level, stratified by cluster. The top marker genes for each cluster identified at a clustering resolution of 1.5 is shown. </p>
+<hr />
+<p>Now that we have identified the marker genes for each cluster, we will perform a <strong>gene set enrichment analysis (GSEA)</strong>; we will test the differentially expressed genes (DEG) in the positive direction (Log2 fold-change &gt; 0.00) for enrichment across gene set libraries that define cell types using the EnrichR tool. For this analysis, we will use the following libraries:</p>
 <ul>
 <li>Descartes_Cell_Types_and_Tissue_2021; </li>
 <li>CellMarker_Augmented_2021; </li>
@@ -970,61 +934,50 @@ bash $SCRNABOX_HOME/launch_scrnabox.sh \
 <table>
 <thead>
 <tr>
+<th style="text-align: left;">Annotation tool</th>
 <th style="text-align: left;">Parameter</th>
 <th style="text-align: left;">Value</th>
 </tr>
 </thead>
 <tbody>
 <tr>
+<td style="text-align: left;"><strong>General</strong></td>
 <td style="text-align: left;">par_save_RNA</td>
-<td style="text-align: left;">Yes</td>
+<td style="text-align: left;">No</td>
 </tr>
 <tr>
+<td style="text-align: left;"><strong>General</strong></td>
 <td style="text-align: left;">par_save_metadata</td>
-<td style="text-align: left;">Yes</td>
+<td style="text-align: left;">No</td>
 </tr>
 <tr>
+<td style="text-align: left;"><strong>General</strong></td>
+<td style="text-align: left;">par_seurat_object</td>
+<td style="text-align: left;">NULL</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>General</strong></td>
 <td style="text-align: left;">par_level_cluster</td>
 <td style="text-align: left;">integrated_snn_res.1.5</td>
 </tr>
 <tr>
+<td style="text-align: left;"><strong>Tool 1</strong></td>
+<td style="text-align: left;">par_run_find_marker</td>
+<td style="text-align: left;">No</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Tool 1</strong></td>
+<td style="text-align: left;">par_run_enrichR</td>
+<td style="text-align: left;">Yes</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Tool 1</strong></td>
 <td style="text-align: left;">par_top_sel</td>
-<td style="text-align: left;">5</td>
+<td style="text-align: left;">2</td>
 </tr>
 <tr>
+<td style="text-align: left;"><strong>Tool 1</strong></td>
 <td style="text-align: left;">par_db</td>
-<td style="text-align: left;">Descartes_Cell_Types_and_Tissue_2021,<br /> CellMarker_Augmented_2021,<br />Azimuth_Cell_Types_2021</td>
-</tr>
-<tr>
-<td style="text-align: left;">par_compute_module_score</td>
-<td style="text-align: left;">No</td>
-</tr>
-<tr>
-<td style="text-align: left;">par_module_score</td>
-<td style="text-align: left;">NULL</td>
-</tr>
-<tr>
-<td style="text-align: left;">par_reference</td>
-<td style="text-align: left;">NULL</td>
-</tr>
-<tr>
-<td style="text-align: left;">par_level_celltype</td>
-<td style="text-align: left;">NULL</td>
-</tr>
-<tr>
-<td style="text-align: left;">par_FindTransferAnchors_dim</td>
-<td style="text-align: left;">NULL</td>
-</tr>
-<tr>
-<td style="text-align: left;">par_futureglobalsmaxSize</td>
-<td style="text-align: left;">NULL</td>
-</tr>
-<tr>
-<td style="text-align: left;">par_visualize_select_features</td>
-<td style="text-align: left;">No</td>
-</tr>
-<tr>
-<td style="text-align: left;">par_select_features</td>
 <td style="text-align: left;">NULL</td>
 </tr>
 </tbody>
@@ -1036,88 +989,30 @@ export SCRNABOX_PWD=~/pipeline
 bash $SCRNABOX_HOME/launch_scrnabox.sh \
 -d ${SCRNABOX_PWD} \
 --steps 7 \
---enrich T
+--markergsea T
 </code></pre>
-<p><strong>Note:</strong> If your HPC <strong>does not allow access to the internet</strong>, you will have to run GSEA locally. For more information, please see the Standard scRNAseq <a href="../SCRNA/">documentation</a> under the Step 7 section.</p>
-<p>The above code produces the following outputs. As an example, we are only showing the outputs for cluster 0.</p>
+<p><strong>Note:</strong> If your HPC <strong>does not allow access to the internet</strong>, you will have to run GSEA locally. For more information, please see the <a href="../Step7/">Step 7:Cluster annotation</a> section of the scRNAbox documentation.</p>
+<p>The above code produces the following outputs. As an example, we are only showing the outputs for cluster 0:</p>
 <pre><code>step7
 └── annot_enrich
-    ├── cluster0
-    │   ├── Er.genes.1.csv
-    │   ├── Er.genes.2.csv
-    │   ├── Er.genes.3.csv
-    │   ├── plotenrich1.pdf
-    │   ├── plotenrich2.pdf
-    │   └── plotenrich3.pdf
-    ├── cluster1
-    ├── cluster2
-    ├── cluster3
-    ├── cluster4
-    ├── cluster5
-    ├── cluster6
-    ├── cluster7
-    ├── cluster8
-    ├── cluster9
-    ├── cluster10
-    ├── cluster11
-    ├── cluster12
-    ├── cluster13
-    ├── cluster14
-    ├── cluster15
-    ├── cluster16
-    ├── cluster17
-    ├── cluster18
-    ├── cluster19
-    ├── cluster20
-    ├── cluster21
-    └── cluster22
-</code></pre>
-<p>After performing cluster marker GSEA and curating the results, we can produce our first iteration of the cluster annotations.<br /></p>
-<p><strong>Note:</strong> Visualizing intermediate cluster annotations is not incorporated into the scRNAbox pipeline; however we provide the code to do so below. Once users are satisfied with their final cluster annotations, they can provide the curated results in the parameters file for <a href="">Step 8</a>, which will be discussed below. </p>
-<pre><code>## load and open R
-module load r/4.2.1
-R
+    └── cluster0
+        ├── Er_genes_clust_0_Azimuth_Cell_Types_2021.csv
+        ├── Er_genes_clust_0_CellMarker_Augmented_2021.csv
+        ├── Er_genes_clust_0_Descartes_Cell_Types_and_Tissue_2021.csv
+        ├── plotenrich_clust_0_1.pdf
+        ├── plotenrich_clust_0_2.pdf
+        └── plotenrich_clust_0_3.pdf
 
-## load parameters
-# path to common R library
-r_lib_path = &quot;~/R&quot;
-# path to pipeline directory
-output_dir = &quot;~/pipeline&quot;
-# clustering resolution to cluster
-clustering_resolution = &quot;integrated_snn_res.1.5&quot;
-# intermediate cluster annotations
-intermediate_cluster_labels = c(&quot;Oligodendrocytes&quot;, &quot;Oligodendrocytes&quot;, &quot;Neuron&quot;,&quot;Oligodendrocytes&quot;,&quot;Oligodendrocytes&quot;,&quot;Oligodendrocytes&quot;,&quot;Oligodendrocytes&quot;,&quot;Oligodendrocytes&quot;,&quot;OPC&quot;, &quot;Endothelial cells&quot;,&quot;Microglia&quot;, &quot;Oligodendrocytes&quot;,&quot;Astrocytes&quot;, &quot;Neuron&quot;, &quot;Astrocytes&quot;, &quot;Endothelial cells&quot;,&quot;Endothelial cells&quot;,  &quot;Astrocytes&quot;, &quot;Neuron&quot;,&quot;Neuron&quot;,&quot;Neuron&quot;, &quot;Microglia&quot;, &quot;Astrocytes&quot;)
-
-
-## load library
-.libPaths(r_lib_path)
-packages&lt;-c('Seurat','ggplot2', 'dplyr','stringi','limma','tidyverse','edgeR')
-lapply(packages, library, character.only = TRUE)
-
-## load Step 6 Seurat RDS object
-sample_name&lt;-list.files(path = paste(output_dir, &quot;/step6/objs6&quot;,sep=&quot;&quot;),pattern = &quot;*.rds&quot;)
-seu.int.c&lt;-readRDS(paste(output_dir,'/step6/objs6/',sample_name, sep=''))
-
-## set cluster annotations obtained from cluster annotations
-cluster.ids&lt;-intermediate_cluster_labels
-
-## set cluster resolution and rename cluster identities
-seu.int.c &lt;- SetIdent(seu.int.c, value = clustering_resolution)
-names(cluster.ids) &lt;- levels(seu.int.c)    
-seu.int.c &lt;- RenameIdents(seu.int.c, cluster.ids) 
-
-##plot UMAP
-DimPlot(seu.int.c, reduction = &quot;umap&quot;, label = TRUE, pt.size = 0.5) + NoLegend()
-ggsave(file = paste(output_dir,'/step7/figs7','/intermediate_cluster_annotation.pdf', sep=''))
 </code></pre>
 <p align="center">
-<img src="https://github.com/neurobioinfo/scrnabox/assets/110110777/1c0d4342-3c8b-454d-bed8-fe71f31128b0" width="500" height="100"> <br /> 
+<img src="https://github.com/neurobioinfo/scrnabox/assets/110110777/a29d66a3-2d1e-47ec-be8d-c7421ac10da6"> <br /> 
 </p>
 
-<p><strong>Figure 7. Figures produced by Method 1 (Cluster Marker GSEA) of the scRNAbox cluster annotation module.</strong> <strong>A)</strong> The top expressional markers that define each cluster are visualized through a heatmap showing the expression  across cells, stratified by cluster. <strong>B)</strong> Differentially expressed marker genes in the positive direction (Log2 fold-change &gt; 0.00) can be tested for enrichment across gene-set libraries that define cell types using the EnrichR tool. The enrichment results are visualized through a bar plot which displays the 20 most enriched terms for a particular cluster. As an example, we show the enrichment results of cluster 0 using the Azimuth_Cell_Types_2021 cell type library. <strong>C)</strong> Uniform Manifold Approximation and Projections (UMAP) plot showing the intermediate cluster annotations. </p>
+<p><strong>Figure 7. Figures produced by Tool 1 (marker gene gene set enrichment analysis) of scRNAbox's cluster annotation module (Step 7).</strong> Upon identifying the top marker genes for each cluster at the user-defined clustering resolution, users can perfrom a gene set enrichment analysis (GSEA) using the EnrichR tool for all marker genes in the positive direction (Log2 fold-change &gt; 0.00). Bar plots are produced to visualize the most enriched terms for each cluster. As an example, the top enrichment results across <strong>A)</strong> Azimuth Cell Types 2021, <strong>B)</strong> Descartes Cell Types and Tissue 2021, and  <strong>C)</strong> CellMarker Augmented 2021 cell type libraries for cluster 5 are shown.  </p>
+<p><strong>Note:</strong> It is possible to identify cluster-specific marker genes and perform GSEA at the same time by setting both <code>par_run_find_marker= "Yes"</code> and <code>par_run_enrichR= "Yes</code>.</p>
 <hr />
-<h4 id="visualizing-the-expression-of-select-features">Visualizing the expression of select features</h4>
-<p>Now that we have broadly defined the cellular species that comprise our clusters, we are going to explore the expression of the marker genes used by <a href="https://academic.oup.com/brain/article/145/3/964/6469020">Smajic et al.</a> to define their clusters:</p>
+<h4 id="tool-2-expression-profiling-of-known-marker-genes">Tool 2: Expression profiling of known marker genes</h4>
+<p>Using Tool 2, we are going to profile the midbrain dataset for known cell type marker genes. First, we are going to visualize the expression of the marker genes used by <a href="https://academic.oup.com/brain/article/145/3/964/6469020">Smajic et al.</a> to define their clusters:</p>
 <table>
 <thead>
 <tr>
@@ -1180,62 +1075,56 @@ ggsave(file = paste(output_dir,'/step7/figs7','/intermediate_cluster_annotation.
 <table>
 <thead>
 <tr>
+<th style="text-align: left;">Annotation tool</th>
 <th style="text-align: left;">Parameter</th>
 <th style="text-align: left;">Value</th>
 </tr>
 </thead>
 <tbody>
 <tr>
+<td style="text-align: left;"><strong>General</strong></td>
 <td style="text-align: left;">par_save_RNA</td>
-<td style="text-align: left;">Yes</td>
+<td style="text-align: left;">No</td>
 </tr>
 <tr>
+<td style="text-align: left;"><strong>General</strong></td>
 <td style="text-align: left;">par_save_metadata</td>
-<td style="text-align: left;">Yes</td>
+<td style="text-align: left;">No</td>
 </tr>
 <tr>
+<td style="text-align: left;"><strong>General</strong></td>
+<td style="text-align: left;">par_seurat_object</td>
+<td style="text-align: left;">NULL</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>General</strong></td>
 <td style="text-align: left;">par_level_cluster</td>
 <td style="text-align: left;">integrated_snn_res.1.5</td>
 </tr>
 <tr>
-<td style="text-align: left;">par_top_sel</td>
-<td style="text-align: left;">5</td>
-</tr>
-<tr>
-<td style="text-align: left;">par_db</td>
-<td style="text-align: left;">Descartes_Cell_Types_and_Tissue_2021,<br /> CellMarker_Augmented_2021,<br />Azimuth_Cell_Types_2021</td>
-</tr>
-<tr>
-<td style="text-align: left;">par_compute_module_score</td>
+<td style="text-align: left;"><strong>Tool 2</strong></td>
+<td style="text-align: left;">par_run_module_score</td>
 <td style="text-align: left;">No</td>
 </tr>
 <tr>
+<td style="text-align: left;"><strong>Tool 2</strong></td>
+<td style="text-align: left;">par_run_visualize_markers</td>
+<td style="text-align: left;">Yes</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Tool 2</strong></td>
 <td style="text-align: left;">par_module_score</td>
 <td style="text-align: left;">NULL</td>
 </tr>
 <tr>
-<td style="text-align: left;">par_reference</td>
+<td style="text-align: left;"><strong>Tool 2</strong></td>
+<td style="text-align: left;">par_select_features_list</td>
+<td style="text-align: left;">MOBP, VCAN, AQP4, FOXJ1, CD74, CLDN5, GFRB, SLC17A6, GAD2, GRIK1, TH, CADPS2</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Tool 2</strong></td>
+<td style="text-align: left;">par_select_features_csv</td>
 <td style="text-align: left;">NULL</td>
-</tr>
-<tr>
-<td style="text-align: left;">par_level_celltype</td>
-<td style="text-align: left;">NULL</td>
-</tr>
-<tr>
-<td style="text-align: left;">par_FindTransferAnchors_dim</td>
-<td style="text-align: left;">NULL</td>
-</tr>
-<tr>
-<td style="text-align: left;">par_futureglobalsmaxSize</td>
-<td style="text-align: left;">NULL</td>
-</tr>
-<tr>
-<td style="text-align: left;">par_visualize_select_features</td>
-<td style="text-align: left;">Yes</td>
-</tr>
-<tr>
-<td style="text-align: left;">par_select_features</td>
-<td style="text-align: left;">MOBP, VCAN, AQP4,FOXJ1, CD74, CLDN5, PDGFRB, SLC17A6, GAD2, GRIK1, TH, CADPS2</td>
 </tr>
 </tbody>
 </table>
@@ -1246,31 +1135,23 @@ export SCRNABOX_PWD=~/pipeline
 bash $SCRNABOX_HOME/launch_scrnabox.sh \
 -d ${SCRNABOX_PWD} \
 --steps 7 \
---marker T
+--knownmarkers T
 </code></pre>
 <p>The above code produces the following outputs:</p>
 <pre><code>step7
-└── figs7
-    └── visualize_select_features
-        ├──select_feature_dot_plot.pdf 
-        ├──select_feature_feature_plot.pdf
-        └──select_feature_violin_plot.pdf
+├── figs7
+    └── visualize_features
+        ├── list_dot_plot.pdf
+        ├── list_feature_plot.pdf
+        └── list_violin_plot.pdf
 </code></pre>
 <p align="center">
-<img src="https://github.com/neurobioinfo/scrnabox/assets/110110777/f6150d60-fcf4-4426-9e56-7e60f94eedd1" width="900" height="100"> <br /> 
+<img src="https://github.com/neurobioinfo/scrnabox/assets/110110777/5c87b8e1-1a2a-4ae5-8877-1486f6d2fa0d"> <br /> 
 </p>
 
-<p><strong>Figure 8. Figures produced by the "visualize select features" option in the scRNAbox cluster annotation module.</strong>  The expression of select features can be visualized at the cluster level via <strong>A)</strong> a dot plot and <strong>B)</strong> violin plots. <strong>C)</strong> The expression of select features can be visualized at the cell level via feature plots.</p>
-<p>Based on the results of the above analyses, we can re-visit our cluster annotations using the same intermediate annotation code as above and visualize the annotations via a UMAP.</p>
-<p align="center">
-<img src="https://github.com/neurobioinfo/scrnabox/assets/110110777/d682e588-0e51-4c8b-832e-384dc428a467" width="400" height="100"> <br /> 
-</p>
-
-<p><strong>Figure 9. Intermediate cluster annotations.</strong> Uniform Manifold Approximation and Projections (UMAP) plot showing the intermediate cluster annotations after leveraging the "visualize select feature" function of scRNAbox's cluster annotation module.</p>
+<p><strong>Figure 8. Figures produced by Tool 2 (profiling the expression of known marker genes) of scRNAbox's cluster annotation module (Step 7).</strong>  ScRNAbox allows users to visualize the individual and aggregated expression of known marker genes. For the midbrain dataset, we visualized the individual expression of the marker genes used by <a href="https://academic.oup.com/brain/article/145/3/964/6469020">Smajic et al.</a> to define their clusters. Feature plots visualizing the expression of each individual gene at the cell level are shown. Additionally, violin plots and dot plots are produced to visualize the expression of individual genes at the cluster level. </p>
 <hr />
-<h4 id="method-2-module-score">Method 2: Module score</h4>
-<p>Using Method 2, we are going to comparatively quantify the expression of gene sets across clusters at the single-cell level. We will first define the gene set that we want to explore in a csv file; as an example, we are going to explore the expression of some well-known marker genes for the cellular species of interest. </p>
-<p>We will first produce a csv file with the following structure. This csv can be found <strong>HERE</strong></p>
+<p>Next, we are going to use a csv file to defineline multiple lists of cell type marker genes:</p>
 <table>
 <thead>
 <tr>
@@ -1481,165 +1362,187 @@ bash $SCRNABOX_HOME/launch_scrnabox.sh \
 </tr>
 </tbody>
 </table>
-<p>We can then define the location of our csv file in the execution parameters for Step 7 (<code>step7_par.txt</code>):</p>
+<p><strong>Note</strong>: This is csv file is available <a href="https://github.com/neurobioinfo/scrnabox/blob/main/tutorial/Midbrain_dataset_example_files/module_score.csv">here</a>.</p>
+<p>We will use this csv file to visualize the individual expression of each gene and calculate the module score, which will allow us to visualize the aggregated expression of each gene set.</p>
+<p>To visualize the unique and aggregated expression of these features, we set the following execution parameters for Step 7 (<code>step7_par.txt</code>):</p>
 <table>
 <thead>
 <tr>
+<th style="text-align: left;">Annotation tool</th>
 <th style="text-align: left;">Parameter</th>
 <th style="text-align: left;">Value</th>
 </tr>
 </thead>
 <tbody>
 <tr>
+<td style="text-align: left;"><strong>General</strong></td>
 <td style="text-align: left;">par_save_RNA</td>
-<td style="text-align: left;">Yes</td>
+<td style="text-align: left;">No</td>
 </tr>
 <tr>
+<td style="text-align: left;"><strong>General</strong></td>
 <td style="text-align: left;">par_save_metadata</td>
-<td style="text-align: left;">Yes</td>
+<td style="text-align: left;">No</td>
 </tr>
 <tr>
+<td style="text-align: left;"><strong>General</strong></td>
+<td style="text-align: left;">par_seurat_object</td>
+<td style="text-align: left;">NULL</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>General</strong></td>
 <td style="text-align: left;">par_level_cluster</td>
 <td style="text-align: left;">integrated_snn_res.1.5</td>
 </tr>
 <tr>
-<td style="text-align: left;">par_top_sel</td>
-<td style="text-align: left;">5</td>
-</tr>
-<tr>
-<td style="text-align: left;">par_db</td>
-<td style="text-align: left;">NULL</td>
-</tr>
-<tr>
-<td style="text-align: left;">par_compute_module_score</td>
+<td style="text-align: left;"><strong>Tool 2</strong></td>
+<td style="text-align: left;">par_run_module_score</td>
 <td style="text-align: left;">Yes</td>
 </tr>
 <tr>
+<td style="text-align: left;"><strong>Tool 2</strong></td>
+<td style="text-align: left;">par_run_visualize_markers</td>
+<td style="text-align: left;">Yes</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Tool 2</strong></td>
 <td style="text-align: left;">par_module_score</td>
-<td style="text-align: left;">~/pipeline/module_score.csv</td>
+<td style="text-align: left;">~/scrnabox/tutorial/Midbrain_dataset_example_files/module_score.csv</td>
 </tr>
 <tr>
-<td style="text-align: left;">par_reference</td>
+<td style="text-align: left;"><strong>Tool 2</strong></td>
+<td style="text-align: left;">par_select_features_list</td>
 <td style="text-align: left;">NULL</td>
 </tr>
 <tr>
-<td style="text-align: left;">par_level_celltype</td>
-<td style="text-align: left;">NULL</td>
-</tr>
-<tr>
-<td style="text-align: left;">par_FindTransferAnchors_dim</td>
-<td style="text-align: left;">NULL</td>
-</tr>
-<tr>
-<td style="text-align: left;">par_futureglobalsmaxSize</td>
-<td style="text-align: left;">NULL</td>
-</tr>
-<tr>
-<td style="text-align: left;">par_visualize_select_features</td>
-<td style="text-align: left;">No</td>
-</tr>
-<tr>
-<td style="text-align: left;">par_select_features</td>
-<td style="text-align: left;">NULL</td>
+<td style="text-align: left;"><strong>Tool 2</strong></td>
+<td style="text-align: left;">par_select_features_csv</td>
+<td style="text-align: left;">~/scrnabox/tutorial/Midbrain_dataset_example_files/module_score.csv</td>
 </tr>
 </tbody>
 </table>
-<p>We can compute the module score for our gene sets using the following code:</p>
+<p>We can visualize the individual and aggregated expression of these features using the following code:</p>
 <pre><code>export SCRNABOX_HOME=~/scrnabox/scrnabox.slurm
 export SCRNABOX_PWD=~/pipeline
 
 bash $SCRNABOX_HOME/launch_scrnabox.sh \
 -d ${SCRNABOX_PWD} \
 --steps 7 \
---marker T
+--knownmarkers T
 </code></pre>
 <p>The above code produces the following outputs:</p>
 <pre><code>step7
 ├── figs7
-│   └── module_score
-│       ├──module_score_astrocytes.png
-│       ├──module_score_epithelial.png
-│       ├──module_score_da_neurons.png
-│       ├──module_score_excitatory_neurons.png
-│       ├──module_score_inhbitory_neurons.png
-│       ├──module_score_mature_neurons.png
-│       ├──module_score_microglia.png
-│       ├──module_score_NPC_orStemLike.png
-│       ├──module_score_oligodendrocytes.png
-│       └──module_score_radial_glia.png
+│   ├── module_score
+│   │   ├── module_score_astrocytes.pdf
+│   │   ├── module_score_da_neurons.pdf
+│   │   ├── module_score_epithelial.pdf
+│   │   ├── module_score_excitatory_neurons.pdf
+│   │   ├── module_score_inhbitory_neurons.pdf
+│   │   ├── module_score_mature_neurons.pdf
+│   │   ├── module_score_microglia.pdf
+│   │   ├── module_score_NPC_orStemLike.pdf
+│   │   ├── module_score_oligodendrocytes.pdf
+│   │   └── module_score_radial_glia.pdf
+│   └── visualize_features
+│       ├── astrocytes_dot_plot.pdf
+│       ├── astrocytes_feature_plot.pdf
+│       ├── astrocytes_violin_plot.pdf
+│       ├── da_neurons_dot_plot.pdf
+│       ├── da_neurons_feature_plot.pdf
+│       ├── da_neurons_violin_plot.pdf
+│       ├── epithelial_dot_plot.pdf
+│       ├── epithelial_feature_plot.pdf
+│       ├── epithelial_violin_plot.pdf
+│       ├── excitatory_neurons_dot_plot.pdf
+│       ├── excitatory_neurons_feature_plot.pdf
+│       ├── excitatory_neurons_violin_plot.pdf
+│       ├── inhbitory_neurons_dot_plot.pdf
+│       ├── inhbitory_neurons_feature_plot.pdf
+│       ├── inhbitory_neurons_violin_plot.pdf
+│       ├── mature_neurons_dot_plot.pdf
+│       ├── mature_neurons_feature_plot.pdf
+│       ├── mature_neurons_violin_plot.pdf
+│       ├── microglia_dot_plot.pdf
+│       ├── microglia_feature_plot.pdf
+│       ├── microglia_violin_plot.pdf
+│       ├── NPC_orStemLike_dot_plot.pdf
+│       ├── NPC_orStemLike_feature_plot.pdf
+│       ├── NPC_orStemLike_violin_plot.pdf
+│       ├── oligodendrocytes_dot_plot.pdf
+│       ├── oligodendrocytes_feature_plot.pdf
+│       ├── oligodendrocytes_violin_plot.pdf
+│       ├── radial_glia_dot_plot.pdf
+│       ├── radial_glia_feature_plot.pdf
+│       └── radial_glia_violin_plot.pdf
 └── info7
-    └──module_score
-       └──geneset_by_cluster.csv
+    └── module_score
+        └── geneset_by_cluster.csv
+
 
 </code></pre>
 <p align="center">
-<img src="https://github.com/neurobioinfo/scrnabox/assets/110110777/d42626d0-9c41-49e8-a3a9-8f38c0f91345" width="900" height="100"> <br /> 
+<img src="https://github.com/neurobioinfo/scrnabox/assets/110110777/9a612ece-ce9c-4000-a8ba-426f92eece20"> <br /> 
 </p>
 
-<p><strong>Figure 10. Figures produced by Method 2 (Module score) of the scRNAbox cluster annotation module.</strong> Uniform Manifold Approximation and Projections (UMAP) plots showing the module score across established marker genes for <strong>A)</strong> dopaminergic neurons, <strong>B)</strong> neural progenitor cells, <strong>C)</strong> mature neurons, <strong>D)</strong> excitatory neurons, <strong>E)</strong> inhibitory neurons, <strong>F)</strong> astrocytes, <strong>G)</strong> oligodendrocytes, <strong>H)</strong> radial glia, <strong>I)</strong> epithelial cells, and <strong>J)</strong> microglia.</p>
+<p><strong>Figure 9. Figures produced by Tool 2 (profiling the expression of known marker genes) of scRNAbox's cluster annotation module (Step 7).</strong> ScRNAbox allows users to visualize the individual and aggregated expression of known marker genes. For the midbrain dataset, we used gene sets of well known marker genes for cell types in the human midbrain. The microglia gene set is shown as an example. <strong>A)</strong> Dot plot visualizing the individual expression of marker genes in the microglia gene set. <strong>B)</strong> Uniform manifold approximation and projection (UMAP) plot visualizing the module score of the microglia gene set at the cell level. The module score allows for profiling the aggregated expression of multiple genes. </p>
 <hr />
-<h4 id="method-3-reference-based-annotation">Method 3: Reference-based annotation</h4>
-<p>Using Method 3, we are going to leverage the cell-type annotations from a reference Seurat object and generate annotation predictions for the query dataset. For reference-based annotation we must define the path to a our reference Seurat object and the column of the reference Seurat object's metadata that contains the cell type annotations. For the midbrain dataset, we are going to use a reference Seurat object from <a href="https://www.nature.com/articles/s41593-022-01061-1">Kamath et al.</a>.</p>
+<h4 id="tool-3-reference-based-annotation">Tool 3: Reference-based annotation</h4>
+<p>Using Method 3, we are going to leverage the cell-type annotations from a reference Seurat object and generate annotation predictions for the query dataset. For reference-based annotation we must define the path to a our reference Seurat object and the column of the reference Seurat object's metadata that contains the cell type annotations. For the midbrain dataset, we are going to use a reference Seurat object from <a href="https://www.nature.com/articles/s41593-022-01061-1">Kamath et al.</a>. The reference Seurat object was obtain from the <a href="https://singlecell.broadinstitute.org">Broad Institute Single Cell Portal</a></p>
 <p>To perform reference-based annotations, we set the following execution parameters for Step 7 (<code>step7_par.txt</code>):</p>
 <table>
 <thead>
 <tr>
+<th style="text-align: left;">Annotation tool</th>
 <th style="text-align: left;">Parameter</th>
 <th style="text-align: left;">Value</th>
 </tr>
 </thead>
 <tbody>
 <tr>
+<td style="text-align: left;"><strong>General</strong></td>
 <td style="text-align: left;">par_save_RNA</td>
 <td style="text-align: left;">Yes</td>
 </tr>
 <tr>
+<td style="text-align: left;"><strong>General</strong></td>
 <td style="text-align: left;">par_save_metadata</td>
 <td style="text-align: left;">Yes</td>
 </tr>
 <tr>
+<td style="text-align: left;"><strong>General</strong></td>
+<td style="text-align: left;">par_seurat_object</td>
+<td style="text-align: left;">NULL</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>General</strong></td>
 <td style="text-align: left;">par_level_cluster</td>
 <td style="text-align: left;">integrated_snn_res.1.5</td>
 </tr>
 <tr>
-<td style="text-align: left;">par_top_sel</td>
-<td style="text-align: left;">NULL</td>
-</tr>
-<tr>
-<td style="text-align: left;">par_db</td>
-<td style="text-align: left;">NULL</td>
-</tr>
-<tr>
-<td style="text-align: left;">par_compute_module_score</td>
-<td style="text-align: left;">No</td>
-</tr>
-<tr>
-<td style="text-align: left;">par_module_score</td>
-<td style="text-align: left;">NULL</td>
-</tr>
-<tr>
+<td style="text-align: left;"><strong>Tool 3</strong></td>
 <td style="text-align: left;">par_reference</td>
-<td style="text-align: left;">~/reference_seurat_object.rds</td>
+<td style="text-align: left;">/path/to/Kamath/reference/seurat/object</td>
 </tr>
 <tr>
+<td style="text-align: left;"><strong>Tool 3</strong></td>
+<td style="text-align: left;">par_reference_name</td>
+<td style="text-align: left;">Kamath</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Tool 3</strong></td>
 <td style="text-align: left;">par_level_celltype</td>
 <td style="text-align: left;">Cell_Type</td>
 </tr>
 <tr>
+<td style="text-align: left;"><strong>Tool 3</strong></td>
 <td style="text-align: left;">par_FindTransferAnchors_dim</td>
 <td style="text-align: left;">10</td>
 </tr>
 <tr>
+<td style="text-align: left;"><strong>Tool 3</strong></td>
 <td style="text-align: left;">par_futureglobalsmaxSize</td>
 <td style="text-align: left;">60000 * 1024^2</td>
-</tr>
-<tr>
-<td style="text-align: left;">par_visualize_select_features</td>
-<td style="text-align: left;">No</td>
-</tr>
-<tr>
-<td style="text-align: left;">par_select_features</td>
-<td style="text-align: left;">NULL</td>
 </tr>
 </tbody>
 </table>
@@ -1650,139 +1553,532 @@ export SCRNABOX_PWD=~/pipeline
 bash $SCRNABOX_HOME/launch_scrnabox.sh \
 -d ${SCRNABOX_PWD} \
 --steps 7 \
---fta T
+--referenceannotation T
 </code></pre>
 <p>The above code produces the following outputs:</p>
 <pre><code>step7
 ├── figs7
 │   └── reference_based_annotation
-│       └──UMAP_transferred_labels.pdf
+│       └── Kammath_UMAP_transferred_labels.pdf
+├── info7
+│   ├── reference_based_annotation
+│   │   └── Kammath_prediction_summary.xlsx
+│   ├── sessionInfo_annotate.txt
+│   ├── seu_MetaData.txt
+│   └── seu_RNA.txt
 └── objs7
-    └──seu_step7.rds
+    └── seu_step7.rds
 </code></pre>
 <p align="center">
-<img src="https://github.com/neurobioinfo/scrnabox/assets/110110777/00f64588-79d8-4d77-909f-2251f4381860" width="400" height="100"> <br /> 
+<img src="https://github.com/neurobioinfo/scrnabox/assets/110110777/ae1d99f8-f914-4f04-9737-afe8d35463c6"> <br /> 
 </p>
 
-<p><strong>Figure 11. Figure produced by Method 3 (reference-based annotation) of the scRNAbox cluster annotation module.</strong> Uniform Manifold Approximation and Projections (UMAP) plots showing the cluster annotations from the reference Seurat object projected onto the query Seurat object.</p>
+<p><strong>Figure 10. Figure produced by Tool 3 (reference-based annotation) of scRNAbox's cluster annotation module (Step 7).</strong> ScRNAbox allows users to predict cell type annotations of their query dataset based on the predictions of a reference dataset. Left: Uniform Manifold Approximation and Projections (UMAP) plot of clustered and annotated reference Seurat object; single-nucleus RNA sequencing (scRRNAseq) of midbrain tissue produced by <a href="https://www.nature.com/articles/s41593-022-01061-1">Kamath et al.</a>, coloured by cell type. Right: UMAP of the label transfer predictions for the midbrain dataset, coloured by predicted cell type. Abbreviations: astro, astrocytes; da, dopaminergic neurons; endo, endothelial cells; nonda, non-dopaminergic neurons; mg, microglia; olig, oligodendrocytes; opc, oligodendrocyte precursor cells.</p>
 <hr />
-<h3 id="step-8-differential-gene-expression-contrasts">Step 8: Differential gene expression contrasts</h3>
-<p>In this step we are going to perform differential gene expression (DGE) analysis between our samples. ScRNAbox faciltates DGE contrasts between samples (<strong>sample-sample contrasts</strong>) and between samples, stratified by cell type (<strong>sample-cell contrasts</strong>). The DGE contrasts module contains three components:</p>
-<p>1) <strong>Create DGEList object</strong> <br />
-2) <strong>Sample-sample contrasts</strong><br />
-3) <strong>Sample-cell contrasts</strong><br /></p>
-<hr />
-<h4 id="create-dgelist-object">Create DGEList object</h4>
-<p>First, we are going to create a DGElist object. Before doing so, we must define our desired clustering resolution and the final cluster annotations informed by Step 7. We are also going to rename our samples in order to faciliate DGE contrasts.</p>
-<p>To create a DGElist object, we set the following execution parameters for Step 8 (<code>step8_par.txt</code>):</p>
+<h4 id="annotate">Annotate</h4>
+<p>Now that we have used the three cluster annotation tools available in the scRNAbox pipeline, we are going to manually curate the results and add cluster annotations to the midbrain dataset.</p>
+<p>To add annotations, we set the following execution parameters for Step 7 (<code>step7_par.txt</code>):</p>
 <table>
 <thead>
 <tr>
+<th style="text-align: left;">Annotation tool</th>
 <th style="text-align: left;">Parameter</th>
-<th style="text-align: left;">value</th>
+<th style="text-align: left;">Value</th>
 </tr>
 </thead>
 <tbody>
 <tr>
+<td style="text-align: left;"><strong>General</strong></td>
 <td style="text-align: left;">par_save_RNA</td>
 <td style="text-align: left;">Yes</td>
 </tr>
 <tr>
+<td style="text-align: left;"><strong>General</strong></td>
 <td style="text-align: left;">par_save_metadata</td>
 <td style="text-align: left;">Yes</td>
 </tr>
 <tr>
+<td style="text-align: left;"><strong>General</strong></td>
+<td style="text-align: left;">par_seurat_object</td>
+<td style="text-align: left;">NULL</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>General</strong></td>
 <td style="text-align: left;">par_level_cluster</td>
 <td style="text-align: left;">integrated_snn_res.1.5</td>
 </tr>
 <tr>
-<td style="text-align: left;">par_step8_clus_label</td>
-<td style="text-align: left;">Oligodendrocytes, Oligodendrocytes, Excitatory_Neurons, Oligodendrocytes, Oligodendrocytes, Oligodendrocytes, Oligodendrocytes, Oligodendrocytes, OPC, Endothelial_cells, Microglia,  Oligodendrocytes, Astrocytes, Excitatory_Neurons, Astrocytes, Pericytes, Endothelial_cells, Ependymal, GABAergic_neurons, Oligodendrocytes, Inhibitory_neurons, Oligodendrocytes, OPC</td>
+<td style="text-align: left;"><strong>Annotate</strong></td>
+<td style="text-align: left;">par_annotate_resolution</td>
+<td style="text-align: left;">integrated_snn_res.1.5</td>
 </tr>
 <tr>
-<td style="text-align: left;">par_new_genotype</td>
-<td style="text-align: left;">yes</td>
+<td style="text-align: left;"><strong>Annotate</strong></td>
+<td style="text-align: left;">par_name_metadata</td>
+<td style="text-align: left;">clustering_annotation</td>
 </tr>
 <tr>
-<td style="text-align: left;">par_old_sample_label</td>
-<td style="text-align: left;">Control1, Control2, Control3, Control4, Control5, Control6, Parkinson1, Parkinson2, Parkinson3, Parkinson4, Parkinson5</td>
-</tr>
-<tr>
-<td style="text-align: left;">par_new_sample_label</td>
-<td style="text-align: left;">Control, Control, Control, Control, Control, Control, Parkinson, Parkinson, Parkinson, Parkinson, Parkinson</td>
+<td style="text-align: left;"><strong>Annotate</strong></td>
+<td style="text-align: left;">par_annotate_labels</td>
+<td style="text-align: left;">Oligodendrocyte, Oligodendrocyte, Excitatory, Oligodendrocyte, Oligodendrocyte, Microglia, OPC, Oligodendrocyte, Oligodendrocyte , Inhibitory, Atrocyte, Endothlial, Oligodendrocyte, Microglia, Oligodendrocyte, Astrocyte, Oligodendrocyte, Oligodendrocyte, Atrocyte, Oligodendrocyte, Pericyte, Ependymal, OPC, Pericyte, GABA, Inhibitory, Oligodendrocyte, Microglia, Astrocyte, Endothelial, DaN, CADPS2, Microglia</td>
 </tr>
 </tbody>
 </table>
-<p><strong>Note:</strong> Cell names and sample names cannot have spaces. For example, do not write "Endothelial cells", instead write "Endothelial_cells".</p>
-<p>We can create the DGElist object using the following code:</p>
+<p>We can add our annotations using the following code:</p>
+<pre><code>export SCRNABOX_HOME=~/scrnabox/scrnabox.slurm
+export SCRNABOX_PWD=~/pipeline
+
+bash $SCRNABOX_HOME/launch_scrnabox.sh \
+-d ${SCRNABOX_PWD} \
+--steps 7 \
+--annotate T
+</code></pre>
+<p>The above code produces the following outputs:</p>
+<pre><code>step7
+├── figs7
+│   └── annotate
+│       ├── clustering_annotation_cluster_annotation.pdf
+│       └── clustering_annotation_split_cluster_annotation.pdf
+├── info7
+│   ├── meta_info_seu_step7.txt
+│   ├── sessionInfo_annotate.txt
+│   ├── seu_MetaData.txt
+│   └── seu_RNA.txt
+└── objs7
+    └── seu_step7.rds
+</code></pre>
+<p align="center">
+<img src="https://github.com/neurobioinfo/scrnabox/assets/110110777/a2662fa6-227b-4b88-82d0-bc93c1c847db" width="400" height="100"> <br /> 
+</p>
+
+<p><strong>Figure 11. Annotated Seurat object produced in Step 7 of the scRNAbox pipeline.</strong> Uniform Manifold Approximation and Projections (UMAP) plots showing the final cluster annotations for the midbrain dataset. Abbreviations: astro, astrocytes; DaN, dopaminergic neurons; endo, endothelial cells; excit, excitatory neurons; GABA, GABAergic neurons; inhib, inhibitory neurons; mg, microglia; olig, oligodendrocytes; opc, oligodendrocyte precursor cells; peri, pericytes.</p>
+<hr />
+<h3 id="step-8-differential-gene-expression-analysis">Step 8: Differential gene expression  analysis</h3>
+<p>In Step 8, we are going to perform differential gene expression (DGE) analysis between PD and controls. Prior to computing DGE, we are going to add additional metadata to the Seurat object.</p>
+<hr />
+<h4 id="add-metadata">Add metadata</h4>
+<p>We are going to add metadata to the Seurat object using a csv file containing the additional metadata:</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Sample_ID</th>
+<th style="text-align: left;">DiseaseStatus</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">Parkinson1</td>
+<td style="text-align: left;">PD</td>
+</tr>
+<tr>
+<td style="text-align: left;">Parkinson2</td>
+<td style="text-align: left;">PD</td>
+</tr>
+<tr>
+<td style="text-align: left;">Parkinson3</td>
+<td style="text-align: left;">PD</td>
+</tr>
+<tr>
+<td style="text-align: left;">Parkinson4</td>
+<td style="text-align: left;">PD</td>
+</tr>
+<tr>
+<td style="text-align: left;">Parkinson5</td>
+<td style="text-align: left;">PD</td>
+</tr>
+<tr>
+<td style="text-align: left;">Control1</td>
+<td style="text-align: left;">HC</td>
+</tr>
+<tr>
+<td style="text-align: left;">Control2</td>
+<td style="text-align: left;">HC</td>
+</tr>
+<tr>
+<td style="text-align: left;">Control3</td>
+<td style="text-align: left;">HC</td>
+</tr>
+<tr>
+<td style="text-align: left;">Control4</td>
+<td style="text-align: left;">HC</td>
+</tr>
+<tr>
+<td style="text-align: left;">Control5</td>
+<td style="text-align: left;">HC</td>
+</tr>
+<tr>
+<td style="text-align: left;">Control6</td>
+<td style="text-align: left;">HC</td>
+</tr>
+</tbody>
+</table>
+<p>Note: This is csv file is available <a href="https://github.com/neurobioinfo/scrnabox/blob/main/tutorial/Midbrain_dataset_example_files/metadata.csv">here</a>.</p>
+<p>To add metadata, we set the following execution parameters for Step 8 (<code>step8_par.txt</code>):</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">DGE method</th>
+<th style="text-align: left;">Parameter</th>
+<th style="text-align: left;">Value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>General</strong></td>
+<td style="text-align: left;">par_save_RNA</td>
+<td style="text-align: left;">Yes</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>General</strong></td>
+<td style="text-align: left;">par_save_metadata</td>
+<td style="text-align: left;">Yes</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>General</strong></td>
+<td style="text-align: left;">par_seurat_object</td>
+<td style="text-align: left;">NULL</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Add metadata</strong></td>
+<td style="text-align: left;">par_merge_meta</td>
+<td style="text-align: left;">Sample_ID</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Add metadata</strong></td>
+<td style="text-align: left;">par_metadata</td>
+<td style="text-align: left;">~/scrnabox/tutorial/Midbrain_dataset_example_files/metadata.csv</td>
+</tr>
+</tbody>
+</table>
+<p>We can add metadata to the Seurat object using the following code:</p>
 <pre><code>export SCRNABOX_HOME=~/scrnabox/scrnabox.slurm
 export SCRNABOX_PWD=~/pipeline
 
 bash $SCRNABOX_HOME/launch_scrnabox.sh \
 -d ${SCRNABOX_PWD} \
 --steps 8 \
---dgelist T
+--addmeta T
 </code></pre>
 <p>The above code produces the following outputs:</p>
 <pre><code>step8
-├── figs8
-│   └── final_cluster_annotation.pdf
 ├── info8
-│   ├── de_genes.rds
-│   ├── dge.rds
-│   ├── meta_info_de_genes.txt
-│   ├── meta_info_dge.txt
-│   └── meta_info_seu_step8.txt
+│   ├── sessionInfo_add_metadata.txt
+│   ├── seu_MetaData.txt
+│   └── seu_RNA.txt
 └── objs8
     └── seu_step8.rds
 </code></pre>
+<hr />
+<p>Next, we can perform DGE analysis. ScRNAbox can compute DGE between two condition conditions (in our case PD vs control) using <strong>all cells</strong> or <strong>cell type groups</strong>. Furthermore, scRNAbox provides two frameworks for computing DGE:</p>
+<p><strong>1) Cell-based DGE</strong><br />
+Cells are used as replicates and DGE is computed using the Seurat <em>FindMarkers</em> (<a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4481139/">Macosko et al. 2015</a>). While <em>FindMarkers</em> supports several statistical frameworks to compute DGE, we set the default method in our implementation to MAST, which is tailored for scRNAseq data (<a href="https://genomebiology.biomedcentral.com/articles/10.1186/s13059-015-0844-5">Finak et al. 2015</a>)<br /></p>
+<p><strong>2) Sample-based DGE</strong><br />
+Samples are used as replicates by applying a pseudo-bulk analysis. The Seurat <em>AggregateExpression</em> function is used to compute the sum of RNA counts for each gene across all cells from a particular sample (<a href="https://academic.oup.com/nar/article/50/21/e121/6709246">Cao et al. 2022</a>). The DESq2 statistical framework is then used to compute DGE between conditions using the aggregated counts. (<a href="https://genomebiology.biomedcentral.com/articles/10.1186/s13059-014-0550-8">Love et al. 2014</a>)</p>
+<hr />
+<h4 id="cell-based-dge-using-all-cells">Cell-based DGE using all cells</h4>
+<p>To perform <strong>cell-based DGE using all cells</strong> we must begin by preparing the contrast matrix (<code>step8_contrast_cell_based_all_cells.txt</code>):</p>
+<pre><code>contrast_name meta_data_variable group1 group2
+HCvPD DiseaseStatus HC PD
+</code></pre>
+<p>To perform <strong>cell-based DGE using all cells</strong>, we set the following execution parameters for Step 8 (<code>step8_par.txt</code>):</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">DGE method</th>
+<th style="text-align: left;">Parameter</th>
+<th style="text-align: left;">Value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>General</strong></td>
+<td style="text-align: left;">par_save_RNA</td>
+<td style="text-align: left;">No</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>General</strong></td>
+<td style="text-align: left;">par_save_metadata</td>
+<td style="text-align: left;">No</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>General</strong></td>
+<td style="text-align: left;">par_seurat_object</td>
+<td style="text-align: left;">NULL</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Cell-based DGE with all cells</strong></td>
+<td style="text-align: left;">par_run_cell_based_all_cells</td>
+<td style="text-align: left;">Yes</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Cell-based DGE</strong></td>
+<td style="text-align: left;">par_statistical_method</td>
+<td style="text-align: left;">MAST</td>
+</tr>
+</tbody>
+</table>
+<p>We can perform <strong>cell-based DGE using all cells</strong> using the following code:</p>
+<pre><code>export SCRNABOX_HOME=~/scrnabox/scrnabox.slurm
+export SCRNABOX_PWD=~/pipeline
+
+bash $SCRNABOX_HOME/launch_scrnabox.sh \
+-d ${SCRNABOX_PWD} \
+--steps 8 \
+--rundge T
+</code></pre>
+<p>The above code produces the following outputs:</p>
+<pre><code>step8
+└── Cell_based_all_cells
+    └── HCvPD
+        ├── HCvPD_DEG.csv
+        └── HCvPD_volcano_plot.pdf
+</code></pre>
+<hr />
+<h4 id="cell-based-dge-using-cell-type-groups">Cell-based DGE using cell type groups</h4>
+<p>To perform <strong>cell-based DGE using cell type groups</strong> we must begin by preparing the contrast matrix (<code>step8_contrast_sample_based_celltype_groups.txt</code>):</p>
+<pre><code>contrast_name meta_data_celltype cell_type meta_data_variable group1 group2
+OligocendrocytesPDvHC clustering_annotation Oligodendrocyte DiseaseStatus HC PD
+MicrogliaPDvHC clustering_annotation Microglia DiseaseStatus HC PD
+ExcitatoryPDvHC clustering_annotation Excitatory DiseaseStatus HC PD
+InhibitoryPDvHC clustering_annotation Inhibitory DiseaseStatus HC PD
+GABAPDvHC clustering_annotation GABA DiseaseStatus HC PD
+OPCPDvHC clustering_annotation OPC DiseaseStatus HC PD
+AstrocytesPDvHC clustering_annotation Atrocyte DiseaseStatus HC PD
+EndothelialPDvHC clustering_annotation Endothelial DiseaseStatus HC PD
+PericytesPDvHC clustering_annotation Pericyte DiseaseStatus HC PD
+EpendymalPDvHC clustering_annotation Ependymal DiseaseStatus HC PD
+DaNPDvHC clustering_annotation DaN DiseaseStatus HC PD
+</code></pre>
+<p>To perform <strong>cell-based DGE using all cells</strong>, we set the following execution parameters for Step 8 (<code>step8_par.txt</code>):</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">DGE method</th>
+<th style="text-align: left;">Parameter</th>
+<th style="text-align: left;">Value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>General</strong></td>
+<td style="text-align: left;">par_save_RNA</td>
+<td style="text-align: left;">No</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>General</strong></td>
+<td style="text-align: left;">par_save_metadata</td>
+<td style="text-align: left;">No</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>General</strong></td>
+<td style="text-align: left;">par_seurat_object</td>
+<td style="text-align: left;">NULL</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Cell-based DGE with cell type groups</strong></td>
+<td style="text-align: left;">par_run_cell_based_cell_type_groups</td>
+<td style="text-align: left;">Yes</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Cell-based DGE</strong></td>
+<td style="text-align: left;">par_statistical_method</td>
+<td style="text-align: left;">MAST</td>
+</tr>
+</tbody>
+</table>
+<p>We can perform <strong>cell-based DGE using all cells</strong> using the following code:</p>
+<pre><code>export SCRNABOX_HOME=~/scrnabox/scrnabox.slurm
+export SCRNABOX_PWD=~/pipeline
+
+bash $SCRNABOX_HOME/launch_scrnabox.sh \
+-d ${SCRNABOX_PWD} \
+--steps 8 \
+--rundge T
+</code></pre>
+<p>The above code produces the following outputs:</p>
+<pre><code>step8
+└── Cell_based_celltype_groups
+    ├── AstrocytesPDvHC
+    │   ├── AstrocytesPDvHC_DEG.csv
+    │   └── AstrocytesPDvHC_volcano_plot.pdf
+    ├── DaNPDvHC
+    │   ├── DaNPDvHC_DEG.csv
+    │   └── DaNPDvHC_volcano_plot.pdf
+    ├── EndothelialPDvHC
+    │   ├── EndothelialPDvHC_DEG.csv
+    │   └── EndothelialPDvHC_volcano_plot.pdf
+    ├── EpendymalPDvHC
+    │   ├── EpendymalPDvHC_DEG.csv
+    │   └── EpendymalPDvHC_volcano_plot.pdf
+    ├── ExcitatoryPDvHC
+    │   ├── ExcitatoryPDvHC_DEG.csv
+    │   └── ExcitatoryPDvHC_volcano_plot.pdf
+    ├── GABAPDvHC
+    │   ├── GABAPDvHC_DEG.csv
+    │   └── GABAPDvHC_volcano_plot.pdf
+    ├── InhibitoryPDvHC
+    │   ├── InhibitoryPDvHC_DEG.csv
+    │   └── InhibitoryPDvHC_volcano_plot.pdf
+    ├── MicrogliaPDvHC
+    │   ├── MicrogliaPDvHC_DEG.csv
+    │   └── MicrogliaPDvHC_volcano_plot.pdf
+    ├── OligocendrocytesPDvHC
+    │   ├── OligocendrocytesPDvHC_DEG.csv
+    │   └── OligocendrocytesPDvHC_volcano_plot.pdf
+    ├── OPCPDvHC
+    │   ├── OPCPDvHC_DEG.csv
+    │   └── OPCPDvHC_volcano_plot.pdf
+    └── PericytesPDvHC
+        ├── PericytesPDvHC_DEG.csv
+        └── PericytesPDvHC_volcano_plot.pdf
+
+</code></pre>
+<hr />
+<h4 id="sample-based-dge-using-all-cells">Sample-based DGE using all cells</h4>
+<p>To perform <strong>sample-based DGE using all cells</strong> we must begin by preparing the contrast matrix (<code>step8_contrast_sample_based_all_cells.txt</code>):</p>
+<pre><code>ContrastName MainContrast SampleID
+PDvControl DiseaseStatus Sample_ID
+</code></pre>
+<p>To perform <strong>sample-based DGE using all cells</strong>, we set the following execution parameters for Step 8 (<code>step8_par.txt</code>):</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">DGE method</th>
+<th style="text-align: left;">Parameter</th>
+<th style="text-align: left;">Value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>General</strong></td>
+<td style="text-align: left;">par_save_RNA</td>
+<td style="text-align: left;">No</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>General</strong></td>
+<td style="text-align: left;">par_save_metadata</td>
+<td style="text-align: left;">No</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>General</strong></td>
+<td style="text-align: left;">par_seurat_object</td>
+<td style="text-align: left;">NULL</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Sample-based DGE with all cells</strong></td>
+<td style="text-align: left;">par_run_sample_based_all_cells</td>
+<td style="text-align: left;">Yes</td>
+</tr>
+</tbody>
+</table>
+<p>We can perform <strong>sample-based DGE using all cells</strong> using the following code:</p>
+<pre><code>export SCRNABOX_HOME=~/scrnabox/scrnabox.slurm
+export SCRNABOX_PWD=~/pipeline
+
+bash $SCRNABOX_HOME/launch_scrnabox.sh \
+-d ${SCRNABOX_PWD} \
+--steps 8 \
+--rundge T
+</code></pre>
+<p>The above code produces the following outputs:</p>
+<pre><code>step8
+└── Sample_based_all_cells
+    └── PDvControl
+        ├── Aggregated_expression_summary.csv
+        ├── DGE_AllCellsMainContrast HC vs PD.csv
+        ├── DGE_AllCellsMainContrast HC vs PD.pdf
+        └── SampleBased_DGEsummarytable.csv
+</code></pre>
+<hr />
+<h4 id="sample-based-dge-using-cell-type-groups">Sample-based DGE using cell type groups</h4>
+<p>To perform <strong>sample-based DGE using cell type groups</strong> we must begin by preparing the contrast matrix (<code>step8_contrast_sample_based_celltype_groups.txt</code>):</p>
+<pre><code>ContrastName CellType MainContrast SampleID
+PDvControlbulk clustering_annotation DiseaseStatus Sample_ID
+</code></pre>
+<p>To perform <strong>sample-based DGE using cell type groups</strong>, we set the following execution parameters for Step 8 (<code>step8_par.txt</code>):</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">DGE method</th>
+<th style="text-align: left;">Parameter</th>
+<th style="text-align: left;">Value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>General</strong></td>
+<td style="text-align: left;">par_save_RNA</td>
+<td style="text-align: left;">No</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>General</strong></td>
+<td style="text-align: left;">par_save_metadata</td>
+<td style="text-align: left;">No</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>General</strong></td>
+<td style="text-align: left;">par_seurat_object</td>
+<td style="text-align: left;">NULL</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Sample-based DGE with cell type groups</strong></td>
+<td style="text-align: left;">par_run_sample_based_cell_type_groups</td>
+<td style="text-align: left;">Yes</td>
+</tr>
+</tbody>
+</table>
+<p>We can perform <strong>sample-based DGE using cell type groups</strong> using the following code:</p>
+<pre><code>export SCRNABOX_HOME=~/scrnabox/scrnabox.slurm
+export SCRNABOX_PWD=~/pipeline
+
+bash $SCRNABOX_HOME/launch_scrnabox.sh \
+-d ${SCRNABOX_PWD} \
+--steps 8 \
+--rundge T
+</code></pre>
+<p>The above code produces the following outputs:</p>
+<pre><code>step8
+└── sample_based_celltype_groups
+    └── PDvControlbulk
+        ├── Aggregated_expression_summary.csv
+        ├── figs
+        │   ├── DGE_AstrocytesMainContrast HC vs PD.pdf
+        │   ├── DGE_DaNMainContrast HC vs PD.pdf
+        │   ├── DGE_EndothelialMainContrast HC vs PD.pdf
+        │   ├── DGE_EpendymalMainContrast HC vs PD.pdf
+        │   ├── DGE_ExcitatoryMainContrast HC vs PD.pdf
+        │   ├── DGE_GABAMainContrast HC vs PD.pdf
+        │   ├── DGE_InhibitoryMainContrast HC vs PD.pdf
+        │   ├── DGE_MicrogliaMainContrast HC vs PD.pdf
+        │   ├── DGE_OligodendrocytesMainContrast HC vs PD.pdf
+        │   ├── DGE_OPCMainContrast HC vs PD.pdf
+        │   └── DGE_PericytesMainContrast HC vs PD.pdf
+        ├── info
+        │   ├── DGE_AstrocytesMainContrast HC vs PD.csv
+        │   ├── DGE_DaNMainContrast HC vs PD.csv
+        │   ├── DGE_EndothelialMainContrast HC vs PD.csv
+        │   ├── DGE_EpendymalMainContrast HC vs PD.csv
+        │   ├── DGE_ExcitatoryMainContrast HC vs PD.csv
+        │   ├── DGE_GABAMainContrast HC vs PD.csv
+        │   ├── DGE_InhibitoryMainContrast HC vs PD.csv
+        │   ├── DGE_MicrogliaMainContrast HC vs PD.csv
+        │   ├── DGE_OligodendrocytesMainContrast HC vs PD.csv
+        │   ├── DGE_OPCMainContrast HC vs PD.csv
+        │   └── DGE_PericytesMainContrast HC vs PD.csv
+        └── SampleBased_DGEsummarytable.csv
+</code></pre>
+<hr />
 <p align="center">
-<img src="https://github.com/neurobioinfo/scrnabox/assets/110110777/13a7dc2f-56b2-4a0d-b034-fb50089582a9" width="400" height="100"> <br /> 
+<img src="https://github.com/neurobioinfo/scrnabox/assets/110110777/ac770707-560e-41b5-be74-a8771d97a89e" width="800" height="800"> <br /> 
 </p>
 
-<p><strong>Figure 12. Final cluster annotations used for differential gene expression (DGE) contrasts .</strong> Uniform Manifold Approximation and Projections (UMAP) plots showing the final cluster annotation obtained by curating the results from scRNAbox's cluster annotation module (Step 7). The final cluster annotations will be used throughout the DGE contrasts module. </p>
+<p><strong>Figure 12. Figures produced by Step 8 of the scRNAbox pipeline.</strong> Step 8 of the scRNAbox pipeline allows users to compute DGE between groups by two methods: 1) using cells as replicates with MAST (cell-based) and 2) using samples as replicates with DESeq2 (sample-based). Volcano plots are produced for each user-defined DGE contrast. For the midbrain dataset, we leveraged both methods to compute DGE between Parkinson's disease (PD) subjects and controls across <strong>A)</strong> all cells, <strong>B)</strong> astrocytes, <strong>C)</strong> dopaminergic neurons (DaN), <strong>D)</strong> endothelial cells, <strong>E)</strong> Ependymal cells, <strong>F)</strong> excitatory neurons, <strong>G)</strong> GABAergic neurons, <strong>H)</strong> Inhibitory neurons, <strong>I)</strong> microglia, <strong>J)</strong> oligodendrocytes, <strong>K)</strong> oligodendrocyte precursor cells (OPC), and <strong>H)</strong> Pericytes. </p>
 <hr />
-<h4 id="sample-sample-contrasts">Sample-sample contrasts</h4>
-<p>Now that we have our DGElist object, we can perform DGE contrasts between samples (sample-sample contrasts). As an example, we will test for DGE between Parkinson's disease samples and controls. We must first define our contrast matrix in the sample-sample contrasts parameters file (<code>step8_contrast_genotype.txt</code>):</p>
-<pre><code>cont_name control versus
-design1 Control Parkinson
-</code></pre>
-<p>We can perform sample-sample DGE contrasts using the following code:</p>
-<pre><code>export SCRNABOX_HOME=~/scrnabox/scrnabox.slurm
-export SCRNABOX_PWD=~/pipeline
-
-bash $SCRNABOX_HOME/launch_scrnabox.sh \
--d ${SCRNABOX_PWD} \
---steps 8 \
---genotype T
-</code></pre>
-<p>The above code produces the following outputs:</p>
-<pre><code>step8
-└── cont_genotype
-    └── design1.csv 
-</code></pre>
+<h3 id="analysis-of-differentially-expressed-genes">Analysis of differentially expressed genes</h3>
+<p>For the code used to perform downstream analysis of the differentially expressed genes presented in our <a href="">pre-print manuscript</a> see <a href="../DEG/">here</a>.  </p>
 <hr />
-<h4 id="sample-cell-contrasts">Sample-cell contrasts</h4>
-<p>We can also perform DGE contrasts between samples, stratified by cell type (sample-cell contrasts). As an example, we will test for DGE between microglia from Parkinson's disease and controls. We must first define our contrast matrix in the sample-cell contrasts parameters file (<code>step8_contrast_celltype.txt</code>):</p>
-<pre><code>cont_name cell control versus
-design1_cell Microglia Control Parkinson
-</code></pre>
-<p>We can perform sample-cel DGE contrasts using the following code:</p>
-<pre><code>export SCRNABOX_HOME=~/scrnabox/scrnabox.slurm
-export SCRNABOX_PWD=~/pipeline
-
-bash $SCRNABOX_HOME/launch_scrnabox.sh \
--d ${SCRNABOX_PWD} \
---steps 8 \
---celltype T
-</code></pre>
-<p>The above code produces the following outputs:</p>
-<pre><code>step8
-└── cont_celltype
-    └── design1.csv 
-</code></pre>
-<hr />
-<h3 id="step-9-enrichment-analysis">Step 9: Enrichment analysis</h3>
+<h3 id="publication-ready-figures">Publication-ready figures</h3>
+<p>The code used to produce the publication-ready figures used in our <a href="">pre-print manuscript</a> is avaliable here <a href="">here</a>.  </p>
 <hr />
 <h3 id="job-configurations">Job Configurations</h3>
 <p>The following job configurations were used for our analysis of the midbrain dataset. Job Configurations can be modified for each Analytical Step in the <code>scrnabox_config.ini</code> file in <code>~/pipeline/job_info/configs</code></p>
@@ -1799,54 +2095,66 @@ bash $SCRNABOX_HOME/launch_scrnabox.sh \
 <tr>
 <td style="text-align: left;">Step2</td>
 <td style="text-align: left;">4</td>
-<td style="text-align: left;">16g</td>
+<td style="text-align: left;">40g</td>
 <td style="text-align: left;">00-05:00</td>
 </tr>
 <tr>
 <td style="text-align: left;">Step3</td>
 <td style="text-align: left;">4</td>
-<td style="text-align: left;">16g</td>
+<td style="text-align: left;">40g</td>
 <td style="text-align: left;">00-05:00</td>
 </tr>
 <tr>
 <td style="text-align: left;">Step4</td>
 <td style="text-align: left;">4</td>
-<td style="text-align: left;">45g</td>
+<td style="text-align: left;">40g</td>
 <td style="text-align: left;">00-05:00</td>
 </tr>
 <tr>
 <td style="text-align: left;">Step5</td>
 <td style="text-align: left;">4</td>
-<td style="text-align: left;">45g</td>
+<td style="text-align: left;">100g</td>
 <td style="text-align: left;">00-05:00</td>
 </tr>
 <tr>
 <td style="text-align: left;">Step6</td>
 <td style="text-align: left;">4</td>
-<td style="text-align: left;">16g</td>
+<td style="text-align: left;">100g</td>
 <td style="text-align: left;">00-05:00</td>
 </tr>
 <tr>
-<td style="text-align: left;">Step7 marker</td>
+<td style="text-align: left;">Step7 MarkerGSEA</td>
+<td style="text-align: left;">4</td>
+<td style="text-align: left;">40g</td>
+<td style="text-align: left;">00-05:00</td>
+</tr>
+<tr>
+<td style="text-align: left;">Step7 KnownMarkers</td>
+<td style="text-align: left;">4</td>
+<td style="text-align: left;">40g</td>
+<td style="text-align: left;">00-02:00</td>
+</tr>
+<tr>
+<td style="text-align: left;">Step7 ReferenceAnnotation</td>
+<td style="text-align: left;">4</td>
+<td style="text-align: left;">200g</td>
+<td style="text-align: left;">00-12:00</td>
+</tr>
+<tr>
+<td style="text-align: left;">Step7 Annotate</td>
 <td style="text-align: left;">4</td>
 <td style="text-align: left;">40g</td>
 <td style="text-align: left;">00-01:00</td>
 </tr>
 <tr>
-<td style="text-align: left;">Step7 fta</td>
-<td style="text-align: left;">4</td>
-<td style="text-align: left;">150g</td>
-<td style="text-align: left;">00-09:00</td>
-</tr>
-<tr>
-<td style="text-align: left;">Step8 dgelist</td>
+<td style="text-align: left;">Step8 AddMeta</td>
 <td style="text-align: left;">4</td>
 <td style="text-align: left;">40g</td>
-<td style="text-align: left;">00-12:00</td>
+<td style="text-align: left;">00-02:00</td>
 </tr>
 <tr>
-<td style="text-align: left;">Step8 cont</td>
-<td style="text-align: left;">10</td>
+<td style="text-align: left;">Step8 RunDGE</td>
+<td style="text-align: left;">4</td>
 <td style="text-align: left;">40g</td>
 <td style="text-align: left;">00-12:00</td>
 </tr>
@@ -1856,8 +2164,8 @@ bash $SCRNABOX_HOME/launch_scrnabox.sh \
             </div>
           </div><footer>
     <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
-        <a href="../outputs/" class="btn btn-neutral float-left" title="Outputs"><span class="icon icon-circle-arrow-left"></span> Previous</a>
-        <a href="../midbrain_download/" class="btn btn-neutral float-right" title="Downloading the midbrain dataset">Next <span class="icon icon-circle-arrow-right"></span></a>
+        <a href="../midbrain_download/" class="btn btn-neutral float-left" title="Downloading the midbrain dataset"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../DEG/" class="btn btn-neutral float-right" title="Analysis of DEGs">Next <span class="icon icon-circle-arrow-right"></span></a>
     </div>
 
   <hr/>
@@ -1880,10 +2188,10 @@ bash $SCRNABOX_HOME/launch_scrnabox.sh \
   <span class="rst-current-version" data-toggle="rst-current-version">
     
     
-      <span><a href="../outputs/" style="color: #fcfcfc">&laquo; Previous</a></span>
+      <span><a href="../midbrain_download/" style="color: #fcfcfc">&laquo; Previous</a></span>
     
     
-      <span><a href="../midbrain_download/" style="color: #fcfcfc">Next &raquo;</a></span>
+      <span><a href="../DEG/" style="color: #fcfcfc">Next &raquo;</a></span>
     
   </span>
 </div>

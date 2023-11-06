@@ -81,26 +81,24 @@
               </ul>
               <p class="caption"><span class="caption-text">Tutorial</span></p>
               <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../midbrain_download/">Downloading the midbrain dataset</a>
+                  </li>
                   <li class="toctree-l1"><a class="reference internal" href="../Dataset1/">scRNAbox analysis of midbrain dataset</a>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../midbrain_download/">Downloading the midbrain dataset</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../DEG/">Analysis of DEGs</a>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../library_prep/">Manual CellRanger library preparation</a>
                   </li>
               </ul>
-              <ul>
-                <li class="toctree-l1"><a class="reference internal" href="../FAQ/">FAQ</a>
-                </li>
-              </ul>
               <p class="caption"><span class="caption-text">About</span></p>
               <ul>
-                  <li class="toctree-l1"><a class="reference internal" href="../LICENSE/">- License</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../LICENSE/">License</a>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../changelog/">- Changelog</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../changelog/">Changelog</a>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../contributing/">- Contributing</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../contributing/">Contributing</a>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../Acknowledgement/">- Acknowledgement</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../Acknowledgement/">Acknowledgement</a>
                   </li>
               </ul>
       </div>
@@ -852,7 +850,7 @@
 <table>
 <thead>
 <tr>
-<th style="text-align: left;">Annotation Method</th>
+<th style="text-align: left;">Annotation tool</th>
 <th style="text-align: left;">Parameter</th>
 <th style="text-align: left;">Default</th>
 <th style="text-align: left;">Description</th>
@@ -915,7 +913,7 @@
 </tr>
 <tr>
 <td style="text-align: left;"><strong>Tool 2</strong></td>
-<td style="text-align: left;">par_run_vidsualize_markers</td>
+<td style="text-align: left;">par_run_visualize_markers</td>
 <td style="text-align: left;">Yes</td>
 <td style="text-align: left;">Whether or not to visualize the expression of individual genes</td>
 </tr>
@@ -1026,8 +1024,8 @@
 <tr>
 <td style="text-align: left;"><strong>Add metadata</strong></td>
 <td style="text-align: left;">par_metadata</td>
-<td style="text-align: left;">orig.ident</td>
-<td style="text-align: left;">The column from the Seurat metdata that will be used to merge the new metadata. This column must also exist in the submitted csv file contaning new metadata.</td>
+<td style="text-align: left;">NULL</td>
+<td style="text-align: left;">csv file containing metadata to be added to the Seurat object</td>
 </tr>
 <tr>
 <td style="text-align: left;"><strong>Cell-based DGE with all cells</strong></td>

@@ -1,5 +1,5 @@
 # Step 8: Differential gene expression (DGE) analysis
-In Step 8, DGE analysis is computed to identify differentially expressed genes (DEG) between two conditions. Prior to computing DGE, users can [add metdata](#add-metadata) containing phenotypic and experimental data to the Seurat object, which can then be used to define the groups used for DGE analysis. In order to define the contrasts used in the DGE analysis, users must modify the [contrast matrices ](#contrast-matrices) priot to submitting the command to [compute DGE](#computing-dge). ScRNAbox can compute DGE between conditions using all cell types or cell type grous. Furthermore, scRNAbox provides two frameworks for computing DGE: <br />
+In Step 8, DGE analysis is computed to identify differentially expressed genes (DEG) between two conditions. Prior to computing DGE, users can [add metdata](#add-metadata) containing phenotypic and experimental data to the Seurat object, which can then be used to define the groups used for DGE analysis. In order to define the contrasts used in the DGE analysis, users must modify the [contrast matrices ](#contrast-matrices) priot to submitting the command to [compute DGE](#computing-dge). ScRNAbox can compute DGE between conditions using all cell types or cell type groups. Furthermore, scRNAbox provides two frameworks for computing DGE: <br />
 
 **1) Cell-based DGE**<br />
 Cells are used as replicates and DGE is computed using the Seurat _FindMarkers_ ([Macosko et al. 2015](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4481139/)). While _FindMarkers_ supports several statistical frameworks to compute DGE, we set the default method in our implementation to MAST, which is tailored for scRNAseq data ([Finak et al. 2015](https://genomebiology.biomedcentral.com/articles/10.1186/s13059-015-0844-5))<br />
@@ -8,7 +8,7 @@ Cells are used as replicates and DGE is computed using the Seurat _FindMarkers_ 
 Samples are used as replicates by applying a pseudo-bulk analysis. The Seurat _AggregateExpression_ function is used to compute the sum of RNA counts for each gene across all cells from a particular sample ([Cao et al. 2022](https://academic.oup.com/nar/article/50/21/e121/6709246)). The DESq2 statistical framework is then used to compute DGE between conditions using the aggregated counts. ([Love et al. 2014](https://genomebiology.biomedcentral.com/articles/10.1186/s13059-014-0550-8))
 
  - - - -
-The following parameters are adjustable for Step 6:
+The following parameters are adjustable for Step 8:
 
 |DGE method|Parameter|Default|Description|
 |:--|:--|:--|:--|
@@ -16,7 +16,7 @@ The following parameters are adjustable for Step 6:
 |**General**|par_save_metadata| No|Whether or not to export a metadata dataframe|
 |**General**|par_seurat_object| NULL |If users already have a Seurat object, they may provide the path to the Seurat object to initiate the pipeline at Step 7|
 |**Add metadata**|par_merge_meta|orig.ident|The column from the Seurat metdata that will be used to merge the new metadata. This column must also exist in the submitted csv file contaning new metadata.|
-|**Add metadata**|par_metadata|orig.ident|The column from the Seurat metdata that will be used to merge the new metadata. This column must also exist in the submitted csv file contaning new metadata.|
+|**Add metadata**|par_metadata|NULL|csv file containing metadata to be added to the Seurat object|
 |**Cell-based DGE with all cells**|par_run_cell_based_all_cells|Yes|Whether or not to compute cell-based DGE with all cells |
 |**Cell-based DGE with cell type groups**|par_run_cell_based_cell_type_groups|Yes|Whether or not to compute cell-based DGE with cell type groups|
 |**Sample-based DGE with all cells**|par_run_sample_based_all_cells|Yes|Whether or not to compute sample-based DGE with all cells|

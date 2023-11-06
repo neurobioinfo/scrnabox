@@ -89,26 +89,24 @@
               </ul>
               <p class="caption"><span class="caption-text">Tutorial</span></p>
               <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../midbrain_download/">Downloading the midbrain dataset</a>
+                  </li>
                   <li class="toctree-l1"><a class="reference internal" href="../Dataset1/">scRNAbox analysis of midbrain dataset</a>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../midbrain_download/">Downloading the midbrain dataset</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../DEG/">Analysis of DEGs</a>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../library_prep/">Manual CellRanger library preparation</a>
                   </li>
               </ul>
-              <ul>
-                <li class="toctree-l1"><a class="reference internal" href="../FAQ/">FAQ</a>
-                </li>
-              </ul>
               <p class="caption"><span class="caption-text">About</span></p>
               <ul>
-                  <li class="toctree-l1"><a class="reference internal" href="../LICENSE/">- License</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../LICENSE/">License</a>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../changelog/">- Changelog</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../changelog/">Changelog</a>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../contributing/">- Contributing</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../contributing/">Contributing</a>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../Acknowledgement/">- Acknowledgement</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../Acknowledgement/">Acknowledgement</a>
                   </li>
               </ul>
       </div>
@@ -150,7 +148,7 @@ Seurat's <em>FindTransferAnchors</em> and <em>TransferData</em> functions are us
 <table>
 <thead>
 <tr>
-<th style="text-align: left;">Annotation Method</th>
+<th style="text-align: left;">Annotation tool</th>
 <th style="text-align: left;">Parameter</th>
 <th style="text-align: left;">Default</th>
 <th style="text-align: left;">Description</th>
@@ -213,7 +211,7 @@ Seurat's <em>FindTransferAnchors</em> and <em>TransferData</em> functions are us
 </tr>
 <tr>
 <td style="text-align: left;"><strong>Tool 2</strong></td>
-<td style="text-align: left;">par_run_vidsualize_markers</td>
+<td style="text-align: left;">par_run_visualize_markers</td>
 <td style="text-align: left;">Yes</td>
 <td style="text-align: left;">Whether or not to visualize the expression of individual genes</td>
 </tr>
@@ -337,17 +335,8 @@ annotation&lt;-function(PWD,cluster_marker,db) {
     plotEnrich(N1.c0.Er[[1]], showTerms = 20, numChar = 40, y = &quot;Count&quot;, orderBy = &quot;P.value&quot;) +
       ggtitle(paste0(db[j], &quot; cluster &quot;, i))
     ggsave(file = paste0(&quot;plotenrich_clust_&quot;,i, &quot;_&quot;, j,&quot;.pdf&quot;))
-    #plotEnrich(N1.c0.Er[[2]], showTerms = 20, numChar = 40, y = &quot;Count&quot;, orderBy = &quot;P.value&quot;)
-    #ggsave(file = &quot;plotenrich2.pdf&quot;)
-    #plotEnrich(N1.c0.Er[[3]], showTerms = 20, numChar = 40, y = &quot;Count&quot;, orderBy = &quot;P.value&quot;)
-    #ggsave(file = &quot;plotenrich3.pdf&quot;)
-    ### You don't need to make the tables or else this should all be saved
     N1.Er.genes.1 &lt;- N1.c0.Er[[1]] %&gt;% dplyr::select(Term, Genes, Combined.Score)
     write.csv(N1.Er.genes.1,paste0(&quot;Er_genes_clust_&quot;,i,&quot;_&quot;,db[j],&quot;.csv&quot;))
-    #N1.Er.genes.2 &lt;- N1.c0.Er[[2]] %&gt;% select(Term, Genes, Combined.Score)
-    #write.csv(N1.Er.genes.2,&quot;Er.genes.2.csv&quot;)
-    #N1.Er.genes.3 &lt;- N1.c0.Er[[3]] %&gt;% select(Term, Genes, Combined.Score)
-    #write.csv(N1.Er.genes.3,&quot;Er.genes.3.csv&quot;)
   }
 }
 }

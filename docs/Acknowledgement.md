@@ -1,2 +1,2 @@
 ## Acknowledgement
-The pipeline is done as part Dark Genome project, it is written by [Saeid Amiri](https://github.com/saeidamiri1) with associate of Rhalena Thomas, Sali Farhan, and Michael Fiorini at Neuro Bioinformatics Core. Copyright belongs [MNI BIOINFO CORE](https://github.com/neurobioinfo). 
+The scRNAbox pipeline was produced as part Dark Genome Project. It is written by [Saeid Amiri](https://github.com/saeidamiri1) and [Michael Fiorini](https://github.com/fiorini9) with associate of Rhalena Thomas, Sali Farhan, and Edward Fon at the Montreal Neurological Institute-Hospital. Copyright belongs [MNI BIOINFO CORE](https://github.com/neurobioinfo). 

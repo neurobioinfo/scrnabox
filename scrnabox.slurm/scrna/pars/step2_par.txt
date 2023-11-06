@@ -15,7 +15,7 @@ par_ambient_RNA= "yes"
 ############################################################################
 # Filtering parameters
 ############################################################################
-## Only retain the genes that are present in at least a specified number of cells.
+## Only retain genes that are present in at least a specified number of cells.
 par_min.cells_L= 1
 
 

@@ -354,7 +354,7 @@ library(RColorBrewer)
 brewer.pal(11, 'Paired')
 
 ## load integrated UMAP
-seu_int<-readRDS('/lustre03/project/6070393/COMMON/Dark_Genome/Saeid_test_temp3/smajic3/step5/objs5/seu_step5.rds')
+seu_int<-readRDS('/path/to/step5/objs5/seu_step5.rds')
 
 ##plot
 DimPlot(seu_int, reduction = "umap", group.by="Sample_ID", raster = FALSE ) +
@@ -369,7 +369,7 @@ ggtitle("")
 ggsave(paste(output_dir,'/manuscript_figures/integrateUMAP.pdf',sep=""))
 
 ## load merged UMAP
-seu_int<-readRDS('/lustre03/project/6070393/COMMON/Dark_Genome/Saeid_test_temp3/smajic3/step5/objs5/seu_step5.rds')
+seu_int<-readRDS('/path/to/step5/objs5/seu_step5.rds')
 
 ##plot
 DimPlot(seu_int, reduction = "umap", group.by="Sample_ID", raster = FALSE ) +

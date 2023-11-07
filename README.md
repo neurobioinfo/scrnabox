@@ -134,14 +134,14 @@ In Step 6, clustering is performed to define groups of cells with similar expres
 **Step 7: Cluster annotation** <br />
 In Step 7, cluster annotation is performed to define the cell types comprising the clusters identified in Step 6. ScRNAbox provides three tools to identify cell types comprising the clusters:<br />
 
-_**Tool 1: Cluster marker gene identification and gene set enrichment analysis (GSEA)**_ <br />
-Seurat's FindAllMarkers function is used to identify differentially expressed marker genes (DEG) by the Wilcoxon rank-sum test ([Macosko et al. 2015](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4481139/)). DEGs in the positive direction (Log2 fold-change > 0.00) are then tested for enrichment across user-defined gene set libraries that define cell types using the EnrichR tool ([Chen et al. 2013](https://bmcbioinformatics.biomedcentral.com/articles/10.1186/1471-2105-14-128)). <br />
+ _**Tool 1: Cluster marker gene identification and gene set enrichment analysis (GSEA)**_ <br />
+ Seurat's FindAllMarkers function is used to identify differentially expressed marker genes (DEG) by the Wilcoxon rank-sum test ([Macosko et al. 2015](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4481139/)). DEGs in the positive direction (Log2 fold-change > 0.00) are then tested for enrichment across user-defined gene set libraries that define cell types using the EnrichR tool ([Chen et al. 2013](https://bmcbioinformatics.biomedcentral.com/articles/10.1186/1471-2105-14-128)). <br />
 
-_**Tool 2: Expression profiling of cell type markers and module scores**_ <br />
-Users can visualize the expression of individual genes and the aggregated expression of multiple genes. For each gene in a user-defined list, plots are produced to visualize its expression at the cluster or cell level. The aggregated expression of genes in a user-defined list are calculated using the Seurat AddModuleScore function ([Tirosh et al. 2016](https://pubmed.ncbi.nlm.nih.gov/27124452/)). <br /> 
-
-_**Tool 3: Cell type predictions based on reference data**_ <br />
-Seurat's FindTransferAnchors and TransferData functions are used to leverage cell-type annotations from a reference Seurat object and generate annotation predictions for the query dataset ([Macosko et al. 2015](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4481139/)). <br />
+ _**Tool 2: Expression profiling of cell type markers and module scores**_ <br />
+ Users can visualize the expression of individual genes and the aggregated expression of multiple genes. For each gene in a user-defined list, plots are produced to visualize its expression at the cluster or cell level. The aggregated expression of genes in a user-defined list are calculated using the Seurat AddModuleScore function ([Tirosh et al. 2016](https://pubmed.ncbi.nlm.nih.gov/27124452/)). <br /> 
+ 
+ _**Tool 3: Cell type predictions based on reference data**_ <br />
+ Seurat's FindTransferAnchors and TransferData functions are used to leverage cell-type annotations from a reference Seurat object and generate annotation predictions for the query dataset ([Macosko et al. 2015](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4481139/)). <br />
 
 
 

@@ -179,9 +179,10 @@ bash $SCRNABOX_HOME/launch_scrnabox.sh \
 For a comprehensive decription of how to run each step please visit scRNAbox's [documentation](https://neurobioinfo.github.io/scrnabox/site/).
 
  - - - -
- 
-## Tutorial
+## Tutorial ##
+
 For a tutorial that leverages the datasets used as the application cases in our pre-print manuscript, please see [scRNAbox analysis of the midbrain dataset](https://neurobioinfo.github.io/scrnabox/site/Dataset1/). 
+
 ---
 #### Contributing
 This is an early version of scRNAbox and any contributions or suggestions are appreciated. To do so, you can directly contact the developers:  [Saeid Amiri](https://github.com/saeidamiri1), [Michael Fiorini](https://github.com/fiorini9), or [Rhalena Thomas](https://github.com/RhalenaThomas). 

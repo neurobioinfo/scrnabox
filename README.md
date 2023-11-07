@@ -8,6 +8,7 @@
 - [Introduction](#introduction)
 - [Installation](#installation)
 - [Pipeline steps](#pipeline-steps)
+- [Running scRNAbox](#running-scrnabox)
 - [Tutorial](#tutorial)
 
 ---

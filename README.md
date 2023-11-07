@@ -103,7 +103,7 @@ mkdir -p $R_PATH
 # Install package
 Rscript ./scrnabox.slurm/soft/R/install_packages_scrnabox.R $R_PATH
 ```
-Alternatively, users can install the packages manually. The packages required for each step of the scRNAbox are described at `./scrnabox.slurm/soft/R/R.library_hto.ini`
+Alternatively, users can install the packages manually. The packages required for each step of the scRNAbox pipeline are described at `./scrnabox.slurm/soft/R/R.library_hto.ini`
  - - - -
 
 ## scRNAbox analysis workflow

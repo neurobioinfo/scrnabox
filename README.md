@@ -1,4 +1,4 @@
-# scRNAbox: a comprehensive single-cell RNA sequencing pipeline designed for high-performance computing systems  
+# ScRNAbox: Empowering Single-Cell RNA Sequencing on High Performance Computing Systems  
 
 
 [![](https://img.shields.io/badge/Documentation-scrnabox-blue)](https://neurobioinfo.github.io/scrnabox/site/) 
@@ -6,7 +6,7 @@
 -------------
 
 
-Welcome to scRNAbox's repository, a single-cell RNA sequencing (scRNAseq) pipeline specifically designed for analyzing data under a High-Performance Computing (HPC) systems using the [Slurm Workload Manager](https://slurm.schedmd.com/). The pipeline has been extensively utilized on the Digital Research Alliance of Canada's  [Beluga](https://docs.alliancecan.ca/wiki/B%C3%A9luga) cluster. ScRNAbox provides two distinct, yet high comparable Analysis Tracks: 
+Welcome to the scRNAbox repository. ScRNAbox is a single-cell RNA sequencing (scRNAseq) pipeline specifically designed for analyzing data under a high-performance computing (HPC) systems using the [Slurm Workload Manager](https://slurm.schedmd.com/). The pipeline has been extensively utilized on the Digital Research Alliance of Canada's  [Beluga](https://docs.alliancecan.ca/wiki/B%C3%A9luga) cluster. ScRNAbox provides two distinct, yet high comparable Analysis Tracks: 
 1. [Standard scRNAseq](#standard-scRNA-seq)
 2. [Cell Hashtag scRNAseq](#Cell-Hashtag-scRNAseq)
 

@@ -110,9 +110,10 @@ Alternatively, users can install the packages manually. The packages required fo
 ## Pipeline steps
 The scRNAbox pipeline begins with 10X Genomics expression data from raw sequencing files and facilitates standard steps in scRNAseq processing through to differential gene expression between two different conditions. The pipeline is divided into 8 steps, which correspond to analytical tasks in the scRNAseq analysis workflow. Summaries of each analytical step are provided below.
 
-#### [Standard scRNAseq](https://github.com/neurobioinfo/scrnabox/tree/main/README_SCRNA.md)
+**Step 1: FASTQ pre-processing** <br />
+Feature-barcode expression matrices are generated from FASTQ files using the CellRanger _counts_ pipeline. <br />
 
-- **Step 1: FASTQ pre-processing** - Feature-barcode expression matrices are generated from FASTQ files using the CellRanger _counts_ pipeline.<br />
+
 - **Step 2.1: Ambient RNA removal** - The ambient RNA rate is estimated and the gene expression profiles are corrected for RNA contamination (optional) using SoupX (Young et al. 2020).<br />
 - **Step 2.2: Create Seurat object** - CellRanger- or SoupX-generated feature-barcode expression matrices are transformed into Seurat objects. Genes expressed in less than a minimum number of cells and cells expressing less than a minimum number of genes can be filtered.<br />
 - **Step 3: Quality control and filtering** - Low quality cells are filtered based on the user-defined thresholds for the number of genes detected per cell,	number of unique transcripts detected per cell, percentage of mitochondrial-encoded transcripts, and percentage of ribosomal-encoded transcripts. In addition, mitochondrial- and ribosomal-encoded genes can be filtered out.<br />

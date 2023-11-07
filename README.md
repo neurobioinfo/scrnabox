@@ -28,14 +28,83 @@ For a comprehenseive description of each step, please see the **Pipeline** secti
 For a tutorial that leverages the datasets used as the application cases in our pre-print manuscript, please see [scRNAbox analysis of the midbrain dataset](https://neurobioinfo.github.io/scrnabox/site/Dataset1/). 
 
 ## Contents
-- [scRNAbox analysis workflow](#scRNAbox-analysis-workflow)
-  - [Standard scRNAseq](#standard-scRNAseq)
-  - [Cell Hashtag scRNAseq](#Cell-Hashtag-scRNAseq)
-- [Installation](#Installation)
+- [Installation](#installation)
+- [Pipeline steps](#pipeline-steps)
 - [Tutorial](#tutorial)
 
 
 ---
+
+## Installation
+To use the scRNAbox pipeline, the folowing must be installed on your High-Performance Computing (HPC) system:
+
+- [scrnabox.slurm](#scrnaboxslurm-installation)
+- [CellRanger](#cellranger-installation)
+- [R and R packages](#r-library-preparation-and-r-package-installation)
+
+ - - - -
+
+### scrnabox.slurm installation
+
+`scrnabox.slurm` is written in bash and can be used with any Slurm system. To download the latest version of `scrnabox.slurm` (v0.1.35) run the following command: 
+```
+wget https://github.com/neurobioinfo/scrnabox/releases/download/v0.1.35/scrnabox.slurm.zip
+unzip scrnabox.slurm.zip
+```
+
+For a description of the options for running `scrnabox.slurm` run the following command:
+```
+bash /pathway/to/scrnabox.slurm/launch_scrnabox.sh -h 
+```
+
+If the `scrnabox.slurm` has been installed properly, the above command should return the folllowing:
+```
+        mandatory arguments:
+                -d  (--dir)  = Working directory (where all the outputs will be printed) (give full path)
+                --steps  =  Specify what steps, e.g., 2 to run just step 2, 2-4, run steps 2 through 4)
+
+        optional arguments:
+                -h  (--help)  = See helps regarding the pipeline arguments. 
+                --method  = Select your preferred method: HTO and SCRNA for hashtag, and Standard scRNA, respectively. 
+                --msd  = You can get the hashtag labels by running the following code 
+                --markergsea  = Identify marker genes for each cluster and run marker gene set enrichment analysis (GSEA) using EnrichR libraries. 
+                --knownmarkers  = Run module score and visualize the expression of known cell type marker genes. 
+                --referenceannotation  = Run module score and visualize the expression of known cell type marker genes. 
+                --annotate  = Run module score and visualize the expression of known cell type marker genes. 
+                --addmeta  = Add metadata columns to the Seurat object 
+                --rundge  = Perform differential gene expression contrasts 
+                --seulist  = You can directly call the list of seurat objects to the pipeline.  
+ 
+ ------------------- 
+ For a comprehensive help, visit https://github.com/neurobioinfo/scrnabox for documentation.
+```
+ - - - -
+
+### CellRanger installation
+
+For information regarding the installation of `CellRanger`, please visit the 10X Genomics [documentation](https://support.10xgenomics.com/single-cell-gene-expression/software/pipelines/latest/installation). If CellRanger is already installed on your HPC system, you may skip the CellRanger installation procedures.
+
+ - - - -
+
+### R library preparation and R package installation
+Users must first install `R` (v4.2 or later) onto their HPC system: 
+
+```
+# install R
+module load r/4.2.1
+```
+Then, users must run the following installation code, which will create a directory where the R packages will be loaded and will install the required R packages:
+
+```
+# Folder for R packages 
+R_PATH=~/path/to/R/library
+mkdir -p $R_PATH
+
+# Install package
+Rscript ./scrnabox.slurm/soft/R/install_packages_scrnabox.R $R_PATH
+```
+Alternatively, users can install the packages manually. The packages required for each step of the scRNAbox are described at `./scrnabox.slurm/soft/R/R.library_hto.ini`
+ - - - -
 
 ## scRNAbox analysis workflow
 The following figure illustrates the Anlytical Steps comprising each Analysis Track – Standard scRNAseq and Cell Hashtag scRNAseq – of the the scRNAbox pipeline. Prior to running each Analytical Step, users can adjust the execution parameters in the Step-specific parameters text file, which is automatically downloaded upon [Installation](#Installation). Following each Analytical Step, intermediate Seurat objects are generated and, where applicable, results are reported as intuitive summary files, tables, or figures, deposited directly into the working directory. 
@@ -85,31 +154,7 @@ Steps 1-8 are performed using [scrnabox.slurm](https://github.com/neurobioinfo/s
 For a comprehensive decription of each Analytical Step please visit scRNAbox's [documentation](https://neurobioinfo.github.io/scrnabox/site/).
 
 
-## Installation
-`scrnabox.slurm` is written in bash and can be used with any Slurm system. To download the latest version of `scrnabox.slurm` (v0.1.35) run the following command: 
-```
-wget https://github.com/neurobioinfo/scrnabox/releases/download/v0.1.35/scrnabox.slurm.zip
-unzip scrnabox.slurm.zip
-```
 
-For a description of the options for running `scrnabox.slurm` run the following command:
-```
-bash ./scrnabox.slurm/launch_scrnabox.sh -h 
-```
-
-`scrnabox.slurm` requires that `R` and `cellranger` are also installed on the HPC system. In addition, the following R packages must be loaded: `'Seurat','ggplot2', 'dplyr', 'foreach', 'doParallel', 'Matrix', 'DoubletFinder','cowplot','clustree'`. Then, install the `'scrnaboxR'` R package by running the following command: 
-```
-devtools::install_github("neurobioinfo/scrnabox/scrnaboxR")
-```
-`'scrnaboxR'` provides a collection of functions for conducting enrichment analysis and other analyses associated with scRNAseq data. It serves as a companion to scRNAbox, offering a range of tools and functionalities to enhance scRNAseq data analysis. 
-
-Please note that all R packages must be loaded into a common R library. For further instructions regarding the preparation of an R library please visit scRNAbox's [documentation](https://neurobioinfo.github.io/scrnabox/site/). Users must then define the location of their R library (`R_LIB_PATH=`), their version of R (`R_VERSION=`), and the location of CellRanger (`MODULECELLRANGER=`) in the `scrnabox_config.ini` file which is deposited into the working directory upon running the pipeline initation Step:
-```
-bash ./scrnabox.slurm/launch_scrnabox.sh \
--d ./working_directory \
---steps 0 \
---method SCRNA
-```
 
 ## Tutorial
 Comprehensive instructions for running both Analytical Tracks of the scRNAbox pipeline are provided [here](https://neurobioinfo.github.io/scrnabox/site/).

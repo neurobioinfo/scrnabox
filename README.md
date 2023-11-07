@@ -4,8 +4,15 @@
 [![](https://img.shields.io/badge/Documentation-scrnabox-blue)](https://neurobioinfo.github.io/scrnabox/site/) 
 
 -------------
+## Contents
+- [Introduction](#introduction)
+- [Installation](#installation)
+- [Pipeline steps](#pipeline-steps)
+- [Tutorial](#tutorial)
 
+---
 
+## Introduction
 ScRNAbox is a single-cell RNA sequencing (scRNAseq) pipeline specifically designed for analyzing data under a High-Performance Computing (HPC) systems using the [Slurm Workload Manager](https://slurm.schedmd.com/). The scRNAbox pipeline incorporates eight analytical steps into a comprehensive scRNAseq analysis that provides the foundation for further investigations. The eight analytical steps are outlined below. 
 
  <p align="center">
@@ -26,12 +33,6 @@ The **standard analysis track** is designed for experiments where each sample is
 For a comprehenseive description of each step, please see the **Pipeline** section of the [scRNAbox documentation](https://neurobioinfo.github.io/scrnabox/site/) or see our [pre-print manuscript](). <br/>
 
 For a tutorial that leverages the datasets used as the application cases in our pre-print manuscript, please see [scRNAbox analysis of the midbrain dataset](https://neurobioinfo.github.io/scrnabox/site/Dataset1/). 
-
-## Contents
-- [Installation](#installation)
-- [Pipeline steps](#pipeline-steps)
-- [Tutorial](#tutorial)
-
 
 ---
 

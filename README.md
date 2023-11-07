@@ -110,14 +110,19 @@ Alternatively, users can install the packages manually. The packages required fo
 ## Pipeline steps
 The scRNAbox pipeline begins with 10X Genomics expression data from raw sequencing files and facilitates standard steps in scRNAseq processing through to differential gene expression between two different conditions. The pipeline is divided into 8 steps, which correspond to analytical tasks in the scRNAseq analysis workflow. Summaries of each analytical step are provided below.
 
-**Step 1: FASTQ pre-processing** <br />
-Feature-barcode expression matrices are generated from FASTQ files using the CellRanger _counts_ pipeline. <br />
+**Step 1: FASTQ to gene expression matrix** <br />
+In Step 1, gene expression matrices are generated from FASTQ files using the CellRanger counts pipeline. <br />
+
+**Step 2: Create Seurat object and remove ambient RNA** <br />
+In Step 2, the CellRanger outputs generated in Step 1 (expression matrix, features, and barcodes) are used to create a Seurat object for each sample. The ambient RNA quantity is estimated and there is an option to correct gene expression profiles for RNA contamination using SoupX ([Young et al. 2020](https://academic.oup.com/gigascience/article/9/12/giaa151/6049831). Then, CellRanger (if not removing ambient RNA) or SoupX (if removing ambient RNA) feature-barcode expression matrices are transformed into Seurat objects. Quality control measures are then computed to inform filtering in Step 3.<br />
+
+**Step 3: Quality control and filtering** <br />
+In Step 3, low quality cells are filtered based on the user-defined thresholds for: (i)the number of RNA unique transcripts (genes), (ii) the total number of RNA transcripts, (iii) the percentage of mitochondrial-encoded transcripts, and (iv) the percentage of ribosome gene transcripts. In addition, users can remove or regress a custom gene list from the dataset. <br />
+
+**Step 4: Step 4: Doublet removal (standard track)** <br />
+In Step 4 of the standard analysis track, doublets (barcodes produced by sequencing two or more cells) are identified and optionally removed from downstream analysis using the DoubletFinder tool ([McGinnis et al. 2019](https://www.cell.com/cell-systems/pdfExtended/S2405-4712(19)30073-0)).<br />
 
 
-- **Step 2.1: Ambient RNA removal** - The ambient RNA rate is estimated and the gene expression profiles are corrected for RNA contamination (optional) using SoupX (Young et al. 2020).<br />
-- **Step 2.2: Create Seurat object** - CellRanger- or SoupX-generated feature-barcode expression matrices are transformed into Seurat objects. Genes expressed in less than a minimum number of cells and cells expressing less than a minimum number of genes can be filtered.<br />
-- **Step 3: Quality control and filtering** - Low quality cells are filtered based on the user-defined thresholds for the number of genes detected per cell,	number of unique transcripts detected per cell, percentage of mitochondrial-encoded transcripts, and percentage of ribosomal-encoded transcripts. In addition, mitochondrial- and ribosomal-encoded genes can be filtered out.<br />
-- **Step 4: Doublet removal** - Doublets are identified and removed from downstream analysis (optional) using the DoubletFinder tool (McGinnis et al. 2019).<br />
 - **Step 5: Integration and linear dimensional reduction** - Individual Seurat objects are integrated to enable the joint analysis across sequencing runs using Seurat's integration algorithm (Stuart et al. 2019); if experiments are limited to a single sequencing run, the integration Step can be bypassed. Linear dimensional reduction is then performed on the resulting Seurat object to inform the optimal parameters for clustering in Step 6.<br />
 - **Step 6: Clustering** - Clustering is performed to define groups of cells with similar expression profiles using the graph-based clustering approach implemented in the Seurat framework (Macosko et al. 2015).<br />
 - **Step 7: Cluster annotation** - Cell populations, or clusters, with similar expression profiles are annotated to define cell types by three distinct methods:<br />

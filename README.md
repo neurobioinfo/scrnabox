@@ -107,12 +107,8 @@ Rscript ./scrnabox.slurm/soft/R/install_packages_scrnabox.R $R_PATH
 Alternatively, users can install the packages manually. The packages required for each step of the scRNAbox pipeline are described at `./scrnabox.slurm/soft/R/R.library_hto.ini`
  - - - -
 
-## scRNAbox analysis workflow
-The following figure illustrates the Anlytical Steps comprising each Analysis Track – Standard scRNAseq and Cell Hashtag scRNAseq – of the the scRNAbox pipeline. Prior to running each Analytical Step, users can adjust the execution parameters in the Step-specific parameters text file, which is automatically downloaded upon [Installation](#Installation). Following each Analytical Step, intermediate Seurat objects are generated and, where applicable, results are reported as intuitive summary files, tables, or figures, deposited directly into the working directory. 
-
-<img src="https://github.com/neurobioinfo/scrnabox/assets/110110777/3729254c-0ca1-4866-aa27-1bda6129e7ca" height="800">
-
-Summaries of each Analytical Step comprising the [Standard scRNAseq](#standard-scRNAseq) and [Cell Hashtag scRNAseq](#Cell-Hashtag-scRNAseq) Analysis Tracks are provided below.
+## Pipeline steps
+The scRNAbox pipeline begins with 10X Genomics expression data from raw sequencing files and facilitates standard steps in scRNAseq processing through to differential gene expression between two different conditions. The pipeline is divided into 8 steps, which correspond to analytical tasks in the scRNAseq analysis workflow. Summaries of each analytical step are provided below.
 
 #### [Standard scRNAseq](https://github.com/neurobioinfo/scrnabox/tree/main/README_SCRNA.md)
 

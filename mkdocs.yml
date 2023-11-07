@@ -25,7 +25,6 @@ nav:
         - 'Manual CellRanger library preparation' : library_prep.md     
     - About:
         - 'License': 'LICENSE.md'
-        - 'Changelog': 'changelog.md'
         - 'Contributing': contributing.md
         - 'Acknowledgement': Acknowledgement.md
 theme: readthedocs

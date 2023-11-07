@@ -7,8 +7,8 @@
 ## Figure 2B-D
 ##########################################################################################
 ## load parameters
-output_dir = "/home/fiorini9/scratch/scrna_pipeline/manuscript4/smaj"
-r_lib_path = "/lustre03/project/6070393/COMMON/Dark_Genome/R/x86_64-pc-linux-gnu-library/4.2"
+output_dir = "/path/to/output/directory"
+r_lib_path = "/path/to/R/library"
 
 ## load library
 .libPaths(r_lib_path)
@@ -19,7 +19,7 @@ lapply(packages, library, character.only = TRUE)
 source(paste(output_dir,'/job_info/parameters/step2_par.txt',sep=""))
            
 ### import Seurat  object 
-seu<-readRDS('/lustre03/project/6070393/COMMON/Dark_Genome/Saeid_test_temp3/smajic3/step2/objs2/Control1.rds')
+seu<-readRDS('/path/to/step2/objs2/Control1.rds')
 
 ## PCA cell cycle score
 seu <- RunPCA(seu, features = c(cc.genes$g2m.genes, cc.genes$s.genes),raster = FALSE)

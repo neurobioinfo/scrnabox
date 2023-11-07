@@ -173,8 +173,7 @@ cd /pathway/to/working_directory
 
 bash $SCRNABOX_HOME/launch_scrnabox.sh \
 -d ${SCRNABOX_PWD} \
---steps 0 \
---method SCRNA
+--steps 1 
 ```
 
 For a comprehensive decription of how to run each step please visit scRNAbox's [documentation](https://neurobioinfo.github.io/scrnabox/site/).

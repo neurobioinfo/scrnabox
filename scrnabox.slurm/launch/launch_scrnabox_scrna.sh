@@ -46,28 +46,33 @@ if [[ $QUEUE =~ sbatch ]] && [[  ${MODE0[@]}  =~  1  ]]; then
   if [ -f $OUTPUT_DIR/job_info/.tmp/step1_par.txt ]; then
     rm $OUTPUT_DIR/job_info/.tmp/step1_par.txt
   fi
-  grep "par_ref_dir_grch=" $OUTPUT_DIR/job_info/parameters/step1_par.txt | sed 's/\"//g' | sed "s/\'//g" | sed "s/[[:blank:]]//g" > $OUTPUT_DIR/job_info/.tmp/step1_par.txt
-  grep "par_r1_length=" $OUTPUT_DIR/job_info/parameters/step1_par.txt | sed "s/[[:blank:]]//g" >> $OUTPUT_DIR/job_info/.tmp/step1_par.txt
-  grep "par_mempercode="  $OUTPUT_DIR/job_info/parameters/step1_par.txt | sed "s/[[:blank:]]//g" >> $OUTPUT_DIR/job_info/.tmp/step1_par.txt
-  grep "par_include_introns="  $OUTPUT_DIR/job_info/parameters/step1_par.txt | sed 's/\"//g' | sed "s/\'//g" | sed "s/[[:blank:]]//g" | sed 's/[A-Z]/\L&/g' >> $OUTPUT_DIR/job_info/.tmp/step1_par.txt
+  
+  grep "par_ref_dir=" $OUTPUT_DIR/job_info/parameters/step1_par.txt | sed 's/\"//g' | sed "s/'//g" | sed "s/[[:blank:]]//g" > $OUTPUT_DIR/job_info/.tmp/step1_par.txt
+  arr=(par_include_introns par_mempercode par_r1_length par_r2_length par_no_target_umi_filter par_expect_cells par_force_cells par_no_bam par_no_libraries) 
+  for item in ${arr[@]}; do
+      grep ${item}=  $OUTPUT_DIR/job_info/parameters/step1_par.txt | sed 's/\"//g' | sed "s/'//g" | sed "s/[[:blank:]]//g" | sed 's/[A-Z]/\L&/g' >> $OUTPUT_DIR/job_info/.tmp/step1_par.txt
+  done
+
   search_dir=${OUTPUT_DIR}/step1
   for entry in "$search_dir"/*
   do
     echo "$entry" >> ${OUTPUT_DIR}/job_info/.tmp/sample_dir.list
     echo $(basename  "$entry") >> ${OUTPUT_DIR}/job_info/.tmp/sample.list
   done
+  
+  source $OUTPUT_DIR/job_info/.tmp/step1_par.txt
+  bash ${PIPELINE_HOME}/scrna/scripts/step1/create_cellranger_scrna.sh $OUTPUT_DIR/job_info/.tmp/ scrna_cellranger.slurm.sh $OUTPUT_DIR/job_info/.tmp/step1_par.txt
 
   while read item
   do
     cp ${PIPELINE_HOME}/scrna/scripts/step1/slurm.template $item
     sed -i $item/slurm.template -e 's/account0/'$ACCOUNT'/'
-    # cp ${PIPELINE_HOME}/scripts/step1/launch_cellranger.hashtagged.slurm.sh $item
-    cp ${PIPELINE_HOME}/scrna/scripts/step1/launch_cellranger.slurm.sh $item
+    cp $OUTPUT_DIR/job_info/.tmp/scrna_cellranger.slurm.sh $item
   done < ${OUTPUT_DIR}/job_info/.tmp/sample_dir.list
 
   while read item
   do
-      cd ${item}; bash  ${item}/launch_cellranger.slurm.sh -r ouput_folder &
+      cd ${item}; bash  ${item}/scrna_cellranger.slurm.sh -r ouput_folder &
   done < ${OUTPUT_DIR}/job_info/.tmp/sample_dir.list
 
   wait

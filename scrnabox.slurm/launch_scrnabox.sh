@@ -4,9 +4,9 @@
 # Copyright belong MNI BIOINFO CORE (https://github.com/neurobioinfo)
 # The pipeline is written by Saeid Amiri (saeid.amiri@mcgill.ca)
 
-VERSION=0.1.5;
-DATE0=2023-11-01
-echo -e "scrnabox pipeline version $VERSION, dev"
+VERSION=0.1.51;
+DATE0=2023-11-07
+echo -e "scrnabox pipeline version $VERSION"
 # updated on $DATE0"
 
 # ===============================================
@@ -27,8 +27,8 @@ if [[ $submit_cmd =~ sbatch ]]; then
 elif [[ $submit_cmd =~ bash ]]; then
     QUEUE="bash"
 else
-    echo "The pipeline is testing under slurm system and ubuntu,"
-    echo "please choose sbatch for slurm, or bash for ubuntu"   
+    echo "The pipeline is testing under slurm system,"
+    echo "please choose sbatch for slurm."   
     exit 42
 fi
 
@@ -103,7 +103,7 @@ if [[ -n $ACCOUNT ]]; then ACCOUNT="-A $ACCOUNT"; fi
 # MODULEUSE=/cvmfs/soft.mugqic/CentOS6/modulefiles
 # MODULELOAD=mugqic/cellranger/5.0.1
 if [[ $MODULEUSE ]]; then module use $MODULEUSE ; fi
-if [[ $MODULECELLRANGER ]]; then module load $MODULECELLRANGER ; fi
+if [[ ${CELLRANGER} ]]; then module load ${CELLRANGER}/${CELLRANGER_VERSION} ; fi
 
 # ===============================================
 # LOAD ALL OTHER OPTIONS
@@ -257,8 +257,9 @@ export JOB_OUTPUT_DIR=$OUTPUT_DIR/job_info
 export EXPECTED_DONE_FILES=$JOB_OUTPUT_DIR/summary_report.txt
 # export STEP8_CON=$PIPELINE_HOME/configs/step8_contrast.txt
 chmod 775 $EXPECTED_DONE_FILES    
-export MODULEUSE=$MODULEUSE
-export MODULECELLRANGER=$MODULECELLRANGER
+# export MODULEUSE=$MODULEUSE
+if [[ $MODULEUSE ]]; then export MODULEUSE=$MODULEUSE ; fi
+export CELLRANGER=${CELLRANGER}
 export ACCOUNT=$ACCOUNT
 export OUTPUT_DIR=$OUTPUT_DIR
 
@@ -288,7 +289,15 @@ echo EXPECTED_DONE_FILES=$EXPECTED_DONE_FILES   >> $TEMPCONFIG
 echo MODE=$MODE >> $TEMPCONFIG
 echo QUEUE=$QUEUE >> $TEMPCONFIG
 echo VERSION=$VERSION >> $TEMPCONFIG
-
+if [[ $MODULEUSE ]]; then 
+    echo MODULEUSE=$MODULEUSE >> $TEMPCONFIG
+fi
+if [[ $MODULEUSE ]]; then 
+    echo CELLRANGER=$CELLRANGER >> $TEMPCONFIG
+fi
+if [[ $MODULEUSE ]]; then 
+    echo CELLRANGER_VERSION=${CELLRANGER_VERSION} >> $TEMPCONFIG
+fi
 
 
 if  [[  ${MODE0[@]}  =~  integrate  ]]  ; then

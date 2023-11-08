@@ -1,2 +1,0 @@
-ContrastName CellType MainContrast SampleID
-PDvControl clustering_markdown DiseaseStatus orig.ident

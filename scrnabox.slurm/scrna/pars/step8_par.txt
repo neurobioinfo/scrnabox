@@ -15,27 +15,29 @@ par_save_metadata= "yes"
 ############################################################################
 # Add metadata parameters
 ############################################################################
-## Define the column from the Seurat object that you want to use to merge the new metadata
+## Define the column from the Seurat object that you want to use to add the new metadata
 par_merge_meta= "Sample_ID"
 
 ## enter the location to a csv file describing new metadata that should be added to the Seurat object to facilitate DEG analysis. 
+## The rows should contain the data to add in the order of the levels of "Sample_ID" or the metadata slot you will use to define your samples. The colnumes should be the desired name of the metadata slot to add.
 par_metadata= "path/to/metadata.csv"
 
 
 ############################################################################
 # Run DGE parameters
 # Choose which differential gene expression (DGE) methods you want to use for this submission
+# Be sure adjust the appropriate txt design files.
 ############################################################################
-## Perform Wilcoxon DGE with all cells
+## Perform cell-base DGE with all cells
 par_run_cell_based_all_cells= "yes"
 
-## Perform Wilcoxon DGE with cell type groups
+## Perform cell-based on each cell type group 
 par_run_cell_based_celltype_groups= "yes"
 
-## Perform Pseudo-Bulk DGE with all cells
+## Perform Sample-based DGE with all cells (pseudobulk)
 par_run_sample_based_all_cells= "yes"
 
-## Perform Pseudo-Bulk DGE with cell type groups
+## Perform Sample-based DGE on each cell type group (pseudobulk)
 par_run_sample_based_celltype_groups= "yes"
 
 

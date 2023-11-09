@@ -10,7 +10,7 @@ par_save_metadata= "yes"
 # Make sure that no other files/objects are present in the directory besides Seurat RDS objects. 
 # Uncomment the line to activate the parameter
 ############################################################################
-#par_seurat_object= "/path/to/directory/containing/seurat/object"
+#par_seurat_object= "/path/to/directory/containing/seurat/objects"
 
 
 ############################################################################
@@ -67,8 +67,8 @@ par_RunPCA_npcs= 30
 par_RunUMAP_dims= 25
 
 ## The number of neighbouring points used in local approximations of manifold structure.
-par_RunUMAP_n.neighbors= 65
+par_RunUMAP_n.neighbors= 45
 
 ## Whether or not to perform JackStraw computation. This computation takes a long time.
-par_compute_jackstraw= "yes"
+par_compute_jackstraw= "no"
 

@@ -17,6 +17,7 @@ par_save_metadata= "yes"
 # If you skipped integration in step 5, set the following to "yes". 
 # If you performed integration, keep the default as no.
 # This will keep the default assay as "RNA"
+# If you wish to cluster on with "RNA" and not the integrated data you can do so by setting this to "yes".
 ############################################################################
 par_skip_integration= "no"
 

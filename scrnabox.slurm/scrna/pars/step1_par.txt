@@ -1,7 +1,9 @@
-############################################################################
-# If you wan to automate the library preparation process,
+#############################################################################################
+# If you wan to automate the data structure and library file preparation process,
 # set par_automated_library_prep to "yes" and address the remaining parameters.
-############################################################################
+# If you want to manually make the data structure and library files 
+# change par_automated_library_prep to "no" and skip down to the remaining parameters.
+############################################################################################
 ## Do you want to perform automated library prep?
 par_automated_library_prep= "yes"
 
@@ -11,8 +13,10 @@ par_fastq_directory= "/path/to/fastqs/directory"
 ## list the sample names used in the FASTQ nomenclature
 par_sample_names= c("Sample1", "Sample2", "Sample3")
 
+
+##### @Michael these next two seem the same and are confusing - you just named the samples, why would you rename them?
 ## If you want to rename the samples, set par_rename_samples  to yes. 
-par_rename_samples= "yes"
+par_rename_samples= "yes"         
 
 ## If you want to renames the samples (i.e. par_rename_samples= "yes"), list the new sample names in the same order as the old labels are listed in  par_sample_names.
 par_new_sample_names= c("NewSample1", "NewSample2", "NewSample3")
@@ -21,9 +25,9 @@ par_new_sample_names= c("NewSample1", "NewSample2", "NewSample3")
 par_paired_end_seq= TRUE
 
 
-############################################################################
+###################################################################################
 # CellRanger counts pipeline parameters.
-############################################################################
+##################################################################################
 ## path to reference genome
 par_ref_dir='/path/to/CellRanger/reference/genome'
 

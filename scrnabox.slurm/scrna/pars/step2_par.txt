@@ -16,8 +16,7 @@ par_ambient_RNA= "yes"
 # Filtering parameters
 ############################################################################
 ## Only retain genes that are present in at least a specified number of cells.
-par_min.cells_L= 1
-
+par_min.cells_L= 3
 
 ############################################################################
 # Normalization and scaling parameters for individual Seurat object

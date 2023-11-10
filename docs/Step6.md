@@ -5,14 +5,15 @@ The following parameters are adjustable for Step 6 (`~/working_directory/job_inf
 
 |Parameter|Default|Description|
 |:--|:--|:--|
-|par_save_RNA| No| Whether or not to export an RNA expression matrix|
-|par_save_metadata| No|Whether or not to export a metadata dataframe|
+|par_save_RNA| Yes| Whether or not to export an RNA expression matrix|
+|par_save_metadata| Yes|Whether or not to export a metadata dataframe|
 |par_seurat_object| NULL |If users already have a Seurat object, they may provide the path to the Seurat object to initiate the pipeline at Step 6|
 |par_skip_integration|No|Whether or not the user skipped integration in Step 5| 
-|par_FindNeighbors_dims|30| Number of dimensions from linear dimensional reduction used as input to identify neighbours. Can be informed by the elbow and Jackstraw plots produced in Step 5|
-|par_FindNeighbors_k.param|60|Defines k for the k-nearest neighbor algorithm|
+|par_FindNeighbors_dims|25| Number of dimensions from linear dimensional reduction used as input to identify neighbours. Can be informed by the elbow and Jackstraw plots produced in Step 5|
+|par_RunUMAP_dims|25| Number of dimensions to use as input features for uniform manifold approximation and projection (UMAP)|
+|par_FindNeighbors_k.param|45|Defines k for the k-nearest neighbor algorithm|
 |par_FindNeighbors_prune.SNN|1/15|Sets the cutoff for acceptable Jaccard index when computing the neighborhood overlap for the shared nearest-neighbour (SNN) construction
-|par_FindClusters_resolution|0, 0.05, 0.2, 0.6, 0.8, 1.0, 1.2, 1.4, 1.6, 1.8, 2.0|Value of the clustering resolution parameter. You may provide multiple resolution values|
+|par_FindClusters_resolution|0, 0.05, 0.25, 0.5, 0.75, 1.0, 1.25, 1.5, 2.0|Value of the clustering resolution parameter. You may provide multiple resolution values|
 |par_compute_ARI|Yes| Whether or not you want to compute the Adjusted Rand Index (ARI) between clusters at a given clustering resolution|
 |par_RI_reps|25|Number of iterations for clustering the data at a given resolution in order to calculate the ARI|
  

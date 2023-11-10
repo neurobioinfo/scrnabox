@@ -12,8 +12,8 @@ The following parameters are adjustable for Step 8:
 
 |DGE method|Parameter|Default|Description|
 |:--|:--|:--|:--|
-|**General**|par_save_RNA| No| Whether or not to export an RNA expression matrix|
-|**General**|par_save_metadata| No|Whether or not to export a metadata dataframe|
+|**General**|par_save_RNA| Yes| Whether or not to export an RNA expression matrix|
+|**General**|par_save_metadata| Yes|Whether or not to export a metadata dataframe|
 |**General**|par_seurat_object| NULL |If users already have a Seurat object, they may provide the path to the Seurat object to initiate the pipeline at Step 7|
 |**Add metadata**|par_merge_meta|orig.ident|The column from the Seurat metdata that will be used to merge the new metadata. This column must also exist in the submitted csv file contaning new metadata.|
 |**Add metadata**|par_metadata|NULL|csv file containing metadata to be added to the Seurat object|

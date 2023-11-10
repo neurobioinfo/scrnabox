@@ -8,8 +8,8 @@ The following parameters are adjustable for Step 5 (`~/working_directory/job_inf
 
 |Parameter|Default|Description|
 |:--|:--|:--|
-|par_save_RNA| No| Whether or not to export an RNA expression matrix|
-|par_save_metadata| No|Whether or not to export a metadata dataframe|
+|par_save_RNA| Yes| Whether or not to export an RNA expression matrix|
+|par_save_metadata| Yes|Whether or not to export a metadata dataframe|
 |par_seurat_object| NULL |If users already have a Seurat object(s), they may provide the path to a directory that contains an existing Seurat object(s) to initiate the pipeline at Step 5|
 |par_one_seurat| No| Whether or not the experiment comprises of only one sequencing run. If this parameter is set to "Yes", set par_integrate_seurat and par_merge_seurat to "No".|
 |par_integrate_seurat| Yes| Whether or not to integrate the samples. If "Yes", par_merge_seurat must be "No". |
@@ -21,9 +21,10 @@ The following parameters are adjustable for Step 5 (`~/working_directory/job_inf
 |par_nfeatures|2500|Number of features to select as top variable features|
 |par_FindIntegrationAnchors_dim|25|Which dimensions to use from the canonical correlation analysis (CCA) to specify the neighbor search space|
 |par_RunPCA_npcs|30| Total Number of principal components to compute and store for principal component analysis (PCA)|
-|par_RunUMAP_dims|10| Number of dimensions to use as input features for uniform manifold approximation and projection (UMAP)|
-|par_RunUMAP_n.neighbors|65|Number of neighboring points used in local approximations of manifold structure|
+|par_RunUMAP_dims|25| Number of dimensions to use as input features for uniform manifold approximation and projection (UMAP)|
+|par_RunUMAP_n.neighbors|45|Number of neighboring points used in local approximations of manifold structure|
 |par_compute_jackstraw |No|Whether or not to perform JackStraw computation. This computation takes a long time.|
+
 
  - - - -
 

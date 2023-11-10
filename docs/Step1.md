@@ -51,8 +51,13 @@ The following parameters are adjustable for Step 1 of the **standard track** (`~
 |par_paired_end_seq|Yes| Whether or not paired-end sequencing was performed|
 |par_ref_dir_grch|NULL|Path to reference genome for FASTQ alignment. 10X Genomics reference genomes are available for download. For more information see the 10X Genomics [documentation](https://support.10xgenomics.com/single-cell-gene-expression/software/pipelines/latest/using/tutorial_ct).|
 |par_r1_length|NULL|Minimum number of bases to retain for R1 sequence of gene expression|
-|par_include_introns|No|Whether or not to include intronic reads in the gene expression matrix|
+|par_r2_length|NULL|Minimum number of bases to retain for R2 sequence of gene expression|
 |par_mempercode|30|For clusters whose job managers do not support memory requests, it is possible to request memory in the form of cores. This option will scale up the number of threads requested via the __MRO_THREADS__ variable according to how much memory a stage requires when given to the ratio of memory on your nodes.|
+|par_include_introns|No|Whether or not to include intronic reads in the gene expression matrix|
+|par_no_target_umi_filter|No| Whether or not to tirn of CellRanger's target UMI filtering subpipeline|
+|par_expect_cells|NULL| Expected number of cells. By default, CellRanger's auto-estimate algorithm will be used|
+|par_force_cells|NULL| Force the CellRanger count ipeline to use N cells.|
+|par_no_bam|No| Whether or not to skip the bam file generation in the CellRanger pipeline.|
 
 The following parameters are adjustable for Step 1 of the **HTO track** (`~/working_directory/job_info/parameters/step1_par.txt`):
 
@@ -69,10 +74,15 @@ The following parameters are adjustable for Step 1 of the **HTO track** (`~/work
 |read|R2|Which RNA sequencing read contains the barcode sequence. This value Will be either R1 or R2.|
 |pattern|NULL|The pattern of the barcode identifiers|
 |sequence|NULL|The nucleotide sequence associated with the barcode identifier|
-|par_ref_dir_grch|NULL|Path to reference genome for FASTQ alignment. 10X Genomics reference genomes are available for download. For more information see their [documentation](https://support.10xgenomics.com/single-cell-gene-expression/software/pipelines/latest/using/tutorial_ct).|
+|par_ref_dir_grch|NULL|Path to reference genome for FASTQ alignment. 10X Genomics reference genomes are available for download. For more information see the 10X Genomics [documentation](https://support.10xgenomics.com/single-cell-gene-expression/software/pipelines/latest/using/tutorial_ct).|
 |par_r1_length|NULL|Minimum number of bases to retain for R1 sequence of gene expression|
-|par_include_introns|No|Whether or not to include intronic reads in the gene expression matrix|
+|par_r2_length|NULL|Minimum number of bases to retain for R2 sequence of gene expression|
 |par_mempercode|30|For clusters whose job managers do not support memory requests, it is possible to request memory in the form of cores. This option will scale up the number of threads requested via the __MRO_THREADS__ variable according to how much memory a stage requires when given to the ratio of memory on your nodes.|
+|par_include_introns|No|Whether or not to include intronic reads in the gene expression matrix|
+|par_no_target_umi_filter|No| Whether or not to tirn of CellRanger's target UMI filtering subpipeline|
+|par_expect_cells|NULL| Expected number of cells. By default, CellRanger's auto-estimate algorithm will be used|
+|par_force_cells|NULL| Force the CellRanger count ipeline to use N cells.|
+|par_no_bam|No| Whether or not to skip the bam file generation in the CellRanger pipeline.|
 
 Given that CellRanger runs a user interface, it is recommended to run Step 1 in a **'screen'** which will allow the the task to keep running if the connection is broken. To run Step 1, use the following command:
 ```

@@ -156,8 +156,11 @@ bash $SCRNABOX_HOME/launch_scrnabox.sh \
 <li>The <code>logs/</code> directory records the events of each analytical step; <br /></li>
 <li>The <code>parameters/</code> directory contains adjustable, step-specific text files which allow users to define the execution parameters for each analytical step. <br /></li>
 </ul>
-<p>Next, navigate to the <code>scrnabox_config.ini</code> file in <code>~/working_directory/job_info/configs</code> to define the path to the R library, the version of R, and the path to CellRanger:</p>
-<pre><code>MODULECELLRANGER=mugqic/cellranger/5.0.1
+<p>Next, navigate to the <code>scrnabox_config.ini</code> file in <code>~/working_directory/job_info/configs</code> to define the HPC account holder (<strong>ACCOUNT</strong>), the path to the environmental module (<strong>MODULEUSE</strong>), the path to CellRanger from the environmental module directory (<strong>CELLRANGER</strong>), CellRanger version (<strong>CELLRANGER_VERSION</strong>), R version (<strong>R_VERSION</strong>), and the path to the R library (<strong>R_LIB_PATH</strong>):</p>
+<pre><code>ACCOUNT=account-name
+MODULEUSE=/path/to/environmental/module (e.g. /cvmfs/soft.mugqic/CentOS6/modulefiles)
+CELLRANGER=/path/to/cellranger/from/module/directory (e.g. mugqic/cellranger)
+CELLRANGER_VERSION=5.0.1
 R_VERSION=4.2.1
 R_LIB_PATH=/path/to/R/library
 </code></pre>

@@ -226,14 +226,39 @@
 <td style="text-align: left;">Minimum number of bases to retain for R1 sequence of gene expression</td>
 </tr>
 <tr>
-<td style="text-align: left;">par_include_introns</td>
-<td style="text-align: left;">No</td>
-<td style="text-align: left;">Whether or not to include intronic reads in the gene expression matrix</td>
+<td style="text-align: left;">par_r2_length</td>
+<td style="text-align: left;">NULL</td>
+<td style="text-align: left;">Minimum number of bases to retain for R2 sequence of gene expression</td>
 </tr>
 <tr>
 <td style="text-align: left;">par_mempercode</td>
 <td style="text-align: left;">30</td>
 <td style="text-align: left;">For clusters whose job managers do not support memory requests, it is possible to request memory in the form of cores. This option will scale up the number of threads requested via the <strong>MRO_THREADS</strong> variable according to how much memory a stage requires when given to the ratio of memory on your nodes.</td>
+</tr>
+<tr>
+<td style="text-align: left;">par_include_introns</td>
+<td style="text-align: left;">No</td>
+<td style="text-align: left;">Whether or not to include intronic reads in the gene expression matrix</td>
+</tr>
+<tr>
+<td style="text-align: left;">par_no_target_umi_filter</td>
+<td style="text-align: left;">No</td>
+<td style="text-align: left;">Whether or not to tirn of CellRanger's target UMI filtering subpipeline</td>
+</tr>
+<tr>
+<td style="text-align: left;">par_expect_cells</td>
+<td style="text-align: left;">NULL</td>
+<td style="text-align: left;">Expected number of cells. By default, CellRanger's auto-estimate algorithm will be used</td>
+</tr>
+<tr>
+<td style="text-align: left;">par_force_cells</td>
+<td style="text-align: left;">NULL</td>
+<td style="text-align: left;">Force the CellRanger count ipeline to use N cells.</td>
+</tr>
+<tr>
+<td style="text-align: left;">par_no_bam</td>
+<td style="text-align: left;">No</td>
+<td style="text-align: left;">Whether or not to skip the bam file generation in the CellRanger pipeline.</td>
 </tr>
 </tbody>
 </table>
@@ -306,7 +331,7 @@
 <tr>
 <td style="text-align: left;">par_ref_dir_grch</td>
 <td style="text-align: left;">NULL</td>
-<td style="text-align: left;">Path to reference genome for FASTQ alignment. 10X Genomics reference genomes are available for download. For more information see their <a href="https://support.10xgenomics.com/single-cell-gene-expression/software/pipelines/latest/using/tutorial_ct">documentation</a>.</td>
+<td style="text-align: left;">Path to reference genome for FASTQ alignment. 10X Genomics reference genomes are available for download. For more information see the 10X Genomics <a href="https://support.10xgenomics.com/single-cell-gene-expression/software/pipelines/latest/using/tutorial_ct">documentation</a>.</td>
 </tr>
 <tr>
 <td style="text-align: left;">par_r1_length</td>
@@ -314,14 +339,39 @@
 <td style="text-align: left;">Minimum number of bases to retain for R1 sequence of gene expression</td>
 </tr>
 <tr>
-<td style="text-align: left;">par_include_introns</td>
-<td style="text-align: left;">No</td>
-<td style="text-align: left;">Whether or not to include intronic reads in the gene expression matrix</td>
+<td style="text-align: left;">par_r2_length</td>
+<td style="text-align: left;">NULL</td>
+<td style="text-align: left;">Minimum number of bases to retain for R2 sequence of gene expression</td>
 </tr>
 <tr>
 <td style="text-align: left;">par_mempercode</td>
 <td style="text-align: left;">30</td>
 <td style="text-align: left;">For clusters whose job managers do not support memory requests, it is possible to request memory in the form of cores. This option will scale up the number of threads requested via the <strong>MRO_THREADS</strong> variable according to how much memory a stage requires when given to the ratio of memory on your nodes.</td>
+</tr>
+<tr>
+<td style="text-align: left;">par_include_introns</td>
+<td style="text-align: left;">No</td>
+<td style="text-align: left;">Whether or not to include intronic reads in the gene expression matrix</td>
+</tr>
+<tr>
+<td style="text-align: left;">par_no_target_umi_filter</td>
+<td style="text-align: left;">No</td>
+<td style="text-align: left;">Whether or not to tirn of CellRanger's target UMI filtering subpipeline</td>
+</tr>
+<tr>
+<td style="text-align: left;">par_expect_cells</td>
+<td style="text-align: left;">NULL</td>
+<td style="text-align: left;">Expected number of cells. By default, CellRanger's auto-estimate algorithm will be used</td>
+</tr>
+<tr>
+<td style="text-align: left;">par_force_cells</td>
+<td style="text-align: left;">NULL</td>
+<td style="text-align: left;">Force the CellRanger count ipeline to use N cells.</td>
+</tr>
+<tr>
+<td style="text-align: left;">par_no_bam</td>
+<td style="text-align: left;">No</td>
+<td style="text-align: left;">Whether or not to skip the bam file generation in the CellRanger pipeline.</td>
 </tr>
 </tbody>
 </table>
@@ -338,12 +388,12 @@
 <tbody>
 <tr>
 <td style="text-align: left;">par_save_RNA</td>
-<td style="text-align: left;">No</td>
+<td style="text-align: left;">Yes</td>
 <td style="text-align: left;">Whether or not to export an RNA expression matrix</td>
 </tr>
 <tr>
 <td style="text-align: left;">par_save_metadata</td>
-<td style="text-align: left;">No</td>
+<td style="text-align: left;">Yes</td>
 <td style="text-align: left;">Whether or not to export a metadata dataframe</td>
 </tr>
 <tr>
@@ -352,13 +402,8 @@
 <td style="text-align: left;">Whether or not to correct the feature-barcode expression matrices for ambient RNA contamination</td>
 </tr>
 <tr>
-<td style="text-align: left;">par_count_matrices</td>
-<td style="text-align: left;">NULL</td>
-<td style="text-align: left;">If users skipped Step 1, they may provide the path to a directory that contains existing feature-barcode expression matrices to initiate the pipeline at Step 2</td>
-</tr>
-<tr>
 <td style="text-align: left;">par_min.cells_L</td>
-<td style="text-align: left;">0</td>
+<td style="text-align: left;">3</td>
 <td style="text-align: left;">Only retain genes expressed in a minimum number of cells</td>
 </tr>
 <tr>
@@ -396,12 +441,12 @@
 <tbody>
 <tr>
 <td style="text-align: left;">par_save_RNA</td>
-<td style="text-align: left;">No</td>
+<td style="text-align: left;">Yes</td>
 <td style="text-align: left;">Whether or not to export an RNA expression matrix</td>
 </tr>
 <tr>
 <td style="text-align: left;">par_save_metadata</td>
-<td style="text-align: left;">No</td>
+<td style="text-align: left;">Yes</td>
 <td style="text-align: left;">Whether or not to export a metadata dataframe</td>
 </tr>
 <tr>
@@ -411,42 +456,42 @@
 </tr>
 <tr>
 <td style="text-align: left;">par_nFeature_RNA_L</td>
-<td style="text-align: left;">NULL</td>
+<td style="text-align: left;">300</td>
 <td style="text-align: left;">Only retain cells expressing a minimum number of unique RNA transcripts</td>
 </tr>
 <tr>
 <td style="text-align: left;">par_nFeature_RNA_U</td>
-<td style="text-align: left;">NULL</td>
+<td style="text-align: left;">10000</td>
 <td style="text-align: left;">Only retain cells expressing a maximum number of unique RNA transcripts</td>
 </tr>
 <tr>
 <td style="text-align: left;">par_nCount_RNA_L</td>
-<td style="text-align: left;">NULL</td>
+<td style="text-align: left;">300</td>
 <td style="text-align: left;">Only retain cells with a minimum number of total RNA transcripts</td>
 </tr>
 <tr>
 <td style="text-align: left;">par_nCount_RNA_U</td>
-<td style="text-align: left;">NULL</td>
+<td style="text-align: left;">20000</td>
 <td style="text-align: left;">Only retain cells with a maximum number of total RNA transcripts</td>
 </tr>
 <tr>
 <td style="text-align: left;">par_mitochondria_percent_L</td>
-<td style="text-align: left;">NULL</td>
+<td style="text-align: left;">0</td>
 <td style="text-align: left;">Only retain cells with a minimum percentage of mitochondrial-encoded genes</td>
 </tr>
 <tr>
 <td style="text-align: left;">par_mitochondria_percent_U</td>
-<td style="text-align: left;">NULL</td>
+<td style="text-align: left;">20</td>
 <td style="text-align: left;">Only retain cells with a maximum percentage of mitochondrial-encoded genes</td>
 </tr>
 <tr>
 <td style="text-align: left;">par_ribosomal_percent_L</td>
-<td style="text-align: left;">NULL</td>
+<td style="text-align: left;">0</td>
 <td style="text-align: left;">Only retain cells with a minimum percentage of ribosome genes</td>
 </tr>
 <tr>
 <td style="text-align: left;">par_ribosomal_percent_U</td>
-<td style="text-align: left;">NULL</td>
+<td style="text-align: left;">100</td>
 <td style="text-align: left;">Only retain cells with a maximum percentage of ribosome genes</td>
 </tr>
 <tr>
@@ -524,12 +569,12 @@
 <tbody>
 <tr>
 <td style="text-align: left;">par_save_RNA</td>
-<td style="text-align: left;">No</td>
+<td style="text-align: left;">Yes</td>
 <td style="text-align: left;">Whether or not to export an RNA expression matrix</td>
 </tr>
 <tr>
 <td style="text-align: left;">par_save_metadata</td>
-<td style="text-align: left;">No</td>
+<td style="text-align: left;">Yes</td>
 <td style="text-align: left;">Whether or not to export a metadata dataframe</td>
 </tr>
 <tr>
@@ -539,12 +584,12 @@
 </tr>
 <tr>
 <td style="text-align: left;">par_RunUMAP_dims</td>
-<td style="text-align: left;">10</td>
+<td style="text-align: left;">25</td>
 <td style="text-align: left;">Number of dimensions to use as input features for uniform manifold approximation and projection (UMAP)</td>
 </tr>
 <tr>
 <td style="text-align: left;">par_RunUMAP_n.neighbors</td>
-<td style="text-align: left;">65</td>
+<td style="text-align: left;">45</td>
 <td style="text-align: left;">Number of neighboring points used in local approximations of manifold structure</td>
 </tr>
 <tr>
@@ -554,7 +599,7 @@
 </tr>
 <tr>
 <td style="text-align: left;">par_PCs</td>
-<td style="text-align: left;">20</td>
+<td style="text-align: left;">25</td>
 <td style="text-align: left;">The number of statistically significant principal components. Can be informed by elbow plot produced in Step 3</td>
 </tr>
 <tr>
@@ -592,12 +637,12 @@
 <tbody>
 <tr>
 <td style="text-align: left;">par_save_RNA</td>
-<td style="text-align: left;">No</td>
+<td style="text-align: left;">Yes</td>
 <td style="text-align: left;">Whether or not to export an RNA expression matrix</td>
 </tr>
 <tr>
 <td style="text-align: left;">par_save_metadata</td>
-<td style="text-align: left;">No</td>
+<td style="text-align: left;">Yes</td>
 <td style="text-align: left;">Whether or not to export a metadata dataframe</td>
 </tr>
 <tr>
@@ -700,12 +745,12 @@
 <tbody>
 <tr>
 <td style="text-align: left;">par_save_RNA</td>
-<td style="text-align: left;">No</td>
+<td style="text-align: left;">Yes</td>
 <td style="text-align: left;">Whether or not to export an RNA expression matrix</td>
 </tr>
 <tr>
 <td style="text-align: left;">par_save_metadata</td>
-<td style="text-align: left;">No</td>
+<td style="text-align: left;">Yes</td>
 <td style="text-align: left;">Whether or not to export a metadata dataframe</td>
 </tr>
 <tr>
@@ -765,12 +810,12 @@
 </tr>
 <tr>
 <td style="text-align: left;">par_RunUMAP_dims</td>
-<td style="text-align: left;">10</td>
+<td style="text-align: left;">25</td>
 <td style="text-align: left;">Number of dimensions to use as input features for uniform manifold approximation and projection (UMAP)</td>
 </tr>
 <tr>
 <td style="text-align: left;">par_RunUMAP_n.neighbors</td>
-<td style="text-align: left;">65</td>
+<td style="text-align: left;">45</td>
 <td style="text-align: left;">Number of neighboring points used in local approximations of manifold structure</td>
 </tr>
 <tr>
@@ -793,12 +838,12 @@
 <tbody>
 <tr>
 <td style="text-align: left;">par_save_RNA</td>
-<td style="text-align: left;">No</td>
+<td style="text-align: left;">Yes</td>
 <td style="text-align: left;">Whether or not to export an RNA expression matrix</td>
 </tr>
 <tr>
 <td style="text-align: left;">par_save_metadata</td>
-<td style="text-align: left;">No</td>
+<td style="text-align: left;">Yes</td>
 <td style="text-align: left;">Whether or not to export a metadata dataframe</td>
 </tr>
 <tr>
@@ -813,12 +858,17 @@
 </tr>
 <tr>
 <td style="text-align: left;">par_FindNeighbors_dims</td>
-<td style="text-align: left;">30</td>
+<td style="text-align: left;">25</td>
 <td style="text-align: left;">Number of dimensions from linear dimensional reduction used as input to identify neighbours. Can be informed by the elbow and Jackstraw plots produced in Step 5</td>
 </tr>
 <tr>
+<td style="text-align: left;">par_RunUMAP_dims</td>
+<td style="text-align: left;">25</td>
+<td style="text-align: left;">Number of dimensions to use as input features for uniform manifold approximation and projection (UMAP)</td>
+</tr>
+<tr>
 <td style="text-align: left;">par_FindNeighbors_k.param</td>
-<td style="text-align: left;">60</td>
+<td style="text-align: left;">45</td>
 <td style="text-align: left;">Defines k for the k-nearest neighbor algorithm</td>
 </tr>
 <tr>
@@ -828,7 +878,7 @@
 </tr>
 <tr>
 <td style="text-align: left;">par_FindClusters_resolution</td>
-<td style="text-align: left;">0, 0.05, 0.2, 0.6, 0.8, 1.0, 1.2, 1.4, 1.6, 1.8, 2.0</td>
+<td style="text-align: left;">0, 0.05, 0.25, 0.5, 0.75, 1.0, 1.25, 1.5, 2.0</td>
 <td style="text-align: left;">Value of the clustering resolution parameter. You may provide multiple resolution values</td>
 </tr>
 <tr>
@@ -858,13 +908,13 @@
 <tr>
 <td style="text-align: left;"><strong>General</strong></td>
 <td style="text-align: left;">par_save_RNA</td>
-<td style="text-align: left;">No</td>
+<td style="text-align: left;">Yes</td>
 <td style="text-align: left;">Whether or not to export an RNA expression matrix</td>
 </tr>
 <tr>
 <td style="text-align: left;"><strong>General</strong></td>
 <td style="text-align: left;">par_save_metadata</td>
-<td style="text-align: left;">No</td>
+<td style="text-align: left;">Yes</td>
 <td style="text-align: left;">Whether or not to export a metadata dataframe</td>
 </tr>
 <tr>
@@ -876,7 +926,7 @@
 <tr>
 <td style="text-align: left;"><strong>General</strong></td>
 <td style="text-align: left;">par_level_cluster</td>
-<td style="text-align: left;">integrated_snn_res.0.7</td>
+<td style="text-align: left;">integrated_snn_res.0.75</td>
 <td style="text-align: left;">The cluster resolution that you want to annotate. If you skipped integration in Step 5, use par_level_cluster='RNA_snn_res.0.7', if you want to proceed with a clustering resolution of 0.7.</td>
 </tr>
 <tr>
@@ -888,7 +938,7 @@
 <tr>
 <td style="text-align: left;"><strong>Tool 1</strong></td>
 <td style="text-align: left;">par_run_enrichR</td>
-<td style="text-align: left;">Yes</td>
+<td style="text-align: left;">No</td>
 <td style="text-align: left;">Whether or not to run gene set enrichment analysis (GSEA) on the marker genes for each cluster using the EnrichR tools. Note that the HPC must have access to the internet to run GSEA.</td>
 </tr>
 <tr>
@@ -954,25 +1004,25 @@
 <tr>
 <td style="text-align: left;"><strong>Tool 3</strong></td>
 <td style="text-align: left;">par_FindTransferAnchors_dim</td>
-<td style="text-align: left;">10</td>
+<td style="text-align: left;">50</td>
 <td style="text-align: left;">Number of dimensions from linear dimensional reduction used to find transfer anchors between the reference and query Seurat objects</td>
 </tr>
 <tr>
 <td style="text-align: left;"><strong>Tool 3</strong></td>
 <td style="text-align: left;">par_futureglobalsmaxSize</td>
-<td style="text-align: left;">50000 * 1024^2</td>
+<td style="text-align: left;">60000 * 1024^2</td>
 <td style="text-align: left;">This will increase your RAM usage so set this number mindfully</td>
 </tr>
 <tr>
 <td style="text-align: left;"><strong>Annotate</strong></td>
 <td style="text-align: left;">par_annotate_resolution</td>
-<td style="text-align: left;">NULL</td>
+<td style="text-align: left;">integrated_snn_res.0.75</td>
 <td style="text-align: left;">Which clustering resolution you want to annotate</td>
 </tr>
 <tr>
 <td style="text-align: left;"><strong>Annotate</strong></td>
 <td style="text-align: left;">par_name_metadata</td>
-<td style="text-align: left;">clustering_label_1</td>
+<td style="text-align: left;">Celltypes1</td>
 <td style="text-align: left;">The name of the metadata slot that will contain the annotations</td>
 </tr>
 <tr>
@@ -998,13 +1048,13 @@
 <tr>
 <td style="text-align: left;"><strong>General</strong></td>
 <td style="text-align: left;">par_save_RNA</td>
-<td style="text-align: left;">No</td>
+<td style="text-align: left;">Yes</td>
 <td style="text-align: left;">Whether or not to export an RNA expression matrix</td>
 </tr>
 <tr>
 <td style="text-align: left;"><strong>General</strong></td>
 <td style="text-align: left;">par_save_metadata</td>
-<td style="text-align: left;">No</td>
+<td style="text-align: left;">Yes</td>
 <td style="text-align: left;">Whether or not to export a metadata dataframe</td>
 </tr>
 <tr>

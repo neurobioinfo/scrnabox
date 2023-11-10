@@ -7,8 +7,8 @@ The following parameters are adjustable for Step 4 (`~/working_directory/job_inf
 
 |Parameter|Default|Description|
 |:--|:--|:--|
-|par_save_RNA| No| Whether or not to export an RNA expression matrix|
-|par_save_metadata| No|Whether or not to export a metadata dataframe|
+|par_save_RNA| Yes| Whether or not to export an RNA expression matrix|
+|par_save_metadata| Yes|Whether or not to export a metadata dataframe|
 |par_seurat_object| NULL |If users already have a Seurat object(s), they may provide the path to a directory that contains an existing Seurat object(s) to initiate the pipeline at Step 4|
 |par_normalization.method|CLR|Method for normalizing the HTO assay|
 |par_scale.factor| 1000|Scale factor for scaling the HTO assay|

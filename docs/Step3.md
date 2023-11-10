@@ -14,17 +14,17 @@ The following parameters are adjustable for Step 3 (`~/working_directory/job_inf
 
 |Parameter|Default|Description|
 |:--|:--|:--|
-|par_save_RNA| No| Whether or not to export an RNA expression matrix|
-|par_save_metadata| No|Whether or not to export a metadata dataframe|
+|par_save_RNA| Yes| Whether or not to export an RNA expression matrix|
+|par_save_metadata| Yes|Whether or not to export a metadata dataframe|
 |par_seurat_object| NULL |If users already have a Seurat object(s), they may provide the path to a directory that contains an existing Seurat object(s) to initiate the pipeline at Step 3|
-|par_nFeature_RNA_L|NULL |Only retain cells expressing a minimum number of unique RNA transcripts|
-|par_nFeature_RNA_U|NULL |Only retain cells expressing a maximum number of unique RNA transcripts|
-|par_nCount_RNA_L|NULL |Only retain cells with a minimum number of total RNA transcripts|
-|par_nCount_RNA_U|NULL |Only retain cells with a maximum number of total RNA transcripts|
-|par_mitochondria_percent_L|NULL | Only retain cells with a minimum percentage of mitochondrial-encoded genes|
-|par_mitochondria_percent_U|NULL |Only retain cells with a maximum percentage of mitochondrial-encoded genes|
-|par_ribosomal_percent_L|NULL |Only retain cells with a minimum percentage of ribosome genes|
-|par_ribosomal_percent_U|NULL |Only retain cells with a maximum percentage of ribosome genes|
+|par_nFeature_RNA_L|300 |Only retain cells expressing a minimum number of unique RNA transcripts|
+|par_nFeature_RNA_U|10000 |Only retain cells expressing a maximum number of unique RNA transcripts|
+|par_nCount_RNA_L|300 |Only retain cells with a minimum number of total RNA transcripts|
+|par_nCount_RNA_U|20000 |Only retain cells with a maximum number of total RNA transcripts|
+|par_mitochondria_percent_L|0 | Only retain cells with a minimum percentage of mitochondrial-encoded genes|
+|par_mitochondria_percent_U|20 |Only retain cells with a maximum percentage of mitochondrial-encoded genes|
+|par_ribosomal_percent_L|0 |Only retain cells with a minimum percentage of ribosome genes|
+|par_ribosomal_percent_U|100 |Only retain cells with a maximum percentage of ribosome genes|
 |par_remove_mitochondrial_genes|No| Whether or not to remove mitochondrial genes|
 |par_remove_ribosomal_genes|No| Whether or not to remove ribosomal genes|
 |par_remove_genes|NULL|If users want to remove specific genes from their data, they may define a list of gene identifiers|

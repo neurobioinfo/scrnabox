@@ -224,14 +224,39 @@ Hash4,B0254_TotalSeqB,R2,5PNNNNNNNNNN(BC),AGTAAGTTCAGCGTA,Antibody Capture
 <td style="text-align: left;">Minimum number of bases to retain for R1 sequence of gene expression</td>
 </tr>
 <tr>
-<td style="text-align: left;">par_include_introns</td>
-<td style="text-align: left;">No</td>
-<td style="text-align: left;">Whether or not to include intronic reads in the gene expression matrix</td>
+<td style="text-align: left;">par_r2_length</td>
+<td style="text-align: left;">NULL</td>
+<td style="text-align: left;">Minimum number of bases to retain for R2 sequence of gene expression</td>
 </tr>
 <tr>
 <td style="text-align: left;">par_mempercode</td>
 <td style="text-align: left;">30</td>
 <td style="text-align: left;">For clusters whose job managers do not support memory requests, it is possible to request memory in the form of cores. This option will scale up the number of threads requested via the <strong>MRO_THREADS</strong> variable according to how much memory a stage requires when given to the ratio of memory on your nodes.</td>
+</tr>
+<tr>
+<td style="text-align: left;">par_include_introns</td>
+<td style="text-align: left;">No</td>
+<td style="text-align: left;">Whether or not to include intronic reads in the gene expression matrix</td>
+</tr>
+<tr>
+<td style="text-align: left;">par_no_target_umi_filter</td>
+<td style="text-align: left;">No</td>
+<td style="text-align: left;">Whether or not to tirn of CellRanger's target UMI filtering subpipeline</td>
+</tr>
+<tr>
+<td style="text-align: left;">par_expect_cells</td>
+<td style="text-align: left;">NULL</td>
+<td style="text-align: left;">Expected number of cells. By default, CellRanger's auto-estimate algorithm will be used</td>
+</tr>
+<tr>
+<td style="text-align: left;">par_force_cells</td>
+<td style="text-align: left;">NULL</td>
+<td style="text-align: left;">Force the CellRanger count ipeline to use N cells.</td>
+</tr>
+<tr>
+<td style="text-align: left;">par_no_bam</td>
+<td style="text-align: left;">No</td>
+<td style="text-align: left;">Whether or not to skip the bam file generation in the CellRanger pipeline.</td>
 </tr>
 </tbody>
 </table>
@@ -303,7 +328,7 @@ Hash4,B0254_TotalSeqB,R2,5PNNNNNNNNNN(BC),AGTAAGTTCAGCGTA,Antibody Capture
 <tr>
 <td style="text-align: left;">par_ref_dir_grch</td>
 <td style="text-align: left;">NULL</td>
-<td style="text-align: left;">Path to reference genome for FASTQ alignment. 10X Genomics reference genomes are available for download. For more information see their <a href="https://support.10xgenomics.com/single-cell-gene-expression/software/pipelines/latest/using/tutorial_ct">documentation</a>.</td>
+<td style="text-align: left;">Path to reference genome for FASTQ alignment. 10X Genomics reference genomes are available for download. For more information see the 10X Genomics <a href="https://support.10xgenomics.com/single-cell-gene-expression/software/pipelines/latest/using/tutorial_ct">documentation</a>.</td>
 </tr>
 <tr>
 <td style="text-align: left;">par_r1_length</td>
@@ -311,14 +336,39 @@ Hash4,B0254_TotalSeqB,R2,5PNNNNNNNNNN(BC),AGTAAGTTCAGCGTA,Antibody Capture
 <td style="text-align: left;">Minimum number of bases to retain for R1 sequence of gene expression</td>
 </tr>
 <tr>
-<td style="text-align: left;">par_include_introns</td>
-<td style="text-align: left;">No</td>
-<td style="text-align: left;">Whether or not to include intronic reads in the gene expression matrix</td>
+<td style="text-align: left;">par_r2_length</td>
+<td style="text-align: left;">NULL</td>
+<td style="text-align: left;">Minimum number of bases to retain for R2 sequence of gene expression</td>
 </tr>
 <tr>
 <td style="text-align: left;">par_mempercode</td>
 <td style="text-align: left;">30</td>
 <td style="text-align: left;">For clusters whose job managers do not support memory requests, it is possible to request memory in the form of cores. This option will scale up the number of threads requested via the <strong>MRO_THREADS</strong> variable according to how much memory a stage requires when given to the ratio of memory on your nodes.</td>
+</tr>
+<tr>
+<td style="text-align: left;">par_include_introns</td>
+<td style="text-align: left;">No</td>
+<td style="text-align: left;">Whether or not to include intronic reads in the gene expression matrix</td>
+</tr>
+<tr>
+<td style="text-align: left;">par_no_target_umi_filter</td>
+<td style="text-align: left;">No</td>
+<td style="text-align: left;">Whether or not to tirn of CellRanger's target UMI filtering subpipeline</td>
+</tr>
+<tr>
+<td style="text-align: left;">par_expect_cells</td>
+<td style="text-align: left;">NULL</td>
+<td style="text-align: left;">Expected number of cells. By default, CellRanger's auto-estimate algorithm will be used</td>
+</tr>
+<tr>
+<td style="text-align: left;">par_force_cells</td>
+<td style="text-align: left;">NULL</td>
+<td style="text-align: left;">Force the CellRanger count ipeline to use N cells.</td>
+</tr>
+<tr>
+<td style="text-align: left;">par_no_bam</td>
+<td style="text-align: left;">No</td>
+<td style="text-align: left;">Whether or not to skip the bam file generation in the CellRanger pipeline.</td>
 </tr>
 </tbody>
 </table>

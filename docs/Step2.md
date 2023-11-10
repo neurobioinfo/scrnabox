@@ -12,11 +12,10 @@ The following parameters are adjustable for Step 2 (`~/working_directory/job_inf
 
 |Parameter|Default|Description|
 |:--|:--|:--|
-|par_save_RNA| No| Whether or not to export an RNA expression matrix|
-|par_save_metadata| No|Whether or not to export a metadata dataframe|
+|par_save_RNA| Yes| Whether or not to export an RNA expression matrix|
+|par_save_metadata| Yes|Whether or not to export a metadata dataframe|
 |par_ambient_RNA| Yes|Whether or not to correct the feature-barcode expression matrices for ambient RNA contamination|
-|par_count_matrices| NULL|If users skipped Step 1, they may provide the path to a directory that contains existing feature-barcode expression matrices to initiate the pipeline at Step 2 |
-|par_min.cells_L| 0|Only retain genes expressed in a minimum number of cells|
+|par_min.cells_L| 3|Only retain genes expressed in a minimum number of cells|
 |par_normalization.method|LogNormalize|Method to use for normalization|
 |par_scale.factor|10000|Scale factor for scaling the data|
 |par_selection.method|vst|Method for choosing the top variable features|

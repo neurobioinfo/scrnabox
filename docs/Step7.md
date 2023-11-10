@@ -18,12 +18,12 @@ The following parameters are adjustable for Step 7 (`~/working_directory/job_inf
 
 |Annotation tool|Parameter|Default|Description|
 |:--|:--|:--|:--|
-|**General**|par_save_RNA| No| Whether or not to export an RNA expression matrix|
-|**General**|par_save_metadata| No|Whether or not to export a metadata dataframe|
+|**General**|par_save_RNA| Yes| Whether or not to export an RNA expression matrix|
+|**General**|par_save_metadata| Yes|Whether or not to export a metadata dataframe|
 |**General**|par_seurat_object| NULL |If users already have a Seurat object, they may provide the path to the Seurat object to initiate the pipeline at Step 7|
-|**General**|par_level_cluster| integrated_snn_res.0.7| The cluster resolution that you want to annotate. If you skipped integration in Step 5, use par_level_cluster='RNA_snn_res.0.7', if you want to proceed with a clustering resolution of 0.7.|
+|**General**|par_level_cluster| integrated_snn_res.0.75| The cluster resolution that you want to annotate. If you skipped integration in Step 5, use par_level_cluster='RNA_snn_res.0.7', if you want to proceed with a clustering resolution of 0.7.|
 |**Tool 1**|par_run_find_marker|Yes|Whether or not to find marker genes for each cluster|
-|**Tool 1**|par_run_enrichR|Yes|Whether or not to run gene set enrichment analysis (GSEA) on the marker genes for each cluster using the EnrichR tools. Note that the HPC must have access to the internet to run GSEA.|
+|**Tool 1**|par_run_enrichR|No|Whether or not to run gene set enrichment analysis (GSEA) on the marker genes for each cluster using the EnrichR tools. Note that the HPC must have access to the internet to run GSEA.|
 |**Tool 1**|par_top_sel|5|Number of top markers to identify based on avg_log2FC|
 |**Tool 1**|par_db|Descartes_Cell_Types_and_Tissue_2021,<br /> CellMarker_Augmented_2021,<br />Azimuth_Cell_Types_2021|Character vector of EnrichR databases that define cell types. The top marker genes for each cluster will be tested for enrichment across these databases.|
 |**Tool 2**|par_run_module_score|Yes|Whether or not to compute module score for aggregated expression |
@@ -34,10 +34,10 @@ The following parameters are adjustable for Step 7 (`~/working_directory/job_inf
 |**Tool 3**|par_reference|NULL| Path defining the location of the reference Seurat object|
 |**Tool 3**|par_reference_name|Reference| An arbitrary name for the reference object. This will be used to name the metadata slot.|
 |**Tool 3**|par_level_celltype|NULL|The name of the metadata column in the reference Seurat object that defines cell types|
-|**Tool 3**|par_FindTransferAnchors_dim|10| Number of dimensions from linear dimensional reduction used to find transfer anchors between the reference and query Seurat objects|
-|**Tool 3**|par_futureglobalsmaxSize|50000 * 1024^2|This will increase your RAM usage so set this number mindfully|
-|**Annotate**|par_annotate_resolution|NULL| Which clustering resolution you want to annotate|
-|**Annotate**|par_name_metadata|clustering_label_1| The name of the metadata slot that will contain the annotations|
+|**Tool 3**|par_FindTransferAnchors_dim|50| Number of dimensions from linear dimensional reduction used to find transfer anchors between the reference and query Seurat objects|
+|**Tool 3**|par_futureglobalsmaxSize|60000 * 1024^2|This will increase your RAM usage so set this number mindfully|
+|**Annotate**|par_annotate_resolution|integrated_snn_res.0.75| Which clustering resolution you want to annotate|
+|**Annotate**|par_name_metadata|Celltypes1| The name of the metadata slot that will contain the annotations|
 |**Annotate**|par_annotate_labels|NULL| A list of cluster labels. There must as many labels as clusters at the defined clustering resolution. Please refrain from using "_" when annotating.|
 
  - - - -

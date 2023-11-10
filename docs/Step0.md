@@ -33,10 +33,13 @@ After running Step 0, the structure of the working directory should be:
 - The `logs/` directory records the events of each analytical step; <br />
 - The `parameters/` directory contains adjustable, step-specific text files which allow users to define the execution parameters for each analytical step. <br />
 
-Next, navigate to the `scrnabox_config.ini` file in `~/working_directory/job_info/configs` to define the path to the R library, the version of R, and the path to CellRanger:
+Next, navigate to the `scrnabox_config.ini` file in `~/working_directory/job_info/configs` to define the HPC account holder (**ACCOUNT**), the path to the environmental module (**MODULEUSE**), the path to CellRanger from the environmental module directory (**CELLRANGER**), CellRanger version (**CELLRANGER_VERSION**), R version (**R_VERSION**), and the path to the R library (**R_LIB_PATH**):
 
 ```
-MODULECELLRANGER=mugqic/cellranger/5.0.1
+ACCOUNT=account-name
+MODULEUSE=/path/to/environmental/module (e.g. /cvmfs/soft.mugqic/CentOS6/modulefiles)
+CELLRANGER=/path/to/cellranger/from/module/directory (e.g. mugqic/cellranger)
+CELLRANGER_VERSION=5.0.1
 R_VERSION=4.2.1
 R_LIB_PATH=/path/to/R/library
 ```

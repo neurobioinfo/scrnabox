@@ -156,13 +156,13 @@ Seurat's <em>FindTransferAnchors</em> and <em>TransferData</em> functions are us
 <tr>
 <td style="text-align: left;"><strong>General</strong></td>
 <td style="text-align: left;">par_save_RNA</td>
-<td style="text-align: left;">No</td>
+<td style="text-align: left;">Yes</td>
 <td style="text-align: left;">Whether or not to export an RNA expression matrix</td>
 </tr>
 <tr>
 <td style="text-align: left;"><strong>General</strong></td>
 <td style="text-align: left;">par_save_metadata</td>
-<td style="text-align: left;">No</td>
+<td style="text-align: left;">Yes</td>
 <td style="text-align: left;">Whether or not to export a metadata dataframe</td>
 </tr>
 <tr>
@@ -174,7 +174,7 @@ Seurat's <em>FindTransferAnchors</em> and <em>TransferData</em> functions are us
 <tr>
 <td style="text-align: left;"><strong>General</strong></td>
 <td style="text-align: left;">par_level_cluster</td>
-<td style="text-align: left;">integrated_snn_res.0.7</td>
+<td style="text-align: left;">integrated_snn_res.0.75</td>
 <td style="text-align: left;">The cluster resolution that you want to annotate. If you skipped integration in Step 5, use par_level_cluster='RNA_snn_res.0.7', if you want to proceed with a clustering resolution of 0.7.</td>
 </tr>
 <tr>
@@ -186,7 +186,7 @@ Seurat's <em>FindTransferAnchors</em> and <em>TransferData</em> functions are us
 <tr>
 <td style="text-align: left;"><strong>Tool 1</strong></td>
 <td style="text-align: left;">par_run_enrichR</td>
-<td style="text-align: left;">Yes</td>
+<td style="text-align: left;">No</td>
 <td style="text-align: left;">Whether or not to run gene set enrichment analysis (GSEA) on the marker genes for each cluster using the EnrichR tools. Note that the HPC must have access to the internet to run GSEA.</td>
 </tr>
 <tr>
@@ -252,25 +252,25 @@ Seurat's <em>FindTransferAnchors</em> and <em>TransferData</em> functions are us
 <tr>
 <td style="text-align: left;"><strong>Tool 3</strong></td>
 <td style="text-align: left;">par_FindTransferAnchors_dim</td>
-<td style="text-align: left;">10</td>
+<td style="text-align: left;">50</td>
 <td style="text-align: left;">Number of dimensions from linear dimensional reduction used to find transfer anchors between the reference and query Seurat objects</td>
 </tr>
 <tr>
 <td style="text-align: left;"><strong>Tool 3</strong></td>
 <td style="text-align: left;">par_futureglobalsmaxSize</td>
-<td style="text-align: left;">50000 * 1024^2</td>
+<td style="text-align: left;">60000 * 1024^2</td>
 <td style="text-align: left;">This will increase your RAM usage so set this number mindfully</td>
 </tr>
 <tr>
 <td style="text-align: left;"><strong>Annotate</strong></td>
 <td style="text-align: left;">par_annotate_resolution</td>
-<td style="text-align: left;">NULL</td>
+<td style="text-align: left;">integrated_snn_res.0.75</td>
 <td style="text-align: left;">Which clustering resolution you want to annotate</td>
 </tr>
 <tr>
 <td style="text-align: left;"><strong>Annotate</strong></td>
 <td style="text-align: left;">par_name_metadata</td>
-<td style="text-align: left;">clustering_label_1</td>
+<td style="text-align: left;">Celltypes1</td>
 <td style="text-align: left;">The name of the metadata slot that will contain the annotations</td>
 </tr>
 <tr>

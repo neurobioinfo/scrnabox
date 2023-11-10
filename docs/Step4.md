@@ -6,13 +6,13 @@ The following parameters are adjustable for Step 4 of the standard track (`~/wor
 
 |Parameter|Default|Description|
 |:--|:--|:--|
-|par_save_RNA| No| Whether or not to export an RNA expression matrix|
-|par_save_metadata| No|Whether or not to export a metadata dataframe|
+|par_save_RNA| Yes| Whether or not to export an RNA expression matrix|
+|par_save_metadata| Yes|Whether or not to export a metadata dataframe|
 |par_seurat_object| NULL |If users already have a Seurat object(s), they may provide the path to a directory that contains an existing Seurat object(s) to initiate the pipeline at Step 4|
-|par_RunUMAP_dims|10| Number of dimensions to use as input features for uniform manifold approximation and projection (UMAP)|
-|par_RunUMAP_n.neighbors|65|Number of neighboring points used in local approximations of manifold structure|
+|par_RunUMAP_dims|25| Number of dimensions to use as input features for uniform manifold approximation and projection (UMAP)|
+|par_RunUMAP_n.neighbors|45|Number of neighboring points used in local approximations of manifold structure|
 |par_dropDN| Yes| Whether or not to remove predicted doublets from downstream analyses|
-|par_PCs|20| The number of statistically significant principal components. Can be informed by elbow plot produced in Step 3|
+|par_PCs|25| The number of statistically significant principal components. Can be informed by elbow plot produced in Step 3|
 |par_pN|0.25| The number of artificial doublets to generate. DoubletFinderr is largely invariant to this parameter. We suggest keeping 0.25|
 |par_sct|FALSE|Logical representing whether SCTransform was used during original Seurat object pre-processing|
 |par_sample_names|NULL| A list of sample names for each sample in the experiement, corresponding to the expected doublet rates listed in the parameter below. Sample names should be the same as those used to produce the `samples_info` folder during the setup procedures.|

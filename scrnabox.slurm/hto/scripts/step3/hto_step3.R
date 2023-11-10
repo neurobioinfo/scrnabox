@@ -1,7 +1,6 @@
 #!/usr/bin/env Rscript
 
 ##########################################
-# v1.38
 # step3: Quality control and filtering
 ########################################## 
 
@@ -221,9 +220,6 @@ foreach (i=1:length(sample_name)) %do% {
     sink()
 
 }
-
-## visualize Ambient RNA correction
-
 
 ## save session information
 writeLines(capture.output(sessionInfo()), paste(output_dir,'/step3/info3/sessionInfo.txt', sep=""))

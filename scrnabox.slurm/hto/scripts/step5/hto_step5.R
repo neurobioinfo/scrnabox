@@ -1,7 +1,6 @@
 #!/usr/bin/env Rscript
 
 ####################
-# v1.38
 # step5 -- integration and linear dimensional reduction 
 ####################
 

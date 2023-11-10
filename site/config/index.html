@@ -132,11 +132,12 @@
 <hr />
 <h2 id="introduction">Introduction</h2>
 <p>Upon running Step 0, the <code>scrnabox_config.ini</code> file is automatically deposited into <code>~/working_directory/job_info/configs</code>:</p>
-<pre><code>ACCOUNT=HPC_account_own_name
-MODULEUSE=/cvmfs/soft.mugqic/CentOS6/modulefiles
-MODULECELLRANGER=mugqic/cellranger/5.0.1
+<pre><code>ACCOUNT=account-name
+MODULEUSE=/path/to/environmental/module (e.g. /cvmfs/soft.mugqic/CentOS6/modulefiles)
+CELLRANGER=/path/to/cellranger/from/module/directory (e.g. mugqic/cellranger)
+CELLRANGER_VERSION=5.0.1
 R_VERSION=4.2.1
-R_LIB_PATH=/path?to?R?library
+R_LIB_PATH=/path/to/R/library
 SCRNA_METHOD=SCRNA
 ############# 
 
@@ -201,19 +202,20 @@ SCRNA_METHOD=SCRNA
 <hr />
 <h2 id="general-configurations">General configurations</h2>
 <p>The following parameters must be adjusted by the user:</p>
-<p>1) <strong>ACCOUNT</strong>: the name of the account for the HPC system; <br />
-2) <strong>MODULEUSE</strong>: <br />
-3) <strong>MODULECELLRANGER</strong>:  <br />
-4) <strong>R_VERSION</strong>: the version of R installed on the HPC system; <br />
-5) <strong>R_LIB_PATH</strong>: the path to the R library containing the required R packages for running scRNAbox (must be v4.2 or greater); <br />
-6) <strong>SCRNA_METHOD</strong>: The analysis track to use (SCRNA or HTO). This will be automatically defined upon running Step 0. <br /></p>
+<p>1) <strong>ACCOUNT</strong>: the name of the account holder for the HPC system; <br />
+2) <strong>MODULEUSE</strong>: the path to the environmental module; <br />
+3) <strong>CELLRANGER</strong>: the path to CellRanger from the environmental module directory; <br />
+4) <strong>CELLRANGER_VERSION</strong>: the version of CellRanger; <br />
+5) <strong>R_VERSION</strong>: the version of R installed on the HPC system (must be v4.2 or greater); <br />
+6) <strong>R_LIB_PATH</strong>: the path to the R library containing the required R packages for running scRNAbox; <br />
+7) <strong>SCRNA_METHOD</strong>: The analysis track to use (SCRNA or HTO). This will be automatically defined upon running Step 0. <br /></p>
 <hr />
 <h2 id="step-configurations">Step configurations</h2>
 <p>Each step of the scRNAbox pipeline has three configuartion parameters:</p>
 <p>1) <strong>THREADS_ARRAY</strong>: number of CPUs for the job; <br />
 2) <strong>MEM_ARRAY</strong>: amount of memory (RAM) for the job; <br />
 3) <strong>WALLTIME_ARRAY</strong>: amount of time for the job.  <br /></p>
-<p>In the original <code>scrnabox_config.ini</code> file, the configuration parameters for each Analytical Step will be commented out and the <strong>default</strong> configurations will be used. If users need to change the configurations for any step, they can uncomment the line of code and define the parameter:</p>
+<p>In the original <code>scrnabox_config.ini</code> file, the configuration parameters for each step will be commented out and the <strong>default</strong> configurations will be used. If users need to change the configurations for any step, they can uncomment the line of code and define the parameter:</p>
 <pre><code># orginal scrnabox_config.ini
 #THREADS_ARRAY[&quot;step_2&quot;]=4
 #MEM_ARRAY[&quot;step_2&quot;]=16g

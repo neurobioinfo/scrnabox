@@ -1,7 +1,6 @@
 #!/usr/bin/env Rscript
 
 ####################
-# v1.38
 # step2 -- ambient rna removal and create Seurat object
 ####################
 

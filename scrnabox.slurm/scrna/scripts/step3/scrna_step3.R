@@ -1,7 +1,6 @@
 #!/usr/bin/env Rscript
 
 ##########################################
-# v1.38
 # step3: Quality control and filtering
 ##########################################
 
@@ -154,7 +153,7 @@ foreach (i=1:length(sample_name)) %do% {
     seu<- ScaleData(seu, vars.to.regress = c("S.Score", "G2M.Score"), verbose = FALSE)
     }
 
-    ## Regress out custom gene list  only
+    ## Regress out custom gene list only
     if (tolower(par_regress_custom_genes)=='yes' & tolower(par_regress_cell_cycle_genes)=='no') {
         par_regress_genes <- list(par_regress_genes)
         seu <- AddModuleScore(
@@ -223,7 +222,6 @@ foreach (i=1:length(sample_name)) %do% {
     sink()
 
 }
-
 
 ## save session information
 writeLines(capture.output(sessionInfo()), paste(output_dir,'/step3/info3/sessionInfo.txt', sep=""))

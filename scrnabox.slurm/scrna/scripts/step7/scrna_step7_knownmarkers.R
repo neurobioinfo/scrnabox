@@ -27,10 +27,6 @@ source(paste(output_dir,'/job_info/parameters/step7_par.txt',sep=""))
 
 if (tolower(par_run_module_score)=='yes') {
 
-## load existing Seurat objects
-#sample_name<-list.files(path = paste(output_dir, "/step6/objs6",sep=""),pattern = "*.rds")
-#seu_int<-readRDS(paste(output_dir,'/step6/objs6/',sample_name, sep=''))
-
 ################### import the right Seurat object ###################
 sample_name<-list.files(path = paste(output_dir, "/step6/objs6",sep=""),pattern = "*.rds")
 
@@ -77,10 +73,6 @@ if(file.exists("Rplots.pdf")){
 ###############################################################################
 
 if (tolower(par_run_visualize_markers)=='yes') {
-
-## load existing Seurat objects
-#sample_name<-list.files(path = paste(output_dir, "/step6/objs6",sep=""),pattern = "*.rds")
-#seu_int<-readRDS(paste(output_dir,'/step6/objs6/',sample_name, sep=''))
 
 ################### import the right Seurat object ###################
 sample_name<-list.files(path = paste(output_dir, "/step6/objs6",sep=""),pattern = "*.rds")

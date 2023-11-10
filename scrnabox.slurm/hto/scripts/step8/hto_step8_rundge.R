@@ -217,7 +217,6 @@ saveRDS(seu_int, paste(output_dir,'/step8/objs8',"/seu_step8.rds", sep=""))
 ## save rna expression matrix
 if (tolower(par_save_RNA)=='yes') {
     mat <- GetAssayData(object = seu_int, assay = "RNA", slot = "data")
-    #  write.csv(mat, paste(output_dir,'/step2/info2/',sample_name[i],"_RNA.csv", sep=""))
     writeMM(mat,file= paste(output_dir,'/step8/info8/seu',"_RNA.txt", sep=""))
 }
 

@@ -18,8 +18,6 @@ lapply(packages, library, character.only = TRUE)
 source(paste(output_dir,'/job_info/parameters/step8_par.txt',sep=""))
 
 ## load step7 seurat object
-#sample_name<-list.files(path = paste(output_dir, "/step7/objs7",sep=""),pattern = "*.rds")
-#seu_int<-readRDS(paste(output_dir,'/step7/objs7/',sample_name, sep=''))
 if (exists("par_seurat_object")) {                                                  
     seu_int<-readRDS(par_seurat_object)
 } else {

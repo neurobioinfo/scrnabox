@@ -132,14 +132,18 @@ bash $SCRNABOX_HOME/launch_scrnabox.sh \
 --steps 0 \
 --method SCRNA
 ```
-Next, we will navigate to the `scrnabox_config.ini` file in `~/pipeline/job_info/configs` to define the path to the R library (`R_LIB_PATH=`), the version of R (`R_VERSION=`), and the path to CellRanger (`MODULECELLRANGER=`):
+Next, we will navigate to the `scrnabox_config.ini` file in `~/pipeline/job_info/configs` to define the HPC account holder (**ACCOUNT**), the path to the environmental module (**MODULEUSE**), the path to CellRanger from the environmental module directory (**CELLRANGER**), CellRanger version (**CELLRANGER_VERSION**), R version (**R_VERSION**), and the path to the R library (**R_LIB_PATH**):
+
 ```
 cd ~/pipeline/job_info/configs
 nano scrnabox_config.ini
 
-MODULECELLRANGER=mugqic/cellranger/5.0.1
+ACCOUNT=account-name
+MODULEUSE=/path/to/environmental/module 
+CELLRANGER=/path/to/cellranger/from/module/directory 
+CELLRANGER_VERSION=5.0.1
 R_VERSION=4.2.1
-R_LIB_PATH=~/R
+R_LIB_PATH=/path/to/R/library
 ```
  - - - -
 
@@ -157,14 +161,18 @@ For our analysis of the midbrain dataset we set the following execution paramete
 |par_new_sample_names|Parkinson1, Parkinson2, Parkinson3, Parkinson4, Parkinson5, Control1, Control2, Control3, Control4, Control5, Control6|
 |par_paired_end_seq|TRUE|
 |par_ref_dir_grch|~/genome/10xGenomics/refdata-cellranger-GRCh38-3.0.0|
-|par_r1_length|NULL|
-|par_include_introns|Yes|
+|par_r1_length|NULL (commented out)|
+|par_r2_length|NULL (commented out)|
 |par_mempercode|30|
-
+|par_include_introns|Yes|
+|par_no_target_umi_filter|NULL (commented out)|
+|par_expect_cells|NULL (commented out)|
+|par_force_cells|NULL (commented out)| 
+|par_no_bam|NULL (commented out)| 
 
 **Note:** The parameters file for each step is located in `~/pipeline/job_info/parameters`. For a comprehensive description of the execution parameters for each step see [here](reference.md). 
 
-Given that CellRanger runs a user interface and is not submitted as a Job, it is recommended to run Step 1 in a **'screen'**, which will allow the the task to keep running if the connection is broken. To run Step 1, use the following command:
+Given that CellRanger runs a user interface and is not submitted as a job, it is recommended to run Step 1 in a **'screen'**, which will allow the the task to keep running if the connection is broken. To run Step 1, use the following command:
 ```
 export SCRNABOX_HOME=~/scrnabox/scrnabox.slurm
 export SCRNABOX_PWD=~/pipeline

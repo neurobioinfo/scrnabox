@@ -234,13 +234,16 @@ bash $SCRNABOX_HOME/launch_scrnabox.sh \
 --steps 0 \
 --method SCRNA
 </code></pre>
-<p>Next, we will navigate to the <code>scrnabox_config.ini</code> file in <code>~/pipeline/job_info/configs</code> to define the path to the R library (<code>R_LIB_PATH=</code>), the version of R (<code>R_VERSION=</code>), and the path to CellRanger (<code>MODULECELLRANGER=</code>):</p>
+<p>Next, we will navigate to the <code>scrnabox_config.ini</code> file in <code>~/pipeline/job_info/configs</code> to define the HPC account holder (<strong>ACCOUNT</strong>), the path to the environmental module (<strong>MODULEUSE</strong>), the path to CellRanger from the environmental module directory (<strong>CELLRANGER</strong>), CellRanger version (<strong>CELLRANGER_VERSION</strong>), R version (<strong>R_VERSION</strong>), and the path to the R library (<strong>R_LIB_PATH</strong>):</p>
 <pre><code>cd ~/pipeline/job_info/configs
 nano scrnabox_config.ini
 
-MODULECELLRANGER=mugqic/cellranger/5.0.1
+ACCOUNT=account-name
+MODULEUSE=/path/to/environmental/module 
+CELLRANGER=/path/to/cellranger/from/module/directory 
+CELLRANGER_VERSION=5.0.1
 R_VERSION=4.2.1
-R_LIB_PATH=~/R
+R_LIB_PATH=/path/to/R/library
 </code></pre>
 <hr />
 <h3 id="step-1-fastq-to-gene-expression-matrix">Step 1: FASTQ to gene expression matrix</h3>
@@ -285,20 +288,40 @@ For our analysis of the midbrain dataset we set the following execution paramete
 </tr>
 <tr>
 <td style="text-align: left;">par_r1_length</td>
-<td style="text-align: left;">NULL</td>
+<td style="text-align: left;">NULL (commented out)</td>
+</tr>
+<tr>
+<td style="text-align: left;">par_r2_length</td>
+<td style="text-align: left;">NULL (commented out)</td>
+</tr>
+<tr>
+<td style="text-align: left;">par_mempercode</td>
+<td style="text-align: left;">30</td>
 </tr>
 <tr>
 <td style="text-align: left;">par_include_introns</td>
 <td style="text-align: left;">Yes</td>
 </tr>
 <tr>
-<td style="text-align: left;">par_mempercode</td>
-<td style="text-align: left;">30</td>
+<td style="text-align: left;">par_no_target_umi_filter</td>
+<td style="text-align: left;">NULL (commented out)</td>
+</tr>
+<tr>
+<td style="text-align: left;">par_expect_cells</td>
+<td style="text-align: left;">NULL (commented out)</td>
+</tr>
+<tr>
+<td style="text-align: left;">par_force_cells</td>
+<td style="text-align: left;">NULL (commented out)</td>
+</tr>
+<tr>
+<td style="text-align: left;">par_no_bam</td>
+<td style="text-align: left;">NULL (commented out)</td>
 </tr>
 </tbody>
 </table>
 <p><strong>Note:</strong> The parameters file for each step is located in <code>~/pipeline/job_info/parameters</code>. For a comprehensive description of the execution parameters for each step see <a href="../reference/">here</a>. </p>
-<p>Given that CellRanger runs a user interface and is not submitted as a Job, it is recommended to run Step 1 in a <strong>'screen'</strong>, which will allow the the task to keep running if the connection is broken. To run Step 1, use the following command:</p>
+<p>Given that CellRanger runs a user interface and is not submitted as a job, it is recommended to run Step 1 in a <strong>'screen'</strong>, which will allow the the task to keep running if the connection is broken. To run Step 1, use the following command:</p>
 <pre><code>export SCRNABOX_HOME=~/scrnabox/scrnabox.slurm
 export SCRNABOX_PWD=~/pipeline
 

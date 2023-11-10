@@ -1,7 +1,6 @@
 #!/usr/bin/env Rscript
 
 ##########################################
-# v1.38
 # step5 -- integration and linear dimensional reduction
 ##########################################
 
@@ -220,7 +219,6 @@ saveRDS(seu_int, paste(output_dir,'/step5/objs5',"/seu_step5.rds", sep=""))
 write.csv(colnames(seu_int[[]]), paste(output_dir,'/step5/info5',"/merge_meta_info_seu_step5.csv", sep=""))
 
 }
-
 
 
 ## save RNA expression matrix

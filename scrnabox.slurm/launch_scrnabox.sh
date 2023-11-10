@@ -4,7 +4,7 @@
 # Copyright belong MNI BIOINFO CORE (https://github.com/neurobioinfo)
 # The pipeline is written by Saeid Amiri (saeid.amiri@mcgill.ca)
 
-VERSION=0.1.51;
+VERSION=0.1.52;
 DATE0=2023-11-07
 echo -e "scrnabox pipeline version $VERSION"
 # updated on $DATE0"

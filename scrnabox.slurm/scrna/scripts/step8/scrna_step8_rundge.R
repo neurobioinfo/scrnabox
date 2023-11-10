@@ -538,16 +538,12 @@ sudo_dir <- paste(output_dir,'/step8/Sample_based_all_cells', sep = "")
 dir.create(sudo_dir)
 outputpath <- sudo_dir
 dir.create(paste(sudo_dir,"/",cont_name, sep = ""))
-#dir.create(paste(sudo_dir,"/",cont_name,"/figs", sep = ""))
-#dir.create(paste(sudo_dir,"/",cont_name,"/info", sep = ""))
-
 
 ## see how many variables the user inputted, not including contrast name
 n_vars <- ncol(dd)
 vars <- dd[1,c(2:n_vars)]
 
 #Get the aggregated expression and calculate differential gene expression
-#Idents(seu) <- dd$CellType #cell types annotation
 sum_counts <- AggregateExpression(seu, assay = "RNA", group.by = dput(as.character(vars)))
 # this creates a list
 sum_counts_df <- as.data.frame(sum_counts$RNA)

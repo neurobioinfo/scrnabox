@@ -1,7 +1,6 @@
 #!/usr/bin/env Rscript
 
 ####################
-# v1.38
 # step 6: clustering
 ####################
 
@@ -18,33 +17,6 @@ lapply(packages, library, character.only = TRUE)
 
 ## load parameters
 source(paste(output_dir,'/job_info/parameters/step6_par.txt',sep=""))
-
-## determine the default assay depending on whether integration was performed
-#if (tolower(par_skip_integration)=='yes') {
-#    sample_name<-list.files(path = paste(output_dir, "/step5/objs5",sep=""),pattern = "*.rds")
-#    if(length(sample_name)<1) {
-#    print("You do not have any object from step 5")
-#    }
-#    for (i in 1:length(sample_name)) {
-#    if (!grepl(".rds",tolower(sample_name[i]), fixed = TRUE)){
-#        print(c(sample_name[i],"is not R rds"))
-#    }
-#    }   
-#    seu_int<-readRDS(paste(output_dir,'/step5/objs5/',sample_name, sep=''))
-#    par_whatAssay<-'RNA'
-#} else {
-#    sample_name<-list.files(path = paste(output_dir, "/step5/objs5",sep=""),pattern = "*.rds")
-#    if(length(sample_name)<1) {
-#    print("You do not have any object from step 5")
-#    }
-#    for (i in 1:length(sample_name)) {
-#    if (!grepl(".rds",tolower(sample_name[i]), fixed = TRUE)){
-#        print(c(sample_name[i],"is not R rds"))
-#    }
-#    }   
-#    seu_int<-readRDS(paste(output_dir,'/step5/objs5/',sample_name, sep=''))
-#    par_whatAssay<-'integrated'
-#}
 
 ## load Seurat object
 if (exists("par_seurat_object")) {                                                  

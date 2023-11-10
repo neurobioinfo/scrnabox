@@ -4,9 +4,6 @@
 # step7 -- refrence-based annotation
 ###############################################################################
 
-## set sample ID metadata column -- this is standard and does not require parameter modification
-#par_level_genotype <- "Sample_ID"
-
 ## load parameters
 args = commandArgs(trailingOnly=TRUE)
 output_dir=args[1]
@@ -20,17 +17,6 @@ lapply(packages, library, character.only = TRUE)
 
 ## load parameters
 source(paste(output_dir,'/job_info/parameters/step7_par.txt',sep=""))
-
-################### import the right Seurat object ###################
-## load name of existing Seurat objects
-#sample_name<-list.files(path = paste(output_dir, "/step6/objs6",sep=""),pattern = "*.rds")
-
-#if(file.exists(paste(output_dir,'/step7/objs7/','seu_step7.rds', sep = ""))){
-#    seu_int<-readRDS(paste(output_dir,'/step7/objs7/','seu_step7.rds', sep=''))
-#else{
-#    seu_int<-readRDS(paste(output_dir,'/step6/objs6/',sample_name, sep=''))
-#}
-################### ############################## ###################
 
 ################### import the right Seurat object ###################
 ## load name of existing Seurat objects

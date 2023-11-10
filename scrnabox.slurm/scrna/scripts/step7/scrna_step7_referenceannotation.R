@@ -23,17 +23,6 @@ source(paste(output_dir,'/job_info/parameters/step7_par.txt',sep=""))
 
 ################### import the right Seurat object ###################
 ## load name of existing Seurat objects
-#sample_name<-list.files(path = paste(output_dir, "/step6/objs6",sep=""),pattern = "*.rds")
-
-#if(file.exists(paste(output_dir,'/step7/objs7/','seu_step7.rds', sep = ""))){
-#    seu_int<-readRDS(paste(output_dir,'/step7/objs7/','seu_step7.rds', sep=''))
-#else{
-#    seu_int<-readRDS(paste(output_dir,'/step6/objs6/',sample_name, sep=''))
-#}
-################### ############################## ###################
-
-################### import the right Seurat object ###################
-## load name of existing Seurat objects
 sample_name<-list.files(path = paste(output_dir, "/step6/objs6",sep=""),pattern = "*.rds")
 
 if (exists("par_seurat_object")) {                                                   

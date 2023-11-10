@@ -7,11 +7,12 @@
 Upon running Step 0, the `scrnabox_config.ini` file is automatically deposited into `~/working_directory/job_info/configs`:
 
 ```
-ACCOUNT=HPC_account_own_name
-MODULEUSE=/cvmfs/soft.mugqic/CentOS6/modulefiles
-MODULECELLRANGER=mugqic/cellranger/5.0.1
+ACCOUNT=account-name
+MODULEUSE=/path/to/environmental/module (e.g. /cvmfs/soft.mugqic/CentOS6/modulefiles)
+CELLRANGER=/path/to/cellranger/from/module/directory (e.g. mugqic/cellranger)
+CELLRANGER_VERSION=5.0.1
 R_VERSION=4.2.1
-R_LIB_PATH=/path?to?R?library
+R_LIB_PATH=/path/to/R/library
 SCRNA_METHOD=SCRNA
 ############# 
 
@@ -80,12 +81,13 @@ The `scrnabox_config.ini` defines the parameters for each Job submission to the 
 ## General configurations
 The following parameters must be adjusted by the user:
 
-1) **ACCOUNT**: the name of the account for the HPC system; <br />
-2) **MODULEUSE**: <br />
-3) **MODULECELLRANGER**:  <br />
-4) **R_VERSION**: the version of R installed on the HPC system; <br />
-5) **R_LIB_PATH**: the path to the R library containing the required R packages for running scRNAbox (must be v4.2 or greater); <br />
-6) **SCRNA_METHOD**: The analysis track to use (SCRNA or HTO). This will be automatically defined upon running Step 0. <br />
+1) **ACCOUNT**: the name of the account holder for the HPC system; <br />
+2) **MODULEUSE**: the path to the environmental module; <br />
+3) **CELLRANGER**: the path to CellRanger from the environmental module directory; <br />
+4) **CELLRANGER_VERSION**: the version of CellRanger; <br />
+5) **R_VERSION**: the version of R installed on the HPC system (must be v4.2 or greater); <br />
+6) **R_LIB_PATH**: the path to the R library containing the required R packages for running scRNAbox; <br />
+7) **SCRNA_METHOD**: The analysis track to use (SCRNA or HTO). This will be automatically defined upon running Step 0. <br />
 
 - - - -
 
@@ -96,7 +98,7 @@ Each step of the scRNAbox pipeline has three configuartion parameters:
 2) **MEM_ARRAY**: amount of memory (RAM) for the job; <br />
 3) **WALLTIME_ARRAY**: amount of time for the job.  <br />
 
-In the original `scrnabox_config.ini` file, the configuration parameters for each Analytical Step will be commented out and the **default** configurations will be used. If users need to change the configurations for any step, they can uncomment the line of code and define the parameter:
+In the original `scrnabox_config.ini` file, the configuration parameters for each step will be commented out and the **default** configurations will be used. If users need to change the configurations for any step, they can uncomment the line of code and define the parameter:
 
 ```
 # orginal scrnabox_config.ini

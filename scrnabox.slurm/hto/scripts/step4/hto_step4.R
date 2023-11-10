@@ -1,7 +1,6 @@
 #!/usr/bin/env Rscript
 
 ####################
-# v1.38
 # step4 -- demultiplexing and doublet detection
 ####################
 

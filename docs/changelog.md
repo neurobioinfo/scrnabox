@@ -11,4 +11,6 @@ Deployed on  2023-08-23 -- new features
 Supposed to add
 
 -  Complete the documentation 
--  Add CellBender
+
+## v0.1.52
+Deployed on  2023-11-12 -- The stable version has been released.

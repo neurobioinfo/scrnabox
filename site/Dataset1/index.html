@@ -5,14 +5,14 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><link rel="canonical" href="https://neurobioinfo.github.io/Dataset1/" />
       <link rel="shortcut icon" href="../img/favicon.ico" />
-    <title>scRNAbox analysis of midbrain dataset - scRNAbox</title>
+    <title>SCRNA analysis track: Midbrain dataset - scRNAbox</title>
     <link rel="stylesheet" href="../css/theme.css" />
     <link rel="stylesheet" href="../css/theme_extra.css" />
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
     
       <script>
         // Current page data
-        var mkdocs_page_name = "scRNAbox analysis of midbrain dataset";
+        var mkdocs_page_name = "SCRNA analysis track: Midbrain dataset";
         var mkdocs_page_input_path = "Dataset1.md";
         var mkdocs_page_url = "/Dataset1/";
       </script>
@@ -68,7 +68,7 @@
                   <li class="toctree-l1"><a class="reference internal" href="../Step8/">Step 8: Differential gene expression</a>
                   </li>
               </ul>
-              <p class="caption"><span class="caption-text">Additional information</span></p>
+              <p class="caption"><span class="caption-text">Documentation</span></p>
               <ul>
                   <li class="toctree-l1"><a class="reference internal" href="../config/">Job configurations</a>
                   </li>
@@ -79,13 +79,13 @@
               </ul>
               <p class="caption"><span class="caption-text">Tutorial</span></p>
               <ul class="current">
-                  <li class="toctree-l1"><a class="reference internal" href="../midbrain_download/">Downloading the midbrain dataset</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../midbrain_download/">Downloading the Midbrain dataset</a>
                   </li>
-                  <li class="toctree-l1 current"><a class="reference internal current" href="./">scRNAbox analysis of midbrain dataset</a>
+                  <li class="toctree-l1 current"><a class="reference internal current" href="./">SCRNA analysis track: Midbrain dataset</a>
     <ul class="current">
     </ul>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../DEG/">Analysis of DEGs</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../DEG/">Analysis of DGE outputs</a>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../library_prep/">Manual CellRanger library preparation</a>
                   </li>
@@ -114,7 +114,7 @@
   <ul class="wy-breadcrumbs">
     <li><a href=".." class="icon icon-home" aria-label="Docs"></a> &raquo;</li>
           <li>Tutorial &raquo;</li>
-      <li class="breadcrumb-item active">scRNAbox analysis of midbrain dataset</li>
+      <li class="breadcrumb-item active">SCRNA analysis track: Midbrain dataset</li>
     <li class="wy-breadcrumbs-aside">
     </li>
   </ul>
@@ -123,7 +123,7 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
             <div class="section" itemprop="articleBody">
               
-                <h2 id="scrnabox-analysis-of-the-midbrain-dataset">ScRNAbox analysis of the midbrain dataset</h2>
+                <h2 id="scrna-analysis-track-midbrain-dataset">SCRNA analysis track: Midbrain dataset</h2>
 <h2 id="contents">Contents</h2>
 <ul>
 <li><a href="#introduction">Introduction</a></li>
@@ -159,7 +159,7 @@
 </li>
 </ul>
 </li>
-<li><a href="#analysis-of-differentially-expressed-genes">Analysis of differentially expressed genes</a></li>
+<li><a href="#analysis-of-differentially-expressed-genes">Analysis of differential gene expression outputs</a></li>
 <li><a href="#publication-ready-figures">Publication-ready figures</a></li>
 <li><a href="#job-configurations">Job Configurations</a> </li>
 </ul>
@@ -2095,7 +2095,7 @@ bash $SCRNABOX_HOME/launch_scrnabox.sh \
 
 <p><strong>Figure 12. Figures produced by Step 8 of the scRNAbox pipeline.</strong> Step 8 of the scRNAbox pipeline allows users to compute DGE between groups by two methods: 1) using cells as replicates with MAST (cell-based) and 2) using samples as replicates with DESeq2 (sample-based). Volcano plots are produced for each user-defined DGE contrast. For the midbrain dataset, we leveraged both methods to compute DGE between Parkinson's disease (PD) subjects and controls across <strong>A)</strong> all cells, <strong>B)</strong> astrocytes, <strong>C)</strong> dopaminergic neurons (DaN), <strong>D)</strong> endothelial cells, <strong>E)</strong> Ependymal cells, <strong>F)</strong> excitatory neurons, <strong>G)</strong> GABAergic neurons, <strong>H)</strong> Inhibitory neurons, <strong>I)</strong> microglia, <strong>J)</strong> oligodendrocytes, <strong>K)</strong> oligodendrocyte precursor cells (OPC), and <strong>H)</strong> Pericytes. </p>
 <hr />
-<h3 id="analysis-of-differentially-expressed-genes">Analysis of differentially expressed genes</h3>
+<h3 id="analysis-of-differential-gene-expression-outputs">Analysis of differential gene expression outputs</h3>
 <p>For the code used to perform downstream analysis of the differentially expressed genes presented in our <a href="">pre-print manuscript</a> see <a href="../DEG/">here</a>.  </p>
 <hr />
 <h3 id="publication-ready-figures">Publication-ready figures</h3>
@@ -2185,8 +2185,8 @@ bash $SCRNABOX_HOME/launch_scrnabox.sh \
             </div>
           </div><footer>
     <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
-        <a href="../midbrain_download/" class="btn btn-neutral float-left" title="Downloading the midbrain dataset"><span class="icon icon-circle-arrow-left"></span> Previous</a>
-        <a href="../DEG/" class="btn btn-neutral float-right" title="Analysis of DEGs">Next <span class="icon icon-circle-arrow-right"></span></a>
+        <a href="../midbrain_download/" class="btn btn-neutral float-left" title="Downloading the Midbrain dataset"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../DEG/" class="btn btn-neutral float-right" title="Analysis of DGE outputs">Next <span class="icon icon-circle-arrow-right"></span></a>
     </div>
 
   <hr/>

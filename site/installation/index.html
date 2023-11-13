@@ -76,7 +76,7 @@
                   <li class="toctree-l1"><a class="reference internal" href="../Step8/">Step 8: Differential gene expression</a>
                   </li>
               </ul>
-              <p class="caption"><span class="caption-text">Additional information</span></p>
+              <p class="caption"><span class="caption-text">Documentation</span></p>
               <ul>
                   <li class="toctree-l1"><a class="reference internal" href="../config/">Job configurations</a>
                   </li>
@@ -87,11 +87,11 @@
               </ul>
               <p class="caption"><span class="caption-text">Tutorial</span></p>
               <ul>
-                  <li class="toctree-l1"><a class="reference internal" href="../midbrain_download/">Downloading the midbrain dataset</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../midbrain_download/">Downloading the Midbrain dataset</a>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../Dataset1/">scRNAbox analysis of midbrain dataset</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../Dataset1/">SCRNA analysis track: Midbrain dataset</a>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../DEG/">Analysis of DEGs</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../DEG/">Analysis of DGE outputs</a>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../library_prep/">Manual CellRanger library preparation</a>
                   </li>
@@ -170,8 +170,8 @@ unzip scrnabox.slurm.zip
 <p>For information regarding the installation of <code>CellRanger</code>, please visit the 10X Genomics <a href="https://support.10xgenomics.com/single-cell-gene-expression/software/pipelines/latest/installation">documentation</a>. If CellRanger is already installed on your HPC system, you may skip the CellRanger installation procedures.</p>
 <hr />
 <h3 id="r-library-preparation-and-r-package-installation">R library preparation and R package installation</h3>
-<p>Users must first install <code>R</code> (v4.2 or later) onto their HPC system: </p>
-<pre><code># install R
+<p>R must be installed on the HPC system. If R is not already installed, the user should contact their system administrator. If R is installed on the HPC system, users must load <code>R</code> (v4.2 or later) into their working environment: </p>
+<pre><code># load R
 module load r/4.2.1
 </code></pre>
 <p>Then, users must run the following installation code, which will create a directory where the R packages will be loaded and will install the required R packages:</p>
@@ -182,7 +182,7 @@ mkdir -p $R_PATH
 # Install package
 Rscript ./scrnabox.slurm/soft/R/install_packages_scrnabox.R $R_PATH
 </code></pre>
-<p>Alternatively, users can install the packages manually. The packages required for each step of the scRNAbox are described at <code>./scrnabox.slurm/soft/R/R.library_hto.ini</code></p>
+<p>Alternatively, users can install the packages manually. The R packages required for scRNAbox are shown <a href="https://github.com/neurobioinfo/scrnabox/blob/main/scrnabox.slurm/soft/R/R.library.ini">here</a>.</p>
 <hr />
 <p>Upon completing the installation procedures, users can proceed with the scRNAbox pipeline.</p>
               

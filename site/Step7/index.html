@@ -78,7 +78,7 @@
                   <li class="toctree-l1"><a class="reference internal" href="../Step8/">Step 8: Differential gene expression</a>
                   </li>
               </ul>
-              <p class="caption"><span class="caption-text">Additional information</span></p>
+              <p class="caption"><span class="caption-text">Documentation</span></p>
               <ul>
                   <li class="toctree-l1"><a class="reference internal" href="../config/">Job configurations</a>
                   </li>
@@ -89,11 +89,11 @@
               </ul>
               <p class="caption"><span class="caption-text">Tutorial</span></p>
               <ul>
-                  <li class="toctree-l1"><a class="reference internal" href="../midbrain_download/">Downloading the midbrain dataset</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../midbrain_download/">Downloading the Midbrain dataset</a>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../Dataset1/">scRNAbox analysis of midbrain dataset</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../Dataset1/">SCRNA analysis track: Midbrain dataset</a>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../DEG/">Analysis of DEGs</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../DEG/">Analysis of DGE outputs</a>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../library_prep/">Manual CellRanger library preparation</a>
                   </li>
@@ -138,7 +138,7 @@ Seurat's <em>FindAllMarkers</em> function is used to identify differentially exp
 <p><a href="#tool-2-expression-profiling-of-known-marker-genes">Tool 2: Expression profiling of cell type markers and module scores</a> <br />
 Users can visualize the expression of individual genes and the aggregated expression of multiple genes. For each gene in a user-defined list, plots are produced to visualize its expression at the cluster or cell level. The aggregated expression of genes in a user-defined list are calculated using the Seurat AddModuleScore function (<a href="https://pubmed.ncbi.nlm.nih.gov/27124452/">Tirosh et al. 2016</a>. <br /></p>
 <p><a href="#tool-3-reference-based-annotation">Tool 3: Cell type predictions based on reference data</a> 
-Seurat's <em>FindTransferAnchors</em> and <em>TransferData</em> functions are used to leverage cell-type annotations from a reference Seurat object and generate annotation predictions for the query dataset (<a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4481139/">Macosko et al. 2015</a>). 
+Seurat's <em>FindTransferAnchors</em> and <em>TransferData</em> functions are used to leverage cell-type annotations from a reference Seurat object and generate annotation predictions for the query dataset (<a href="https://www.cell.com/cell/fulltext/S0092-8674(19)30559-8?_returnURL=https%3A%2F%2Flinkinghub.elsevier.com%2Fretrieve%2Fpii%2FS0092867419305598%3Fshowall%3Dtrue">Butlet et al. 2019</a>). 
 <br /></p>
 <p>Additionally, users can <a href="#adding-annotations">add cluster annotations</a> to the Seurat object.</p>
 <hr />
@@ -291,10 +291,10 @@ Seurat's <em>FindTransferAnchors</em> and <em>TransferData</em> functions are us
 </code></pre>
 <p>The resulting output files are deposited into <code>~/working_directory/step7/*/marker</code>. For a description of the outputs see <a href="../outputs/">here</a>.</p>
 <hr />
-<p><strong>Note:</strong>  In order to test the cluster marker genes for enrichment across EnrichR libraries, the HPC must have access to the internet. If your HPC cannot access the internet, you must set <code>par_run_enrichR = "no"</code>. However, the enrichment step can still be performed on your local machine directly in R. To do so, begin by downloading the <code>ClusterMarkers.csv</code> file obtained from running the above command with <code>par_run_find_marker = "yes"</code> to your computer: </p>
+<p><strong>Note:</strong>  In order to test the cluster marker genes for enrichment across EnrichR libraries, the HPC must have access to the internet. If your HPC cannot access the internet, you must set <code>par_run_enrichR = "no"</code>. The pipeline will still run differential gene expression and find the markers for each cluster. You can then take the pipeline output and run the enrichment step on your local machine directly in R. To do so, begin by downloading the <code>ClusterMarkers.csv</code> file obtained from running the above command with <code>par_run_find_marker = "yes"</code> to your computer:</p>
 <pre><code>scp username@beluga.computecanada.ca:~/working_directory/step7/info7/marker/ClusterMarkers.csv ~/Desktop/working_directory
 </code></pre>
-<p>Then run the follwing code in R:</p>
+<p>Then run the following code in R:</p>
 <pre><code>#set up the environment
 library(Seurat)
 library(dplyr)
@@ -342,6 +342,7 @@ annotation&lt;-function(PWD,cluster_marker,db) {
 ## perform enrichment
 annotation(PWD,cluster_marker,db)
 </code></pre>
+<p><strong>Note</strong>: Users can define whichever libraries they want. For more information regarding the available libraries, see <a href="https://maayanlab.cloud/Enrichr/">here</a>.</p>
 <hr />
 <h2 id="tool-2-expression-profiling-of-known-marker-genes">Tool 2: Expression profiling of known marker genes</h2>
 <p>To profile the expression known marker genes, use the following command:</p>

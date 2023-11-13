@@ -10,9 +10,9 @@ The scRNAbox pipeline provides two distinct, yet highly comparable analysis trac
 1. **Standard analysis track**
 2. **HTO analysis track**
 
-The **standard analysis track** is designed for experiments where each sample is captured and sequenced separately, while the **HTO analysis track** is designed for multiplexed experiments where samples are tagged with sample-specific oligonucleotide tagged Hashtag antibodies (HTO), pooled, and sequenced together. The **HTO analysis track** is distinguished by an additional sample demultiplexing step that assigns cells to their sample-of-origin via the sample-specific HTOs. 
-
 <img src="https://github.com/neurobioinfo/scrnabox/assets/110110777/3a6df83e-e104-45d2-9b04-fe246642c6a8" height="300"> 
+
+The **standard analysis track** is designed for experiments where each sample is captured and sequenced separately, while the **HTO analysis track** is designed for multiplexed experiments where samples are tagged with sample-specific oligonucleotide tagged Hashtag antibodies (HTO), pooled, and sequenced together. The two tracks share all of the same processes except for Steps 1 and 4. In Step 1, the FASTQ processing for HTO data requires different configurations than the standard analysis. In Step 4, the HTO data is demultiplexed and a different doublet removal method is used. 
 
 For a comprehenseive description of each step, please see the **Pipeline** section of the scRNAbox documentation or see our [pre-print manuscript](). <br/>
 
@@ -33,14 +33,14 @@ For a tutorial that leverages the datasets used as the application cases in our 
     - [Step 6: Clustering](Step6.md)
     - [Step 7: Cluster annotation](Step7.md)
     - [Step 8: Differential gene expression](Step8.md)
-- Additional information:    
+- Documentation:    
     - [Job configurations](config.md)
     - [Execution parameters](reference.md) 
     - [Outputs](outputs.md) 
 - Tutorial:
-    - [Downloading the midbrain dataset](midbrain_download.md)
-    - [scRNAbox analysis of midbrain dataset](Dataset1.md)
-    - [Analysis of DEGs](DEG.md)
+    - [Downloading the Midbrain dataset](midbrain_download.md)
+    - [SCRNA analysis track: Midbrain dataset](Dataset1.md)
+    - [Analysis of DGE outputs](DEG.md)
     - [Manual CellRanger library preparation](library_prep.md)      
            
 - About:

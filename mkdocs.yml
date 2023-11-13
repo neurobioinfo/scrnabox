@@ -14,14 +14,14 @@ nav:
         - 'Step 6: Clustering' : Step6.md
         - 'Step 7: Cluster annotation' : Step7.md
         - 'Step 8: Differential gene expression' : Step8.md
-    - Additional information:    
+    - Documentation:    
         - 'Job configurations' : config.md
         - 'Execution parameters' : reference.md 
         - 'Outputs': outputs.md 
     - Tutorial:
-        - 'Downloading the midbrain dataset' : midbrain_download.md
-        - 'scRNAbox analysis of midbrain dataset' : Dataset1.md
-        - 'Analysis of DEGs' : DEG.md
+        - 'Downloading the Midbrain dataset' : midbrain_download.md
+        - 'SCRNA analysis track: Midbrain dataset' : Dataset1.md
+        - 'Analysis of DGE outputs' : DEG.md
         - 'Manual CellRanger library preparation' : library_prep.md     
     - About:
         - 'License': 'LICENSE.md'

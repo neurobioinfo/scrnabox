@@ -72,7 +72,7 @@
                   <li class="toctree-l1"><a class="reference internal" href="../Step8/">Step 8: Differential gene expression</a>
                   </li>
               </ul>
-              <p class="caption"><span class="caption-text">Additional information</span></p>
+              <p class="caption"><span class="caption-text">Documentation</span></p>
               <ul>
                   <li class="toctree-l1"><a class="reference internal" href="../config/">Job configurations</a>
                   </li>
@@ -83,11 +83,11 @@
               </ul>
               <p class="caption"><span class="caption-text">Tutorial</span></p>
               <ul>
-                  <li class="toctree-l1"><a class="reference internal" href="../midbrain_download/">Downloading the midbrain dataset</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../midbrain_download/">Downloading the Midbrain dataset</a>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../Dataset1/">scRNAbox analysis of midbrain dataset</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../Dataset1/">SCRNA analysis track: Midbrain dataset</a>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../DEG/">Analysis of DEGs</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../DEG/">Analysis of DGE outputs</a>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../library_prep/">Manual CellRanger library preparation</a>
                   </li>
@@ -164,7 +164,14 @@ CELLRANGER_VERSION=5.0.1
 R_VERSION=4.2.1
 R_LIB_PATH=/path/to/R/library
 </code></pre>
-<p><strong>Note:</strong> For more information, please see the <a href="../config/">Job cofigurations</a> sections of the scRNAbox documentation.</p>
+<p><strong>Note:</strong> The text files can be opened and modified through nano, vim, or a file manager system like cyberduck. <br />
+<strong>Note:</strong> For more information regarding the configuration file, please see the <a href="../config/">Job cofigurations</a> sections of the scRNAbox documentation.</p>
+<p>Next, users can check to see if all of the required R packages have been properly installed using the following command:</p>
+<pre><code>bash $SCRNABOX_HOME/launch_scrnabox.sh \
+-d ${SCRNABOX_PWD} \
+--steps 0 \
+--rcheck 
+</code></pre>
 <hr />
 <p>Upon completing the setup procedures, users can run their analysis using the scRNAbox pipeline. </p>
               

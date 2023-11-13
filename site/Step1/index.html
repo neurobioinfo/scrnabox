@@ -80,7 +80,7 @@
                   <li class="toctree-l1"><a class="reference internal" href="../Step8/">Step 8: Differential gene expression</a>
                   </li>
               </ul>
-              <p class="caption"><span class="caption-text">Additional information</span></p>
+              <p class="caption"><span class="caption-text">Documentation</span></p>
               <ul>
                   <li class="toctree-l1"><a class="reference internal" href="../config/">Job configurations</a>
                   </li>
@@ -91,11 +91,11 @@
               </ul>
               <p class="caption"><span class="caption-text">Tutorial</span></p>
               <ul>
-                  <li class="toctree-l1"><a class="reference internal" href="../midbrain_download/">Downloading the midbrain dataset</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../midbrain_download/">Downloading the Midbrain dataset</a>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../Dataset1/">scRNAbox analysis of midbrain dataset</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../Dataset1/">SCRNA analysis track: Midbrain dataset</a>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../DEG/">Analysis of DEGs</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../DEG/">Analysis of DGE outputs</a>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../library_prep/">Manual CellRanger library preparation</a>
                   </li>
@@ -150,8 +150,8 @@ path/to/fastqs/directory/,SampleNameHTO,Antibody Capture
 </code></pre>
 <ul>
 <li>The <code>fastqs</code> column defines the path to the directory that contains the FASTQ files for the experiment. <br /> </li>
-<li>The <code>sample</code> column defines the sample name of the corresponding FASTQ file. Please note that FASTQ files must be named according to standard CellRanger nomenclature (e.g. CTRL1_S1_L001_R1_001.fastq). For more information please visit CellRanger's <a href="https://support.10xgenomics.com/single-cell-gene-expression/software/pipelines/latest/using/fastq-input">documentation</a>. <br /></li>
-<li>The <code>library_type</code> column defines the assay type. For the standard analysis track, this will always be "Gene expression". For the HTO analysis track, each sequencing run should have a "Gene Expression" and "Antibody Capture" assay. For more information, please visit CellRanger's <a href="" title="https://support.10xgenomics.com/single-cell-gene-expression/software/pipelines/latest/using/feature-bc-analysis">documentation</a> <br /></li>
+<li>The <code>sample</code> column defines the sample name of the corresponding FASTQ file. Please note that FASTQ files must be named according to standard CellRanger nomenclature (e.g. CTRL1_S1_L001_R1_001.fastq). For more information regarding the nomenclature please visit CellRanger's <a href="https://support.10xgenomics.com/single-cell-gene-expression/software/pipelines/latest/using/fastq-input">documentation</a>. <br /></li>
+<li>The <code>library_type</code> column defines the assay type. For the standard analysis track, this will always be "Gene expression". For the HTO analysis track, each sequencing run should have a "Gene Expression" and "Antibody Capture" assay. <br /></li>
 </ul>
 <p>For more information regarding the preparation of the <code>library.csv</code>, please see CellRanger's <a href="https://support.10xgenomics.com/single-cell-gene-expression/software/pipelines/latest/using/feature-bc-analysis">documentation</a>.</p>
 <h4 id="feature_refcsv">feature_ref.csv</h4>
@@ -166,7 +166,7 @@ Hash4,B0254_TotalSeqB,R2,5PNNNNNNNNNN(BC),AGTAAGTTCAGCGTA,Antibody Capture
 <li>The <code>id</code> column defines the barcode ID which will be used to track the feature counts. <br /> </li>
 <li>The <code>name</code> column defines the arbitrary name for the barcode identifier. <br /> </li>
 <li>The <code>read</code> column defines which RNA sequencing read contains the barcode sequence. This value Will be either R1 or R2.<br /> </li>
-<li>The <code>pattern</code> column defines the pattern of the barcode identifiers. For more information please visit the 10X Genomics <a href="https://support.10xgenomics.com/single-cell-gene-expression/software/pipelines/latest/using/feature-bc-analysis#pattern">documentation</a><br /> </li>
+<li>The <code>pattern</code> column defines the pattern of the barcode identifiers. <br /> </li>
 <li>The <code>sequence</code> column defines nucleotide sequence associated with the barcode identifier.<br /> </li>
 <li>The <code>feature_type</code> column defines the type of feature used for sample identification. Please ensure that the feature_type in the <code>feature_ref.csv</code> file matches a library_type in the <code>library.csv</code> file.  <br /> </li>
 </ul>
@@ -379,8 +379,8 @@ bash $SCRNABOX_HOME/launch_scrnabox.sh \
 --steps 1
 </code></pre>
 <p>The resulting output files are deposited into <code>~/working_directory/step1</code>. The expression filtered matrix, features, and barcode files outputed by CellRanger are located in <code>~/working_directory/step1/sample/ouput_folder/outs/filtered_feature_bc_matrix</code>.</p>
-<p><strong>Note:</strong> If CellRanger was successfull it will display <em>Pipestance completed successfully!</em> If this message is not displayed, you must re-run the Step 1. If CellRanger fails a second time, please contact the developers.</p>
-<p><strong>Note:</strong> If you do not have access to FASTQ files for your experiment, you may intiate the pipeline at which ever Analytical Step takes your data object as input. In the case where FASTQ files are not available, users do not have to create the <code>samples_info</code> folder. For more information see <a href="../PROC/">Processed Data</a>.  </p>
+<p><strong>Note:</strong> If CellRanger was successfull it will display <em>Pipestance completed successfully!</em> If this message is not displayed, you should check the error logs in <code>~/working_directory/step1/sample/ouput_folder.log</code> and re-run Step 1. If CellRanger fails a second time, please contact the developers of scRNAbox. Contact information is available <a href="../contributing/">here</a>.</p>
+<p><strong>Note:</strong> If you do not have access to FASTQ files for your experiment, you may intiate the pipeline at which ever Analytical Step takes your data object as input. In the case where FASTQ files are not available, users do not have to create the <code>samples_info</code> folder. </p>
               
             </div>
           </div><footer>

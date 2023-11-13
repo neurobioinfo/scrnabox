@@ -13,8 +13,8 @@ path/to/fastqs/directory/,SampleNameGEX,Gene Expression
 path/to/fastqs/directory/,SampleNameHTO,Antibody Capture
 ```
 - The `fastqs` column defines the path to the directory that contains the FASTQ files for the experiment. <br /> 
-- The `sample` column defines the sample name of the corresponding FASTQ file. Please note that FASTQ files must be named according to standard CellRanger nomenclature (e.g. CTRL1_S1_L001_R1_001.fastq). For more information please visit CellRanger's [documentation](https://support.10xgenomics.com/single-cell-gene-expression/software/pipelines/latest/using/fastq-input). <br />
-- The `library_type` column defines the assay type. For the standard analysis track, this will always be "Gene expression". For the HTO analysis track, each sequencing run should have a "Gene Expression" and "Antibody Capture" assay. For more information, please visit CellRanger's [documentation]("https://support.10xgenomics.com/single-cell-gene-expression/software/pipelines/latest/using/feature-bc-analysis") <br />
+- The `sample` column defines the sample name of the corresponding FASTQ file. Please note that FASTQ files must be named according to standard CellRanger nomenclature (e.g. CTRL1_S1_L001_R1_001.fastq). For more information regarding the nomenclature please visit CellRanger's [documentation](https://support.10xgenomics.com/single-cell-gene-expression/software/pipelines/latest/using/fastq-input). <br />
+- The `library_type` column defines the assay type. For the standard analysis track, this will always be "Gene expression". For the HTO analysis track, each sequencing run should have a "Gene Expression" and "Antibody Capture" assay. <br />
 
 For more information regarding the preparation of the `library.csv`, please see CellRanger's [documentation](https://support.10xgenomics.com/single-cell-gene-expression/software/pipelines/latest/using/feature-bc-analysis).
 
@@ -30,7 +30,7 @@ Hash4,B0254_TotalSeqB,R2,5PNNNNNNNNNN(BC),AGTAAGTTCAGCGTA,Antibody Capture
 - The `id` column defines the barcode ID which will be used to track the feature counts. <br /> 
 - The `name` column defines the arbitrary name for the barcode identifier. <br /> 
 - The `read` column defines which RNA sequencing read contains the barcode sequence. This value Will be either R1 or R2.<br /> 
-- The `pattern` column defines the pattern of the barcode identifiers. For more information please visit the 10X Genomics [documentation](https://support.10xgenomics.com/single-cell-gene-expression/software/pipelines/latest/using/feature-bc-analysis#pattern)<br /> 
+- The `pattern` column defines the pattern of the barcode identifiers. <br /> 
 - The `sequence` column defines nucleotide sequence associated with the barcode identifier.<br /> 
 - The `feature_type` column defines the type of feature used for sample identification. Please ensure that the feature_type in the `feature_ref.csv` file matches a library_type in the `library.csv` file.  <br /> 
 
@@ -94,9 +94,9 @@ bash $SCRNABOX_HOME/launch_scrnabox.sh \
 
 The resulting output files are deposited into `~/working_directory/step1`. The expression filtered matrix, features, and barcode files outputed by CellRanger are located in `~/working_directory/step1/sample/ouput_folder/outs/filtered_feature_bc_matrix`.
 
-**Note:** If CellRanger was successfull it will display _Pipestance completed successfully!_ If this message is not displayed, you must re-run the Step 1. If CellRanger fails a second time, please contact the developers.
+**Note:** If CellRanger was successfull it will display _Pipestance completed successfully!_ If this message is not displayed, you should check the error logs in `~/working_directory/step1/sample/ouput_folder.log` and re-run Step 1. If CellRanger fails a second time, please contact the developers of scRNAbox. Contact information is available [here](contributing.md).
 
-**Note:** If you do not have access to FASTQ files for your experiment, you may intiate the pipeline at which ever Analytical Step takes your data object as input. In the case where FASTQ files are not available, users do not have to create the `samples_info` folder. For more information see [Processed Data](PROC.md).  
+**Note:** If you do not have access to FASTQ files for your experiment, you may intiate the pipeline at which ever Analytical Step takes your data object as input. In the case where FASTQ files are not available, users do not have to create the `samples_info` folder. 
 
 
 

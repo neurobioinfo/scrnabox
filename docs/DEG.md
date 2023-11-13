@@ -1,4 +1,4 @@
-## DEG analysis
+## Analysis of DGE outputs
 This tutorial provides the code used for producing Figure 5 of our [pre-print manuscript](); downstream analyses of the differential gene expression (DGE) results for the midbrain dataset ([Smajic et al. 2022](https://academic.oup.com/brain/article/145/3/964/6469020)). The tutorial can be broken down into three sections: <br />
 
  - [DEG summary](#1-deg-summary)<br />

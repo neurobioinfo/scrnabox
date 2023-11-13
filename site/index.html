@@ -72,7 +72,7 @@
                   <li class="toctree-l1"><a class="reference internal" href="Step8/">Step 8: Differential gene expression</a>
                   </li>
               </ul>
-              <p class="caption"><span class="caption-text">Additional information</span></p>
+              <p class="caption"><span class="caption-text">Documentation</span></p>
               <ul>
                   <li class="toctree-l1"><a class="reference internal" href="config/">Job configurations</a>
                   </li>
@@ -83,11 +83,11 @@
               </ul>
               <p class="caption"><span class="caption-text">Tutorial</span></p>
               <ul>
-                  <li class="toctree-l1"><a class="reference internal" href="midbrain_download/">Downloading the midbrain dataset</a>
+                  <li class="toctree-l1"><a class="reference internal" href="midbrain_download/">Downloading the Midbrain dataset</a>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="Dataset1/">scRNAbox analysis of midbrain dataset</a>
+                  <li class="toctree-l1"><a class="reference internal" href="Dataset1/">SCRNA analysis track: Midbrain dataset</a>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="DEG/">Analysis of DEGs</a>
+                  <li class="toctree-l1"><a class="reference internal" href="DEG/">Analysis of DGE outputs</a>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="library_prep/">Manual CellRanger library preparation</a>
                   </li>
@@ -135,8 +135,8 @@
 <li><strong>Standard analysis track</strong></li>
 <li><strong>HTO analysis track</strong></li>
 </ol>
-<p>The <strong>standard analysis track</strong> is designed for experiments where each sample is captured and sequenced separately, while the <strong>HTO analysis track</strong> is designed for multiplexed experiments where samples are tagged with sample-specific oligonucleotide tagged Hashtag antibodies (HTO), pooled, and sequenced together. The <strong>HTO analysis track</strong> is distinguished by an additional sample demultiplexing step that assigns cells to their sample-of-origin via the sample-specific HTOs. </p>
 <p><img src="https://github.com/neurobioinfo/scrnabox/assets/110110777/3a6df83e-e104-45d2-9b04-fe246642c6a8" height="300"> </p>
+<p>The <strong>standard analysis track</strong> is designed for experiments where each sample is captured and sequenced separately, while the <strong>HTO analysis track</strong> is designed for multiplexed experiments where samples are tagged with sample-specific oligonucleotide tagged Hashtag antibodies (HTO), pooled, and sequenced together. The two tracks share all of the same processes except for Steps 1 and 4. In Step 1, the FASTQ processing for HTO data requires different configurations than the standard analysis. In Step 4, the HTO data is demultiplexed and a different doublet removal method is used. </p>
 <p>For a comprehenseive description of each step, please see the <strong>Pipeline</strong> section of the scRNAbox documentation or see our <a href="">pre-print manuscript</a>. <br/></p>
 <p>For a tutorial that leverages the datasets used as the application cases in our pre-print manuscript, please see <a href="Dataset1/">scRNAbox analysis of the midbrain dataset</a>.</p>
 <hr />
@@ -156,7 +156,7 @@
 <li><a href="Step8/">Step 8: Differential gene expression</a></li>
 </ul>
 </li>
-<li>Additional information:    <ul>
+<li>Documentation:    <ul>
 <li><a href="config/">Job configurations</a></li>
 <li><a href="reference/">Execution parameters</a> </li>
 <li><a href="outputs/">Outputs</a> </li>
@@ -165,9 +165,9 @@
 <li>
 <p>Tutorial:</p>
 <ul>
-<li><a href="midbrain_download/">Downloading the midbrain dataset</a></li>
-<li><a href="Dataset1/">scRNAbox analysis of midbrain dataset</a></li>
-<li><a href="DEG/">Analysis of DEGs</a></li>
+<li><a href="midbrain_download/">Downloading the Midbrain dataset</a></li>
+<li><a href="Dataset1/">SCRNA analysis track: Midbrain dataset</a></li>
+<li><a href="DEG/">Analysis of DGE outputs</a></li>
 <li><a href="library_prep/">Manual CellRanger library preparation</a>      </li>
 </ul>
 </li>
@@ -229,5 +229,5 @@
 
 <!--
 MkDocs version : 1.5.2
-Build Date UTC : 2023-11-10 21:23:21.517713+00:00
+Build Date UTC : 2023-11-13 21:34:22.742796+00:00
 -->

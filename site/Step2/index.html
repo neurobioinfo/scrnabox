@@ -70,7 +70,7 @@
                   <li class="toctree-l1"><a class="reference internal" href="../Step8/">Step 8: Differential gene expression</a>
                   </li>
               </ul>
-              <p class="caption"><span class="caption-text">Additional information</span></p>
+              <p class="caption"><span class="caption-text">Documentation</span></p>
               <ul>
                   <li class="toctree-l1"><a class="reference internal" href="../config/">Job configurations</a>
                   </li>
@@ -81,11 +81,11 @@
               </ul>
               <p class="caption"><span class="caption-text">Tutorial</span></p>
               <ul>
-                  <li class="toctree-l1"><a class="reference internal" href="../midbrain_download/">Downloading the midbrain dataset</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../midbrain_download/">Downloading the Midbrain dataset</a>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../Dataset1/">scRNAbox analysis of midbrain dataset</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../Dataset1/">SCRNA analysis track: Midbrain dataset</a>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../DEG/">Analysis of DEGs</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../DEG/">Analysis of DGE outputs</a>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../library_prep/">Manual CellRanger library preparation</a>
                   </li>
@@ -126,8 +126,8 @@
                 <h1 id="step-2-create-seurat-object-and-remove-ambient-rna">Step 2: Create Seurat object and remove ambient RNA</h1>
 <p>In Step 2, the CellRanger outputs generated in Step 1 (expression matrix, features, and barcodes) are used to create a Seurat object for each sample. The ambient RNA quantity is estimated and there is an option to correct gene expression profiles for RNA contamination using SoupX (<a href="https://academic.oup.com/gigascience/article/9/12/giaa151/6049831">Young et al. 2020</a>). Then, CellRanger (if not removing ambient RNA) or SoupX (if removing ambient RNA) feature-barcode expression matrices are transformed into Seurat objects. Quality control measures are then computed to inform filtering in Step 3, including:</p>
 <ul>
-<li>the number of unique transcripts (genes);</li>
-<li>the total number of transcripts;</li>
+<li>the number of unique transcripts (genes; nFeaturesRNA);</li>
+<li>the total number of transcripts (nCountsRNA);</li>
 <li>the percentage of mitochondrial-encoded transcripts; </li>
 <li>the percentage of ribosome gene transcripts.</li>
 </ul>

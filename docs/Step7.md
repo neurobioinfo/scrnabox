@@ -8,7 +8,7 @@ Seurat's _FindAllMarkers_ function is used to identify differentially expressed 
 Users can visualize the expression of individual genes and the aggregated expression of multiple genes. For each gene in a user-defined list, plots are produced to visualize its expression at the cluster or cell level. The aggregated expression of genes in a user-defined list are calculated using the Seurat AddModuleScore function ([Tirosh et al. 2016](https://pubmed.ncbi.nlm.nih.gov/27124452/). <br />
 
 [Tool 3: Cell type predictions based on reference data](#tool-3-reference-based-annotation) 
-Seurat's _FindTransferAnchors_ and _TransferData_ functions are used to leverage cell-type annotations from a reference Seurat object and generate annotation predictions for the query dataset ([Macosko et al. 2015](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4481139/)). 
+Seurat's _FindTransferAnchors_ and _TransferData_ functions are used to leverage cell-type annotations from a reference Seurat object and generate annotation predictions for the query dataset ([Butlet et al. 2019](https://www.cell.com/cell/fulltext/S0092-8674(19)30559-8?_returnURL=https%3A%2F%2Flinkinghub.elsevier.com%2Fretrieve%2Fpii%2FS0092867419305598%3Fshowall%3Dtrue)). 
 <br />
 
 Additionally, users can [add cluster annotations](#adding-annotations) to the Seurat object.
@@ -53,12 +53,12 @@ bash $SCRNABOX_HOME/launch_scrnabox.sh \
 The resulting output files are deposited into `~/working_directory/step7/*/marker`. For a description of the outputs see [here](outputs.md).
  - - - -
  
-**Note:**  In order to test the cluster marker genes for enrichment across EnrichR libraries, the HPC must have access to the internet. If your HPC cannot access the internet, you must set `par_run_enrichR = "no"`. However, the enrichment step can still be performed on your local machine directly in R. To do so, begin by downloading the `ClusterMarkers.csv` file obtained from running the above command with `par_run_find_marker = "yes"` to your computer: 
+**Note:**  In order to test the cluster marker genes for enrichment across EnrichR libraries, the HPC must have access to the internet. If your HPC cannot access the internet, you must set `par_run_enrichR = "no"`. The pipeline will still run differential gene expression and find the markers for each cluster. You can then take the pipeline output and run the enrichment step on your local machine directly in R. To do so, begin by downloading the `ClusterMarkers.csv` file obtained from running the above command with `par_run_find_marker = "yes"` to your computer:
 
 ```
 scp username@beluga.computecanada.ca:~/working_directory/step7/info7/marker/ClusterMarkers.csv ~/Desktop/working_directory
 ```
-Then run the follwing code in R:
+Then run the following code in R:
 ```
 #set up the environment
 library(Seurat)
@@ -107,6 +107,7 @@ annotation<-function(PWD,cluster_marker,db) {
 ## perform enrichment
 annotation(PWD,cluster_marker,db)
 ```
+**Note**: Users can define whichever libraries they want. For more information regarding the available libraries, see [here](https://maayanlab.cloud/Enrichr/).
  - - - -
 
 ## Tool 2: Expression profiling of known marker genes

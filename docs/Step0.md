@@ -43,7 +43,18 @@ CELLRANGER_VERSION=5.0.1
 R_VERSION=4.2.1
 R_LIB_PATH=/path/to/R/library
 ```
-**Note:** For more information, please see the [Job cofigurations](config.md) sections of the scRNAbox documentation.
+**Note:** The text files can be opened and modified through nano, vim, or a file manager system like cyberduck. <br />
+**Note:** For more information regarding the configuration file, please see the [Job cofigurations](config.md) sections of the scRNAbox documentation.
+
+Next, users can check to see if all of the required R packages have been properly installed using the following command:
+
+```
+bash $SCRNABOX_HOME/launch_scrnabox.sh \
+-d ${SCRNABOX_PWD} \
+--steps 0 \
+--rcheck 
+```
+
  - - - -
 Upon completing the setup procedures, users can run their analysis using the scRNAbox pipeline. 
 

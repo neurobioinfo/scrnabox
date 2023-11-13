@@ -13,5 +13,5 @@ comments: false
 #### Contributing
 Any contributions or suggestions for improving the scRNAbox pipeline are welcomed and appreciated. You may directly contact [Saeid Amiri](https://github.com/saeidamiri1), [Michael Fiorini](https://github.com/fiorini9) or [Rhalena Thomas](https://github.com/RhalenaThomas). 
 
-If you encounter any [issues](https://github.com/neurobioinfo/scrnabox/issues), please file them in the GitHub repository.
+If you encounter any issues, please open an issue in the [GitHub repository](https://github.com/neurobioinfo/scrnabox).
 

@@ -50,10 +50,10 @@ For information regarding the installation of `CellRanger`, please visit the 10X
  - - - -
 
 ### R library preparation and R package installation
-Users must first install `R` (v4.2 or later) onto their HPC system: 
+R must be installed on the HPC system. If R is not already installed, the user should contact their system administrator. If R is installed on the HPC system, users must load `R` (v4.2 or later) into their working environment: 
 
 ```
-# install R
+# load R
 module load r/4.2.1
 ```
 Then, users must run the following installation code, which will create a directory where the R packages will be loaded and will install the required R packages:
@@ -66,7 +66,7 @@ mkdir -p $R_PATH
 # Install package
 Rscript ./scrnabox.slurm/soft/R/install_packages_scrnabox.R $R_PATH
 ```
-Alternatively, users can install the packages manually. The packages required for each step of the scRNAbox are described at `./scrnabox.slurm/soft/R/R.library_hto.ini`
+Alternatively, users can install the packages manually. The R packages required for scRNAbox are shown [here](https://github.com/neurobioinfo/scrnabox/blob/main/scrnabox.slurm/soft/R/R.library.ini).
  - - - -
 Upon completing the installation procedures, users can proceed with the scRNAbox pipeline.
 

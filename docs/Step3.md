@@ -1,8 +1,8 @@
 # Step 3: Quality control and generation of filtered data objects
 In Step 3, low quality cells are filtered based on the user-defined thresholds for:
 
-- the number of RNA unique transcripts (genes);
-- the total number of RNA transcripts;
+- the number of unique transcripts (genes; nFeaturesRNA);
+- the total number of transcripts (nCountsRNA);
 - the percentage of mitochondrial-encoded transcripts; 
 - the percentage of ribosome gene transcripts.
 

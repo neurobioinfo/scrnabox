@@ -9,7 +9,7 @@ tags: scRNA
 categories: 
 comments: false
 ---
-## ScRNAbox analysis of the midbrain dataset
+## SCRNA analysis track: Midbrain dataset
 ## Contents
 
 - [Introduction](#introduction)
@@ -37,7 +37,7 @@ comments: false
         - [Cell-based DGE using cell type groups](#cell-based-dge-using-cell-type-groups)
         - [Sample-based DGE using all cells](#sample-based-dge-using-all-cells)
         - [Sample-based DGE using cell type groups](#sample-based-dge-using-cell-type-groups)
- - [Analysis of differentially expressed genes](#analysis-of-differentially-expressed-genes)
+ - [Analysis of differential gene expression outputs](#analysis-of-differentially-expressed-genes)
  - [Publication-ready figures](#publication-ready-figures)
  - [Job Configurations](#job-configurations) 
 
@@ -1202,7 +1202,7 @@ step8
 **Figure 12. Figures produced by Step 8 of the scRNAbox pipeline.** Step 8 of the scRNAbox pipeline allows users to compute DGE between groups by two methods: 1) using cells as replicates with MAST (cell-based) and 2) using samples as replicates with DESeq2 (sample-based). Volcano plots are produced for each user-defined DGE contrast. For the midbrain dataset, we leveraged both methods to compute DGE between Parkinson's disease (PD) subjects and controls across **A)** all cells, **B)** astrocytes, **C)** dopaminergic neurons (DaN), **D)** endothelial cells, **E)** Ependymal cells, **F)** excitatory neurons, **G)** GABAergic neurons, **H)** Inhibitory neurons, **I)** microglia, **J)** oligodendrocytes, **K)** oligodendrocyte precursor cells (OPC), and **H)** Pericytes. 
 - - - -
 
-### Analysis of differentially expressed genes 
+### Analysis of differential gene expression outputs
 
 For the code used to perform downstream analysis of the differentially expressed genes presented in our [pre-print manuscript]() see [here](DEG.md).  
 

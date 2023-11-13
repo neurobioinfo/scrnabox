@@ -5,7 +5,7 @@
 # The pipeline is written by Saeid Amiri (saeid.amiri@mcgill.ca)
 
 VERSION=0.1.52;
-DATE0=2023-11-07
+DATE0=2023-11-12
 echo -e "scrnabox pipeline version $VERSION"
 # updated on $DATE0"
 
@@ -60,6 +60,7 @@ Usage() {
           "\t\t--addmeta  = Add metadata columns to the Seurat object (Step 8). \n" \
           "\t\t--rundge  = Perform differential gene expression contrasts (Step 8). \n" \
           "\t\t--seulist  = You can directly call the list of Seurat objects to the pipeline.  \n \n" \
+          "\t\t--rcheck  = You can identify which libraries are not installed.  \n \n" \
           "------------------- \n" \
           "For a comprehensive help, visit https://github.com/neurobioinfo/scrnabox for documentation. "
 
@@ -70,7 +71,7 @@ echo
 # ===============================================
 # PARSING ARGUMENTS
 # ===============================================
-if ! options=$(getopt --name pipeline --alternative --unquoted --options hs:d:t:m:vw:f:S:c:a:x: --longoptions dir:,steps:,method:,sinfo:,markergsea:,knownmarkers:,referenceannotation:,annotate:,addmeta:,rundge:,dgelist:,genotype:,celltype:,msd:,cont:,seulist:,verbose,help -- "$@")
+if ! options=$(getopt --name pipeline --alternative --unquoted --options hs:d:t:m:vw:f:S:c:a:x: --longoptions dir:,steps:,method:,sinfo:,markergsea:,knownmarkers:,referenceannotation:,annotate:,addmeta:,rundge:,dgelist:,genotype:,celltype:,msd:,cont:,seulist:,verbose,help,rcheck -- "$@")
 then
     # something went wrong, getopt will put out an error message for us
     echo "Error processing options."
@@ -127,6 +128,7 @@ do
     --msd) MSD="$2"; shift ;;
     --sinfo) SINFO="$2"; shift ;;
     --seulist) SEULIST="$2"; shift ;;    
+    --rcheck) RCHECK="$2"; shift ;;  
     (--) shift; break;;
     (-*) echo "$0: error - unrecognized option $1" 1>&2; exit 42;;
     (*) break;;
@@ -149,6 +151,21 @@ FOUND_ERROR=0
 #check to ensure all mandatory arguments have been entered
 
 if [ -z $OUTPUT_DIR ]; then echo "ERROR: missing mandatory option: -d (--dir) must be specified"; FOUND_ERROR=1; fi
+if [ $RCHECK ]; then 
+  echo -e "You pass << $R_LIB_PATH >> to pipeline"
+  echo "The pipeline is verifying the installation status of all R libraries."
+  source $OUTPUT_DIR/job_info/configs/scrnabox_config.ini 
+  SUMMARY_R_CHECK=$OUTPUT_DIR/job_info/summary_r_check.txt
+  if [[ -f $SUMMARY_R_CHECK ]]; then 
+    rm $SUMMARY_R_CHECK
+  fi
+  touch $SUMMARY_R_CHECK
+  echo "It is the result of verifying the R library." >>$SUMMARY_R_CHECK 
+  echo "The list of libraries not installed will be displayed below." >>$SUMMARY_R_CHECK 
+  module load r/$R_VERSION
+  Rscript ${PIPELINE_HOME}/soft/Rcheck/rcheck.R $OUTPUT_DIR $R_LIB_PATH $PIPELINE_HOME/soft/Rcheck/list_R_packages.ini $SUMMARY_R_CHECK
+  exit
+fi
 if [ -z $MODE ]; then echo "ERROR: missing mandatory option: --steps ('ALL' to run all, 2 to run step 2, step 2-4, run steps 2 through 4) must be specified"; FOUND_ERROR=1; fi
 
 if (( $FOUND_ERROR )); then echo "Please check options and try again"; exit 42; fi

@@ -62,7 +62,7 @@ Usage() {
           "\t\t--seulist  = You can directly call the list of Seurat objects to the pipeline.  \n \n" \
           "\t\t--rcheck  = You can identify which libraries are not installed.  \n \n" \
           "------------------- \n" \
-          "For a comprehensive help, visit https://github.com/neurobioinfo/scrnabox for documentation. "
+          "For a comprehensive help, visit  https://neurobioinfo.github.io/scrnabox/site/ for documentation. "
 
 echo 
 }

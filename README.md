@@ -147,7 +147,7 @@ In Step 7, cluster annotation is performed to define the cell types comprising t
  Users can visualize the expression of individual genes and the aggregated expression of multiple genes. For each gene in a user-defined list, plots are produced to visualize its expression at the cluster or cell level. The aggregated expression of genes in a user-defined list are calculated using the Seurat AddModuleScore function ([Tirosh et al. 2016](https://pubmed.ncbi.nlm.nih.gov/27124452/)). <br /> 
  
  _**Tool 3: Cell type predictions based on reference data**_ <br />
- Seurat's FindTransferAnchors and TransferData functions are used to leverage cell-type annotations from a reference Seurat object and generate annotation predictions for the query dataset ([Macosko et al. 2015](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4481139/)). <br />
+ Seurat's FindTransferAnchors and TransferData functions are used to leverage cell-type annotations from a reference Seurat object and generate annotation predictions for the query dataset ([Butler et al. 2019](https://www.cell.com/cell/fulltext/S0092-8674(19)30559-8?_returnURL=https%3A%2F%2Flinkinghub.elsevier.com%2Fretrieve%2Fpii%2FS0092867419305598%3Fshowall%3Dtrue)). <br />
 
 
 **Step 8: Differential gene expression (DGE) analysis** <br />

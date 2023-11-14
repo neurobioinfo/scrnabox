@@ -27,6 +27,7 @@ par_paired_end_seq= TRUE
 ###### feature_ref.csv parameters ######
 ########################################
 ## Please note that if you used different sample-specific barcodes for each sequencing run, you should manually prepare the feature_ref.csv files
+## The values listed in the parameters are examples. They will not work for your dataset.
 
 ## List the IDs of the sample-slecific barcodes
 par_id= c("Hash1", "Hash2", "Hash3", "Hash4", "Hash5", "Hash6", "Hash7", "Hash8")

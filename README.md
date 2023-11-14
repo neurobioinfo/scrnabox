@@ -48,7 +48,7 @@ To use the scRNAbox pipeline, the folowing must be installed on your High-Perfor
 
 ### scrnabox.slurm installation
 
-`scrnabox.slurm` is written in bash and can be used with any Slurm system. To download the latest version of `scrnabox.slurm` (v0.1.35) run the following command: 
+`scrnabox.slurm` is written in bash and can be used with any Slurm system. To download the latest version of `scrnabox.slurm` (v0.1.52) run the following command: 
 ```
 wget https://github.com/neurobioinfo/scrnabox/releases/download/v0.1.52/scrnabox.slurm.zip
 unzip scrnabox.slurm.zip

@@ -22,10 +22,10 @@ par_one_seurat= "no"
 ############################################################################
 # If you have multiple Seurat objects, choose whether you want to integrate or merge the objects
 ############################################################################
-## integrate Seurat objects
+## Integrate Seurat objects
 par_integrate_seurat= "yes"
 
-## merge Seurat objects
+## Merge Seurat objects
 par_merge_seurat= "no"
 
 

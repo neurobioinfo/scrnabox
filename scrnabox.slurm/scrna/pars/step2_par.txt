@@ -8,7 +8,7 @@ par_save_metadata= "yes"
 ############################################################################
 # Ambient RNA removal
 ############################################################################
-##If you want to remove ambient RNA from the expression matrix, keep the default as “yes”. If you do not want values changed to remove ambient RNA, change to “no”.
+## If you want to remove ambient RNA from the expression matrix, keep the default as “yes”. If you do not want values changed to remove ambient RNA, change to “no”.
 par_ambient_RNA= "yes"
 
 
@@ -17,6 +17,7 @@ par_ambient_RNA= "yes"
 ############################################################################
 ## Only retain genes that are present in at least a specified number of cells.
 par_min.cells_L= 3
+
 
 ############################################################################
 # Normalization and scaling parameters for individual Seurat object
@@ -33,4 +34,3 @@ par_selection.method= "vst"
 
 ## Number of features to select as top variable features
 par_nfeatures= 2500
-

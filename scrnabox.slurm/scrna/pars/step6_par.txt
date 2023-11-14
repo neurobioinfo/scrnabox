@@ -25,8 +25,7 @@ par_skip_integration= "no"
 ############################################################################
 # Clustering parameters
 ############################################################################
-## Number of PC to use as input to find neighbours. Can be informed by the elbow and 
-# jackstraw plots produced in Step 5. 
+## Number of PC to use as input to find neighbours. Can be informed by the elbow and jackstraw plots produced in Step 5. 
 par_FindNeighbors_dims= 25
 
 ## Number of PCs to use as input for UMAP. Can be informed by the elbow and jackstraw plots produced in Step 5. 

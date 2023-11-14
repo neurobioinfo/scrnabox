@@ -18,7 +18,7 @@ par_save_metadata= "yes"
 ## Define the column from the Seurat object that you want to use to merge the new metadata
 par_merge_meta= "Sample_ID"
 
-## enter the location to a csv file describing new metadata that should be added to the Seurat object to facilitate DEG analysis. 
+## Enter the path to a csv file describing new metadata that should be added to the Seurat object to facilitate DEG analysis. 
 par_metadata= "path/to/metadata.csv"
 
 

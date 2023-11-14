@@ -80,7 +80,7 @@ par_futureglobalsmaxSize= 60000 * 1024^2
 ## The clustering resolution to annotate
 par_annotate_resolution= "integrated_snn_res.0.7"
 
-## the name of the metadata slot under which the cluster labels will be stored. 
+## The name of the metadata slot under which the cluster labels will be stored. 
 par_name_metadata= "clustering_1"
 
 ## A list of cluster labels. Make sure you have as many labels as clusters at the defined clustering resolution. Please do not use "_" when naming cell types. 

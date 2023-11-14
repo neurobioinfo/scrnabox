@@ -28,7 +28,7 @@ The scRNAbox pipeline provides two distinct, yet highly comparable analysis trac
 The **standard analysis track** is designed for experiments where each sample is captured and sequenced separately, while the **HTO analysis track** is designed for multiplexed experiments where samples are tagged with sample-specific oligonucleotide tagged Hashtag antibodies (HTO), pooled, and sequenced together. The **HTO analysis track** is distinguished by an additional sample demultiplexing step that assigns cells to their sample-of-origin via the sample-specific HTOs. 
 
 <p align="center">
-<img src="https://github.com/neurobioinfo/scrnabox/assets/110110777/3a6df83e-e104-45d2-9b04-fe246642c6a8" height="300"> 
+<img src="https://github.com/neurobioinfo/scrnabox/assets/110110777/029c737c-c696-4cd3-8a00-3c434cf4e731" height="300"> 
 </p>
  
 For a comprehenseive description of each step, please see the **Pipeline** section of the [scRNAbox documentation](https://neurobioinfo.github.io/scrnabox/site/) or see our [pre-print manuscript](). <br/>

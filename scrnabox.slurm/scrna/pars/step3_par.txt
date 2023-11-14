@@ -20,13 +20,13 @@ par_save_metadata= "yes"
 # L = lower bound threshold
 # R = upper bound threshold
 ############################################################################
-## minimum number of unique RNA transcripts
+## Minimum number of unique RNA transcripts
 par_nFeature_RNA_L= 300
-## maximum number of unique RNA transcripts
+## Maximum number of unique RNA transcripts
 par_nFeature_RNA_U= 10000
-## minimum number of total RNA transcripts
+## Minimum number of total RNA transcripts
 par_nCount_RNA_L= 300
-## maximum number of total RNA transcripts
+## Maximum number of total RNA transcripts
 par_nCount_RNA_U= 20000
 ## Minimum mitochondrial RNA percentage
 par_mitochondria_percent_L= 0
@@ -41,18 +41,18 @@ par_ribosomal_percent_U= 100
 ############################################################################
 # Parameters to filter out genes
 ############################################################################
-## If you want to filter out mitochondrial and ribosomal genes set the following parameters to "yes". If you do not want to remove them keep the default as "no",
+## If you want to filter out mitochondrial and ribosomal genes set the following parameters to "yes". If you do not want to remove them keep the default as "no".
 par_remove_mitochondrial_genes= "no"
 par_remove_ribosomal_genes= "no"
 
-## If you have specific genes that you want to remove, enter a vector of genes that you wish to remove. Uncomment the line to activate the parameter.
+## If you have specific genes that you want to remove, enter a vector of the genes. Uncomment the line to activate the parameter.
 #par_remove_genes= c("gene1", "gene2")
 
 
 ############################################################################
 # Regress genes
 ############################################################################
-## If you want to regress cell cycle genes, set the following parameters to "yes". If you do not want to regress them keep, the default as "no". Note: if you are using your own Seurat object (i.e. not from Step 2), you can only regress cell cycle genes if your Seurat object has the cell cycle score computed.
+## If you want to regress cell cycle genes, set the following parameters to "yes". If you do not want to regress them, keep the default as "no". Note: if you are using your own Seurat object (i.e. not from Step 2), you can only regress cell cycle genes if your Seurat object has the cell cycle score computed.
 par_regress_cell_cycle_genes= "no"
 
 ## If you want to regress a custom list of genes, set the following parameters to "yes". If you do not want to regress a custom list, keep the default as "no". 

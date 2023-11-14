@@ -19,13 +19,13 @@ par_save_metadata= "yes"
 # L = lower bound threshold
 # R = upper bound threshold
 ############################################################################
-## minimum number of unique RNA transcripts
+## Minimum number of unique RNA transcripts
 par_nFeature_RNA_L= 50
-## maximum number of unique RNA transcripts
+## Maximum number of unique RNA transcripts
 par_nFeature_RNA_U= 6000
-## minimum number of total RNA transcripts
+## Minimum number of total RNA transcripts
 par_nCount_RNA_L= 200
-## maximum number of total RNA transcripts
+## Maximum number of total RNA transcripts
 par_nCount_RNA_U= 20000
 ## Minimum mitochondrial RNA percentage
 par_mitochondria_percent_L= 0

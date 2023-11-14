@@ -60,13 +60,14 @@ par_quantile= 0.9
 ## Whether to perform automated threshold finding to define the best quantile
 par_autoThresh= TRUE
 
-## Maximum number of iterations if autoThresh = TRUE. Default is 5
+## Maximum number of iterations if autoThresh = TRUE.
 par_maxiter= 5
 
 ## Number of columns if multiple plots are displayed for RidgePlot
 par_RidgePlot_ncol= 3
 
 ## If you want to rename the antibody labels, list the old antibody labels in "old_antibody_label" and list the new corresponding antibody labels in "new_antibody_label". Old antibody labels can be identified in the "_old_antibody_label_MULTIseqDemuxHTOcounts" file produced by running Step 4 msd
+## The defaults are examples. They will not work with your dataset.
 
 par_old_antibody_label= c("A-TotalSeqA", "B-TotalSeqA", "C-TotalSeqA", "D-TotalSeqA", "E-TotalSeqA", "F-TotalSeqA", "G-TotalSeqA", "H-TotalSeqA", "Doublet")
 

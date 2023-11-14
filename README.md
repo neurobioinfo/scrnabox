@@ -187,7 +187,7 @@ For a comprehensive decription of how to run each step please visit scRNAbox's [
  - - - -
 ## Tutorial ##
 
-For a tutorial that leverages the datasets used as the application cases in our pre-print manuscript, please see [scRNAbox analysis of the midbrain dataset](https://neurobioinfo.github.io/scrnabox/site/Dataset1/). 
+For a tutorial that leverages the datasets used as the application cases in our pre-print manuscript, please see [Standard analysis track: Midbrain dataset](https://neurobioinfo.github.io/scrnabox/site/Dataset1/) or [HTO analysis track: PBMC dataset](). 
 
 ---
 #### Contributing

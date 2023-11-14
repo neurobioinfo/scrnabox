@@ -191,7 +191,16 @@ For a tutorial that leverages the datasets used as the application cases in our 
 
 ---
 #### Contributing
-This is an early version of scRNAbox and any contributions or suggestions are appreciated. To do so, you can directly contact the developers:  [Saeid Amiri](https://github.com/saeidamiri1), [Michael Fiorini](https://github.com/fiorini9), or [Rhalena Thomas](https://github.com/RhalenaThomas). 
+Any contributions or suggestions for improving the scRNAbox pipeline are welcomed and appreciated. You may directly contact [Saeid Amiri](https://github.com/saeidamiri1), [Michael Fiorini](https://github.com/fiorini9) or [Rhalena Thomas](https://github.com/RhalenaThomas). 
+
+If you encounter any issues, please open an issue in the [GitHub repository](https://github.com/neurobioinfo/scrnabox).
+
+Alternatively, you are welcomed to email the developers directly. <br />
+For questions related to your HPC, please contact Saeid Amiri: [saeid.amiri@mcgill.ca]() <br />
+
+For questions related to running the scRNAbox pipeline, please contact Michael Fiorini: [michael.fiorini@mail.mcgill.ca]() <br />
+
+For questions related to scRNAseq analytical concepts and experimental design, please contact Rhalena Thomas: [rhalena.thomas@mcgill.ca]() <br /> 
 
 #### Changelog
 Every release is documented on the [GitHub Releases page](https://github.com/neurobioinfo/scrnabox/releases).
@@ -200,7 +209,7 @@ Every release is documented on the [GitHub Releases page](https://github.com/neu
 This project is licensed under the MIT License - see the [LICENSE.md](https://github.com/neurobioinfo/scrnabox/blob/main/LICENSE) file for details.
 
 #### Acknowledgement
-The scRNAbox pipeline is a component of the Dark Genome project and has been developed by [Saeid Amiri](https://github.com/saeidamiri1), [Michael Fiorini](https://github.com/fiorini9), [Rhalena Thomas](https://github.com/RhalenaThomas), and Sali Farhan at  Neuro Bioinformatics Core. Copyright belongs tp MNI BIOINFO CORE (https://github.com/neurobioinfo). 
+The scRNAbox pipeline was produced for projects funded by Canadian Institute of Health Research and Michael J. Fox Foundation. The scRNAbox pipeline was produced as part Dark Genome Project. It is written by [Saeid Amiri](https://github.com/saeidamiri1), [Michael Fiorini](https://github.com/fiorini9), and [Rhalena Thomas](https://github.com/RhalenaThomas) with associate of Sali Farhan and Edward Fon at the Montreal Neurological Institute-Hospital. Copyright belongs [MNI BIOINFO CORE](https://github.com/neurobioinfo). 
 
 **[⬆ back to top](#contents)**
 

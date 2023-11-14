@@ -13,8 +13,6 @@ par_fastq_directory= "/path/to/fastqs/directory"
 ## list the sample names used in the FASTQ nomenclature
 par_sample_names= c("Sample1", "Sample2", "Sample3")
 
-
-##### @Michael these next two seem the same and are confusing - you just named the samples, why would you rename them?
 ## If you want to rename the samples, set par_rename_samples  to yes. 
 par_rename_samples= "yes"         
 

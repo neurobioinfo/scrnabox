@@ -20,17 +20,17 @@ par_save_metadata= "yes"
 # R = upper bound threshold
 ############################################################################
 ## Minimum number of unique RNA transcripts
-par_nFeature_RNA_L= 50
+par_nFeature_RNA_L= 300
 ## Maximum number of unique RNA transcripts
-par_nFeature_RNA_U= 6000
+par_nFeature_RNA_U= 10000
 ## Minimum number of total RNA transcripts
-par_nCount_RNA_L= 200
+par_nCount_RNA_L= 300
 ## Maximum number of total RNA transcripts
 par_nCount_RNA_U= 20000
 ## Minimum mitochondrial RNA percentage
 par_mitochondria_percent_L= 0
 ## Maximum mitochondrial RNA percentage
-par_mitochondria_percent_U= 50
+par_mitochondria_percent_U= 20
 ## Minimum ribosomal RNA percentage
 par_ribosomal_percent_L= 0
 ## Maximum ribosomal RNA percentage
@@ -52,10 +52,10 @@ par_remove_ribosomal_genes= "no"
 # Regress genes
 ############################################################################
 ## If you want to regress cell cycle genes, set the following parameters to "yes". If you do not want to regress them keep, the default as "no". Note: if you are using your own Seurat object (i.e. not from Step 2), you can only regress cell cycle genes if your Seurat object has the cell cycle score computed.
-par_regress_cell_cycle_genes= "yes"
+par_regress_cell_cycle_genes= "no"
 
 ## If you want to regress a custom list of genes, set the following parameters to "yes". If you do not want to regress a custom list, keep the default as "no". 
-par_regress_custom_genes= "yes"
+par_regress_custom_genes= "no"
 
 ## Enter the genes that you want to regress in the list below.
 par_regress_genes= c("gene1", "gene2")

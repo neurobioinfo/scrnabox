@@ -28,7 +28,7 @@ par_level_cluster= "integrated_snn_res.0.75"
 par_run_find_marker= "yes"
 
 ## Run EnrichR GSEA on cluster-specific markers. This step should follow the identification of cluster-specific markers.  Additionally, this step can only be run if your HPC allows internet access.
-# Note that code is provided to run this locally on the cluster specific markers identified.
+## Note that code is provided to run this locally if your HPC cannot access the internet.
 par_run_enrichR= "no"
 
 ## Number of top markers based on avg_log2FC

@@ -63,8 +63,8 @@ par_RunUMAP_n.neighbors= 65
 ## Total Number of PCs to compute and store for RunPCA
 par_RunPCA_npcs= 30
 
-##  Which dimensions to use as input features for RunUMAP
+## Which dimensions to use as input features for RunUMAP
 par_RunUMAP_dims= 30
 
-## whether or not to perform JackStraw computation. This computation takes a long time.
+## Whether or not to perform JackStraw computation. This computation takes a long time.
 par_compute_jackstraw= "no"

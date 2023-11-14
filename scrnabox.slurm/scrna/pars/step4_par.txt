@@ -40,6 +40,6 @@ par_pN= 0.25
 ## Logical representing whether SCTransform was used during original Seurat object pre-processing
 par_sct= FALSE
 
-## expected doublet rate for each sample. First list sample IDs, then list the corresponding expected doublet rate for each sample depending on the number of recovered or loaded cells. Sample names should be the same ones used in the library.csv file used for Step 1.
+## Expected doublet rate for each sample. First list sample IDs, then list the corresponding expected doublet rate for each sample depending on the number of recovered or loaded cells. Sample names should be the same ones used in the library.csv file used for Step 1.
 par_sample_names= c("Control1","Parkinson1")
 par_expected_doublet_rate= c(0.05,0.05)

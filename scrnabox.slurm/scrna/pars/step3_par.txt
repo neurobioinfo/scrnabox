@@ -56,7 +56,7 @@ par_remove_ribosomal_genes= "no"
 par_regress_cell_cycle_genes= "no"
 
 ## If you want to regress a custom list of genes, set the following parameters to "yes". If you do not want to regress a custom list, keep the default as "no". 
-par_regress_custom_genes= "yes"
+par_regress_custom_genes= "no"
 
 ## Enter the genes that you want to regress in the list below.
 par_regress_genes= c("gene1", "gene2")

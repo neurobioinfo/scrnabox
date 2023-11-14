@@ -9,9 +9,9 @@ To use the scRNAbox pipeline, the folowing must be installed on your High-Perfor
 
 ### scrnabox.slurm installation
 
-`scrnabox.slurm` is written in bash and can be used with any Slurm system. To download the latest version of `scrnabox.slurm` (v0.1.35) run the following command: 
+`scrnabox.slurm` is written in bash and can be used with any Slurm system. To download the latest version of `scrnabox.slurm` (v0.1.52) run the following command: 
 ```
-wget https://github.com/neurobioinfo/scrnabox/releases/download/v0.1.35/scrnabox.slurm.zip
+wget https://github.com/neurobioinfo/scrnabox/releases/download/v0.1.52/scrnabox.slurm.zip
 unzip scrnabox.slurm.zip
 ```
 
@@ -22,6 +22,8 @@ bash /pathway/to/scrnabox.slurm/launch_scrnabox.sh -h
 
 If the `scrnabox.slurm` has been installed properly, the above command should return the folllowing:
 ```
+scrnabox pipeline version 0.1.52
+------------------- 
         mandatory arguments:
                 -d  (--dir)  = Working directory (where all the outputs will be printed) (give full path)
                 --steps  =  Specify what steps, e.g., 2 to run just step 2, 2-4, run steps 2 through 4)
@@ -29,17 +31,19 @@ If the `scrnabox.slurm` has been installed properly, the above command should re
         optional arguments:
                 -h  (--help)  = See helps regarding the pipeline arguments. 
                 --method  = Select your preferred method: HTO and SCRNA for hashtag, and Standard scRNA, respectively. 
-                --msd  = You can get the hashtag labels by running the following code 
-                --markergsea  = Identify marker genes for each cluster and run marker gene set enrichment analysis (GSEA) using EnrichR libraries. 
-                --knownmarkers  = Run module score and visualize the expression of known cell type marker genes. 
-                --referenceannotation  = Run module score and visualize the expression of known cell type marker genes. 
-                --annotate  = Run module score and visualize the expression of known cell type marker genes. 
-                --addmeta  = Add metadata columns to the Seurat object 
-                --rundge  = Perform differential gene expression contrasts 
-                --seulist  = You can directly call the list of seurat objects to the pipeline.  
+                --msd  = You can get the hashtag labels by running the following code (HTO Step 4). 
+                --markergsea  = Identify marker genes for each cluster and run marker gene set enrichment analysis (GSEA) using EnrichR libraries (Step 7). 
+                --knownmarkers  = Profile the individual or aggregated expression of known marker genes. 
+                --referenceannotation  = Generate annotation predictions based on the annotations of a reference Seurat object (Step 7). 
+                --annotate  = Add clustering annotations to Seurat object metadata (Step 7). 
+                --addmeta  = Add metadata columns to the Seurat object (Step 8). 
+                --rundge  = Perform differential gene expression contrasts (Step 8). 
+                --seulist  = You can directly call the list of Seurat objects to the pipeline.  
+ 
+                --rcheck  = You can identify which libraries are not installed.  
  
  ------------------- 
- For a comprehensive help, visit https://github.com/neurobioinfo/scrnabox for documentation.
+ For a comprehensive help, visit  https://neurobioinfo.github.io/scrnabox/site/ for documentation.
 ```
  - - - -
 

@@ -3,18 +3,18 @@
 <head>
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><link rel="canonical" href="https://neurobioinfo.github.io/LICENSE/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><link rel="canonical" href="https://neurobioinfo.github.io/pbmc_download/" />
       <link rel="shortcut icon" href="../img/favicon.ico" />
-    <title>License - scRNAbox</title>
+    <title>Downloading the PBMC dataset - scRNAbox</title>
     <link rel="stylesheet" href="../css/theme.css" />
     <link rel="stylesheet" href="../css/theme_extra.css" />
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
     
       <script>
         // Current page data
-        var mkdocs_page_name = "License";
-        var mkdocs_page_input_path = "LICENSE.md";
-        var mkdocs_page_url = "/LICENSE/";
+        var mkdocs_page_name = "Downloading the PBMC dataset";
+        var mkdocs_page_input_path = "pbmc_download.md";
+        var mkdocs_page_url = "/pbmc_download/";
       </script>
     
     <!--[if lt IE 9]>
@@ -78,14 +78,16 @@
                   </li>
               </ul>
               <p class="caption"><span class="caption-text">Tutorial</span></p>
-              <ul>
+              <ul class="current">
                   <li class="toctree-l1"><a class="reference internal" href="../midbrain_download/">Downloading the Midbrain dataset</a>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../Dataset1/">Standard analysis track: Midbrain dataset</a>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../DEG/">Analysis of DGE outputs</a>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../pbmc_download/">Downloading the PBMC dataset</a>
+                  <li class="toctree-l1 current"><a class="reference internal current" href="./">Downloading the PBMC dataset</a>
+    <ul class="current">
+    </ul>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../Dataset2/">HTO analysis track: PBMC dataset</a>
                   </li>
@@ -93,10 +95,8 @@
                   </li>
               </ul>
               <p class="caption"><span class="caption-text">About</span></p>
-              <ul class="current">
-                  <li class="toctree-l1 current"><a class="reference internal current" href="./">License</a>
-    <ul class="current">
-    </ul>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../LICENSE/">License</a>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../contributing/">Contributing</a>
                   </li>
@@ -117,8 +117,8 @@
         <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
   <ul class="wy-breadcrumbs">
     <li><a href=".." class="icon icon-home" aria-label="Docs"></a> &raquo;</li>
-          <li>About &raquo;</li>
-      <li class="breadcrumb-item active">License</li>
+          <li>Tutorial &raquo;</li>
+      <li class="breadcrumb-item active">Downloading the PBMC dataset</li>
     <li class="wy-breadcrumbs-aside">
     </li>
   </ul>
@@ -127,30 +127,85 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
             <div class="section" itemprop="articleBody">
               
-                <h1 id="license">License</h1>
-<p>MIT License</p>
-<p>Copyright (c) 2022  The Neuro Bioinformatics Core</p>
-<p>Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:</p>
-<p>The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.</p>
-<p>THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.</p>
+                <h2 id="downloading-the-pbmc-dataset">Downloading the PBMC dataset</h2>
+<p>The scRNAseq data produced by <a href="https://genomebiology.biomedcentral.com/articles/10.1186/s13059-018-1603-1">Stoeckius et al.</a> is publicly available in the Gene Expression Omnibus with accession code <a href="https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE108313">GSE108313</a>. To download the data, we must first install SRAtoolkit (if this is not already installed on your High-Performance Computing (HPC) system). We will create a directory for our raw data and download SRAtoolkit with the following code:</p>
+<pre><code>mkdir data_download
+cd data_download
+wget --output-document sratoolkit.tar.gz https://ftp-trace.ncbi.nlm.nih.gov/sra/sdk/current/sratoolkit.current-ubuntu64.tar.gz
+tar -vxzf sratoolkit.tar.gz
+export PATH=$PATH:$PWD/sratoolkit.3.0.5-ubuntu64/bin
+</code></pre>
+<p>For more information regarding the SRAtoolkit, please visit the <a href="https://github.com/ncbi/sra-tools/wiki">documentation</a>.</p>
+<p>The Sequence Read Archive (SRA) run identifiers for the RNA and antibody assays are:</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Assay</th>
+<th style="text-align: left;">SRR</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">RNA</td>
+<td style="text-align: left;">SRR8281306</td>
+</tr>
+<tr>
+<td style="text-align: left;">Antibody</td>
+<td style="text-align: left;">SRR8281307</td>
+</tr>
+</tbody>
+</table>
+<p>To download the FASTQ files for the RNA and antibody assays, run the following code. Please note that this may take a very long time. </p>
+<pre><code>export PATH=$PATH:$PWD/sratoolkit.3.0.5-ubuntu64/bin
+module load StdEnv/2020 gcc/9.3.0
+module load sra-toolkit/3.0.0 
+
+#RNA
+prefetch SRR8281306 --max-size 100GB
+fasterq-dump SRR8281306
+
+#Antibody
+prefetch SRR8281307 --max-size 100GB
+fasterq-dump SRR8281307 
+
+</code></pre>
+<p>If the FASTQ files for the RNA and antibody assays have been downloaded properly, the <code>data_download</code> folder should contain the following:</p>
+<pre><code>data_download
+├── SRR8281306
+│   └── SRR8281306.sra
+├── SRR8281306_1.fastq
+├── SRR8281306_2.fastq
+├── SRR8281307
+│   └── SRR8281307.sra
+├── SRR8281307_1.fastq
+└── SRR8281307_2.fastq
+</code></pre>
+<p>Next, we will rename the FASTQ files according to the CellRanger nomenclature and transfer the FASTQ files to a folder named <code>fastqs</code>. For more information regarding the nomeclature required by the CellRanger <em>counts</em> pipeline, please visit CellRanger's <a href="https://support.10xgenomics.com/single-cell-gene-expression/software/pipelines/latest/using/fastq-input">documentation</a>.</p>
+<p><strong>Note</strong>: The <code>fastqs</code> folder should only contain FASTQ files for the experiment.</p>
+<pre><code>mkdir fastqs
+
+# RNA assay
+cp ~/data_download/SRR8281306_1.fastq  ~/fastqs/run1GEX_S1_L001_R1_001.fastq
+cp ~/data_download/SRR8281306_2.fastq  ~/fastqs/run1GEX_S1_L001_R2_001.fastq
+
+# HTO assay
+cp ~/data_download/SRR8281307_1.fastq ~/fastqs/run1HTO_S1_L001_R1_001.fastq
+cp ~/data_download/SRR8281307_2.fastq ~/fastqs/run1HTO_S1_L001_R2_001.fastq
+
+</code></pre>
+<p>If the above steps were conducted properly, the <code>fastqs</code> folder should contain the following files:</p>
+<pre><code>fastqs
+├── run1GEX_S1_L001_R1_001.fastq
+├── run1GEX_S1_L001_R2_001.fastq
+├── run1HTO_S1_L001_R1_001.fastq
+└── run1HTO_S1_L001_R2_001.fastq
+</code></pre>
               
             </div>
           </div><footer>
     <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
-        <a href="../library_prep/" class="btn btn-neutral float-left" title="Manual CellRanger library preparation"><span class="icon icon-circle-arrow-left"></span> Previous</a>
-        <a href="../contributing/" class="btn btn-neutral float-right" title="Contributing">Next <span class="icon icon-circle-arrow-right"></span></a>
+        <a href="../DEG/" class="btn btn-neutral float-left" title="Analysis of DGE outputs"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../Dataset2/" class="btn btn-neutral float-right" title="HTO analysis track: PBMC dataset">Next <span class="icon icon-circle-arrow-right"></span></a>
     </div>
 
   <hr/>
@@ -173,10 +228,10 @@ SOFTWARE.</p>
   <span class="rst-current-version" data-toggle="rst-current-version">
     
     
-      <span><a href="../library_prep/" style="color: #fcfcfc">&laquo; Previous</a></span>
+      <span><a href="../DEG/" style="color: #fcfcfc">&laquo; Previous</a></span>
     
     
-      <span><a href="../contributing/" style="color: #fcfcfc">Next &raquo;</a></span>
+      <span><a href="../Dataset2/" style="color: #fcfcfc">Next &raquo;</a></span>
     
   </span>
 </div>

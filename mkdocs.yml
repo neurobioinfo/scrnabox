@@ -20,8 +20,10 @@ nav:
         - 'Outputs': outputs.md 
     - Tutorial:
         - 'Downloading the Midbrain dataset' : midbrain_download.md
-        - 'SCRNA analysis track: Midbrain dataset' : Dataset1.md
+        - 'Standard analysis track: Midbrain dataset' : Dataset1.md
         - 'Analysis of DGE outputs' : DEG.md
+        - 'Downloading the PBMC dataset' : pbmc_download.md
+        - 'HTO analysis track: PBMC dataset' : Dataset2.md
         - 'Manual CellRanger library preparation' : library_prep.md     
     - About:
         - 'License': 'LICENSE.md'

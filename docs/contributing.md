@@ -15,3 +15,10 @@ Any contributions or suggestions for improving the scRNAbox pipeline are welcome
 
 If you encounter any issues, please open an issue in the [GitHub repository](https://github.com/neurobioinfo/scrnabox).
 
+Alternatively, you are welcomed to email the developers directly. <br />
+For questions related to your HPC, please contact Saeid Amiri: [saeid.amiri@mcgill.ca]() <br />
+
+For questions related to running the scRNAbox pipeline, please contact Michael Fiorini: [michael.fiorini@mail.mcgill.ca]() <br />
+
+For questions related to scRNAseq analytical concepts and experimental design, please contact Rhalena Thomas: [rhalena.thomas@mcgill.ca]() <br />
+

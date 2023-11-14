@@ -9,7 +9,7 @@ tags: scRNA
 categories: 
 comments: false
 ---
-## SCRNA analysis track: Midbrain dataset
+## Standard analysis track: Midbrain dataset
 ## Contents
 
 - [Introduction](#introduction)
@@ -18,7 +18,7 @@ comments: false
     - [scrnabox.slurm installation](#scrnaboxslurm-installation)
     - [CellRanger installation](#cellranger-installation)
     - [R library preparation and R package installation](#r-library-preparation-and-r-package-installation)
-- [scRNAbox: Standard Analysis Track](#scrnabox-standard-analysis-track)
+- [scRNAbox: Standard Analysis Track](#scrnabox-pipeline)
     - [Step 0: Set up](#step-0-set-up)
     - [Step 1: FASTQ to gene expression matrix](#step-1-fastq-to-gene-expression-matrix)  
     - [Step 2: Create Seurat object and remove ambient RNA ](#step-2-create-seurat-object-and-remove-ambient-rna)  
@@ -53,9 +53,9 @@ In you want to use the midbrain dataset to test the scRNAbox pipeline, please se
 
 ## Installation
 #### scrnabox.slurm installation
-To download the latest version of `scrnabox.slurm` (v0.1.35) run the following command: 
+To download the latest version of `scrnabox.slurm` (v0.1.52) run the following command: 
 ```
-wget https://github.com/neurobioinfo/scrnabox/releases/download/v0.1.35/scrnabox.slurm.zip
+wget https://github.com/neurobioinfo/scrnabox/releases/download/v0.1.52/scrnabox.slurm.zip
 unzip scrnabox.slurm.zip
 ```
 For a description of the options for running `scrnabox.slurm` run the following command:
@@ -65,6 +65,8 @@ bash /pathway/to/scrnabox.slurm/launch_scrnabox.sh -h
 
 If the `scrnabox.slurm` has been installed properly, the above command should return the folllowing:
 ```
+scrnabox pipeline version 0.1.52
+------------------- 
         mandatory arguments:
                 -d  (--dir)  = Working directory (where all the outputs will be printed) (give full path)
                 --steps  =  Specify what steps, e.g., 2 to run just step 2, 2-4, run steps 2 through 4)
@@ -72,17 +74,19 @@ If the `scrnabox.slurm` has been installed properly, the above command should re
         optional arguments:
                 -h  (--help)  = See helps regarding the pipeline arguments. 
                 --method  = Select your preferred method: HTO and SCRNA for hashtag, and Standard scRNA, respectively. 
-                --msd  = You can get the hashtag labels by running the following code 
-                --markergsea  = Identify marker genes for each cluster and run marker gene set enrichment analysis (GSEA) using EnrichR libraries. 
-                --knownmarkers  = Run module score and visualize the expression of known cell type marker genes. 
-                --referenceannotation  = Run module score and visualize the expression of known cell type marker genes. 
-                --annotate  = Run module score and visualize the expression of known cell type marker genes. 
-                --addmeta  = Add metadata columns to the Seurat object 
-                --rundge  = Perform differential gene expression contrasts 
-                --seulist  = You can directly call the list of seurat objects to the pipeline.  
+                --msd  = You can get the hashtag labels by running the following code (HTO Step 4). 
+                --markergsea  = Identify marker genes for each cluster and run marker gene set enrichment analysis (GSEA) using EnrichR libraries (Step 7). 
+                --knownmarkers  = Profile the individual or aggregated expression of known marker genes. 
+                --referenceannotation  = Generate annotation predictions based on the annotations of a reference Seurat object (Step 7). 
+                --annotate  = Add clustering annotations to Seurat object metadata (Step 7). 
+                --addmeta  = Add metadata columns to the Seurat object (Step 8). 
+                --rundge  = Perform differential gene expression contrasts (Step 8). 
+                --seulist  = You can directly call the list of Seurat objects to the pipeline.  
+ 
+                --rcheck  = You can identify which libraries are not installed.  
  
  ------------------- 
- For a comprehensive help, visit https://github.com/neurobioinfo/scrnabox for documentation.
+ For a comprehensive help, visit  https://neurobioinfo.github.io/scrnabox/site/ for documentation.
 ```
  - - - -
 
@@ -145,6 +149,16 @@ CELLRANGER_VERSION=5.0.1
 R_VERSION=4.2.1
 R_LIB_PATH=/path/to/R/library
 ```
+
+Next, we can check to see if all of the required R packages have been properly installed using the following command:
+
+```
+bash $SCRNABOX_HOME/launch_scrnabox.sh \
+-d ${SCRNABOX_PWD} \
+--steps 0 \
+--rcheck 
+```
+
  - - - -
 
 ### Step 1: FASTQ to gene expression matrix
@@ -177,7 +191,7 @@ Given that CellRanger runs a user interface and is not submitted as a job, it is
 export SCRNABOX_HOME=~/scrnabox/scrnabox.slurm
 export SCRNABOX_PWD=~/pipeline
 
-screen -S run_smajic_application_case
+screen -S run_Midbrain_application_case
 bash $SCRNABOX_HOME/launch_scrnabox.sh \
 -d ${SCRNABOX_PWD} \
 --steps 1
@@ -196,7 +210,6 @@ For our analysis of the midbrain dataset we set the following execution paramete
 |:--|:--|
 |par_save_RNA| Yes| 
 |par_save_metadata| Yes|
-|par_count_matrices| NULL|
 |par_ambient_RNA| No|
 |par_min.cells_L| 1|
 |par_normalization.method|LogNormalize|
@@ -1209,12 +1222,12 @@ For the code used to perform downstream analysis of the differentially expressed
 - - - -
 
 ### Publication-ready figures
-The code used to produce the publication-ready figures used in our [pre-print manuscript]() is avaliable here [here]().  
+The code used to produce the publication-ready figures used in our [pre-print manuscript]() is avaliable here [here](https://github.com/neurobioinfo/scrnabox/tree/main/tutorial/Midbrain_dataset_figures).  
 
 - - - -
 
 ### Job Configurations
-The following job configurations were used for our analysis of the midbrain dataset. Job Configurations can be modified for each Analytical Step in the `scrnabox_config.ini` file in `~/pipeline/job_info/configs`
+The following job configurations were used for our analysis of the midbrain dataset. Job Configurations can be modified for each analytical step in the `scrnabox_config.ini` file in `~/pipeline/job_info/configs`
 
 |Step |THREADS_ARRAY|MEM_ARRAY|WALLTIME_ARRAY|
 |:--|:--|:--|:--|

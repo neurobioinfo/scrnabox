@@ -2,7 +2,7 @@
 ScRNAbox is a single-cell RNA sequencing (scRNAseq) pipeline specifically designed for analyzing data under a High-Performance Computing (HPC) systems using the [Slurm Workload Manager](https://slurm.schedmd.com/). The scRNAbox pipeline incorporates eight analytical steps into a comprehensive scRNAseq analysis that provides the foundation for further investigations. The eight analytical steps are outlined below. 
 
  <p align="center">
- <img src="https://github.com/neurobioinfo/scrnabox/assets/110110777/3221e078-68d4-4fde-8a75-9d36691c1cf5" width="550" height="100">
+ <img src="https://github.com/neurobioinfo/scrnabox/assets/110110777/bd671431-4a28-4a3a-967a-28f04580a5f8" width="550" height="100">
  </p>
 
 The scRNAbox pipeline provides two distinct, yet highly comparable analysis tracks:
@@ -10,7 +10,7 @@ The scRNAbox pipeline provides two distinct, yet highly comparable analysis trac
 1. **Standard analysis track**
 2. **HTO analysis track**
 
-<img src="https://github.com/neurobioinfo/scrnabox/assets/110110777/3a6df83e-e104-45d2-9b04-fe246642c6a8" height="300"> 
+<img src="https://github.com/neurobioinfo/scrnabox/assets/110110777/029c737c-c696-4cd3-8a00-3c434cf4e731" height="300"> 
 
 The **standard analysis track** is designed for experiments where each sample is captured and sequenced separately, while the **HTO analysis track** is designed for multiplexed experiments where samples are tagged with sample-specific oligonucleotide tagged Hashtag antibodies (HTO), pooled, and sequenced together. The two tracks share all of the same processes except for Steps 1 and 4. In Step 1, the FASTQ processing for HTO data requires different configurations than the standard analysis. In Step 4, the HTO data is demultiplexed and a different doublet removal method is used. 
 
@@ -40,6 +40,8 @@ For a tutorial that leverages the datasets used as the application cases in our 
 - Tutorial:
     - [Downloading the Midbrain dataset](midbrain_download.md)
     - [SCRNA analysis track: Midbrain dataset](Dataset1.md)
+    - [Downloading the PBMC dataset](pbmc_download.md)
+    - [HTO analysis track: PBMC dataset](Dataset2.md)
     - [Analysis of DGE outputs](DEG.md)
     - [Manual CellRanger library preparation](library_prep.md)      
            

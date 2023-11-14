@@ -59,7 +59,7 @@ Usage() {
           "\t\t--annotate  = Add clustering annotations to Seurat object metadata (Step 7). \n" \
           "\t\t--addmeta  = Add metadata columns to the Seurat object (Step 8). \n" \
           "\t\t--rundge  = Perform differential gene expression contrasts (Step 8). \n" \
-          "\t\t--seulist  = You can directly call the list of Seurat objects to the pipeline.  \n \n" \
+          "\t\t--seulist  = You can directly call the list of Seurat objects to the pipeline. \n" \
           "\t\t--rcheck  = You can identify which libraries are not installed.  \n \n" \
           "------------------- \n" \
           "For a comprehensive help, visit  https://neurobioinfo.github.io/scrnabox/site/ for documentation. "

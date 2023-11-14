@@ -18,8 +18,8 @@ par_save_metadata= "yes"
 ## Define the column from the Seurat object that you want to use to add the new metadata
 par_merge_meta= "Sample_ID"
 
-## enter the location to a csv file describing new metadata that should be added to the Seurat object to facilitate DEG analysis. 
-## The rows should contain the data to add in the order of the levels of "Sample_ID" or the metadata slot you will use to define your samples. The colnumes should be the desired name of the metadata slot to add.
+## Enter the path to a csv file describing new metadata that should be added to the Seurat object to facilitate DEG analysis. 
+## The rows should contain the data to add in the order of the levels of "Sample_ID" or the metadata slot you will use to define your samples. The column names should be the desired name of the metadata slot to add.
 par_metadata= "path/to/metadata.csv"
 
 

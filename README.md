@@ -31,7 +31,7 @@ The **standard analysis track** is designed for experiments where each sample is
 <img src="https://github.com/neurobioinfo/scrnabox/assets/110110777/029c737c-c696-4cd3-8a00-3c434cf4e731" height="300"> 
 </p>
  
-For a comprehenseive description of each step, please see the **Pipeline** section of the [scRNAbox documentation](https://neurobioinfo.github.io/scrnabox/site/) or see our [pre-print manuscript](). <br/>
+For a comprehenseive description of each step, please see the **Pipeline** section of the [scRNAbox documentation](https://neurobioinfo.github.io/scrnabox/site/) or see our [pre-print manuscript](https://www.biorxiv.org/content/10.1101/2023.11.13.566851v1). <br/>
 
 For a tutorial that leverages the datasets used as the application cases in our pre-print manuscript, please see [scRNAbox analysis of the midbrain dataset](https://neurobioinfo.github.io/scrnabox/site/Dataset1/). 
 

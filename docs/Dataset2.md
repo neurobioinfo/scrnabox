@@ -29,7 +29,7 @@ comments: false
  - - - -
 
 ## Introduction 
-This guide illustrates the steps taken for our analysis of the PBMC dataset in our pre-print manuscript. Here, we are using the HTO analysis track of scRNAbox to analyze a publicly available scRNAseq dataset produced by [Stoeckius et al.](https://genomebiology.biomedcentral.com/articles/10.1186/s13059-018-1603-1). This data set describes peripheral blood mononuclear cells (PBMC) from eight human donors, which were tagged with sample-specific barcodes, pooled, and sequenced together in a single run. 
+This guide illustrates the steps taken for our analysis of the PBMC dataset in our [pre-print manuscript](https://www.biorxiv.org/content/10.1101/2023.11.13.566851v1). Here, we are using the HTO analysis track of scRNAbox to analyze a publicly available scRNAseq dataset produced by [Stoeckius et al.](https://genomebiology.biomedcentral.com/articles/10.1186/s13059-018-1603-1). This data set describes peripheral blood mononuclear cells (PBMC) from eight human donors, which were tagged with sample-specific barcodes, pooled, and sequenced together in a single run. 
  
 - - - -
 ## Downloading the PBMC dataset

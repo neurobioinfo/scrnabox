@@ -44,7 +44,7 @@ comments: false
  - - - -
 
 ## Introduction 
-This guide illustrates the steps taken to analyze the midbrain dataset ([Smajic et al. 2022](https://academic.oup.com/brain/article/145/3/964/6469020)) that was presented in our [pre-print manuscript](). This dataset describes single-nuclei transcriptomes from the post-mortem midbrains of five individuals with Parkinson’s disease (PD) and six controls sequenced separately. 
+This guide illustrates the steps taken to analyze the midbrain dataset ([Smajic et al. 2022](https://academic.oup.com/brain/article/145/3/964/6469020)) that was presented in our [pre-print manuscript](https://www.biorxiv.org/content/10.1101/2023.11.13.566851v1). This dataset describes single-nuclei transcriptomes from the post-mortem midbrains of five individuals with Parkinson’s disease (PD) and six controls sequenced separately. 
 
  - - - -
 ## Downlaoding the midbrain dataset
@@ -524,7 +524,7 @@ In Step 7, we are going to annotate the clusters identified in Step 6 to identif
 
 Additionally, users can add cluster annotations to the Seurat object.
 
-For comprehensive description of each cluster annotation tool, please see the [Step 7:Cluster annotation](Step7.md) section of the scRNAbox documentation or our [pre-print manuscript](). 
+For comprehensive description of each cluster annotation tool, please see the [Step 7:Cluster annotation](Step7.md) section of the scRNAbox documentation or our [pre-print manuscript](https://www.biorxiv.org/content/10.1101/2023.11.13.566851v1). 
 
 - - - -
 #### Tool 1: Cluster marker GSEA
@@ -1217,7 +1217,7 @@ step8
 
 ### Analysis of differential gene expression outputs
 
-For the code used to perform downstream analysis of the differentially expressed genes presented in our [pre-print manuscript]() see [here](DEG.md).  
+For the code used to perform downstream analysis of the differentially expressed genes presented in our [pre-print manuscript](https://www.biorxiv.org/content/10.1101/2023.11.13.566851v1) see [here](DEG.md).  
 
 - - - -
 

@@ -1,0 +1,2 @@
+par_seu1_standardize<-'yes'
+par_seu2_standardize<-'yes'

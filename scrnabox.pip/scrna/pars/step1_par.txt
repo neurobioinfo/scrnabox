@@ -1,0 +1,56 @@
+#############################################################################################
+# If you wan to automate the data structure and library file preparation process,
+# set par_automated_library_prep to "yes" and address the remaining parameters.
+# If you want to manually make the data structure and library files 
+# change par_automated_library_prep to "no" and skip down to the remaining parameters.
+############################################################################################
+## Do you want to perform automated library prep?
+par_automated_library_prep= "no"
+
+## Path to the directory containing the FASTQ files for the experiment. This folder should only contain the FASTQ files for the experiment. 
+#par_fastq_directory= "/path/to/fastqs/directory"
+
+## List the sample names used in the FASTQ nomenclature
+#par_sample_names= c("Sample1", "Sample2", "Sample3")
+
+## If you want to rename the samples, set par_rename_samples  to yes. 
+#par_rename_samples= "yes"         
+
+## If you want to renames the samples (i.e. par_rename_samples= "yes"), list the new sample names in the same order as the old labels are listed in  par_sample_names.
+#par_new_sample_names= c("NewSample1", "NewSample2", "NewSample3")
+
+## If your sequencing is paired-end, set the following to TRUE. Otherwise set it as FALSE.
+#par_paired_end_seq= TRUE
+
+
+###################################################################################
+# CellRanger counts pipeline parameters.
+##################################################################################
+## Path to reference genome
+par_ref_dir='/path/to/CellRanger/reference/genome'
+
+## Minimum number of bases to retain for R1 sequence of gene expression assay. If you want to use this parameter uncomment the line below and define your par_r1_length.
+#par_r1_length=20
+
+## Minimum number of bases to retain for R2 sequence of gene expression assay. If you want to use this parameter uncomment the line below and define your par_r2_length.
+#par_r2_length=20
+
+## For clusters whose job managers do not support memory requests, it is possible to request memory in the form of cores. This option will scale up the number of threads requested via the MRO_THREADS variable according to how much memory a stage requires when given to the ratio of memory on your nodes.
+par_mempercode=30 
+
+## If you want CellRnager to include introns when producing the gene expression matrices set the following parameter to "yes", otherwise keep the default as "no".
+#par_include_introns="no"
+
+## If you want to turn off CellRanger's target UMI filtering subpipeline uncomment the parameter below.
+#par_no_target_umi_filter="no"
+
+## If you want to specify the number of expected cells, uncomment the parameter below and enter the value. By default, CellRanger's auto-estimate algorithm will be used.
+#par_expect_cells=6000
+
+## If you want to force the CellRanger count pipeline to use a certain number of cells, uncomment the parameter below and enter the number of cells
+#par_force_cells=6000
+
+## If you want to skip the bam file generation, uncomment the parameter below.
+#par_no_bam="no"
+
+

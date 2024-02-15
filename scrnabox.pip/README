@@ -1,0 +1,12 @@
+
+# Scrnabox pipeline 
+scRNAbox.pip is an open-source scheduling pipeline designed for single-cell RNA sequencing (scRNA). It is compatible with both Slurm and Linux workstations. The detail of installing and running this pipeline can be found in tutorial in [scrnabox](https://neurobioinfo.github.io/scrnabox/site/). 
+
+## Contributing
+This is an early version, any contribute or suggestion is appreciated, you can directly contact with [Saeid Amiri](https://github.com/saeidamiri1) or [Rhalena Thomas](https://github.com/RhalenaThomas). 
+
+## License
+This project is licensed under the MIT License - see the [LICENSE.md](https://github.com/neurobioinfo/scrnabox/blob/main/LICENSE) file for details
+
+## Acknowledgement
+The scRNAbox pipeline is a component of the Dark Genome project and has been developed by [Saeid Amiri](https://github.com/saeidamiri1), Michael Fiorini, Rhalena Thomas, and Sali Farhan at  Neuro Bioinformatics Core. Copyright belong MNI BIOINFO CORE (https://github.com/neurobioinfo). 

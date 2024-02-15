@@ -1,0 +1,47 @@
+############################################################################
+# If you want to save an RNA expression matrix and metadata data frame set the following to "yes"
+############################################################################
+par_save_RNA= "no"
+par_save_metadata= "yes"
+
+
+############################################################################
+# If you already have a processed Seurat RDS object, and did not perform Step 5 of scRNAbox use this parameter to add the path to the directory containing your Seurat object. 
+# Uncomment the line to activate the parameter
+############################################################################
+#par_seurat_object= "/path/to/seurat.rds"
+
+
+############################################################################
+# Add metadata parameters
+############################################################################
+## Define the column from the Seurat object that you want to use to merge the new metadata
+par_merge_meta= "Sample_ID"
+
+## Enter the path to a csv file describing new metadata that should be added to the Seurat object to facilitate DEG analysis. 
+par_metadata= "path/to/metadata.csv"
+
+
+############################################################################
+# Run DGE parameters
+# Choose which differential gene expression (DGE) methods you want to use for this submission
+############################################################################
+## Perform Wilcoxon DGE with all cells
+par_run_cell_based_all_cells= "yes"
+
+## Perform Wilcoxon DGE with cell type groups
+par_run_cell_based_celltype_groups= "yes"
+
+## Perform Pseudo-Bulk DGE with all cells
+par_run_sample_based_all_cells= "yes"
+
+## Perform Pseudo-Bulk DGE with cell type groups
+par_run_sample_based_celltype_groups= "yes"
+
+
+############################################################################
+# Cell-replicate DGE parameters
+############################################################################
+## Which statistical method to use when computing DGE using individual cells as replicates
+par_statistical_method= "MAST"
+

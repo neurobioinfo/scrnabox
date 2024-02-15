@@ -1,0 +1,73 @@
+############################################################################
+# If you want to save an RNA expression matrix and metadata data frame set the following to "yes"
+############################################################################
+par_save_RNA= "no"
+par_save_metadata= "yes"
+
+
+############################################################################
+# If you already have a processed Seurat RDS object(s), and did not perform Step 4 of scRNAbox use this to add the path to the directory containing your Seurat object(s). 
+# Make sure that no other files/objects are present in the directory besides Seurat RDS objects. 
+# Uncomment the line to activate the parameter
+############################################################################
+#par_seurat_object= "/path/to/directory/containing/seurat/object"
+
+
+############################################################################
+# If you only have one Seurat object and want to skip integration set the following to "yes"
+############################################################################
+par_one_seurat= "no"
+
+
+############################################################################
+# If you have multiple Seurat objects, choose whether you want to integrate or merge the objects
+############################################################################
+## Integrate Seurt objects
+par_integrate_seurat= "yes"
+
+## merge Seurat objects
+par_merge_seurat= "no"
+
+
+############################################################################
+# Parameters for normalization and scaling
+# even if you opt to skip integration, adjust the following parameters 
+############################################################################
+## Assay to perform normalization and scaling. For most use cases this will be RNA
+par_DefaultAssay= "RNA"
+
+## Normalization method
+par_normalization.method= "LogNormalize"
+
+## Scale factor
+par_scale.factor= 10000
+
+
+############################################################################
+# Parameters for integration
+############################################################################
+## Method for detecting top variable features. vst, mean.var.plot (mvp), dispersion (disp)
+par_selection.method= "vst"
+
+## Number of features to select as top variable features
+par_nfeatures= 2500
+
+## Which dimensions to use from the CCA to specify the neighbour search space
+par_FindIntegrationAnchors_dim= 25 
+
+
+############################################################################
+# Parameters for linear dimensional reduction
+# even if you opt to skip integration, adjust the following parameters 
+############################################################################
+## Total Number of PCs to compute and store for RunPCA
+par_RunPCA_npcs= 30
+
+## Which dimensions to use as input features for RunUMAP
+par_RunUMAP_dims= 25
+
+## The number of neighbouring points used in local approximations of manifold structure
+par_RunUMAP_n.neighbors= 45
+
+## Whether or not to perform JackStraw computation. This computation takes a long time.
+par_compute_jackstraw= "no"

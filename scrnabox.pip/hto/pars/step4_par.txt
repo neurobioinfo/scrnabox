@@ -1,0 +1,74 @@
+############################################################################
+# If you want to save an RNA expression matrix and metadata data frame set the following to "yes"
+############################################################################
+par_save_RNA= "no"
+par_save_metadata= "yes"
+
+
+############################################################################
+# If you already have a processed Seurat RDS object, and did not perform Step 3 of scRNAbox use this to add the path to the directory containing you Seurat object(s). 
+# Make sure that no other files/objects are present in the directory besides Seurat RDS objects. 
+# Uncomment the line to activate the parameter
+############################################################################
+#par_seurat_object= "/path/to/directory/containing/seurat/object"
+
+
+############################################################################
+# Parameters for normalization and scaling
+############################################################################
+## Method for normalization
+par_normalization.method= "CLR"
+
+## Sets the scale factor for cell-level normalization
+par_scale.factor= 10000
+
+## How to choose top variable features. vst, mean.var.plot (mvp), dispersion (disp). 
+par_selection.method= "vst"
+
+## Number of features to select as top variable features
+par_nfeatures= 2500
+
+
+############################################################################
+# Parameters for linear dimensional reduction
+############################################################################
+## If you want to perform linear dimensional reduction on HTO assay set the following to "yes". Otherwise, set it to "no".
+par_dimensionality_reduction= "yes"
+
+## Total Number of PCs to compute and store for RunPCA
+par_npcs_pca= 30
+
+##  Which dimensions to use as input features for RunUMAP
+par_dims_umap= 3
+
+## This determines the number of neighbouring points used in local approximations of manifold structure.
+par_n.neighbors= 65
+
+
+############################################################################
+# Doublet detection and demultiplexing with MULTIseqDemux
+############################################################################
+## If you want to remove doublets from downstream analyses, set dropDN to "yes"
+par_dropDN= "yes"
+
+## define a label for doublet and negative droplets. 
+par_label_dropDN= c("Doublet", "Negative")
+
+## The quantile to use for classification
+par_quantile= 0.9
+
+## Whether to perform automated threshold finding to define the best quantile
+par_autoThresh= TRUE
+
+## Maximum number of iterations if autoThresh = TRUE.
+par_maxiter= 5
+
+## Number of columns if multiple plots are displayed for RidgePlot
+par_RidgePlot_ncol= 3
+
+## If you want to rename the antibody labels, list the old antibody labels in "old_antibody_label" and list the new corresponding antibody labels in "new_antibody_label". Old antibody labels can be identified in the "_old_antibody_label_MULTIseqDemuxHTOcounts" file produced by running Step 4 msd
+## The defaults are examples. They will not work with your dataset.
+
+par_old_antibody_label= c("A-TotalSeqA", "B-TotalSeqA", "C-TotalSeqA", "D-TotalSeqA", "E-TotalSeqA", "F-TotalSeqA", "G-TotalSeqA", "H-TotalSeqA", "Doublet")
+
+par_new_antibody_label= c("sample-A","sample-B","sample-C","sample-D","sample-E","sample-F","sample-G","sample-H","Doublet")

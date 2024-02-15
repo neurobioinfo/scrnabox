@@ -1,2 +1,0 @@
-seu1_standardize<-'yes'
-seu2_standardize<-'yes'

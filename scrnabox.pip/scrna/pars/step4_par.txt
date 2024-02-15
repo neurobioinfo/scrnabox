@@ -1,0 +1,48 @@
+############################################################################
+# If you want to save an RNA expression matrix and metadata data frame set the following to "yes"
+############################################################################
+par_save_RNA= "yes"
+par_save_metadata= "yes"
+
+
+############################################################################
+# If you already have a processed Seurat RDS object, and did not perform Step 3 of scRNAbox use this to add the path to the directory containing you Seurat object(s). 
+# Make sure that no other files/objects are present in the directory besides Seurat RDS objects. 
+# Uncomment the line to activate the parameter
+############################################################################
+#par_seurat_object= "/path/to/directory/containing/seurat/object"
+
+
+############################################################################
+# Parameters for UMAP dimensional reduction
+############################################################################
+## Number of dimensions to use as input into UMAP
+par_RunUMAP_dims= 25
+
+## Number of neighbouring points to use in local approximation of manifold structure
+par_RunUMAP_n.neighbors= 45
+
+
+############################################################################
+# Parameters for doublet detection and removal (optional)
+############################################################################
+## If you want to remove predicted doublets from downstream analyses set the following to "yes"
+## If you want to keep predicted doublets for further analysis set the following to "no"
+par_dropDN= "yes"
+
+## Number of principal components to use as input doublet analysis. 
+## This can be determined by the bend in the by elbow plot produced in Step 3
+par_PCs= 25
+
+## The number of artificial doublets to generate. DoubletFinder is largely invariant to this parameter. We suggest keeping 0.25
+par_pN= 0.25
+
+## Logical representing whether SCTransform was used during original Seurat object pre-processing
+par_sct= FALSE
+
+##rate_nExp: the doublet rate according to the number of cells
+par_rate_nExp=0.076
+
+## Expected doublet rate for each sample. First list sample IDs, then list the corresponding expected doublet rate for each sample depending on the number of recovered or loaded cells. Sample names should be the same ones used in the library.csv file used for Step 1.
+par_sample_names= c("Control1","Parkinson1")
+par_expected_doublet_rate= c(0.05,0.05)

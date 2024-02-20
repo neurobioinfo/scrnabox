@@ -27,7 +27,7 @@ par_automated_library_prep= "no"
 # CellRanger counts pipeline parameters.
 ##################################################################################
 ## Path to reference genome
-par_ref_dir='/path/to/CellRanger/reference/genome'
+par_ref_dir_grch='/path/to/CellRanger/reference/genome'
 
 ## Minimum number of bases to retain for R1 sequence of gene expression assay. If you want to use this parameter uncomment the line below and define your par_r1_length.
 #par_r1_length=20

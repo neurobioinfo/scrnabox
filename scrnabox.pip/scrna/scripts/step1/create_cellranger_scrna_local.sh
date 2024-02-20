@@ -72,7 +72,7 @@ cellranger count \\
     --libraries=\${LIBRARY} \\
 EOF
 
-# par_ref_dir
+# par_ref_dir_grch
 if [[ -n "${par_ref_dir_grch}" ]]; then
 cat <<EOF >> $OUTFILE
     --transcriptome=\${par_ref_dir_grch} \\

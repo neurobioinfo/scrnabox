@@ -74,10 +74,10 @@ cellranger count \\
     --jobmode=\${SLURM_TEMPLATE} \\
 EOF
 
-# par_ref_dir
-if [[ -n "${par_ref_dir}" ]]; then
+# par_ref_dir_grch
+if [[ -n "${par_ref_dir_grch}" ]]; then
 cat <<EOF >> $OUTFILE
-    --transcriptome=\${par_ref_dir} \\
+    --transcriptome=\${par_ref_dir_grch} \\
 EOF
 fi
 

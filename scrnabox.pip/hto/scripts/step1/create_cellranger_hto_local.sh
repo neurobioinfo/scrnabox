@@ -54,9 +54,9 @@ LIBRARY=\${LIBRARY:-./library.csv}
 FEATURE_REF=\${FEATURE_REF:-./feature_ref.csv}
 
 # module use \$MODULEUSE
-if [[ \$MODULEUSE ]]; then module use \$MODULEUSE ; fi
+# if [[ \$MODULEUSE ]]; then module use \$MODULEUSE ; fi
 # module load \$MODULECELLRANGER
-module load \${CELLRANGER}/\${CELLRANGER_VERSION}
+# module load \${CELLRANGER}/\${CELLRANGER_VERSION}
 
 pwd_dir=\$(pwd)
 TEMPLOG=\$OUTPUT_DIR/job_info/logs/step_1_\$(basename \${pwd_dir}).log

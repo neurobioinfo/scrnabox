@@ -21,6 +21,11 @@ lapply(packages, library, character.only = TRUE)
 source(paste(output_dir,'/job_info/parameters/step4_par.txt',sep=""))
 
 ## load Seurat object
+stepp="load Seurat object"
+cat("#####################################\n")
+cat("The step",stepp, "started\n")
+start_time <- Sys.time()
+
 if (exists("par_seurat_object")) {                                                  
     sample_name<-list.files(path = par_seurat_object)
     sample_nameb<-gsub(".rds","",sample_name)
@@ -44,6 +49,8 @@ for (i in 1:length(sample_name)) {
     }
     }
 }  
+end_time <- Sys.time()
+cat("The step",stepp,"finished. Total time to achive:",end_time - start_time,"second","\n")
 
 ## load old and new antibody labels
 # old.names<-par_old_antibody_label

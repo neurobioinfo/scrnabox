@@ -56,9 +56,9 @@ LIBRARY=\${LIBRARY:-./library.csv}
 # EXPECT_CELLS=${par_expect_cells:-6000}
 
 # module use \$MODULEUSE
-if [[ \$MODULEUSE ]]; then module use \$MODULEUSE ; fi
+# if [[ \$MODULEUSE ]]; then module use \$MODULEUSE ; fi
 # module load \$MODULECELLRANGER
-module load \${CELLRANGER}/\${CELLRANGER_VERSION}
+# module load \${CELLRANGER}/\${CELLRANGER_VERSION}
 
 pwd_dir=\$(pwd)
 TEMPLOG=\$OUTPUT_DIR/job_info/logs/step_1_\$(basename \${pwd_dir}).log
@@ -73,9 +73,9 @@ cellranger count \\
 EOF
 
 # par_ref_dir
-if [[ -n "${par_ref_dir}" ]]; then
+if [[ -n "${par_ref_dir_grch}" ]]; then
 cat <<EOF >> $OUTFILE
-    --transcriptome=\${par_ref_dir} \\
+    --transcriptome=\${par_ref_dir_grch} \\
 EOF
 fi
 

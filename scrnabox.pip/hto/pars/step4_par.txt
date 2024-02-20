@@ -66,9 +66,8 @@ par_maxiter= 5
 ## Number of columns if multiple plots are displayed for RidgePlot
 par_RidgePlot_ncol= 3
 
-## If you want to rename the antibody labels, list the old antibody labels in "old_antibody_label" and list the new corresponding antibody labels in "new_antibody_label". Old antibody labels can be identified in the "_old_antibody_label_MULTIseqDemuxHTOcounts" file produced by running Step 4 msd
-## The defaults are examples. They will not work with your dataset.
+## If you want to rename the antibody labels, list the old antibody labels in "old_antibody_label" and list the new corresponding antibody labels in "new_antibody_label". Old antibody labels can be identified in the "_old_antibody_label_MULTIseqDemuxHTOcounts" file produced by running Step 4 msd.
 
-par_old_antibody_label= c("A-TotalSeqA", "B-TotalSeqA", "C-TotalSeqA", "D-TotalSeqA", "E-TotalSeqA", "F-TotalSeqA", "G-TotalSeqA", "H-TotalSeqA", "Doublet")
+#par_old_antibody_label= c("A-TotalSeqA", "B-TotalSeqA", "C-TotalSeqA", "D-TotalSeqA", "E-TotalSeqA", "F-TotalSeqA", "G-TotalSeqA", "H-TotalSeqA", "Doublet")
 
-par_new_antibody_label= c("sample-A","sample-B","sample-C","sample-D","sample-E","sample-F","sample-G","sample-H","Doublet")
+#par_new_antibody_label= c("sample-A","sample-B","sample-C","sample-D","sample-E","sample-F","sample-G","sample-H","Doublet")

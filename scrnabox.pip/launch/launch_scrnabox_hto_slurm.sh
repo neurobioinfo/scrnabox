@@ -45,7 +45,7 @@ if [[ $QUEUE =~ sbatch ]] && [[  ${MODE0[@]}  =~  1  ]]; then
       rm $OUTPUT_DIR/job_info/.tmp/step1_par.txt
   fi
 
-  grep "par_ref_dir=" $OUTPUT_DIR/job_info/parameters/step1_par.txt | sed 's/\"//g' | sed "s/'//g" | sed "s/[[:blank:]]//g" > $OUTPUT_DIR/job_info/.tmp/step1_par.txt
+  grep "par_ref_dir_grch=" $OUTPUT_DIR/job_info/parameters/step1_par.txt | sed 's/\"//g' | sed "s/'//g" | sed "s/[[:blank:]]//g" > $OUTPUT_DIR/job_info/.tmp/step1_par.txt
   arr=(par_include_introns par_mempercode par_r1_length par_r2_length par_no_target_umi_filter par_expect_cells par_force_cells par_no_bam par_no_libraries) 
   for item in ${arr[@]}; do
       grep ${item}=  $OUTPUT_DIR/job_info/parameters/step1_par.txt | sed 's/\"//g' | sed "s/'//g" | sed "s/[[:blank:]]//g" | sed 's/[A-Z]/\L&/g' >> $OUTPUT_DIR/job_info/.tmp/step1_par.txt

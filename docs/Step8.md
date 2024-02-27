@@ -33,7 +33,7 @@ bash $SCRNABOX_HOME/launch_scrnabox.sh \
 --steps 8 \
 --addmeta T
 ```
-An example of a metadata csv file is available [here](https://github.com/neurobioinfo/scrnabox/blob/main/tutorial/Midbrain_dataset_example_files/metadata.csv)
+An example of a metadata csv file is available [here](https://github.com/neurobioinfo/scrnabox/blob/main/tutorial/Midbrain_dataset_example_files/metadata.csv). <br />
 The resulting output files are deposited into `~/working_directory/step8`. For a description of the outputs see [here](outputs.md).
 
  - - - -

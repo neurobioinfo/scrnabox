@@ -18,6 +18,8 @@
     - [Cell-based DGE using cell type groups](#cell-based-dge-using-cell-type-groups)
     - [Sample-based DGE using all cells](#sample-based-dge-using-all-cells)
     - [Sample-based DGE using cell type groups](#sample-based-dge-using-cell-type-groups)
+
+ - [How to modify parameter files](#modyfing-parameter-files)
 - - - -
 
 ## Introduction
@@ -337,3 +339,34 @@ ContrastName CellType MainContrast SampleID Batch
 Design Annotation1 DiseaseStatus orig.ident Batch_ID
 ```
 In this case, **Batch** is arbitrary, but **Batch_ID** must be a metadata slot. 
+
+## Modyfing parameter files
+The following section illustrates how to modify the parameter files directly from the terminal. For this tutorial, we will use the execution parameters for Step 2 as an example. <br\ >
+To begin, navigate to the parameters directory and view its contents:
+
+```
+cd ~/working_directory/job_info/parameters
+ls
+```
+The following files will be available: <br />
+step1_par.txt <br />
+step2_par.txt <br />
+step3_par.txt <br />
+step4_par.txt <br />
+step5_par.txt <br />
+step6_par.txt <br />
+step7_par.txt <br />
+step8_contrast_cell_based_all_cells.txt <br />
+step8_contrast_cell_based_celltype_groups.txt <br />
+step8_contrast_sample_based_all_cells.txt <br />
+step8_contrast_sample_based_celltype_groups.txt <br />
+step8_par.txt <br />
+
+To modify the parameter file corresponding to Step 2 (step2_par.txt) directly in the terminal we will use [Nano](https://help.ubuntu.com/community/Nano):
+
+```
+nano step2_par.txt
+```
+This will open step2_par.txt in the terminal and allow the user to modify the parameters. To save the modifications and exit the parameter file, type `ctrl+o` followed by `ctrl+x`.
+
+

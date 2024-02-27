@@ -78,6 +78,8 @@
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../outputs/">Outputs</a>
                   </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../Log/">Intepreting Log Files</a>
+                  </li>
               </ul>
               <p class="caption"><span class="caption-text">Tutorial</span></p>
               <ul>
@@ -98,7 +100,7 @@
               <ul>
                   <li class="toctree-l1"><a class="reference internal" href="../LICENSE/">License</a>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../contributing/">Contributing</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../contributing/">Help and Feedback</a>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../Acknowledgement/">Acknowledgement</a>
                   </li>
@@ -153,6 +155,9 @@
 <li><a href="#sample-based-dge-using-all-cells">Sample-based DGE using all cells</a></li>
 <li><a href="#sample-based-dge-using-cell-type-groups">Sample-based DGE using cell type groups</a></li>
 </ul>
+</li>
+<li>
+<p><a href="#modyfing-parameter-files">How to modify parameter files</a></p>
 </li>
 </ul>
 <hr />
@@ -1175,6 +1180,29 @@ Design Annotation1 DiseaseStatus orig.ident
 Design Annotation1 DiseaseStatus orig.ident Batch_ID
 </code></pre>
 <p>In this case, <strong>Batch</strong> is arbitrary, but <strong>Batch_ID</strong> must be a metadata slot. </p>
+<h2 id="modyfing-parameter-files">Modyfing parameter files</h2>
+<p>The following section illustrates how to modify the parameter files directly from the terminal. For this tutorial, we will use the execution parameters for Step 2 as an example. <br\ >
+To begin, navigate to the parameters directory and view its contents:</p>
+<pre><code>cd ~/working_directory/job_info/parameters
+ls
+</code></pre>
+<p>The following files will be available: <br />
+step1_par.txt <br />
+step2_par.txt <br />
+step3_par.txt <br />
+step4_par.txt <br />
+step5_par.txt <br />
+step6_par.txt <br />
+step7_par.txt <br />
+step8_contrast_cell_based_all_cells.txt <br />
+step8_contrast_cell_based_celltype_groups.txt <br />
+step8_contrast_sample_based_all_cells.txt <br />
+step8_contrast_sample_based_celltype_groups.txt <br />
+step8_par.txt <br /></p>
+<p>To modify the parameter file corresponding to Step 2 (step2_par.txt) directly in the terminal we will use <a href="https://help.ubuntu.com/community/Nano">Nano</a>:</p>
+<pre><code>nano step2_par.txt
+</code></pre>
+<p>This will open step2_par.txt in the terminal and allow the user to modify the parameters. To save the modifications and exit the parameter file, type <code>ctrl+o</code> followed by <code>ctrl+x</code>.</p>
               
             </div>
           </div><footer>

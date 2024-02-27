@@ -18,6 +18,7 @@ nav:
         - 'Job configurations' : config.md
         - 'Execution parameters' : reference.md 
         - 'Outputs': outputs.md 
+        - 'Intepreting Log Files': Log.md 
     - Tutorial:
         - 'Downloading the Midbrain dataset' : midbrain_download.md
         - 'Standard analysis track: Midbrain dataset' : Dataset1.md
@@ -27,7 +28,7 @@ nav:
         - 'Manual CellRanger library preparation' : library_prep.md     
     - About:
         - 'License': 'LICENSE.md'
-        - 'Contributing': contributing.md
+        - 'Help and Feedback': contributing.md
         - 'Acknowledgement': Acknowledgement.md
 theme: readthedocs
 

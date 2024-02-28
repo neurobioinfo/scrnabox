@@ -121,6 +121,7 @@ In this case, **Batch** is arbitrary, but **Batch_ID** must be a metadata slot.
 To compute DGE, use the following command:
 ```
 bash $SCRNABOX_HOME/launch_scrnabox.sh \
+-d ${SCRNABOX_PWD} \
 --steps 8 \
 --rundge T
 ```

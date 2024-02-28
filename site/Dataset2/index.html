@@ -160,19 +160,19 @@
 <hr />
 <h2 id="installation">Installation</h2>
 <h4 id="scrnaboxslurm-installation">scrnabox.slurm installation</h4>
-<p>To download the latest version of <code>scrnabox.slurm</code> (v0.1.52) run the following command: </p>
-<pre><code>wget https://github.com/neurobioinfo/scrnabox/releases/download/v0.1.52/scrnabox.slurm.zip
+<p>To download the latest version of <code>scrnabox.slurm</code> (v0.1.52.50) run the following command: </p>
+<pre><code>wget https://github.com/neurobioinfo/scrnabox/releases/download/v0.1.52.5/scrnabox.slurm.zip
 unzip scrnabox.slurm.zip
 </code></pre>
 <p>For a description of the options for running <code>scrnabox.slurm</code> run the following command:</p>
 <pre><code>bash /pathway/to/scrnabox.slurm/launch_scrnabox.sh -h 
 </code></pre>
 <p>If the <code>scrnabox.slurm</code> has been installed properly, the above command should return the folllowing:</p>
-<pre><code>scrnabox pipeline version 0.1.52
+<pre><code>scrnabox pipeline version 0.1.52.50
 ------------------- 
-        mandatory arguments:
+mandatory arguments:
                 -d  (--dir)  = Working directory (where all the outputs will be printed) (give full path)
-                --steps  =  Specify what steps, e.g., 2 to run just step 2, 2-4, run steps 2 through 4)
+                --steps  =  Specify what steps, e.g., 2 to run step 2. 2-6, run steps 2 through 6
 
         optional arguments:
                 -h  (--help)  = See helps regarding the pipeline arguments. 
@@ -184,12 +184,11 @@ unzip scrnabox.slurm.zip
                 --annotate  = Add clustering annotations to Seurat object metadata (Step 7). 
                 --addmeta  = Add metadata columns to the Seurat object (Step 8). 
                 --rundge  = Perform differential gene expression contrasts (Step 8). 
-                --seulist  = You can directly call the list of Seurat objects to the pipeline.  
-
+                --seulist  = You can directly call the list of Seurat objects to the pipeline. 
                 --rcheck  = You can identify which libraries are not installed.  
 
  ------------------- 
- For a comprehensive help, visit  https://neurobioinfo.github.io/scrnabox/site/ for documentation.
+ For a comprehensive help, visit  https://neurobioinfo.github.io/scrnabox/site/ for documentation. 
 </code></pre>
 <hr />
 <h4 id="cellranger-installation">CellRanger installation</h4>
@@ -209,7 +208,7 @@ R_PATH=~/path/to/R/library
 mkdir -p $R_PATH
 
 # Install package
-Rscript ./scrnabox.slurm/soft/R/install_packages_scrnabox.R $R_PATH
+Rscript ./scrnabox.slurm/soft/R/install_packages.R $R_PATH
 </code></pre>
 <hr />
 <h2 id="scrnabox-pipeline">scRNAbox pipeline</h2>

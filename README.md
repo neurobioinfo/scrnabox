@@ -48,9 +48,9 @@ To use the scRNAbox pipeline, the folowing must be installed on your High-Perfor
 
 ### scrnabox.slurm installation
 
-`scrnabox.slurm` is written in bash and can be used with any Slurm system. To download the latest version of `scrnabox.slurm` (v0.1.52) run the following command: 
+`scrnabox.slurm` is written in bash and can be used with any Slurm system. To download the latest version of `scrnabox.slurm` (v0.1.52.50) run the following command: 
 ```
-wget https://github.com/neurobioinfo/scrnabox/releases/download/v0.1.52/scrnabox.slurm.zip
+wget https://github.com/neurobioinfo/scrnabox/releases/download/v0.1.52.5/scrnabox.slurm.zip
 unzip scrnabox.slurm.zip
 ```
 
@@ -61,11 +61,11 @@ bash /pathway/to/scrnabox.slurm/launch_scrnabox.sh -h
 
 If the `scrnabox.slurm` has been installed properly, the above command should return the folllowing:
 ```
-scrnabox pipeline version 0.1.52
+scrnabox pipeline version 0.1.52.50
 ------------------- 
-        mandatory arguments:
+mandatory arguments:
                 -d  (--dir)  = Working directory (where all the outputs will be printed) (give full path)
-                --steps  =  Specify what steps, e.g., 2 to run just step 2, 2-4, run steps 2 through 4)
+                --steps  =  Specify what steps, e.g., 2 to run step 2. 2-6, run steps 2 through 6
 
         optional arguments:
                 -h  (--help)  = See helps regarding the pipeline arguments. 
@@ -77,8 +77,7 @@ scrnabox pipeline version 0.1.52
                 --annotate  = Add clustering annotations to Seurat object metadata (Step 7). 
                 --addmeta  = Add metadata columns to the Seurat object (Step 8). 
                 --rundge  = Perform differential gene expression contrasts (Step 8). 
-                --seulist  = You can directly call the list of Seurat objects to the pipeline.  
- 
+                --seulist  = You can directly call the list of Seurat objects to the pipeline. 
                 --rcheck  = You can identify which libraries are not installed.  
  
  ------------------- 
@@ -107,7 +106,7 @@ R_PATH=~/path/to/R/library
 mkdir -p $R_PATH
 
 # Install package
-Rscript ./scrnabox.slurm/soft/R/install_packages_scrnabox.R $R_PATH
+Rscript ./scrnabox.slurm/soft/R/install_packages.R $R_PATH
 ```
 
 Alternatively, users can install the packages manually. The R packages required for sRNAbox are shown [here](https://github.com/neurobioinfo/scrnabox/blob/main/scrnabox.slurm/soft/R/R.library.ini).

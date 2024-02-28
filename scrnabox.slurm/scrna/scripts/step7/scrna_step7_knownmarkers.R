@@ -9,7 +9,7 @@ start_time0 <- Sys.time()
 cat(stepp0,"has commenced.\n")
 cat("##########################################################################\n")
 ## set sample ID metadata column -- this is standard and does not require parameter modification
-stepp="Loading libraies and parameters"
+stepp="Loading libraries and configuring parameters"
 cat("#####################################\n")
 cat(stepp, "started\n")
 start_time <- Sys.time()

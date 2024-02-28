@@ -10,7 +10,7 @@ start_time0 <- Sys.time()
 cat(stepp0,"has commenced.\n")
 cat("##########################################################################\n")
 
-stepp="Loading libraies and parameters"
+stepp="Loading libraries and configuring parameters"
 cat("#####################################\n")
 cat(stepp, "started\n")
 start_time <- Sys.time()

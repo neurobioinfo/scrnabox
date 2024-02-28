@@ -5,7 +5,7 @@
 # The pipeline is scripted by Saeid Amiri (saeid.amiri@mcgill.ca)
 
 VERSION=0.1.52.50
-DATE0=2024-02-26
+DATE0=2024-02-28
 echo -e "scrnabox pipeline version $VERSION"
 
 # ===============================================
@@ -46,7 +46,7 @@ Usage() {
 	echo -e "Usage:\t$0 [arguments]"
 	echo -e "\tmandatory arguments:\n" \
           "\t\t-d  (--dir)  = Working directory (where all the outputs will be printed) (give full path)\n" \
-          "\t\t--steps  =  Specify what steps, e.g., 2 to run step 2.\n" 
+          "\t\t--steps  =  Specify what steps, e.g., 2 to run step 2. 2-6, run steps 2 through 6\n" 
 	echo -e "\toptional arguments:\n " \
           "\t\t-h  (--help)  = See helps regarding the pipeline arguments. \n" \
           "\t\t--method  = Select your preferred method: HTO and SCRNA for hashtag, and Standard scRNA, respectively. \n" \

@@ -1,0 +1,785 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><link rel="canonical" href="https://neurobioinfo.github.io/0.2/Dataset2/" />
+      <link rel="shortcut icon" href="../img/favicon.ico" />
+    <title>HTO analysis track: PBMC dataset - scRNAbox</title>
+    <link rel="stylesheet" href="../css/theme.css" />
+    <link rel="stylesheet" href="../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+        <link href="../css/version-select.css" rel="stylesheet" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "HTO analysis track: PBMC dataset";
+        var mkdocs_page_input_path = "Dataset2.md";
+        var mkdocs_page_url = "/0.2/Dataset2/";
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href=".." class="icon icon-home"> scRNAbox
+        </a>
+        <div class="version">
+          {'provider': 'mike'}
+        </div><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="..">Home</a>
+                </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Pipeline</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../installation/">Installation</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../Step0/">Step 0: Set up</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../Step1/">Step 1: FASTQ to expression matrix</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../Step2/">Step 2: Seurat object and ambient RNA</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../Step3/">Step 3: Quality control and filtering</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../Step4/">Step 4: Doublet removal (standard)</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../Step4HTO/">Step 4: Demultiplexing (HTO)</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../Step5/">Step 5: Integration</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../Step6/">Step 6: Clustering</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../Step7/">Step 7: Cluster annotation</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../Step8/">Step 8: Differential gene expression</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Documentation</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../config/">Job configurations</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../reference/">Execution parameters</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../outputs/">Outputs</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../Log/">Intepreting Log Files</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Tutorial</span></p>
+              <ul class="current">
+                  <li class="toctree-l1"><a class="reference internal" href="../midbrain_download/">Downloading the Midbrain dataset</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../Dataset1/">Standard analysis track: Midbrain dataset</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../DEG/">Analysis of DGE outputs</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../pbmc_download/">Downloading the PBMC dataset</a>
+                  </li>
+                  <li class="toctree-l1 current"><a class="reference internal current" href="#">HTO analysis track: PBMC dataset</a>
+    <ul class="current">
+    </ul>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../library_prep/">Manual CellRanger library preparation</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">About</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../LICENSE/">License</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../contributing/">Help and Feedback</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../Acknowledgement/">Acknowledgement</a>
+                  </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="..">scRNAbox</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href=".." class="icon icon-home" aria-label="Docs"></a></li>
+          <li class="breadcrumb-item">Tutorial</li>
+      <li class="breadcrumb-item active">HTO analysis track: PBMC dataset</li>
+    <li class="wy-breadcrumbs-aside">
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h2 id="hto-analysis-track-pbmc-dataset">HTO analysis track: PBMC dataset</h2>
+<h2 id="contents">Contents</h2>
+<ul>
+<li><a href="#introduction">Introduction</a></li>
+<li><a href="#downloading-the-pbmc-dataset">Downloading the pbmc dataset</a></li>
+<li><a href="#installation">Installation</a><ul>
+<li><a href="#scrnaboxslurm-installation">scrnabox.slurm installation</a></li>
+<li><a href="#cellranger-installation">CellRanger installation</a></li>
+<li><a href="#r-library-preparation-and-r-package-installation">R library preparation and R package installation</a></li>
+</ul>
+</li>
+<li><a href="#scrnaboxpipeline">scRNAbox: HTO Analysis Track</a><ul>
+<li><a href="#step-0-set-up">Step 0: Set up</a></li>
+<li><a href="#step-1-fastq-to-gene-expression-matrix">Step 1: FASTQ to gene expression matrix</a>  </li>
+<li><a href="#step-2-create-seurat-object-and-remove-ambient-rna">Step 2: Create Seurat object and remove ambient RNA </a>  </li>
+<li><a href="#step-3-quality-control-and-filtering">Step 3: Quality control and filtering</a></li>
+<li><a href="#step-4-demultiplexing-and-doublet-detection">Step 4: Demultiplexing and doublet detection</a>      </li>
+</ul>
+</li>
+<li><a href="#publication-ready-figures">Publication-ready figures</a></li>
+<li><a href="#job-configurations">Job Configurations</a> </li>
+</ul>
+<hr />
+<h2 id="introduction">Introduction</h2>
+<p>This guide illustrates the steps taken for our analysis of the PBMC dataset in our <a href="https://www.biorxiv.org/content/10.1101/2023.11.13.566851v1">pre-print manuscript</a>. Here, we are using the HTO analysis track of scRNAbox to analyze a publicly available scRNAseq dataset produced by <a href="https://genomebiology.biomedcentral.com/articles/10.1186/s13059-018-1603-1">Stoeckius et al.</a>. This data set describes peripheral blood mononuclear cells (PBMC) from eight human donors, which were tagged with sample-specific barcodes, pooled, and sequenced together in a single run. </p>
+<hr />
+<h2 id="downloading-the-pbmc-dataset">Downloading the PBMC dataset</h2>
+<p>In you want to use the PBMC dataset to test the scRNAbox pipeline, please see <a href="../pbmc_download/">here</a> for detialed instructions on how to download the publicly available data.</p>
+<hr />
+<h2 id="installation">Installation</h2>
+<h4 id="scrnaboxslurm-installation">scrnabox.slurm installation</h4>
+<p>To download the latest version of <code>scrnabox.slurm</code> (v0.1.52.50) run the following command: </p>
+<pre><code>wget https://github.com/neurobioinfo/scrnabox/releases/download/v0.1.52.5/scrnabox.slurm.zip
+unzip scrnabox.slurm.zip
+</code></pre>
+<p>For a description of the options for running <code>scrnabox.slurm</code> run the following command:</p>
+<pre><code>bash /pathway/to/scrnabox.slurm/launch_scrnabox.sh -h 
+</code></pre>
+<p>If the <code>scrnabox.slurm</code> has been installed properly, the above command should return the folllowing:</p>
+<pre><code>scrnabox pipeline version 0.1.52.50
+------------------- 
+mandatory arguments:
+                -d  (--dir)  = Working directory (where all the outputs will be printed) (give full path)
+                --steps  =  Specify what steps, e.g., 2 to run step 2. 2-6, run steps 2 through 6
+
+        optional arguments:
+                -h  (--help)  = See helps regarding the pipeline arguments. 
+                --method  = Select your preferred method: HTO and SCRNA for hashtag, and Standard scRNA, respectively. 
+                --msd  = You can get the hashtag labels by running the following code (HTO Step 4). 
+                --markergsea  = Identify marker genes for each cluster and run marker gene set enrichment analysis (GSEA) using EnrichR libraries (Step 7). 
+                --knownmarkers  = Profile the individual or aggregated expression of known marker genes. 
+                --referenceannotation  = Generate annotation predictions based on the annotations of a reference Seurat object (Step 7). 
+                --annotate  = Add clustering annotations to Seurat object metadata (Step 7). 
+                --addmeta  = Add metadata columns to the Seurat object (Step 8). 
+                --rundge  = Perform differential gene expression contrasts (Step 8). 
+                --seulist  = You can directly call the list of Seurat objects to the pipeline. 
+                --rcheck  = You can identify which libraries are not installed.  
+
+ ------------------- 
+ For a comprehensive help, visit  https://neurobioinfo.github.io/scrnabox/site/ for documentation. 
+</code></pre>
+<hr />
+<h4 id="cellranger-installation">CellRanger installation</h4>
+<p>For information regarding the installation of CellRanger, please visit the 10X Genomics <a href="https://support.10xgenomics.com/single-cell-gene-expression/software/pipelines/latest/installation">documentation</a>. If CellRanger is already installed on your HPC system, you may skip the CellRanger installation procedures.</p>
+<p>For our analysis of the midbrain dataset we used the 10XGenomics GRCh38-3.0.0 reference genome and CellRanger v5.0.1. For more information regarding how to prepare reference genomes for the CellRanger <em>counts</em> pipeline, please see the 10X Genomics <a href="https://support.10xgenomics.com/single-cell-gene-expression/software/release-notes/build#grch38_3.0.0">documentation</a>.</p>
+<hr />
+<h4 id="r-library-preparation-and-r-package-installation">R library preparation and R package installation</h4>
+<p>We must prepapre a common R library where we will load all of the required R packages. If the required R packages are already installed on your HPC system in a common R library, you may skip the following procedures. 
+<br /></p>
+<p>We will first install <code>R</code>. The analyses presented in our <a href="">pre-print manuscript</a> were conducted using v4.2.1.</p>
+<pre><code># install R
+module load r/4.2.1
+</code></pre>
+<p>Then, we will run the installation code, which creates a directory where the R packages will be loaded and will install the required R packages:</p>
+<pre><code># Folder for R packages 
+R_PATH=~/path/to/R/library
+mkdir -p $R_PATH
+
+# Install package
+Rscript ./scrnabox.slurm/soft/R/install_packages.R $R_PATH
+</code></pre>
+<hr />
+<h2 id="scrnabox-pipeline">scRNAbox pipeline</h2>
+<h3 id="step-0-set-up">Step 0: Set up</h3>
+<p>Now that <code>scrnabox.slurm</code>, <code>CellRanger</code>, <code>R</code>, and the required R packages have been installed, we can proceed to our analysis with the scRNAbox pipeline. We will create a <code>pipeline</code> folder designated for the analysis and run Step 0, selecting the HTO analysis track (<code>--method HTO</code>), using the following code:</p>
+<pre><code>mkdir pipeline
+cd pipeline
+
+export SCRNABOX_HOME=~/scrnabox/scrnabox.slurm
+export SCRNABOX_PWD=~/pipeline
+
+bash $SCRNABOX_HOME/launch_scrnabox.sh \
+-d ${SCRNABOX_PWD} \
+--steps 0 \
+--method HTO
+</code></pre>
+<p>Next, we will navigate to the <code>scrnabox_config.ini</code> file in <code>~/pipeline/job_info/configs</code> to define the HPC account holder (<strong>ACCOUNT</strong>), the path to the environmental module (<strong>MODULEUSE</strong>), the path to CellRanger from the environmental module directory (<strong>CELLRANGER</strong>), CellRanger version (<strong>CELLRANGER_VERSION</strong>), R version (<strong>R_VERSION</strong>), and the path to the R library (<strong>R_LIB_PATH</strong>):</p>
+<pre><code>cd ~/pipeline/job_info/configs
+nano scrnabox_config.ini
+
+ACCOUNT=account-name
+MODULEUSE=/path/to/environmental/module 
+CELLRANGER=/path/to/cellranger/from/module/directory 
+CELLRANGER_VERSION=5.0.1
+R_VERSION=4.2.1
+R_LIB_PATH=/path/to/R/library
+</code></pre>
+<p>Next, we can check to see if all of the required R packages have been properly installed using the following command:</p>
+<pre><code>bash $SCRNABOX_HOME/launch_scrnabox.sh \
+-d ${SCRNABOX_PWD} \
+--steps 0 \
+--rcheck 
+</code></pre>
+<hr />
+<h3 id="step-1-fastq-to-gene-expression-matrix">Step 1: FASTQ to gene expression matrix</h3>
+<p>In Step 1, we will run the CellRanger <em>counts</em> pipeline to generate feature-barcode expression matrices from the FASTQ files. While it is possible to manually prepare the <code>library.csv</code> and <code>feature_ref.csv</code> files for the sequencing run prior to running Step 1, for this analysis we are going to opt for automated library preparation. For more information regarding the manual prepartion of <code>library.csv</code> and <code>feature_ref.csv</code> files, please see the the <a href="../library_prep/">CellRanger library preparation</a> tutorial. <br /> 
+<br /> 
+For our analysis of the PBMC dataset we set the following execution parameters for Step 1 (<code>~/pipeline/job_info/parameters/step1_par.txt</code>):</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Parameter</th>
+<th style="text-align: left;">Value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">par_automated_library_prep</td>
+<td style="text-align: left;">Yes</td>
+</tr>
+<tr>
+<td style="text-align: left;">par_fastq_directory</td>
+<td style="text-align: left;">/path/to/directory/contaning/fastqs</td>
+</tr>
+<tr>
+<td style="text-align: left;">par_RNA_run_names</td>
+<td style="text-align: left;">run1GEX</td>
+</tr>
+<tr>
+<td style="text-align: left;">par_HTO_run_names</td>
+<td style="text-align: left;">run1HTO</td>
+</tr>
+<tr>
+<td style="text-align: left;">par_seq_run_names</td>
+<td style="text-align: left;">run1</td>
+</tr>
+<tr>
+<td style="text-align: left;">par_paired_end_seq</td>
+<td style="text-align: left;">Yes</td>
+</tr>
+<tr>
+<td style="text-align: left;">par_id</td>
+<td style="text-align: left;">Hash1, Hash2, Hash3, Hash4, Hash5, Hash6, Hash7, Hash8</td>
+</tr>
+<tr>
+<td style="text-align: left;">par_name</td>
+<td style="text-align: left;">A_TotalSeqA, B_TotalSeqA, C_TotalSeqA, D_TotalSeqA, E_TotalSeqA, F_TotalSeqA, G_TotalSeqA, H_TotalSeqA</td>
+</tr>
+<tr>
+<td style="text-align: left;">par_read</td>
+<td style="text-align: left;">R2</td>
+</tr>
+<tr>
+<td style="text-align: left;">par_pattern</td>
+<td style="text-align: left;">5P(BC)</td>
+</tr>
+<tr>
+<td style="text-align: left;">par_sequence</td>
+<td style="text-align: left;">AGGACCATCCAA, ACATGTTACCGT, AGCTTACTATCC, TCGATAATGCGA, GAGGCTGAGCTA, GTGTGACGTATT, ACTGTCTAACGG, TATCACATCGGT</td>
+</tr>
+<tr>
+<td style="text-align: left;">par_ref_dir_grch</td>
+<td style="text-align: left;">~/genome/10xGenomics/refdata-cellranger-GRCh38-3.0.0</td>
+</tr>
+<tr>
+<td style="text-align: left;">par_r1_length</td>
+<td style="text-align: left;">NULL (commented out)</td>
+</tr>
+<tr>
+<td style="text-align: left;">par_r2_length</td>
+<td style="text-align: left;">NULL (commented out)</td>
+</tr>
+<tr>
+<td style="text-align: left;">par_mempercode</td>
+<td style="text-align: left;">30</td>
+</tr>
+<tr>
+<td style="text-align: left;">par_include_introns</td>
+<td style="text-align: left;">NULL (commented out)</td>
+</tr>
+<tr>
+<td style="text-align: left;">par_no_target_umi_filter</td>
+<td style="text-align: left;">NULL (commented out)</td>
+</tr>
+<tr>
+<td style="text-align: left;">par_expect_cells</td>
+<td style="text-align: left;">NULL (commented out)</td>
+</tr>
+<tr>
+<td style="text-align: left;">par_force_cells</td>
+<td style="text-align: left;">NULL (commented out)</td>
+</tr>
+<tr>
+<td style="text-align: left;">par_no_bam</td>
+<td style="text-align: left;">NULL (commented out)</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Note:</strong> The parameters file for each step is located in <code>~/pipeline/job_info/parameters</code>. For a comprehensive description of the execution parameters for each step see <a href="../reference/">here</a>. </p>
+<p>Given that CellRanger runs a user interface and is not submitted as a Job, it is recommended to run Step 1 in a <strong>'screen'</strong> which will allow the the task to keep running if the connection is broken. To run Step 1, use the following command:</p>
+<pre><code>export SCRNABOX_HOME=~/scrnabox/scrnabox.slurm
+export SCRNABOX_PWD=~/pipeline
+
+screen -S run_PBMC_application_case
+bash $SCRNABOX_HOME/launch_scrnabox.sh \
+-d ${SCRNABOX_PWD} \
+--steps 1
+</code></pre>
+<p>The outputs of the CellRanger <em>counts</em> pipeline are deposited into <code>~/pipeline/step1</code>.</p>
+<hr />
+<h3 id="step-2-create-seurat-object-and-remove-ambient-rna">Step 2: Create Seurat object and remove ambient RNA</h3>
+<p>In Step 2, we are going to begin by correcting the RNA assay for ambient RNA removal using SoupX (<a href="https://academic.oup.com/gigascience/article/9/12/giaa151/6049831">Young et al. 2020</a>). We will then use the the ambient RNA-corrected feature-barcode matrices to create a Seurat object.  <br /> 
+<br /> 
+For our analysis of the PBMC dataset we set the following execution parameters for Step 2 (<code>~/pipeline/job_info/parameters/step2_par.txt</code>):</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Parameter</th>
+<th style="text-align: left;">Value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">par_save_RNA</td>
+<td style="text-align: left;">Yes</td>
+</tr>
+<tr>
+<td style="text-align: left;">par_save_metadata</td>
+<td style="text-align: left;">Yes</td>
+</tr>
+<tr>
+<td style="text-align: left;">par_ambient_RNA</td>
+<td style="text-align: left;">Yes</td>
+</tr>
+<tr>
+<td style="text-align: left;">par_normalization.method</td>
+<td style="text-align: left;">LogNormalize</td>
+</tr>
+<tr>
+<td style="text-align: left;">par_scale.factor</td>
+<td style="text-align: left;">10000</td>
+</tr>
+<tr>
+<td style="text-align: left;">par_selection.method</td>
+<td style="text-align: left;">vst</td>
+</tr>
+<tr>
+<td style="text-align: left;">par_nfeatures</td>
+<td style="text-align: left;">2500</td>
+</tr>
+</tbody>
+</table>
+<p>We can run Step 2 using the following code:</p>
+<pre><code>export SCRNABOX_HOME=~/scrnabox/scrnabox.slurm
+export SCRNABOX_PWD=~/pipeline
+
+bash $SCRNABOX_HOME/launch_scrnabox.sh \
+-d ${SCRNABOX_PWD} \
+--steps 2
+</code></pre>
+<p>Step 2 produces the following outputs:</p>
+<pre><code>~/pipeline
+step2
+├── figs2
+│   ├── ambient_RNA_estimation_run1.pdf
+│   ├── ambient_RNA_markers_run1.pdf
+│   ├── cell_cyle_dim_plot_run1.pdf
+│   ├── vioplot_run1.pdf
+│   └── zoomed_in_vioplot_run1.pdf
+├── info2
+│   ├── estimated_ambient_RNA_run1.txt
+│   ├── MetaData_1.txt
+│   ├── meta_info_1.txt
+│   ├── run1_ambient_rna_summary.rds
+│   ├── sessionInfo.txt
+│   ├── seu1_RNA.txt
+│   └── summary_seu1.txt
+├── objs2
+│   └── run1.rds
+└── step2_ambient
+    └── run1
+        ├── barcodes.tsv
+        ├── genes.tsv
+        └── matrix.mtxs 
+</code></pre>
+<p><strong>Note:</strong> For a comprehensive description of the outputs for each analytical step, please see the <a href="../outputs/">Outputs</a> section of the scRNAbox documentation.</p>
+<p align="center">
+<img src="https://github.com/neurobioinfo/scrnabox/assets/110110777/784c866c-7ee2-46e6-a106-763c0693554f"> <br /> 
+</p>
+
+<p><strong>Figure 1. Figures produced by Step 2 of the scRNAbox pipeline.</strong> <strong>A)</strong> Estimated ambient RNA contamination rate (Rho) by SoupX. Estimates of the RNA contamination rate using various estimators are visualized via a frequency distribution; the true contamination rate is assigned as the most frequent estimate (red line; 8.7%). <strong>B)</strong> Log10 ratios of observed counts to expected counts for marker genes from each cluster. Clusters are defined by the CellRanger counts pipeline. The red line displays the estimated RNA contamination rate if the estimation was based entirely on the corresponding gene. <strong>C)</strong> Principal component analysis (PCA) of Seurat S and G2M cell cycle reference genes. <strong>D)</strong> Violin plots showing the distribution of cells according to quality control metrics calculated in Step 2. <strong>E)</strong> Zoomed in violin plots, from the minimum to the mean, showing the distribution of cells according to quality control metrics calculated in Step 2.</p>
+<hr />
+<h3 id="step-3-quality-control-and-filtering">Step 3: Quality control and filtering</h3>
+<p>In Step 3, we are going to perform quality control procedures and filter out low quality cells. We are going to filter out cells with &lt; 50 unique RNA transcripts, &gt; 6000 unique RNA transcripts, &lt; 200 total RNA transcripts, &gt; 7000 total RNA transcripts, and &gt; 50% mitochondria.</p>
+<p>For our analysis of the PBMC dataset we set the following execution parameters for Step 3 (<code>~/pipeline/job_info/parameters/step2_par.txt</code>):</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Parameter</th>
+<th style="text-align: left;">Value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">par_save_RNA</td>
+<td style="text-align: left;">Yes</td>
+</tr>
+<tr>
+<td style="text-align: left;">par_save_metadata</td>
+<td style="text-align: left;">Yes</td>
+</tr>
+<tr>
+<td style="text-align: left;">par_seurat_object</td>
+<td style="text-align: left;">NULL</td>
+</tr>
+<tr>
+<td style="text-align: left;">par_nFeature_RNA_L</td>
+<td style="text-align: left;">50</td>
+</tr>
+<tr>
+<td style="text-align: left;">par_nFeature_RNA_U</td>
+<td style="text-align: left;">6000</td>
+</tr>
+<tr>
+<td style="text-align: left;">par_nCount_RNA_L</td>
+<td style="text-align: left;">200</td>
+</tr>
+<tr>
+<td style="text-align: left;">par_nCount_RNA_U</td>
+<td style="text-align: left;">7000</td>
+</tr>
+<tr>
+<td style="text-align: left;">par_mitochondria_percent_L</td>
+<td style="text-align: left;">0</td>
+</tr>
+<tr>
+<td style="text-align: left;">par_mitochondria_percent_U</td>
+<td style="text-align: left;">50</td>
+</tr>
+<tr>
+<td style="text-align: left;">par_ribosomal_percent_L</td>
+<td style="text-align: left;">0</td>
+</tr>
+<tr>
+<td style="text-align: left;">par_ribosomal_percent_U</td>
+<td style="text-align: left;">100</td>
+</tr>
+<tr>
+<td style="text-align: left;">par_remove_mitochondrial_genes</td>
+<td style="text-align: left;">No</td>
+</tr>
+<tr>
+<td style="text-align: left;">par_remove_ribosomal_genes</td>
+<td style="text-align: left;">No</td>
+</tr>
+<tr>
+<td style="text-align: left;">par_remove_genes</td>
+<td style="text-align: left;">NULL</td>
+</tr>
+<tr>
+<td style="text-align: left;">par_regress_cell_cycle_genes</td>
+<td style="text-align: left;">Yes</td>
+</tr>
+<tr>
+<td style="text-align: left;">par_normalization.method</td>
+<td style="text-align: left;">LogNormalize</td>
+</tr>
+<tr>
+<td style="text-align: left;">par_scale.factor</td>
+<td style="text-align: left;">10000</td>
+</tr>
+<tr>
+<td style="text-align: left;">par_selection.method</td>
+<td style="text-align: left;">vst</td>
+</tr>
+<tr>
+<td style="text-align: left;">par_nfeatures</td>
+<td style="text-align: left;">2500</td>
+</tr>
+<tr>
+<td style="text-align: left;">par_top</td>
+<td style="text-align: left;">10</td>
+</tr>
+<tr>
+<td style="text-align: left;">par_npcs_pca</td>
+<td style="text-align: left;">30</td>
+</tr>
+</tbody>
+</table>
+<p>We can run Step 3 using the following code:</p>
+<pre><code>export SCRNABOX_HOME=~/scrnabox/scrnabox.slurm
+export SCRNABOX_PWD=~/pipeline
+
+bash $SCRNABOX_HOME/launch_scrnabox.sh \
+-d ${SCRNABOX_PWD} \
+--steps 3
+</code></pre>
+<p>Step 3 produces the following outputs.</p>
+<pre><code>step3
+├── figs3
+│   ├── dimplot_pca_run1.pdf
+│   ├── elbowplot_run1.pdf
+│   ├── filtered_QC_vioplot_run1.pdf
+│   └── VariableFeaturePlot_run1.pdf
+├── info3
+│   ├── MetaData_run1.txt
+│   ├── meta_info_run1.txt
+│   ├── most_variable_genes_run1.txt
+│   ├── run1_RNA.txt
+│   ├── sessionInfo.txt
+│   └── summary_run1.txt
+└── objs3
+    └── run1.rds
+</code></pre>
+<p align="center">
+<img src="https://github.com/neurobioinfo/scrnabox/assets/110110777/76148dee-c567-4203-9e26-05baa3a71704"> <br /> 
+</p>
+
+<p><strong>Figure 2. Figures produced by Step 3 of the scRNAbox pipeline.</strong> <strong>A)</strong> Violin plots showing the distribution of cells according to quality control metrics  after filtering by user-defined thresholds. <strong>B)</strong> Scatter plot showing the top 2500 most variable features; the top 10 most variable features are labelled. <strong>C)</strong> Principal component analysis (PCA) visualizing the first two principal component (PC). <strong>D)</strong> Elbow plot to visualize the percentage of variance explained by each PC.  </p>
+<hr />
+<h3 id="step-4-demultiplexing-and-doublet-detection">Step 4: Demultiplexing and doublet detection</h3>
+<p>In Step 4, we are going to demultiplex the pooled samples and remove doublets (erroneous libraries produced by two or more cells) based on the expression of the sample-specific barcodes (antibody assay). </p>
+<p>If the barcode labels used in the analysis are unknown, the first step is to retrieve them from the Seurat object. To do this, we do not need to modify the execution parameters and can go straight to running the following code:</p>
+<pre><code>export SCRNABOX_HOME=~/scrnabox/scrnabox.slurm
+export SCRNABOX_PWD=~/pipeline
+
+bash $SCRNABOX_HOME/launch_scrnabox.sh \
+-d ${SCRNABOX_PWD} \
+--steps 4 \
+--msd T 
+</code></pre>
+<p>The above code produces the following file: </p>
+<pre><code>step4
+├── figs4
+├── info4
+│   └── seu1.rds_old_antibody_label_MULTIseqDemuxHTOcounts.csv
+└── objs4
+</code></pre>
+<p>Which contains the names of the barcode labels (i.e. <strong>A_TotalSeqA</strong>, <strong>B_TotalSeqA</strong>, <strong>C_TotalSeqA</strong>, <strong>D_TotalSeqA</strong>, <strong>E_TotalSeqA</strong>, <strong>F_TotalSeqA</strong>, <strong>G_TotalSeqA</strong>, <strong>H_TotalSeqA</strong>, <strong>Doublet</strong>, <strong>Negative</strong>).</p>
+<p>Now that we know the barcode labels used in the PBMC dataset, we can perform demultiplexing and doublet detection.</p>
+<p>For our analysis of the PBMC dataset we set the following execution parameters for Step 4 (<code>~/pipeline/job_info/parameters/step4_par.txt</code>):</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Parameter</th>
+<th style="text-align: left;">Value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">par_save_RNA</td>
+<td style="text-align: left;">Yes</td>
+</tr>
+<tr>
+<td style="text-align: left;">par_save_metadata</td>
+<td style="text-align: left;">Yes</td>
+</tr>
+<tr>
+<td style="text-align: left;">par_normalization.method</td>
+<td style="text-align: left;">CLR</td>
+</tr>
+<tr>
+<td style="text-align: left;">par_scale.factor</td>
+<td style="text-align: left;">10000</td>
+</tr>
+<tr>
+<td style="text-align: left;">par_selection.method</td>
+<td style="text-align: left;">vst</td>
+</tr>
+<tr>
+<td style="text-align: left;">par_nfeatures</td>
+<td style="text-align: left;">2500</td>
+</tr>
+<tr>
+<td style="text-align: left;">par_dimensionality_reduction</td>
+<td style="text-align: left;">Yes</td>
+</tr>
+<tr>
+<td style="text-align: left;">par_npcs_pca</td>
+<td style="text-align: left;">30</td>
+</tr>
+<tr>
+<td style="text-align: left;">par_dims_umap</td>
+<td style="text-align: left;">3</td>
+</tr>
+<tr>
+<td style="text-align: left;">par_n.neighbor</td>
+<td style="text-align: left;">65</td>
+</tr>
+<tr>
+<td style="text-align: left;">par_dropDN</td>
+<td style="text-align: left;">Yes</td>
+</tr>
+<tr>
+<td style="text-align: left;">par_label_dropDN</td>
+<td style="text-align: left;">Doublet, Negative</td>
+</tr>
+<tr>
+<td style="text-align: left;">par_quantile</td>
+<td style="text-align: left;">0.9</td>
+</tr>
+<tr>
+<td style="text-align: left;">par_autoThresh</td>
+<td style="text-align: left;">TRUE</td>
+</tr>
+<tr>
+<td style="text-align: left;">par_maxiter</td>
+<td style="text-align: left;">5</td>
+</tr>
+<tr>
+<td style="text-align: left;">par_RidgePlot_ncol</td>
+<td style="text-align: left;">3</td>
+</tr>
+<tr>
+<td style="text-align: left;">par_old_antibody_label</td>
+<td style="text-align: left;">A-TotalSeqA, B-TotalSeqA, C-TotalSeqA, D-TotalSeqA, E-TotalSeqA, F-TotalSeqA, G-TotalSeqA, H-TotalSeqA, Doublet</td>
+</tr>
+<tr>
+<td style="text-align: left;">par_new_antibody_label</td>
+<td style="text-align: left;">sample-A, sample-B, sample-C, sample-D, sample-E, sample-F, sample-G, sample-H, Doublet</td>
+</tr>
+</tbody>
+</table>
+<p>We can run Step 4 using the following code:</p>
+<pre><code>export SCRNABOX_HOME=~/scrnabox/scrnabox.slurm
+export SCRNABOX_PWD=~/pipeline
+
+bash $SCRNABOX_HOME/launch_scrnabox.sh \
+-d ${SCRNABOX_PWD} \
+--steps 4
+</code></pre>
+<p>Step 4 produces the following outputs.</p>
+<pre><code>step4
+├── figs4
+│   ├── run1_DotPlot_HTO_MSD.pdf
+│   ├── run1_Heatmap_HTO_MSD.pdf
+│   ├── run1_HTO_dimplot_pca.pdf
+│   ├── run1_HTO_dimplot_umap.pdf
+│   ├── run1_nCounts_RNA_MSD.pdf
+│   └── run1_Ridgeplot_HTO_MSD.pdf
+├── info4
+│   ├── run1_filtered_MULTIseqDemuxHTOcounts.csv
+│   ├── run1_MetaData.txt
+│   ├── run1_meta_info_.txt
+│   ├── run1_MULTIseqDemuxHTOcounts.csv
+│   ├── run1_RNA.txt
+│   └── sessionInfo.txt
+└── objs4
+    └── run1.rds
+</code></pre>
+<p align="center">
+<img src="https://github.com/neurobioinfo/scrnabox/assets/110110777/693cfc0e-39e7-4421-adcc-2e666d1996bd"> <br /> 
+</p>
+
+<p><strong>Figure 3. Figures produced by Step 4 of the Cell Hashtag Analysis Track.</strong> <strong>A)</strong> Uniform Manifold Approximation and Projections (UMAP) plot, taking the first three pricipal components (PC) of the antibody assay as input. <strong>B)</strong> Principal component analysis (PCA) showing the first two PCs of the antibody assay.  <strong>C)</strong> Ridgeplot visualizing the enrichment of barcode labels across sample assignments at the sample level. <strong>D)</strong> Dot plot visualizing the enrichment of barcode labels across sample assignments at the sample level. <strong>E)</strong> Heatmap visualizing the enrichment of barcode labels across sample assignments at the cel level. <strong>D)</strong> Violin plot visualizing the distribution of the number of total RNA transcripts identified per cell, startified by sample assignment.</p>
+<hr />
+<h3 id="publication-ready-figures">Publication-ready figures</h3>
+<p>The code used to produce the publication-ready figures used in our <a href="">pre-print manuscript</a> is avaliable here <a href="https://github.com/neurobioinfo/scrnabox/tree/main/tutorial/Midbrain_dataset_figures">here</a>.  </p>
+<hr />
+<h3 id="job-configurations">Job Configurations</h3>
+<p>The following job configurations were used for our analysis of the PBMC dataset. Job Configurations can be modified for each analytical step in the <code>scrnabox_config.ini</code> file in <code>~/pipeline/job_info/configs</code></p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Step</th>
+<th style="text-align: left;">THREADS_ARRAY</th>
+<th style="text-align: left;">MEM_ARRAY</th>
+<th style="text-align: left;">WALLTIME_ARRAY</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">Step2</td>
+<td style="text-align: left;">4</td>
+<td style="text-align: left;">16g</td>
+<td style="text-align: left;">00-05:00</td>
+</tr>
+<tr>
+<td style="text-align: left;">Step3</td>
+<td style="text-align: left;">4</td>
+<td style="text-align: left;">16g</td>
+<td style="text-align: left;">00-05:00</td>
+</tr>
+<tr>
+<td style="text-align: left;">Step4</td>
+<td style="text-align: left;">4</td>
+<td style="text-align: left;">16g</td>
+<td style="text-align: left;">00-05:00</td>
+</tr>
+</tbody>
+</table>
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="../pbmc_download/" class="btn btn-neutral float-left" title="Downloading the PBMC dataset"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../library_prep/" class="btn btn-neutral float-right" title="Manual CellRanger library preparation">Next <span class="icon icon-circle-arrow-right"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+    
+      <span><a href="../pbmc_download/" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="../library_prep/" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script src="../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "..";</script>
+    <script src="../js/theme_extra.js"></script>
+    <script src="../js/theme.js"></script>
+      <script src="../search/main.js"></script>
+      <script src="../js/version-select.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>

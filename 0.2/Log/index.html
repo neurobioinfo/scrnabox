@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><link rel="canonical" href="https://neurobioinfo.github.io/0.2/Log/" />
+      <link rel="shortcut icon" href="../img/favicon.ico" />
+    <title>Intepreting Log Files - scRNAbox</title>
+    <link rel="stylesheet" href="../css/theme.css" />
+    <link rel="stylesheet" href="../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+        <link href="../css/version-select.css" rel="stylesheet" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "Intepreting Log Files";
+        var mkdocs_page_input_path = "Log.md";
+        var mkdocs_page_url = "/0.2/Log/";
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href=".." class="icon icon-home"> scRNAbox
+        </a>
+        <div class="version">
+          {'provider': 'mike'}
+        </div><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="..">Home</a>
+                </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Pipeline</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../installation/">Installation</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../Step0/">Step 0: Set up</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../Step1/">Step 1: FASTQ to expression matrix</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../Step2/">Step 2: Seurat object and ambient RNA</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../Step3/">Step 3: Quality control and filtering</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../Step4/">Step 4: Doublet removal (standard)</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../Step4HTO/">Step 4: Demultiplexing (HTO)</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../Step5/">Step 5: Integration</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../Step6/">Step 6: Clustering</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../Step7/">Step 7: Cluster annotation</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../Step8/">Step 8: Differential gene expression</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Documentation</span></p>
+              <ul class="current">
+                  <li class="toctree-l1"><a class="reference internal" href="../config/">Job configurations</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../reference/">Execution parameters</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../outputs/">Outputs</a>
+                  </li>
+                  <li class="toctree-l1 current"><a class="reference internal current" href="#">Intepreting Log Files</a>
+    <ul class="current">
+    </ul>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Tutorial</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../midbrain_download/">Downloading the Midbrain dataset</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../Dataset1/">Standard analysis track: Midbrain dataset</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../DEG/">Analysis of DGE outputs</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../pbmc_download/">Downloading the PBMC dataset</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../Dataset2/">HTO analysis track: PBMC dataset</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../library_prep/">Manual CellRanger library preparation</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">About</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../LICENSE/">License</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../contributing/">Help and Feedback</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../Acknowledgement/">Acknowledgement</a>
+                  </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="..">scRNAbox</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href=".." class="icon icon-home" aria-label="Docs"></a></li>
+          <li class="breadcrumb-item">Documentation</li>
+      <li class="breadcrumb-item active">Intepreting Log Files</li>
+    <li class="wy-breadcrumbs-aside">
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h2 id="intepreting-log-files-from-the-scrnabox-pipeline">Intepreting Log Files from the scRNAbox pipeline</h2>
+<h2 id="contents">Contents</h2>
+<ul>
+<li><a href="#introduction">Introduction</a></li>
+<li><a href="#accessing-the-log-files">Accessing Log Files</a></li>
+<li><a href="#contents-of-the-log-files">Contents of the Log files</a><ul>
+<li><a href="#execution-parameters">Execution parameters</a></li>
+<li><a href="#r-function-outputs">R function outputs</a></li>
+<li><a href="#intermediate-checkpoints">Intermediate checkpoints</a></li>
+</ul>
+</li>
+</ul>
+<hr />
+<h2 id="introduction">Introduction</h2>
+<p>This guide describes the information contained in the Log files produced by each step of the scRNAbox pipeline. The Log file can be used to further investigate the processes of each step and for debugging errors.</p>
+<hr />
+<h2 id="accessing-the-log-files">Accessing the Log Files</h2>
+<p>Log files for each step of the scRNAbox can be found in the job_info folder of the working directory.</p>
+<pre><code>working_directory
+└──job_info
+    └── logs
+        ├── step_1.log
+        ├── step_2.log
+        ├── step_3.log
+        ├── step_4.log
+        ├── step_5.log
+        ├── step_6.log
+        ├── step_7_markergsea.log
+        ├── step_7_knownmarkers.log
+        ├── step_7_referenceannotation.log
+        ├── step_8_addmeta.log
+        └── step_8_rundge.log
+</code></pre>
+<p>The contents of the individual log files can be visualized using the cat command</p>
+<pre><code>cd ~/working_directory/job_info/logs
+cat step_1.log
+</code></pre>
+<hr />
+<h2 id="contents-of-the-log-files">Contents of the Log files</h2>
+<h4 id="execution-parameters">Execution parameters</h4>
+<p>At the beginning of every Log file, scRNABox documents the execution parameters defined by the user for the particular run. This is intended to increase the replicability of an analysis and to allow users to adequately document their methods. Shown below is an example of the documented parameters in the Log file for step 4 of the pipeline. 
+ 
+<p align="center">
+ <img src="https://github.com/neurobioinfo/scrnabox/assets/110110777/b7c74042-e76d-4856-bd44-2ee1f612f281">
+ </p>
+</p>
+<h4 id="r-function-outputs">R function outputs</h4>
+<p>After listing the execution parameters, the Log files will display the outputs of the R functions comprising the particulsr step of the scRNAbox pipeline; these are the same outputs that would be visible in the R console if the code was run interactively. The R function outputs will provide further information to the user beyond the outputs returned by the scRNAbox pipeline. Shown below is an example of the R function outputs in the Log file for step 4 of the pipeline.
+ 
+<p align="left">
+ <img src="https://github.com/neurobioinfo/scrnabox/assets/110110777/57a32f72-e12e-4274-8668-e234cdb30cf5" width="500" height="500">
+ </p>
+</p>
+<h4 id="intermediate-checkpoints">Intermediate checkpoints</h4>
+<p>Finally, to help identify the source of errors encountered while using the scRNAbox pipeline, the Log files will document the initiation and completetion of intermediate steps. For instance, Step 4 of the Standard analysis track (Doublet detection), is divided into two intermediate steps: 1) Loading R libraries and parameters and 2) Doublet detection. Before loading the required R libraries for step 4 (intermediate step 1), the log file will display <strong>"Loading libraries and parameters started"</strong>. Upon successfully completing intermediate step 1, the log file will display <strong>"Loading libraries and parameters has been achieved"</strong>. Similarly for intermediate step 2, the log file will display <strong>"Remove doublets started"</strong> upon initiation and <strong>"Remove doublets has been achieved"</strong> upon completition. If, however, an intermediate step enconters an error, the successfull completion message will not be displayed.</p>
+<p>The intermediate checkpoints were implemented to help users narrow down the source of their errors. If, for example, users encounter an error during the doublet detection intermediate step of step 4, we suggest revisiting the parameters corresponding to doublet detection and ensurig that there are no errors in the input. If the problem persists, we invite users to open an issue in the <a href="https://github.com/neurobioinfo/scrnabox">GitHub repository</a> or contact the developers directly (<a href="../contributing/">Help and Feedback</a>).</p>
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="../outputs/" class="btn btn-neutral float-left" title="Outputs"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../midbrain_download/" class="btn btn-neutral float-right" title="Downloading the Midbrain dataset">Next <span class="icon icon-circle-arrow-right"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+    
+      <span><a href="../outputs/" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="../midbrain_download/" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script src="../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "..";</script>
+    <script src="../js/theme_extra.js"></script>
+    <script src="../js/theme.js"></script>
+      <script src="../search/main.js"></script>
+      <script src="../js/version-select.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>

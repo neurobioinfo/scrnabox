@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <link rel="shortcut icon" href="/0.1/img/favicon.ico" />
+    <title>scRNAbox</title>
+    <link rel="stylesheet" href="/0.1/css/theme.css" />
+    <link rel="stylesheet" href="/0.1/css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+        <link href="/0.1/css/version-select.css" rel="stylesheet" />
+    
+    <!--[if lt IE 9]>
+      <script src="/0.1/js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href="/0.1/." class="icon icon-home"> scRNAbox
+        </a>
+        <div class="version">
+          {'provider': 'mike'}
+        </div><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="/0.1/search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="/0.1/.">Home</a>
+                </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Pipeline</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="/0.1/installation/">Installation</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="/0.1/Step0/">Step 0: Set up</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="/0.1/Step1/">Step 1: FASTQ to expression matrix</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="/0.1/Step2/">Step 2: Seurat object and ambient RNA</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="/0.1/Step3/">Step 3: Quality control and filtering</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="/0.1/Step4/">Step 4: Doublet removal (standard)</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="/0.1/Step4HTO/">Step 4: Demultiplexing (HTO)</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="/0.1/Step5/">Step 5: Integration</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="/0.1/Step6/">Step 6: Clustering</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="/0.1/Step7/">Step 7: Cluster annotation</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="/0.1/Step8/">Step 8: Differential gene expression</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Documentation</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="/0.1/config/">Job configurations</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="/0.1/reference/">Execution parameters</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="/0.1/outputs/">Outputs</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="/0.1/Log/">Intepreting Log Files</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Tutorial</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="/0.1/midbrain_download/">Downloading the Midbrain dataset</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="/0.1/Dataset1/">Standard analysis track: Midbrain dataset</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="/0.1/DEG/">Analysis of DGE outputs</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="/0.1/pbmc_download/">Downloading the PBMC dataset</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="/0.1/Dataset2/">HTO analysis track: PBMC dataset</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="/0.1/library_prep/">Manual CellRanger library preparation</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">About</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="/0.1/LICENSE/">License</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="/0.1/contributing/">Help and Feedback</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="/0.1/Acknowledgement/">Acknowledgement</a>
+                  </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="/0.1/.">scRNAbox</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="/0.1/." class="icon icon-home" aria-label="Docs"></a></li>
+    <li class="wy-breadcrumbs-aside">
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+
+  <h1 id="404-page-not-found">404</h1>
+
+  <p><strong>Page not found</strong></p>
+
+
+            </div>
+          </div><footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+    
+    
+  </span>
+</div>
+    <script src="/0.1/js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "/0.1";</script>
+    <script src="/0.1/js/theme_extra.js"></script>
+    <script src="/0.1/js/theme.js"></script>
+      <script src="/0.1/search/main.js"></script>
+      <script src="/0.1/js/version-select.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>

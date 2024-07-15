@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><link rel="canonical" href="https://neurobioinfo.github.io/0.1/installation/" />
+      <link rel="shortcut icon" href="../img/favicon.ico" />
+    <title>Installation - scRNAbox</title>
+    <link rel="stylesheet" href="../css/theme.css" />
+    <link rel="stylesheet" href="../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+        <link href="../css/version-select.css" rel="stylesheet" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "Installation";
+        var mkdocs_page_input_path = "installation.md";
+        var mkdocs_page_url = "/0.1/installation/";
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href=".." class="icon icon-home"> scRNAbox
+        </a>
+        <div class="version">
+          {'provider': 'mike'}
+        </div><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="..">Home</a>
+                </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Pipeline</span></p>
+              <ul class="current">
+                  <li class="toctree-l1 current"><a class="reference internal current" href="#">Installation</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#scrnaboxslurm-installation">scrnabox.slurm installation</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#cellranger-installation">CellRanger installation</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#r-library-preparation-and-r-package-installation">R library preparation and R package installation</a>
+    </li>
+    </ul>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../Step0/">Step 0: Set up</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../Step1/">Step 1: FASTQ to expression matrix</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../Step2/">Step 2: Seurat object and ambient RNA</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../Step3/">Step 3: Quality control and filtering</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../Step4/">Step 4: Doublet removal (standard)</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../Step4HTO/">Step 4: Demultiplexing (HTO)</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../Step5/">Step 5: Integration</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../Step6/">Step 6: Clustering</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../Step7/">Step 7: Cluster annotation</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../Step8/">Step 8: Differential gene expression</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Documentation</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../config/">Job configurations</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../reference/">Execution parameters</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../outputs/">Outputs</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../Log/">Intepreting Log Files</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Tutorial</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../midbrain_download/">Downloading the Midbrain dataset</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../Dataset1/">Standard analysis track: Midbrain dataset</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../DEG/">Analysis of DGE outputs</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../pbmc_download/">Downloading the PBMC dataset</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../Dataset2/">HTO analysis track: PBMC dataset</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../library_prep/">Manual CellRanger library preparation</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">About</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../LICENSE/">License</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../contributing/">Help and Feedback</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../Acknowledgement/">Acknowledgement</a>
+                  </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="..">scRNAbox</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href=".." class="icon icon-home" aria-label="Docs"></a></li>
+          <li class="breadcrumb-item">Pipeline</li>
+      <li class="breadcrumb-item active">Installation</li>
+    <li class="wy-breadcrumbs-aside">
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="installation">Installation</h1>
+<p>To use the scRNAbox pipeline, the folowing must be installed on your High-Performance Computing (HPC) system:</p>
+<ul>
+<li><a href="#scrnaboxslurm-installation">scrnabox.slurm</a></li>
+<li><a href="#cellranger-installation">CellRanger</a></li>
+<li><a href="#r-library-preparation-and-r-package-installation">R and R packages</a></li>
+</ul>
+<hr />
+<h3 id="scrnaboxslurm-installation">scrnabox.slurm installation</h3>
+<p><code>scrnabox.slurm</code> is written in bash and can be used with any Slurm system. To download the latest version of <code>scrnabox.slurm</code> (v0.1.52.50) run the following command: </p>
+<pre><code>wget https://github.com/neurobioinfo/scrnabox/releases/download/v0.1.52.5/scrnabox.slurm.zip
+unzip scrnabox.slurm.zip
+</code></pre>
+<p>For a description of the options for running <code>scrnabox.slurm</code> run the following command:</p>
+<pre><code>bash /pathway/to/scrnabox.slurm/launch_scrnabox.sh -h 
+</code></pre>
+<p>If the <code>scrnabox.slurm</code> has been installed properly, the above command should return the folllowing:</p>
+<pre><code>scrnabox pipeline version 0.1.52.50
+------------------- 
+mandatory arguments:
+                -d  (--dir)  = Working directory (where all the outputs will be printed) (give full path)
+                --steps  =  Specify what steps, e.g., 2 to run step 2. 2-6, run steps 2 through 6
+
+        optional arguments:
+                -h  (--help)  = See helps regarding the pipeline arguments. 
+                --method  = Select your preferred method: HTO and SCRNA for hashtag, and Standard scRNA, respectively. 
+                --msd  = You can get the hashtag labels by running the following code (HTO Step 4). 
+                --markergsea  = Identify marker genes for each cluster and run marker gene set enrichment analysis (GSEA) using EnrichR libraries (Step 7). 
+                --knownmarkers  = Profile the individual or aggregated expression of known marker genes. 
+                --referenceannotation  = Generate annotation predictions based on the annotations of a reference Seurat object (Step 7). 
+                --annotate  = Add clustering annotations to Seurat object metadata (Step 7). 
+                --addmeta  = Add metadata columns to the Seurat object (Step 8). 
+                --rundge  = Perform differential gene expression contrasts (Step 8). 
+                --seulist  = You can directly call the list of Seurat objects to the pipeline. 
+                --rcheck  = You can identify which libraries are not installed.  
+
+ ------------------- 
+ For a comprehensive help, visit  https://neurobioinfo.github.io/scrnabox/site/ for documentation. 
+
+</code></pre>
+<hr />
+<h3 id="cellranger-installation">CellRanger installation</h3>
+<p>For information regarding the installation of <code>CellRanger</code>, please visit the 10X Genomics <a href="https://support.10xgenomics.com/single-cell-gene-expression/software/pipelines/latest/installation">documentation</a>. If CellRanger is already installed on your HPC system, you may skip the CellRanger installation procedures.</p>
+<hr />
+<h3 id="r-library-preparation-and-r-package-installation">R library preparation and R package installation</h3>
+<p>R must be installed on the HPC system. If R is not already installed, the user should contact their system administrator. If R is installed on the HPC system, users must load <code>R</code> (v4.2 or later) into their working environment: </p>
+<pre><code># load R
+module load r/4.2.1
+</code></pre>
+<p>Then, users must run the following installation code, which will create a directory where the R packages will be loaded and will install the required R packages:</p>
+<pre><code># Folder for R packages 
+R_PATH=~/path/to/R/library
+mkdir -p $R_PATH
+
+# Install package
+Rscript ./scrnabox.slurm/soft/R/install_packages.R $R_PATH
+</code></pre>
+<p>Alternatively, users can install the packages manually. The R packages required for scRNAbox are shown <a href="https://github.com/neurobioinfo/scrnabox/blob/main/scrnabox.slurm/soft/R/R.library.ini">here</a>.</p>
+<hr />
+<p>Upon completing the installation procedures, users can proceed with the scRNAbox pipeline.</p>
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href=".." class="btn btn-neutral float-left" title="Home"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../Step0/" class="btn btn-neutral float-right" title="Step 0: Set up">Next <span class="icon icon-circle-arrow-right"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+    
+      <span><a href=".." style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="../Step0/" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script src="../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "..";</script>
+    <script src="../js/theme_extra.js"></script>
+    <script src="../js/theme.js"></script>
+      <script src="../search/main.js"></script>
+      <script src="../js/version-select.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>
